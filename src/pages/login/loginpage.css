@@ -1,0 +1,213 @@
+.log-page{
+    width: 100%;
+    height: 100%;
+    background: url(../../icons/PhotoLogin.svg) top left no-repeat;
+    background-size: contain;    /* 35%; */
+}
+
+a.nav-link {
+    text-decoration: none;
+    color: #434C5D;
+}
+
+.nav-link{
+    padding: 0;
+}
+
+.log-header{
+    display: flex;
+    position: relative;
+    height: 8%;
+}
+
+.sportshub{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14%;  /*253px;*/
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    background: #D72130;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+    color: #FFFBFB;
+}
+
+.header--right{
+    margin: 0 0 0 auto;
+    display: flex;
+}
+
+.no-account{
+    margin: auto;
+    margin-right: 45px;
+    width: max-content;
+    color: black;
+}
+
+.getstarted{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+}
+
+.getstarted Button {
+    background-color: #FFFFFF;
+    border: 1px solid #D72130;
+    margin-right: 35px;
+    padding: 2px 25px;
+    color: #D72130;
+    width: max-content;
+    height: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.getstarted:hover Button {
+    border: 1px solid #D72130;
+    background-color: #D72130;
+    color: #FFFFFF;
+}
+
+.log-form-outer{
+    width: 50%;
+    margin: 8% 0 0 auto;
+    height: 60%;
+    /*background: teal;*/
+}
+
+.log-form{
+    width: 80%;
+    border: black 2px;
+    display: flex;
+}
+
+.log-in-with{
+    display: flex;
+    margin: 7% 0;
+}
+
+.log-password{
+    display: flex;
+    margin-top: 5%;
+    margin-bottom: 1%;
+}
+
+.form-text{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #434C5D;
+    margin: 3% 0;
+}
+
+.form-input{
+    color: #C6CCD7;
+    height: 5%;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    /*color: #434C5D;*/
+    margin: 1% 0;
+}
+
+.forgot-password{
+    margin: 3% 0 0 auto;
+    width: max-content;
+}
+
+.login-button{
+    height: 13%;
+}
+
+.login-button Button{
+    background-color: #FFFFFF;
+    border: 1px solid #D72130;
+    margin-right: 35px;
+    margin-top: 8%;
+    padding: 2px 25px;
+    color: #D72130;
+    width: 100%;
+    height: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.login-button:hover Button {
+    border: 1px solid #D72130;
+    background-color: #D72130;
+    color: #FFFFFF;
+
+}
+
+.facebook{
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background: url("../../icons/facebook.svg") center no-repeat;
+    background-size: 35%;
+    margin-right: 10%;
+}
+
+.email{
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background: url("../../icons/email.png") center no-repeat;
+    background-size: 65%;
+    padding-bottom: 2px;
+}
+
+
+.errors{
+    color: #D72130;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+
+}
+
+.btn{
+    border-radius: 0;
+}
+
