@@ -1,11 +1,17 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Heder from './Components/Header'
+import Navbar from './Components/NavBar'
 
 function App() {
     return (
         <div className="App">
-            <Outlet/>
+            {/* <header className="App-header">
+                <Heder></Heder>
+            </header>
+            <Navbar></Navbar> */}
+            <Outlet />
         </div>
     );
 }
