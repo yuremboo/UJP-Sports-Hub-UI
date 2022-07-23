@@ -1,0 +1,89 @@
+.main-nav a {
+    height: 6vh;
+}
+.main-nav{
+    margin-left: 6%;
+    margin-top: 3%;
+} 
+.main-nav ul{
+    padding-left: 0px;
+    margin-left: 0px;
+}
+.main-nav a{
+    padding-left: 0px;
+}
+.link-home,
+.link-home:hover {
+    margin-top: 3%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #C63638;
+}
+
+.link-1,
+.link-1:hover {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #B2B2B2;
+}
+
+.link-8,
+.link-8:hover {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #7F7B7B;
+
+}
+
+.main-nav ul li:active {
+    list-style: disc;
+
+}
+.main-nav ul li:hover,.main-nav ul li:active{
+    color: #C63638;
+}
+.nav{
+    --bs-nav-link-color: #C63638;
+    --bs-nav-link-hover-color: #C63638;
+    
+}
+.but-1{
+    display: flex;
+}
+.follow-link{
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    width: 100%;
+
+}
+.follow-link button.btn.btn-light {
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    color: #7F8899;
+
+}
+.follow-logo{
+    color:  rgba(178, 178, 178, 1);
+}
+.position_line{
+    display: flex;
+}
+.line{
+    margin-left: -2%;
+    margin-right: 2%;
+    margin-top: 3%;
+}
