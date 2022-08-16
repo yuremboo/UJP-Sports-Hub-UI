@@ -1,8 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet } from "react-router-dom";
-import Heder from './Components/Header'
-import Navbar from './Components/NavBar'
+import Heder from './components/Header'
+import Navbar from './components/NavBar'
 
 function App() {
     return (

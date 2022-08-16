@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,300');
+
+.headline-body {
+    position: absolute;
+    width: 51.6%;
+    height: fit-content;
+    left: 640px;
+    top: 84px;
+    z-index: 2;
+    background: #F6F6F6;
+    padding: 50px 24px 0 33px;
+}
+
+.publishing-date {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 19px;
+    color: #7F7B7B;
+}
+
+.subtitle {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #C63638;
+    margin-bottom: 10px;
+}
+
+.title {
+    margin-bottom: 21px;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    color: #2B2F43;
+}
+
+.share-article-btn {
+    float: bottom;
+    width: 100%;
+    height: 62px;
+    background: #F6F6F6;
+    color: #7F7B7B;
+    text-align: left;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+.share-article-btn:after{
+    content: "Share";
+}
+
+.share-article-btn:hover:after{
+    content:'Share with';
+}
+
+.icon-share {
+    display: inline-block;
+    margin-right: 10px;
+    height: 16px;
+    width: 16px;
+    left: 30px;
+    border-radius: 0;
+    margin-bottom: 4px;
+}
