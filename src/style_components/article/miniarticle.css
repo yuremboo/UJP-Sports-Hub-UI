@@ -5,6 +5,10 @@
     height: 100px;
 }
 
+.article-link{
+    text-decoration: none;
+}
+
 .mini-article-text{
     padding-right: 18px;
     padding-left: 18px;

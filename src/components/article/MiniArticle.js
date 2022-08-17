@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
-import '../../style_components/article/miniarticle.css';
+import "../../style_components/article/miniarticle.css";
 
-const MiniArticle = () => {
-    return (
-        <div className="mini-article">
-            <img src={miniArticlePhoto} alt="article"/>
-            <div className="mini-article-text">
-            <span className="heading">
-            Lorem ipsum
+const MiniArticle = (props) => {
+  return (
+    <a className="article-link" href="#">
+      <div className="mini-article">
+        <img src={miniArticlePhoto} alt="article" />
+        <div className="mini-article-text">
+          <span className="heading">{props.heading}</span>
+          <span className="text-preview">
+            {props.textPreview}
           </span>
-                <span className="text-preview">
-            Lorem ipsum dolor sit amet, consectetur
-          </span>
-            </div>
         </div>
-    );
+      </div>
+    </a>
+  );
 };
 
 export default MiniArticle;

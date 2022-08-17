@@ -15,11 +15,52 @@ const ArticlePage = () => {
     "                Games in 2019!";
   const articleSubtitle = "London Games return in 2019";
 
+  const mainText = "";
+
   const [comments, setComments] = useState([
-    { id: 1, title: "Javascript", body: "Description" },
-    { id: 2, title: "Javascript 2", body: "Description" },
-    { id: 3, title: "Javascript 3", body: "Description" },
+    {
+      id: "123213dfsdsf2",
+      commentText:
+        "Interesting article. Personally I am trying to slowly move away from\n" +
+        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
+        "          belong to are permanently on mute; otherwise.",
+      commenterId: "1ff",
+      articleId: "1aa",
+      likes: 13,
+      dislikes: 3,
+      createDateTime: "27/07/22",
+      updateDateTime: "28/07/22",
+    },
+    {
+      id: "123sad",
+      commentText:
+        "Interesting article. Personally I am trying to slowly move away from\n" +
+        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
+        "          belong to are permanently on mute; otherwise.",
+      commenterId: "1ff",
+      articleId: "1aa",
+      likes: 12,
+      dislikes: 13,
+      createDateTime: "27/07/22",
+      updateDateTime: "28/07/22",
+    },
+    {
+      id: "2123sds",
+      commentText:
+        "Interesting article. Personally I am trying to slowly move away from\n" +
+        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
+        "          belong to are permanently on mute; otherwise.",
+      commenterId: "1ff",
+      articleId: "1aa",
+      likes: 23,
+      dislikes: 23,
+      createDateTime: "27/07/22",
+      updateDateTime: "28/07/22",
+    }
   ]);
+
+  const miniHeading = "Lorem ipsum";
+  const miniTextPreview = "Lorem ipsum dolor sit amet, consectetur";
 
   return (
     <div className="article">
@@ -58,14 +99,14 @@ const ArticlePage = () => {
         After that, it was perfect.”
       </p>
       <div className="comments-outer-box">
-        <span className="comments-count">COMMENTS (2)</span>
+        <span className="comments-count">COMMENTS ({comments.length})</span>
         <select className="sort-by" name="Sort by" id="sortBy">
-          <option value="1">Most popular</option>
-          <option value="2">Newest first</option>
-          <option value="3">Oldest first</option>
+          <option>Most popular</option>
+          <option>Newest first</option>
+          <option>Oldest first</option>
         </select>
         <span className="sort-by"> Sort by: </span>
-        <div className="write-comment-box">
+        <form className="write-comment-box">
           <img className="user-image" src={userImage} alt="user" />
           <textarea
             className="comment-input"
@@ -75,13 +116,21 @@ const ArticlePage = () => {
           <Button className="submit-btn" variant="light">
             Submit
           </Button>
-        </div>
+        </form>
         <div className="read-comment-box">
-          <Comment />
+          {comments.map((comment, id) => (
+            <Comment comment={comment} key={comment.id} />
+          ))}
         </div>
         <div className="show-more">
-          <span>Show more</span>
-          <img className="small-arrow-down" src={smallArrowDown} alt="arrow" />
+          <a className="show-more-link" href="#">
+            <span>Show more</span>
+            <img
+              className="small-arrow-down"
+              src={smallArrowDown}
+              alt="arrow"
+            />
+          </a>
         </div>
       </div>
       <div className="more">
@@ -91,14 +140,14 @@ const ArticlePage = () => {
       </div>
       <div className="mini-articles">
         <div className="mini-articles-l">
-          <MiniArticle />
-          <MiniArticle />
-          <MiniArticle />
+          <MiniArticle heading={miniHeading} textPreview={miniTextPreview} />
+          <MiniArticle heading={miniHeading} textPreview={miniTextPreview} />
+          <MiniArticle heading={miniHeading} textPreview={miniTextPreview} />
         </div>
         <div className="mini-articles-r">
-          <MiniArticle />
-          <MiniArticle />
-          <MiniArticle />
+          <MiniArticle heading={miniHeading} textPreview={miniTextPreview} />
+          <MiniArticle heading={miniHeading} textPreview={miniTextPreview} />
+          <MiniArticle heading={miniHeading} textPreview={miniTextPreview} />
         </div>
       </div>
     </div>

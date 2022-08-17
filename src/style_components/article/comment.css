@@ -1,5 +1,6 @@
 .comment-body {
     display: flex;
+    margin-bottom: 18px;
 }
 
 .comment-content {
@@ -70,7 +71,7 @@
 
 .like:hover,
 .dislike:hover {
-    color: #e02232;
+    color: inherit;
     font-size: 120%;
     padding-right: 5px;
 }
@@ -95,7 +96,7 @@
 .edit:hover,
 .comment:hover,
 .delete:hover {
-    color: #e02232;
+    color: inherit;
     transform: scale(1.1, 1.1);
 }
 
