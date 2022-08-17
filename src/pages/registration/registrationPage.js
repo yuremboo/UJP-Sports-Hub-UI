@@ -18,6 +18,7 @@ const RegistrationPage = () => {
     let isErr = false;
 
     function register(e) {
+        alert("Submit button clicked!");
         e.preventDefault();
 
         if (isErr) {
@@ -86,7 +87,7 @@ const RegistrationPage = () => {
                                     </div>
                                     <div className='form-input'>
                                         <Form.Control value={firstName} onChange={e => setFirstName(e.target.value)}
-                                            type="text" placeholder="John" />
+                                            type="text" placeholder="John" pattern='[A-Za-z]{1,32}' title='Must contain only letters' required/>
                                     </div>
                                 </Form.Group>
                             </div>
@@ -98,7 +99,7 @@ const RegistrationPage = () => {
                                     </div>
                                     <div className='form-input'>
                                         <Form.Control value={lastName} onChange={e => setLastName(e.target.value)}
-                                            type="text" placeholder="Doe" />
+                                            type="text" placeholder="Doe" pattern='[A-Za-z]{1,32}' title='Must contain only letters' required/>
                                     </div>
                                 </Form.Group>
                             </div>
@@ -110,7 +111,7 @@ const RegistrationPage = () => {
                             </div>
                             <div className='form-input'>
                                 <Form.Control value={email} onChange={e => setEmail(e.target.value)}
-                                    type="email" placeholder="johndoe@gmail.com" />
+                                    type="email" placeholder="johndoe@gmail.com" required />
                             </div>
                         </Form.Group>
 
@@ -121,13 +122,16 @@ const RegistrationPage = () => {
 
                             <div className='form-input'>
                                 <Form.Control value={password} onChange={e => setPassword(e.target.value)}
-                                    type="password" placeholder="8+ characters (letters and numbers)" />
+                                    type='password' placeholder='8+ characters (letters and numbers)'  
+                                    pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
+                                    title='Must contain at least one number, one uppercase and lowercase letter, and at least 8 characters' 
+                                    required/>
                             </div>
                         </Form.Group>
 
-                        <button className='reg-form__button' onClick={register}>
-                            SIGN UP
-                        </button>
+                        <input className='reg-form__button' type='submit' value={'SIGN UP'} >
+                            {/* onClick={register} */}
+                        </input>
                     </Form>
                 </div>
             </div>
