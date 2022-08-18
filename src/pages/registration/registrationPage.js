@@ -29,9 +29,6 @@ const RegistrationPage = () => {
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value })
         setErrors({ ...errors, [name]: '' })
-        // if(name === 'firstName' || name === 'lastName'){
-        //     setErrors({ ...errors, names: '' })
-        // }
     }
 
     const validateInput = data => {
