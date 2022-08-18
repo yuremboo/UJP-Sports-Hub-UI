@@ -110,6 +110,10 @@ a.nav-link {
     margin-bottom: 1%;
 }
 
+.form-control{
+    border-radius: 0;
+}
+
 .form-text{
     font-family: 'Roboto', sans-serif;
     font-style: normal;

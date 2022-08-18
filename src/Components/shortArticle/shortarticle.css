@@ -1,0 +1,48 @@
+.shortArticle{
+    display: flex;
+    width: 50%;
+    height: 20%;
+    border: black 1px;
+    /*margin-bottom: 4%;*/
+    /*padding-right: 2%;*/
+    margin: 4% 7%;
+}
+.shortarticle__image{
+    width: 25%;
+    height: 100%;
+    /*margin-left: 5%;*/
+    background-color: teal;
+}
+
+.shortarticle__body{
+    /*margin: 0 5%;*/
+}
+
+.shortarticle__title{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #2B2F43;
+}
+
+.shortarticle__short_text{
+    margin-top: 2%;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #7F7B7B;
+}
+
+.shortarticle__category{
+    margin-top: 2%;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #7F7B7B;
+}

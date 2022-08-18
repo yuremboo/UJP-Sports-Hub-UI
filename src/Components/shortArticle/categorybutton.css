@@ -1,0 +1,25 @@
+.category_button{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #B2B2B2;
+    margin: 0 1%;
+}
+
+.category_button button{
+    border: none;
+    background-color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(178, 178, 178, 1);
+}
+
+.category_button:hover button {
+    color: #D72130;
+}
