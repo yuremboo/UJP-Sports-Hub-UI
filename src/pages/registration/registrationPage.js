@@ -7,43 +7,85 @@ import {
     useNavigate
 } from "react-router-dom";
 
+const initialState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+}
+
 const RegistrationPage = () => {
 
     let navigate = useNavigate();
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [error, setError] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    let isErr = false;
 
-    function register(e) {
-        alert("Submit button clicked!");
-        e.preventDefault();
+    const [user, setUser] = useState(initialState);
+    const [errors, setErrors] = useState("");
 
-        if (isErr) {
-            setError("Incorrect credentials. Try again");
-        }
-        else {
-            setError("");
-            navigate("/");
-        }
-        console.log("firstName");
-        console.log(firstName);
-
-        console.log("lastName");
-        console.log(lastName);
-
-        console.log("email");
-        console.log(email);
-
-        console.log("password");
-        console.log(password);
-    }
 
     function login() {
         navigate("/login");
     }
+
+    const handleChange = ({ target: { name, value } }) => {
+        setUser({ ...user, [name]: value })
+        setErrors({ ...errors, [name]: '' })
+        // if(name === 'firstName' || name === 'lastName'){
+        //     setErrors({ ...errors, names: '' })
+        // }
+    }
+
+    const validateInput = data => {
+        let errors = {}
+
+        if(!/^[A-Za-z]{1,32}$/.test(data.firstName)){
+            errors.firstName = "Name and surname must contain only letters"
+        }
+
+        if( !/^[A-Za-z]{1,32}$/.test(data.lastName)){
+             errors.lastName = "Name and surname must contain only letters"
+        }
+
+        if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        .test(data.email)){
+            errors.email = "Please enter valid email"
+        }
+
+        if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.password)){
+            errors.password = "Password must contain at least 8 characters (letters and numbers)"
+        }
+
+        return {
+            errors,
+            isValid: JSON.stringify(errors) === '{}'
+        }
+    }
+
+    const isValid = () => {
+        const { errors, isValid } = validateInput(user)
+        if (!isValid) {
+            setErrors(errors)
+        }
+
+        return isValid
+    }
+
+
+    function register(e) {
+        e.preventDefault();
+
+        if (isValid()) {
+            console.log("log");
+            // const result = await signInRequest(user)
+            // if (result) {
+            //   setUser(initialState)
+            //   setErrors({})
+            //   navigate('/')
+            // }
+        }
+
+    }
+
+
 
     return (
         <div className='reg-page'>
@@ -63,31 +105,32 @@ const RegistrationPage = () => {
 
             <div className='reg-form-outer'>
                 <div className='reg-form'>
-                    <Form>
+                    <Form onSubmit={register}>
                         <h2 className='reg-form__header'>Create Account</h2>
                         <div className='reg-with'>
                             <button className='reg-with__facebook'></button>
                             <button className='reg-with__google'></button>
                         </div>
 
-                        <div className='errors'>
-                            {error}
-                        </div>
-
                         <p className='reg-form__paragraph'>
                             Or use your email for registration:
                         </p>
 
-                        <div className='reg-creds'>
+                        <div>
+                            {(errors.firstName || errors.lastName) && <p className='reg-form__error'>
+                                { errors.firstName ? errors.firstName: (errors.lastName ? errors.lastName: '') } 
+                            </p>}
+                        </div>
 
+                        <div className='reg-creds'>
                             <div className='reg-name'>
                                 <Form.Group className="form-group" controlId="formBasicFirstName">
                                     <div className='form-text'>
                                         <Form.Label>First name</Form.Label>
                                     </div>
                                     <div className='form-input'>
-                                        <Form.Control value={firstName} onChange={e => setFirstName(e.target.value)}
-                                            type="text" placeholder="John" pattern='[A-Za-z]{1,32}' title='Must contain only letters' required/>
+                                        <Form.Control value={user.firstName} onChange={handleChange} isInvalid={errors.firstName ? true:false}
+                                            type="text" placeholder="John" required name='firstName' />
                                     </div>
                                 </Form.Group>
                             </div>
@@ -98,8 +141,8 @@ const RegistrationPage = () => {
                                         <Form.Label>Last name</Form.Label>
                                     </div>
                                     <div className='form-input'>
-                                        <Form.Control value={lastName} onChange={e => setLastName(e.target.value)}
-                                            type="text" placeholder="Doe" pattern='[A-Za-z]{1,32}' title='Must contain only letters' required/>
+                                        <Form.Control value={user.lastName} onChange={handleChange} isInvalid={errors.lastName ? true:false}
+                                            type="text" placeholder="Doe" required name='lastName' />
                                     </div>
                                 </Form.Group>
                             </div>
@@ -109,9 +152,14 @@ const RegistrationPage = () => {
                             <div className='form-text'>
                                 <Form.Label>Email address</Form.Label>
                             </div>
+                            <div>
+                                {errors.email && <p className='reg-form__error'>
+                                    {errors.email}
+                                </p>}
+                            </div>
                             <div className='form-input'>
-                                <Form.Control value={email} onChange={e => setEmail(e.target.value)}
-                                    type="email" placeholder="johndoe@gmail.com" required />
+                                <Form.Control value={user.email} onChange={handleChange} isInvalid={errors.email ? true:false}
+                                    type="text" placeholder="johndoe@gmail.com" required name='email' />
                             </div>
                         </Form.Group>
 
@@ -119,19 +167,20 @@ const RegistrationPage = () => {
                             <div className='form-text'>
                                 <Form.Label>Password</Form.Label>
                             </div>
-
+                            <div>
+                                {errors.password && <p className='reg-form__error'>
+                                    {errors.password}
+                                </p>}
+                            </div>
                             <div className='form-input'>
-                                <Form.Control value={password} onChange={e => setPassword(e.target.value)}
-                                    type='password' placeholder='8+ characters (letters and numbers)'  
-                                    pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-                                    title='Must contain at least one number, one uppercase and lowercase letter, and at least 8 characters' 
-                                    required/>
+                                <Form.Control value={user.password} onChange={handleChange} isInvalid={errors.password ? true:false}
+                                    type='password' placeholder='8+ characters (letters and numbers)' required name='password' />
                             </div>
                         </Form.Group>
 
-                        <input className='reg-form__button' type='submit' value={'SIGN UP'} >
-                            {/* onClick={register} */}
-                        </input>
+                        <button className='reg-form__button' type='submit'>
+                            SIGN UP
+                        </button>
                     </Form>
                 </div>
             </div>
