@@ -146,11 +146,6 @@ a.nav-link {
     border: 1px solid #7F8899;
     box-shadow: none;
 }
-/* 
-.form-control:invalid {
-    box-shadow: none;
-    border: 1px solid red;
-} */
 
 .reg-form__paragraph {
     font-family: 'Open Sans', sans-serif;

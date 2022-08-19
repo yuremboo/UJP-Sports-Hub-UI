@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-bootstrap';
-import { Form, NavLink } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import './registrationpage.css';
 
 import {
     useNavigate
 } from "react-router-dom";
+
+import {
+    authFailureReset,
+    userSignUpRequest,
+  } from '../../redux/auth/auth.actions'
+  import { connect } from 'react-redux'
 
 const initialState = {
     firstName: '',
@@ -14,9 +20,23 @@ const initialState = {
     password: '',
 }
 
-const RegistrationPage = () => {
+const RegistrationPage = ({
+    signUpRequest,
+    resetErrorMessage,
+  
+    auth: { isLoading, errorMessage },
+  }) => {
+    useEffect(
+        () => () => {
+          if (errorMessage) {
+            resetErrorMessage()
+          }
+        },
+        []
+      )
 
-    let navigate = useNavigate();
+
+    const navigate = useNavigate();
 
     const [user, setUser] = useState(initialState);
     const [errors, setErrors] = useState("");
@@ -67,22 +87,19 @@ const RegistrationPage = () => {
     }
 
 
-    function register(e) {
+    const register = async(e) => {
         e.preventDefault();
 
         if (isValid()) {
-            console.log("log");
-            // const result = await signInRequest(user)
-            // if (result) {
-            //   setUser(initialState)
-            //   setErrors({})
-            //   navigate('/')
-            // }
+            const result = await signUpRequest(user)
+            if (result) {
+              setUser(initialState)
+              setErrors({})
+              login()
+            }
         }
 
     }
-
-
 
     return (
         <div className='reg-page'>
@@ -126,8 +143,15 @@ const RegistrationPage = () => {
                                         <Form.Label>First name</Form.Label>
                                     </div>
                                     <div className='form-input'>
-                                        <Form.Control value={user.firstName} onChange={handleChange} isInvalid={errors.firstName ? true:false}
-                                            type="text" placeholder="John" required name='firstName' />
+                                        <Form.Control 
+                                        value={user.firstName} 
+                                        onChange={handleChange} 
+                                        isInvalid={errors.firstName ? true:false}
+                                        type="text" 
+                                        placeholder="John" 
+                                        name='firstName'
+                                        required 
+                                         />
                                     </div>
                                 </Form.Group>
                             </div>
@@ -138,8 +162,15 @@ const RegistrationPage = () => {
                                         <Form.Label>Last name</Form.Label>
                                     </div>
                                     <div className='form-input'>
-                                        <Form.Control value={user.lastName} onChange={handleChange} isInvalid={errors.lastName ? true:false}
-                                            type="text" placeholder="Doe" required name='lastName' />
+                                        <Form.Control 
+                                        value={user.lastName} 
+                                        onChange={handleChange} 
+                                        isInvalid={errors.lastName ? true:false}
+                                        type="text" 
+                                        placeholder="Doe" 
+                                        name='lastName' 
+                                        required 
+                                        />
                                     </div>
                                 </Form.Group>
                             </div>
@@ -155,8 +186,15 @@ const RegistrationPage = () => {
                                 </p>}
                             </div>
                             <div className='form-input'>
-                                <Form.Control value={user.email} onChange={handleChange} isInvalid={errors.email ? true:false}
-                                    type="text" placeholder="johndoe@gmail.com" required name='email' />
+                                <Form.Control 
+                                value={user.email} 
+                                onChange={handleChange} 
+                                isInvalid={errors.email ? true:false}
+                                type="text" 
+                                placeholder="johndoe@gmail.com" 
+                                name='email' 
+                                required 
+                                />
                             </div>
                         </Form.Group>
 
@@ -170,12 +208,19 @@ const RegistrationPage = () => {
                                 </p>}
                             </div>
                             <div className='form-input'>
-                                <Form.Control value={user.password} onChange={handleChange} isInvalid={errors.password ? true:false}
-                                    type='password' placeholder='8+ characters (letters and numbers)' required name='password' />
+                                <Form.Control 
+                                value={user.password} 
+                                onChange={handleChange} 
+                                isInvalid={errors.password ? true:false}
+                                type='password' 
+                                placeholder='8+ characters (letters and numbers)'  
+                                name='password'
+                                required 
+                                />
                             </div>
                         </Form.Group>
 
-                        <button className='reg-form__button' type='submit'>
+                        <button className='reg-form__button' type='submit' disabled={isLoading}>
                             SIGN UP
                         </button>
                     </Form>
@@ -185,4 +230,12 @@ const RegistrationPage = () => {
     );
 };
 
-export default RegistrationPage;
+const mapDispatchToProps = (dispatch) => ({
+    signUpRequest: (user) => dispatch(userSignUpRequest(user)),
+    resetErrorMessage: () => dispatch(authFailureReset()),
+  })
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+  })
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
