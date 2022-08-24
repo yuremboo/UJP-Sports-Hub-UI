@@ -10,6 +10,7 @@ import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
+import ArticlePage from "./pages/article/articlePage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,6 +23,7 @@ root.render(
                     <Route path="/" element={<HomePage />} />
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
+                    <Route path="articles" element={<ArticlePage/>}/>
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
