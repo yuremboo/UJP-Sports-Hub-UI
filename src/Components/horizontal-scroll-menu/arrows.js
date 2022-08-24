@@ -1,7 +1,9 @@
 import React from "react";
-import { VisibilityContext } from "react-horizontal-scrolling-menu";
-import arrow from '../../icons/arrow.svg';
+import {VisibilityContext} from "react-horizontal-scrolling-menu";
+// import arrow from '../../icons/arrow.svg';
 import './horizontalscrollmenu.css';
+
+import {ReactComponent as ArrowSVG} from "../../icons/arrow.svg";
 
 function Arrow({
                    children,
@@ -14,17 +16,17 @@ function Arrow({
 }) {
     return (
         <button className='arrow_button'
-            disabled={disabled}
-            onClick={onClick}
-            style={{
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                right: "1%",
-                opacity: disabled ? "0" : "1",
-                userSelect: "none"
-            }}
+                disabled={disabled}
+                onClick={onClick}
+                style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    right: "1%",
+                    opacity: disabled ? "0" : "1",
+                    userSelect: "none"
+                }}
         >
             {children}
         </button>
@@ -51,8 +53,7 @@ export function LeftArrow() {
 
     return (
         <Arrow disabled={disabled} onClick={() => scrollPrev()}>
-            <img className='left_arrow_button' src={arrow} alt='arrow'
-            width='145%' height='145%'/>
+            <ArrowSVG className='left_arrow_button' />
         </Arrow>
     );
 }
@@ -76,7 +77,7 @@ export function RightArrow() {
 
     return (
         <Arrow disabled={disabled} onClick={() => scrollNext()}>
-            <img src={arrow} alt='arrow' width='145%' height='145%'/>
+            <ArrowSVG className='right_arrow_button' /*width='145%' height='145%'*//>
         </Arrow>
     );
 }

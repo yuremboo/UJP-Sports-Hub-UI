@@ -8,14 +8,11 @@
     display: flex;
     position: relative;
     height: 12%;
-
-
 }
 
 .all_articles_admin__right_header{
     width: 30%;
     margin-left: auto;
-    /*margin-right: 0px;*/
     display: flex;
     justify-content: flex-end;
 

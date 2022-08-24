@@ -1,0 +1,274 @@
+.reg-page {
+    width: 100%;
+    height: 100%;
+    background: url(../../icons/background.jpg) top left no-repeat;
+    background-size: contain;
+}
+
+a.nav-link {
+    text-decoration: none;
+    color: #434C5D;
+}
+
+.nav-link {
+    padding: 0;
+}
+
+.reg-header {
+    display: flex;
+    position: relative;
+    height: 10%;
+}
+
+.sportshub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    background: #D72130;
+}
+
+.sportshub__paragraph {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    padding-top: 7%;
+}
+
+.header--right {
+    margin: 0 0 0 auto;
+    display: flex;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 28px;
+    color: #596377;
+}
+
+.have_account {
+    margin: auto;
+    margin-right: 45px;
+    width: max-content;
+    color: black;
+}
+
+.getstarted {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+}
+
+.getstarted Button {
+    padding: 2px 50px;
+}
+
+.getstarted__button {
+    background-color: #FFFFFF;
+    border: 1px solid #D72130;
+    margin-right: 35px;
+
+    color: #D72130;
+    width: max-content;
+    height: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.getstarted__button:hover {
+    border: 1px solid #D72130;
+    background-color: #D72130;
+    color: #FFFFFF;
+}
+
+
+.reg-form-outer {
+    width: 50%;
+    margin: 3% 0 0 auto;
+    height: 60%;
+}
+
+.reg-form {
+    display: flex;
+}
+
+.reg-form Form {
+    width: 50%;
+}
+
+.reg-form__error {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #D72130;
+}
+
+.form-control {
+    border-radius: 0;
+    border: 1px solid #D4D9E2;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    height: 42px;
+}
+
+.form-control::placeholder {
+    color: #C6CCD7;
+    opacity: 1;
+}
+
+.form-control:hover {
+    border: 1px solid #A6A9AF;
+}
+
+.form-control:focus {
+    border: 1px solid #7F8899;
+    box-shadow: none;
+}
+
+.reg-form__paragraph {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #434C5D;
+}
+
+.reg-creds {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.reg-name {
+    width: 47%;
+}
+
+.reg-password {
+    display: flex;
+    margin-top: 5%;
+    margin-bottom: 1%;
+}
+
+.form-label {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #434C5D;
+}
+
+.reg-form__button {
+    height: 10%;
+    background-color: #D72130;
+    border: none;
+    margin-right: 35px;
+    margin-top: 11%;
+    padding: 2px 25px;
+    color: #FFF5F5;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.reg-form__button:hover {
+    background-color: #E02232;
+    color: #FFF5F5;
+}
+
+.reg-form__button:active {
+    background-color: #C80515;
+    color: #FFFF;
+}
+
+.reg-with {
+    display: flex;
+    margin: 7% 0;
+}
+
+.reg-with__facebook {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #B2B2B2;
+    border-radius: 50%;
+    background: url("../../icons/facebook.svg") center no-repeat;
+    background-size: 25%;
+}
+
+.reg-with__google {
+    width: 40px;
+    height: 40px;
+    margin-left: 5%;
+    border: 1px solid #B2B2B2;
+    border-radius: 50%;
+    background: url("../../icons/google.svg") center no-repeat;
+    background-size: 65%;
+}
+
+.reg-with__facebook:hover,
+.reg-with__google:hover {
+    border: 1px solid #2B2F43;
+}
+
+.reg-with__google:active {
+    background: url("../../icons/google-red.svg") center no-repeat;
+    background-size: 65%;
+    border: 1px solid #C80515;
+}
+
+.reg-with__facebook:active {
+    background: url("../../icons/facebook-red.svg") center no-repeat;
+    background-size: 25%;
+    border: 1px solid #C80515;
+
+}
+
+.errors {
+    color: #D72130;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+
+}
+
+.btn {
+    border-radius: 0;
+}

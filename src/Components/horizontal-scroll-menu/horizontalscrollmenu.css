@@ -29,7 +29,6 @@
 
 
 
-
 /* hide scrollbar */
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
     display: none;
@@ -38,13 +37,20 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+/**/
 
 
 .arrow_button{
     border: none;
     background-color: transparent;
-    margin: 0 1%;
+    /*margin: 0 1%;*/
 }
 .left_arrow_button{
-    transform: rotate(180deg) ;
+    transform: rotate(180deg);
+    /*margin-top: 1%;*/
+}
+
+.left_arrow_button:hover *,
+.right_arrow_button:hover *{
+    fill: #D72130;
 }
