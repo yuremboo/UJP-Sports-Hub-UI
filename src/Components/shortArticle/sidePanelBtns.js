@@ -1,12 +1,12 @@
 import React from 'react';
-import surveys from "../../icons/Surveys.svg";
-import banners from "../../icons/Banners.svg";
-import languages from "../../icons/Langueges.svg";
-import footer from "../../icons/Footer.svg";
-import shares from  "../../icons/Shares.svg";
-import myusers from "../../icons/MyUsers.svg";
-import ia from "../../icons/IA.svg";
-import teams from "../../icons/teams.svg";
+import {ReactComponent as Surveys} from "../../icons/Surveys.svg";
+import {ReactComponent as Banners} from "../../icons/Banners.svg";
+import {ReactComponent as Languages} from "../../icons/Langueges.svg";
+import {ReactComponent as Footer} from "../../icons/Footer.svg";
+import {ReactComponent as Shares} from  "../../icons/Shares.svg";
+import {ReactComponent as Myusers} from "../../icons/MyUsers.svg";
+import {ReactComponent as IA} from "../../icons/IA.svg";
+import {ReactComponent as Teams} from "../../icons/teams.svg";
 import "./sidepanelbtns.css";
 
 const SidePanelBtns = () => {
@@ -45,49 +45,57 @@ const SidePanelBtns = () => {
         <div className='allSidePanelBtns'>
             <div className='sidePanelBtn'>
                 <button onClick={surveysFunc}>
-                    <img src={surveys} alt="surveys"/>
+                    <Surveys className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Surveys</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={bannersFunc}>
-                    <img src={banners} alt="banners"/>
+                    <Banners className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Banners</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={languagesFunc}>
-                    <img src={languages} alt="languages"/>
+                    <Languages className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Languages</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={footerFunc}>
-                    <img src={footer} alt="footer"/>
+                    <Footer className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Footer</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={sharesFunc}>
-                    <img src={shares} alt="shares"/>
+                    <Shares className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Social networks</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={myusersFunc}>
-                    <img src={myusers} alt="myusers"/>
+                    <Myusers className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Users</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={iaFunc}>
-                    <img src={ia} alt="ia"/>
+                    <IA className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">IA</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={teamsFunc}>
-                    <img src={teams} alt="teams"/>
+                    <Teams className="sidePanel_btn" width='100%' height='100%'/>
+                    <span className="tooltiptext">Teams</span>
                 </button>
             </div>
         </div>

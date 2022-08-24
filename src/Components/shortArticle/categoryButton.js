@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './categorybutton.css';
 import axios from "axios";
+import Nav from "react-bootstrap/Nav";
 
 const CategoryButton = (props) => {
     const [allArticlesByCatId, setAllArticlesByCatId] = useState([
@@ -81,7 +82,7 @@ const CategoryButton = (props) => {
         }
     ]);
     useEffect(() => {
-        findArticlesByCategoryId(props.categoryId);
+        findArticlesByCategoryId(props.category_id);
     }, []);
 
     function findArticlesByCategoryId(id){
@@ -106,10 +107,23 @@ const CategoryButton = (props) => {
             })
     }
 
+    // const link = "/"+props.categoryName;
+
     return (
         <div className='category_button'>
-            <button onClick={findArticlesByCategoryId}>{props.categoryName}</button>
+            <button onClick={findArticlesByCategoryId}>{props.categoryName.toUpperCase()}</button>
+
+            {/*<Nav.Link className='cat_button' eventKey="link-1" onClick={findArticlesByCategoryId} href={link}><li>{props.categoryName}</li></Nav.Link>*/}
+
+            {/*<div className='articles'>*/}
+            {/*    {*/}
+            {/*    allArticlesByCatId.map(article =>*/}
+            {/*                <ShortArticleAdmin title={article.title} shortText={article.shortText}*/}
+            {/*                              category={article.category.name} isPublished={article.isActive}/>)*/}
+            {/*    }*/}
+            {/*</div>*/}
         </div>
+
     );
 };
 

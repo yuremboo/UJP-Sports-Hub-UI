@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-// import ShortArticle from "../../components/shortArticle/shortArticle";
+// import ShortArticleAdmin from "../../components/shortArticle/shortArticle";
 // import CategoryButton from "../../components/shortArticle/categoryButton";
 import './allarticlesadmin.css';
 import AddNewArticleBtn from "../../components/shortArticle/addNewArticleBtn";
@@ -199,7 +199,7 @@ const AllArtAdm2 = () => {
             {/*    <div className="all_articles_admin__articles">*/}
             {/*        {*/}
             {/*            allArticlesByCatId.map(article =>*/}
-            {/*            <ShortArticle title={article.title} shortText={article.shortText}*/}
+            {/*            <ShortArticleAdmin title={article.title} shortText={article.shortText}*/}
             {/*                          category={article.category.name} isPublished={article.isActive}/>*/}
             {/*            )*/}
             {/*        }*/}
