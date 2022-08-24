@@ -1,11 +1,12 @@
 .comment-body {
     display: flex;
     margin-bottom: 18px;
+    padding-right: 6.8%;
 }
 
 .comment-content {
+    flex: content;
     padding-top: 2%;
-    padding-right: 8%;
 }
 
 .commenter-name {
@@ -52,6 +53,9 @@
     color: inherit;
     text-decoration: none;
     padding: 8px;
+    background-color: inherit;
+    border-style: none;
+    outline: none;
 }
 
 .like-icon,
@@ -87,6 +91,8 @@
 .edit,
 .comment,
 .delete {
+    background-color: inherit;
+    border-style: none;
     color: inherit;
     float: right;
     padding: 0 8px;
