@@ -24,7 +24,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        errorMessage: action.payload,
+        errorMessage: action.payload.replace("Service: e", "E"),
       }
     case AuthActionTypes.USER_AUTH_LOGOUT:
       return {
@@ -35,11 +35,6 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         errorMessage: null,
-      }
-    case AuthActionTypes.SET_CURRENT_USER:
-      return {
-        ...state,
-        userObject: action.payload,
       }
     default:
       return state

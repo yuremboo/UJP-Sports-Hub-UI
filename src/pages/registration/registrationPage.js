@@ -27,12 +27,13 @@ const RegistrationPage = ({
     auth: { isLoading, errorMessage },
   }) => {
     useEffect(
-        () => () => {
+        () => {
           if (errorMessage) {
             resetErrorMessage()
           }
         },
-        []
+        // eslint-disable-next-line
+        [resetErrorMessage]
       )
 
 
@@ -49,6 +50,9 @@ const RegistrationPage = ({
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value })
         setErrors({ ...errors, [name]: '' })
+        if(errorMessage && name === 'email'){
+            resetErrorMessage()
+        }
     }
 
     const validateInput = data => {
@@ -181,10 +185,14 @@ const RegistrationPage = ({
                                 <Form.Label>Email address</Form.Label>
                             </div>
                             <div>
+                                {errorMessage && <p className='reg-form__error'>
+                                    {errorMessage}
+                                </p>}
                                 {errors.email && <p className='reg-form__error'>
                                     {errors.email}
                                 </p>}
                             </div>
+
                             <div className='form-input'>
                                 <Form.Control 
                                 value={user.email} 
@@ -220,7 +228,10 @@ const RegistrationPage = ({
                             </div>
                         </Form.Group>
 
-                        <button className='reg-form__button' type='submit' disabled={isLoading}>
+                        <button className='reg-form__button' 
+                        type='submit' 
+                        disabled={isLoading} 
+                        >
                             SIGN UP
                         </button>
                     </Form>

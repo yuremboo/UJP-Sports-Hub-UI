@@ -15,7 +15,7 @@ export const authRequestSuccess = (data) => ({
 
 export const authRequestFailure = (errorsObject) => ({
   type: AuthActionTypes.USER_AUTH_REQUEST_FAILURE,
-  payload: errorsObject.error,
+  payload: errorsObject ? errorsObject.message: "Something went wrong, try again later",
 })
 
 export function userSignUpRequest(userData) {
@@ -65,8 +65,4 @@ export const userLogoutRequest = () => (dispatch) => {
   localStorage.removeItem('user')
 }
 
-export const setCurrentUser = (user) => ({
-  type: AuthActionTypes.SET_CURRENT_USER,
-  payload: user,
-})
 

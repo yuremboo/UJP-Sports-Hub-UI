@@ -14,8 +14,8 @@ function App() {
                 <Heder></Heder>
             </header>
             <Navbar></Navbar>*/}
-            {/* <Outlet />  */}
-            <RegistrationPage/>
+            <Outlet /> 
+            {/* <RegistrationPage/> */}
         </div>
     );
 }
