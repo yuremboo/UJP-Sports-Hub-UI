@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet } from "react-router-dom";
 import Heder from './Components/Header'
@@ -14,7 +15,7 @@ function App() {
                 <Heder></Heder>
             </header>
             <Navbar></Navbar>*/}
-            <Outlet /> 
+            <Outlet />
             {/* <RegistrationPage/> */}
         </div>
     );

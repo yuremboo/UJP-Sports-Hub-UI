@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./articlepage.css";
-import ArticleHeading from "../../components/article/ArticleHeading";
-import Comment from "../../components/article/Comment";
+import ArticleHeading from "../../Components/article/ArticleHeading";
+import Comment from "../../Components/article/Comment";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import userImage from "../../icons/article/ellipse.svg";
 import smallArrowDown from "../../icons/article/smallArrowDown.svg";
-import MiniArticle from "../../components/article/MiniArticle";
+import MiniArticle from "../../Components/article/MiniArticle";
 import parse from "html-react-parser";
-import SortByDropDown from "../../components/UI/select/SortByDropDown";
+import SortByDropDown from "../../Components/UI/select/SortByDropDown";
 
 const ArticlePage = () => {
   const currentUser = {
