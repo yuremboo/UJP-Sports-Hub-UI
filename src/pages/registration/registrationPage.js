@@ -10,8 +10,8 @@ import {
 import {
     authFailureReset,
     userSignUpRequest,
-  } from '../../redux/auth/auth.actions'
-  import { connect } from 'react-redux'
+} from '../../redux/auth/auth.actions'
+import { connect } from 'react-redux'
 
 const initialState = {
     firstName: '',
@@ -23,21 +23,31 @@ const initialState = {
 const RegistrationPage = ({
     signUpRequest,
     resetErrorMessage,
-  
-    auth: { isLoading, errorMessage },
-  }) => {
+
+    auth: { isLoading, errorMessage, userObject },
+}) => {
     useEffect(
         () => {
-          if (errorMessage) {
-            resetErrorMessage()
-          }
+            if (errorMessage) {
+                resetErrorMessage()
+            }
         },
         // eslint-disable-next-line
         [resetErrorMessage]
-      )
-
+    )
 
     const navigate = useNavigate();
+
+    useEffect(
+        () => {
+            if (userObject) {
+                navigate('/')
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        },
+        []
+    )
+
 
     const [user, setUser] = useState(initialState);
     const [errors, setErrors] = useState("");
@@ -50,7 +60,7 @@ const RegistrationPage = ({
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value })
         setErrors({ ...errors, [name]: '' })
-        if(errorMessage && name === 'email'){
+        if (errorMessage && name === 'email') {
             resetErrorMessage()
         }
     }
@@ -58,20 +68,20 @@ const RegistrationPage = ({
     const validateInput = data => {
         let errors = {}
 
-        if(!/^[A-Za-z]{1,32}$/.test(data.firstName)){
+        if (!/^[A-Za-z]{1,32}$/.test(data.firstName)) {
             errors.firstName = "Name and surname must contain only letters"
         }
 
-        if( !/^[A-Za-z]{1,32}$/.test(data.lastName)){
-             errors.lastName = "Name and surname must contain only letters"
+        if (!/^[A-Za-z]{1,32}$/.test(data.lastName)) {
+            errors.lastName = "Name and surname must contain only letters"
         }
 
-        if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        .test(data.email)){
+        if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            .test(data.email)) {
             errors.email = "Please enter valid email"
         }
 
-        if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.password)){
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.password)) {
             errors.password = "Password must contain at least 8 characters (letters and numbers)"
         }
 
@@ -91,15 +101,15 @@ const RegistrationPage = ({
     }
 
 
-    const register = async(e) => {
+    const register = async (e) => {
         e.preventDefault();
 
         if (isValid()) {
             const result = await signUpRequest(user)
             if (result) {
-              setUser(initialState)
-              setErrors({})
-              login()
+                setUser(initialState)
+                setErrors({})
+                login()
             }
         }
 
@@ -124,7 +134,7 @@ const RegistrationPage = ({
             <div className='reg-form-outer'>
                 <div className='reg-form'>
                     <Form onSubmit={register}>
-                        <h2 className='reg-form__header'>Create Account</h2>
+                        <h2 className='reg-form__headline'>Create Account</h2>
                         <div className='reg-with'>
                             <button className='reg-with__facebook'></button>
                             <button className='reg-with__google'></button>
@@ -136,7 +146,7 @@ const RegistrationPage = ({
 
                         <div>
                             {(errors.firstName || errors.lastName) && <p className='reg-form__error'>
-                                { errors.firstName ? errors.firstName: (errors.lastName ? errors.lastName: '') } 
+                                {errors.firstName ? errors.firstName : (errors.lastName ? errors.lastName : '')}
                             </p>}
                         </div>
 
@@ -147,15 +157,15 @@ const RegistrationPage = ({
                                         <Form.Label>First name</Form.Label>
                                     </div>
                                     <div className='form-input'>
-                                        <Form.Control 
-                                        value={user.firstName} 
-                                        onChange={handleChange} 
-                                        isInvalid={errors.firstName ? true:false}
-                                        type="text" 
-                                        placeholder="John" 
-                                        name='firstName'
-                                        required 
-                                         />
+                                        <Form.Control
+                                            value={user.firstName}
+                                            onChange={handleChange}
+                                            isInvalid={errors.firstName ? true : false}
+                                            type="text"
+                                            placeholder="John"
+                                            name='firstName'
+                                            required
+                                        />
                                     </div>
                                 </Form.Group>
                             </div>
@@ -166,14 +176,14 @@ const RegistrationPage = ({
                                         <Form.Label>Last name</Form.Label>
                                     </div>
                                     <div className='form-input'>
-                                        <Form.Control 
-                                        value={user.lastName} 
-                                        onChange={handleChange} 
-                                        isInvalid={errors.lastName ? true:false}
-                                        type="text" 
-                                        placeholder="Doe" 
-                                        name='lastName' 
-                                        required 
+                                        <Form.Control
+                                            value={user.lastName}
+                                            onChange={handleChange}
+                                            isInvalid={errors.lastName ? true : false}
+                                            type="text"
+                                            placeholder="Doe"
+                                            name='lastName'
+                                            required
                                         />
                                     </div>
                                 </Form.Group>
@@ -194,14 +204,14 @@ const RegistrationPage = ({
                             </div>
 
                             <div className='form-input'>
-                                <Form.Control 
-                                value={user.email} 
-                                onChange={handleChange} 
-                                isInvalid={errors.email ? true:false}
-                                type="text" 
-                                placeholder="johndoe@gmail.com" 
-                                name='email' 
-                                required 
+                                <Form.Control
+                                    value={user.email}
+                                    onChange={handleChange}
+                                    isInvalid={errors.email ? true : false}
+                                    type="text"
+                                    placeholder="johndoe@gmail.com"
+                                    name='email'
+                                    required
                                 />
                             </div>
                         </Form.Group>
@@ -216,21 +226,21 @@ const RegistrationPage = ({
                                 </p>}
                             </div>
                             <div className='form-input'>
-                                <Form.Control 
-                                value={user.password} 
-                                onChange={handleChange} 
-                                isInvalid={errors.password ? true:false}
-                                type='password' 
-                                placeholder='8+ characters (letters and numbers)'  
-                                name='password'
-                                required 
+                                <Form.Control
+                                    value={user.password}
+                                    onChange={handleChange}
+                                    isInvalid={errors.password ? true : false}
+                                    type='password'
+                                    placeholder='8+ characters (letters and numbers)'
+                                    name='password'
+                                    required
                                 />
                             </div>
                         </Form.Group>
 
-                        <button className='reg-form__button' 
-                        type='submit' 
-                        disabled={isLoading} 
+                        <button className='reg-form__button'
+                            type='submit'
+                            disabled={isLoading}
                         >
                             SIGN UP
                         </button>
@@ -244,9 +254,9 @@ const RegistrationPage = ({
 const mapDispatchToProps = (dispatch) => ({
     signUpRequest: (user) => dispatch(userSignUpRequest(user)),
     resetErrorMessage: () => dispatch(authFailureReset()),
-  })
-  const mapStateToProps = (state) => ({
+})
+const mapStateToProps = (state) => ({
     auth: state.auth,
-  })
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
