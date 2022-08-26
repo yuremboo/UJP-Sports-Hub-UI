@@ -27,7 +27,7 @@ export function userSignUpRequest(userData) {
       .post('http://localhost:8080/api/v1/registration', userData)
       .then((data) => {
         result = true
-        dispatch(authRequestSuccess(data.data))
+        // dispatch(authRequestSuccess(data.data))
       })
       .catch((errorObject) => {
         console.log(errorObject)

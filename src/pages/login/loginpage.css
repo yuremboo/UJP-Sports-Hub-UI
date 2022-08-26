@@ -204,8 +204,7 @@ a.nav-link {
     height: 40px;
     border: 1px solid #B2B2B2;
     border-radius: 50%;
-    background: url("../../icons/facebook.svg") center no-repeat;
-    background-size: 25%;
+    background-color: transparent;
 }
 
 .login-with__google {
@@ -214,8 +213,7 @@ a.nav-link {
     margin-left: 5%;
     border: 1px solid #B2B2B2;
     border-radius: 50%;
-    background: url("../../icons/google.svg") center no-repeat;
-    background-size: 65%;
+    background-color: transparent;
 }
 
 .login-with__facebook:hover,
@@ -223,19 +221,18 @@ a.nav-link {
     border: 1px solid #2B2F43;
 }
 
-.login-with__google:active {
-    background: url("../../icons/google-red.svg") center no-repeat;
-    background-size: 65%;
+.login-with__google:active, .login-with__facebook:active  {
     border: 1px solid #C80515;
 }
 
-.login-with__facebook:active {
-    background: url("../../icons/facebook-red.svg") center no-repeat;
-    background-size: 25%;
-    border: 1px solid #C80515;
-
+.login-with__google:active .login-with__svg {
+    fill: #C80515;
 }
 
+
+.login-with__facebook:active .login-with__svg {
+    fill: #C80515;
+}
 
 .errors {
     color: #D72130;
@@ -245,6 +242,15 @@ a.nav-link {
     font-size: 14px;
     line-height: 19px;
 
+}
+
+.login-form__error {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #D72130;
 }
 
 .btn {

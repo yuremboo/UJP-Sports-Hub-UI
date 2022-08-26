@@ -13,6 +13,9 @@ import {
 } from '../../redux/auth/auth.actions'
 import { connect } from 'react-redux'
 
+import { ReactComponent as Google } from '../../icons/google.svg'
+import { ReactComponent as Facebook } from '../../icons/facebook_clone.svg'
+
 const initialState = {
     firstName: '',
     lastName: '',
@@ -136,8 +139,12 @@ const RegistrationPage = ({
                     <Form onSubmit={register}>
                         <h2 className='reg-form__headline'>Create Account</h2>
                         <div className='reg-with'>
-                            <button className='reg-with__facebook'></button>
-                            <button className='reg-with__google'></button>
+                            <button className='reg-with__facebook'>
+                                <Facebook className='reg-with__svg' width='100%' height='100%'></Facebook>
+                            </button>
+                            <button className='reg-with__google'>
+                                <Google className='reg-with__svg' width='100%' height='100%'></Google>
+                            </button>
                         </div>
 
                         <p className='reg-form__paragraph'>

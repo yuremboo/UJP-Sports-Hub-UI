@@ -236,8 +236,8 @@ a.nav-link {
     height: 40px;
     border: 1px solid #B2B2B2;
     border-radius: 50%;
-    background: url("../../icons/facebook.svg") center no-repeat;
-    background-size: 25%;
+    /* background-size: 25%; */
+    background-color: transparent;
 }
 
 .reg-with__google {
@@ -246,8 +246,8 @@ a.nav-link {
     margin-left: 5%;
     border: 1px solid #B2B2B2;
     border-radius: 50%;
-    background: url("../../icons/google.svg") center no-repeat;
-    background-size: 65%;
+    /* background-size: 65%; */
+    background-color: transparent;
 }
 
 .reg-with__facebook:hover,
@@ -255,17 +255,18 @@ a.nav-link {
     border: 1px solid #2B2F43;
 }
 
-.reg-with__google:active {
-    background: url("../../icons/google-red.svg") center no-repeat;
-    background-size: 65%;
+.reg-with__google:active,
+.reg-with__facebook:active {
     border: 1px solid #C80515;
 }
 
-.reg-with__facebook:active {
-    background: url("../../icons/facebook-red.svg") center no-repeat;
-    background-size: 25%;
-    border: 1px solid #C80515;
+.reg-with__google:active .reg-with__svg {
+    fill: #C80515;
+}
 
+
+.reg-with__facebook:active .reg-with__svg {
+    fill: #C80515;
 }
 
 .errors {
