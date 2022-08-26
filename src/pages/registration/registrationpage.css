@@ -156,6 +156,15 @@ a.nav-link {
     color: #434C5D;
 }
 
+.reg-form__headline {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #000000;
+}
+
 .reg-creds {
     display: flex;
     justify-content: space-between;
@@ -219,7 +228,7 @@ a.nav-link {
 
 .reg-with {
     display: flex;
-    margin: 7% 0;
+    margin: 5% 0;
 }
 
 .reg-with__facebook {
