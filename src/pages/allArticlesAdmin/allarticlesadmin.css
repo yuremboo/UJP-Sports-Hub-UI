@@ -1,0 +1,66 @@
+.all_articles_admin{
+    width: 99%;
+    height: 100%;
+    margin-right: 0;
+}
+
+.all_articles_admin__header{
+    display: flex;
+    position: relative;
+    height: 12%;
+}
+
+.sportshub{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14%;  /*253px;*/
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    background: #D72130;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+    color: #FFFBFB;
+}
+
+.all_articles_admin__current_category__new_article{
+    display: flex;
+    margin: 0 5%;
+}
+
+.all_articles_admin__new_article{
+    margin-left: auto;
+    /*margin-right: 5%;*/
+}
+
+.all_articles_admin__current_category{
+    margin-top: 2%;
+    /*margin-left: 5%;*/
+    /*height: 15%;*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 28px;
+}
+
+.all_articles_admin__categories_buttons{
+    display: flex;
+    margin: 1% 0;
+    font-weight: bold;
+}
+
+
+.all_articles_admin__body{
+    display: flex;
+}
+
+.all_articles_admin__left_buttons{
+    width: 10%;
+    height: 70%;
+}
+

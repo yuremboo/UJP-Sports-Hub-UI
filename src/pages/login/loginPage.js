@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from "axios";
 import 'react-bootstrap';
 import {Form, NavLink} from "react-bootstrap";
 import './loginpage.css';
@@ -12,24 +13,66 @@ const LoginPage = () => {
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    let isErr = false;
+    const [isErr, setIsErr] = useState(false);
+    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbDJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sImlhdCI6MTY2MDg0MTQ3NywiZXhwIjoxNjYxNjM0MDAwfQ.xkylFnDtkgIYgePPGCIila6BNiSZRryXC9LSY_jfijApRepHs4AQ7ED_JWI1vy8o9JusTSDYf4qVOV7wA86eWA');
 
     function login(e){
         e.preventDefault();
+        axios({
+            method: "POST",
+            url: 'http://localhost:8080/login',
+            data: {
+                email: email,
+                password: password
+            }
+        })
+            .then((response) => {
+                // console.log('response data');
+                // console.log(response.data);
+                console.log('then-response:');
+                console.log(response);
+                console.log('then-response.headers:');
+                console.log(response.headers);
+                console.log('response status: ', response.status);
+                if (response.status === 200)
+                {
+                    setAuthToken(response.headers.authorization);
+                    console.log('token: ', authToken);
+                    // setCookie('jwt_session', response.data.jwt_session, 60);
+                    navigate("/");
+                }
+                else{
+                    console.log("Error then!");
+                    setIsErr(true);
+                }
+            })
+            .catch((error) => {
+                console.log("Catch error!");
+                setIsErr(true);
+                setError("Incorrect user ID or password. Try again");
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("Catch error response status:");
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
 
-        if(isErr){
-            setError("Incorrect user ID or password. Try again");
-        }
-        else{
-            setError("");
-            navigate("/");
-        }
+            })
+
+        // if(isErr){
+        //     setError("Incorrect user ID or password. Try again");
+        // }
+        // else{
+        //     setError("");
+        //     navigate("/");
+        // }
 
         console.log("email");
         console.log(email);
         console.log("password");
         console.log(password);
     }
+
 
     function forgotPassword(){
         navigate("/forgot");

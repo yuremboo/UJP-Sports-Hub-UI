@@ -1,0 +1,19 @@
+.allSidePanelBtns{
+    width: 100%;
+    height: 100%;
+}
+
+.sidePanelBtn{
+    margin-bottom: 2%;
+
+}
+
+.sidePanelBtn button{
+    background-color: transparent;
+    border: none;
+}
+
+.sidePanelBtn:hover button{
+    background-color: red;
+    border: none;
+}

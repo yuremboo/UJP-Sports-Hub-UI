@@ -1,0 +1,29 @@
+.shortArticle{
+    display: flex;
+    width: 70%;
+    height: 10%;
+    border: black 1px solid;
+    /*margin-bottom: 4%;*/
+    /*padding-right: 2%;*/
+    margin: 4% 7%;
+}
+
+
+.shortarticle__image {
+    width: 250px;
+    height: 200px;
+}
+.shortarticle__body{
+    /*margin: 0 5%;*/
+}
+
+.shortarticle__title{
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #2b2f43;
+    padding: 5px 18px 13px;
+}
+
+

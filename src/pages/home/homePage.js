@@ -2,6 +2,9 @@ import React from 'react';
 import {
     useNavigate
 } from "react-router-dom";
+import Header from "../../Components/Header";
+import NavBar from "../../Components/NavBar";
+import AllArticlesAdmin from "../allArticlesAdmin/AllArticlesAdmin";
 
 const HomePage = () => {
     let navigate = useNavigate();
@@ -12,8 +15,11 @@ const HomePage = () => {
 
     return (
         <div>
-            <h2>Home page</h2>
+            {/*<h2>Home page</h2>*/}
+            <Header/>
+            <NavBar/>
             <button onClick={logIn}>LOG IN</button>
+            {/*<AllArticlesAdmin/>*/}
         </div>
     );
 };
