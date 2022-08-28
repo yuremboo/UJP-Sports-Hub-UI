@@ -9,6 +9,7 @@ import smallArrowDown from "../../icons/article/smallArrowDown.svg";
 import MiniArticle from "../../components/article/MiniArticle";
 import parse from "html-react-parser";
 import SortByDropDown from "../../components/UI/select/SortByDropDown";
+import DeleteCommentPopUp from "../../components/article/DeleteCommentPopUp";
 
 const ArticlePage = () => {
   const currentUser = {
@@ -85,7 +86,7 @@ const ArticlePage = () => {
       likes: 100,
       dislikes: 133,
       createDateTime: 1649999999999,
-      updateDateTime: 1650000335308
+      updateDateTime: 1650000335308,
     },
     {
       id: "2123sds",
@@ -99,7 +100,7 @@ const ArticlePage = () => {
       dislikes: 22,
       createDateTime: 1634993499999,
       updateDateTime: 1636080335308,
-    }
+    },
   ];
 
   commentsList.sort((a, b) =>
@@ -107,7 +108,9 @@ const ArticlePage = () => {
   );
 
   const [comments, setComments] = useState(commentsList);
-  const [comment, setComment] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [comment, setComment] = useState(null);
 
   const [selectedSort, setSelectedSort] = useState("");
 
@@ -171,12 +174,12 @@ const ArticlePage = () => {
 
   function addNewComment(e) {
     e.preventDefault();
-    if (!comment) {
+    if (!commentText) {
       return;
     }
     const newComment = {
       id: uuidv4(),
-      comment: comment,
+      comment: commentText,
       commenterId: currentUser.id,
       articleId: "1aa",
       likes: 0,
@@ -186,7 +189,7 @@ const ArticlePage = () => {
       edited: false,
     };
     setComments([...comments, newComment]);
-    setComment("");
+    setCommentText("");
   }
 
   function updateLikesCount(newLikesVal, commentId) {
@@ -247,8 +250,35 @@ const ArticlePage = () => {
     }
   }
 
+  function editComment(comment) {
+    setIsEditing(true);
+    setCommentText(comment.comment);
+    setComment(comment);
+  }
+
+  function putEditedComment(e) {
+    e.preventDefault();
+    if (!commentText) {
+      return;
+    }
+    const newComment = {
+      id: comment.id,
+      comment: commentText,
+      commenterId: currentUser.id,
+      articleId: comment.articleId,
+      likes: comment.likes,
+      dislikes: comment.dislikes,
+      createDateTime: comment.createDateTime,
+      updateDateTime: Date.now(),
+      edited: true
+    };
+    setComments([...comments.filter(c => c.id !== comment.id), newComment]);
+    setCommentText("");
+    setIsEditing(false);
+  }
+
   function deleteComment(commentId) {
-    setComments(comments.filter(comment => comment.id !== commentId));
+    setComments(comments.filter((comment) => comment.id !== commentId));
   }
 
   return (
@@ -281,13 +311,13 @@ const ArticlePage = () => {
               className="comment-input"
               rows="3"
               placeholder="&#10;Write a comment"
-              value={comment}
-              onChange={(event) => setComment(event.target.value)}
+              value={commentText}
+              onChange={(event) => setCommentText(event.target.value)}
             />
             <Button
               className="submit-btn"
               variant="light"
-              onClick={addNewComment}
+              onClick={isEditing ? putEditedComment : addNewComment}
             >
               Submit
             </Button>
@@ -295,7 +325,14 @@ const ArticlePage = () => {
           {comments.length > 0 ? (
             <div className="read-comment-box">
               {comments.slice(0, commentsNum).map((comment) => (
-                <Comment comment={comment} key={comment.id} updateLikesCount = {updateLikesCount} updateDislikesCount = {updateDislikesCount} deleteComment={deleteComment}/>
+                <Comment
+                  comment={comment}
+                  key={comment.id}
+                  updateLikesCount={updateLikesCount}
+                  updateDislikesCount={updateDislikesCount}
+                  deleteComment={deleteComment}
+                  editComment={editComment}
+                />
               ))}
             </div>
           ) : (
@@ -314,7 +351,7 @@ const ArticlePage = () => {
                 alt="arrow-down"
               />
             </button>
-          ) : (
+          ) : comments.length > 10 ? (
             <button className="show-more-less" onClick={showLessComments}>
               <img
                 className="small-arrow-up"
@@ -323,6 +360,8 @@ const ArticlePage = () => {
               />
               Show less
             </button>
+          ) : (
+            <></>
           )}
         </div>
       ) : (

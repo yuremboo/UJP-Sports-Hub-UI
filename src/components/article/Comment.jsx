@@ -3,9 +3,8 @@ import "../../style_components/article/comment.css";
 import userImage from "../../icons/article/ellipse.svg";
 import inactiveLike from "../../icons/article/inactiveLike.svg";
 import activeLike from "../../icons/article/activeLike.svg";
-import uuidv4 from "../../pages/article/articlePage";
 
-export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment}) {
+export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment}) {
   const currentUser = {
     id: "777",
     email: "curus@gmail.com",
@@ -75,28 +74,6 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     "Dec",
   ];
 
-  const userLikesDislikes = [
-    {
-      id: uuidv4(),
-      likeDislikeStatus: -1,
-      userId: "777",
-      commentId: "123213dfsdsf2",
-    },
-    {
-      id: uuidv4(),
-      likeDislikeStatus: 1,
-      userId: "777",
-      commentId: "2123sds",
-    },
-    {
-      id: uuidv4(),
-      likeDislikeStatus: -1,
-      userId: "777",
-      commentId: "123sad",
-    },
-  ];
-
-  const [likesDislikes, setLikesDislikes] = useState(userLikesDislikes);
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
 
   function toggleLike(e) {
@@ -142,10 +119,6 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
       " " +
       date.getFullYear()
     );
-  }
-
-  function editComment() {
-
   }
 
   function deleteCommentById() { // TODO add pop up window
@@ -227,12 +200,12 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
             <span>
               <button className="delete" onClick={deleteCommentById}>Delete</button>
               <button className="comment">Comment</button>
-              <button className="edit" onClick={editComment}>
+              <button className="edit" onClick={() => editComment(comment)}>
                 Edit
               </button>
             </span>
           ) : (
-            <button className="comment">Comment</button>
+            <button className="comment" >Comment</button>
           )}
         </div>
       </div>

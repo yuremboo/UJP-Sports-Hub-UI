@@ -112,6 +112,7 @@ a {
 }
 
 .show-more-less {
+  outline: none;
   display: table;
   margin: 0 auto;
   border-style: none;
