@@ -36,8 +36,10 @@ const LoginPage = () => {
                 console.log('response status: ', response.status);
                 if (response.status === 200)
                 {
-                    setAuthToken(response.headers.authorization);
-                    console.log('token: ', authToken);
+                    // setAuthToken(response.headers.authorization);
+                    // console.log('token: ', authToken);
+                    // console.log("response.headers.authorization:")
+                    // console.log(response.Headers.Authorization);
                     // setCookie('jwt_session', response.data.jwt_session, 60);
                     navigate("/");
                 }

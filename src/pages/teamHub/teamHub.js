@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from 'react';
 import "./teamhub.css";
-import MiniArticle from "../../Components/article/MiniArticle";
-import ShortArticle from "../../Components/shortArticle/shortArticle";
-import TeamIcon from "../../Components/team/TeamIcon";
+import MiniArticle from "../../components/article/MiniArticle";
+import ShortArticle from "../../components/shortArticle/shortArticle";
+import TeamIcon from "../../components/team/TeamIcon";
+import axios from "axios";
+//import {useEffect } from "@types/react";
 
 
 const TeamHub = () => {
     const miniHeading = "Lorem ipsum";
     const miniTextPreview = "Lorem ipsum dolor sit amet, consectetur";
-    const [teamsId] = useState([
+    const [teamsId, setTeamsId] = useState([
         {
             "id": "1",
             "name": "name",
@@ -113,6 +115,37 @@ const TeamHub = () => {
             }
         }
     ]);
+    useEffect(() => {
+        getTeamsFollow();
+    }, []);
+
+    function getTeamsFollow() {
+        console.log('function getTeamsFollow');
+        console.log('token: ', authToken);
+        //setAuthToken = localStorage.getItem('user')
+        axios.get("http://localhost:8080/api/teams/subscription", {
+            headers: {
+                authorization: localStorage.getItem('user'),
+
+
+            }
+        })
+          .then((response) => {
+              const data = response.data
+              console.log('getTeams')
+              console.log(response.data)
+              setTeamsId(data)
+          })
+          .catch((error) => {
+              if (error.response) {
+                  console.log(error.response);
+                  console.log("error.response.status: ", error.response.status);
+              }
+          })
+    }
+
+    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJva3NAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sImlhdCI6MTY2MDY3MTYzNSwiZXhwIjoxNjYxNDYxMjAwfQ.g3O68UBMigE1CHq28mK_yO4pH2Pynxa5l2_p6smv06ge-DvnW2qhlAq362_qAXXqbcK5OfDStKV7tLlepLKlBQ');
+
     const miniArticles = [
         {
             id: "2fff",
@@ -164,7 +197,7 @@ const TeamHub = () => {
                 <div className="all_teams">
                     {
                         teamsId.map(team =>
-                          <TeamIcon title={team.name} following={team.following}/>
+                          <TeamIcon title={team.name} following={"following"}/>
                         )
                     }
                 </div>
@@ -177,19 +210,17 @@ const TeamHub = () => {
                     }
                 </div>
             </div>
-
-            <div className="more">
-                <hr className="more-line-l"></hr>
-                <span className="more-articles">MORE ARTICLES</span>
-                <hr className="more-line-r" />
-            </div>
             <div className="mini-articles">
                 <div className="mini-articles-l">
+                    <span className="more-popular">MORE POPULAR</span>
+                    <hr className="more-lin-l"></hr>
                     {miniArticles.slice(0, 3).map((miniArticle) => (
                       <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
                     ))}
                 </div>
                 <div className="mini-articles-r">
+                    <span className="more-commented">MORE COMMENTED</span>
+                    <hr className="more-lin-r" />
                     {miniArticles.slice(3, 7).map((miniArticle) => (
                       <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
                     ))}

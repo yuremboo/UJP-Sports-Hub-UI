@@ -1,15 +1,13 @@
 import React from 'react';
-import './shortarticle.css';
-import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
+import './shortarticleadmin.css';
+import articleImage from "../../icons/shortArticleImg.jpg";
 
-import MiniArticle from "../../Components/article/MiniArticle";
-
-const ShortArticle = (props) => {
+const ShortArticleAdmin = (props) => {
     return (
         <div className='shortArticle'>
             <div className='shortarticle__image'>
-              <img src={miniArticlePhoto} />
-              {/*{props.image}*/}
+                <img src={articleImage} alt="article"
+                     width="100%" height="100%"/>
             </div>
 
             <div className='shortarticle__body'>
@@ -32,4 +30,4 @@ const ShortArticle = (props) => {
     );
 };
 
-export default ShortArticle;
+export default ShortArticleAdmin;
