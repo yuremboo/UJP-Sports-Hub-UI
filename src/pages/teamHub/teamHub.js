@@ -10,7 +10,7 @@ import axios from "axios";
 const TeamHub = () => {
     const miniHeading = "Lorem ipsum";
     const miniTextPreview = "Lorem ipsum dolor sit amet, consectetur";
-    const [teamsId, setTeamsId] = useState([
+    const [teamsSubscription, setTeamsSubscription] = useState([
         {
             "id": "1",
             "name": "name",
@@ -117,24 +117,23 @@ const TeamHub = () => {
     ]);
     useEffect(() => {
         getTeamsFollow();
+        //getArticleByTeamsFollow(0);
     }, []);
 
     function getTeamsFollow() {
         console.log('function getTeamsFollow');
-        console.log('token: ', authToken);
-        //setAuthToken = localStorage.getItem('user')
+        const set1AuthToken = JSON.parse(localStorage.getItem('user'))
+        console.log('token: ', set1AuthToken['jwt']);
         axios.get("http://localhost:8080/api/teams/subscription", {
             headers: {
-                authorization: localStorage.getItem('user'),
-
-
+                authorization:set1AuthToken['jwt'],
             }
         })
           .then((response) => {
               const data = response.data
               console.log('getTeams')
               console.log(response.data)
-              setTeamsId(data)
+              setTeamsSubscription(data)
           })
           .catch((error) => {
               if (error.response) {
@@ -143,9 +142,30 @@ const TeamHub = () => {
               }
           })
     }
-
-    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJva3NAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sImlhdCI6MTY2MDY3MTYzNSwiZXhwIjoxNjYxNDYxMjAwfQ.g3O68UBMigE1CHq28mK_yO4pH2Pynxa5l2_p6smv06ge-DvnW2qhlAq362_qAXXqbcK5OfDStKV7tLlepLKlBQ');
-
+    function getArticleByTeamsFollow(teamId) {
+        console.log('function getArticleByTeamsFollow');
+        const set1AuthToken = JSON.parse(localStorage.getItem('user'))
+        console.log('token: ', set1AuthToken['jwt']);
+        axios.get("http://localhost:8080/api/v1/articles/teams/"+teamsSubscription[teamId]["id"], {
+            headers: {
+                authorization:set1AuthToken['jwt'],
+            }
+        })
+          .then((response) => {
+              const data = response.data
+              console.log('getArticles')
+              console.log(response.data)
+              setArticlesByTeamsId(data)
+          })
+          .catch((error) => {
+              if (error.response) {
+                  console.log(error.response);
+                  console.log("error.response.status: ", error.response.status);
+              }
+          })
+    }
+    //const [authToken, setAuthToken] = useState('Bearer ');
+    const [teamId, setTeamId] = useState();
     const miniArticles = [
         {
             id: "2fff",
@@ -190,23 +210,40 @@ const TeamHub = () => {
             category: "",
         },
     ];
+
+
+
+
     return (
         <div className="team_hub">
 
             <div className='all_articles_body'>
+
                 <div className="all_teams">
                     {
-                        teamsId.map(team =>
-                          <TeamIcon title={team.name} following={"following"}/>
-                        )
+                        teamsSubscription.map(team => {
+                            const teamIcon = document.createElement("TeamIcon");
+                            teamIcon.setAttribute("title", team.name);
+                            teamIcon.setAttribute("following", "following");
+                            document.body.appendChild(teamIcon);
+                        })
+
+                        // teamsSubscription.map(team => {
+                        //     // return <TeamIcon title={team.name} following={"following"} />;
+                        //
+                        //     // getArticleByTeamsFollow(team.id)
+                        //     // articlesByTeamsId.forEach(article =>
+                        //     //   <ShortArticle title={article.title} shortText={article.shortText}
+                        //     //                 category={null} isPublished={null} />)
+                        // })
                     }
                 </div>
                 <div className="all_articles">
                     {
-                        articlesByTeamsId.map(article =>
-                            <ShortArticle title={article.title} shortText={article.shortText}
-                                          category={null} isPublished={null}/>
-                        )
+                        // articlesByTeamsId.map(article =>
+                        //     <ShortArticle title={article.title} shortText={article.shortText}
+                        //                   category={null} isPublished={null}/>
+                        // )
                     }
                 </div>
             </div>
