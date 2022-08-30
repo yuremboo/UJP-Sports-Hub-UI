@@ -14,8 +14,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isErr, setIsErr] = useState(false);
-    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbDJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sImlhdCI6MTY2MDg0MTQ3NywiZXhwIjoxNjYxNjM0MDAwfQ.xkylFnDtkgIYgePPGCIila6BNiSZRryXC9LSY_jfijApRepHs4AQ7ED_JWI1vy8o9JusTSDYf4qVOV7wA86eWA');
-
+    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlhdCI6MTY2MTQxNDM5MCwiZXhwIjoxNjYyMjM4ODAwfQ.SHSFtRYAg0ucV0VXOVhqLlZNT8GmvW2wpWbStajNsPfdf9xWi9Keiw6UPE1ppYyglROaxktxBf7S13zYmv-hFA')
     function login(e){
         e.preventDefault();
         axios({

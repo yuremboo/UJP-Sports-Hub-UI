@@ -5,168 +5,187 @@ import CategoryButton from "../../components/shortArticle/categoryButton";
 import './allarticlesadmin.css';
 import AddNewArticleBtn from "../../components/shortArticle/addNewArticleBtn";
 import SidePanelBtns from "../../components/shortArticle/sidePanelBtns";
-import authToken from "../login/loginPage";
 import accountSwitcher from '../../icons/accountSwitcher.svg';
-import arrow from '../../icons/arrow.svg';
-import HorizontalScrollMenu from "../../components/horizontal-scroll-menu/horizontalScrollMenu";
+import {ScrollMenu} from "react-horizontal-scrolling-menu";
+import {LeftArrow, RightArrow} from "../../components/horizontal-scroll-menu/arrows";
 
 const AllArticlesAdmin = () => {
-    //const [categories, setCategories] = useState([]);
-    const [categories, setCategories] = useState(
-        [
-            {
-                "id": "1",
-                "name": "nba",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": {
-                    "id": "2",
-                    "name": "name",
-                    "description": "Description",
-                    "isActive": true,
-                    "createDateTime": "1998-11-13T00:00:00",
-                    "updateDateTime": "1976-04-13T00:00:00",
-                    "parent": null
-                }
-            },
+    const [currentPage, setCurrentPage] = useState(0);
+    const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
+    const [numOfPages, setNumOfPages] = useState(5)
 
-            {
-                "id": "2",
-                "name": "nfl",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
+    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlhdCI6MTY2MTQxNDM5MCwiZXhwIjoxNjYyMjM4ODAwfQ.SHSFtRYAg0ucV0VXOVhqLlZNT8GmvW2wpWbStajNsPfdf9xWi9Keiw6UPE1ppYyglROaxktxBf7S13zYmv-hFA')
 
-            {
-                "id": "3",
-                "name": "mlb",
-                "description": "Description category 3",
-                "isActive": true,
-                "createDateTime": "2000-11-12T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
 
-            {
-                "id": "4",
-                "name": "nhl",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": {
-                    "id": "2",
-                    "name": "name",
-                    "description": "Description",
-                    "isActive": true,
-                    "createDateTime": "1998-11-13T00:00:00",
-                    "updateDateTime": "1976-04-13T00:00:00",
-                    "parent": null
-                }
-            },
+    function paginationBback(){
+        console.log('before back: ', currentPage);
+        if (currentPage > 0){
+            setCurrentPage(currentPage-1);
+        }
+        console.log('after back: ', currentPage);
+    }
+    function paginationForward(){
+        console.log('before forward: ', currentPage);
+        if (currentPage < 5){ // !
+            setCurrentPage(currentPage+1);
+        }
+        console.log('after forward: ', currentPage);
+    }
 
-            {
-                "id": "5",
-                "name": "cbb",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
-
-            {
-                "id": "6",
-                "name": "cfb",
-                "description": "Description category",
-                "isActive": true,
-                "createDateTime": "2000-11-12T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
-
-            {
-                "id": "7",
-                "name": "nascar",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": {
-                    "id": "2",
-                    "name": "name",
-                    "description": "Description",
-                    "isActive": true,
-                    "createDateTime": "1998-11-13T00:00:00",
-                    "updateDateTime": "1976-04-13T00:00:00",
-                    "parent": null
-                }
-            },
-
-            {
-                "id": "8",
-                "name": "golf",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
-
-            {
-                "id": "9",
-                "name": "soccer",
-                "description": "Description category",
-                "isActive": true,
-                "createDateTime": "2000-11-12T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
-
-            {
-                "id": "11",
-                "name": "lifestyle",
-                "description": "Description",
-                "isActive": true,
-                "createDateTime": "1998-11-13T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
-
-            {
-                "id": "12",
-                "name": "dealbook",
-                "description": "Description category",
-                "isActive": true,
-                "createDateTime": "2000-11-12T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            },
-
-            {
-                "id": "13",
-                "name": "video",
-                "description": "Description category",
-                "isActive": true,
-                "createDateTime": "2000-11-12T00:00:00",
-                "updateDateTime": "1976-04-13T00:00:00",
-                "parent": null
-            }
-        ])
-
+    // const [categories, setCategories] = useState(
+    //     [
+    //         {
+    //             "id": "1",
+    //             "name": "nba",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": {
+    //                 "id": "2",
+    //                 "name": "name",
+    //                 "description": "Description",
+    //                 "isActive": true,
+    //                 "createDateTime": "1998-11-13T00:00:00",
+    //                 "updateDateTime": "1976-04-13T00:00:00",
+    //                 "parent": null
+    //             }
+    //         },
+    //
+    //         {
+    //             "id": "2",
+    //             "name": "nfl",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "3",
+    //             "name": "mlb",
+    //             "description": "Description category 3",
+    //             "isActive": true,
+    //             "createDateTime": "2000-11-12T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "4",
+    //             "name": "nhl",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": {
+    //                 "id": "2",
+    //                 "name": "name",
+    //                 "description": "Description",
+    //                 "isActive": true,
+    //                 "createDateTime": "1998-11-13T00:00:00",
+    //                 "updateDateTime": "1976-04-13T00:00:00",
+    //                 "parent": null
+    //             }
+    //         },
+    //
+    //         {
+    //             "id": "5",
+    //             "name": "cbb",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "6",
+    //             "name": "cfb",
+    //             "description": "Description category",
+    //             "isActive": true,
+    //             "createDateTime": "2000-11-12T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "7",
+    //             "name": "nascar",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": {
+    //                 "id": "2",
+    //                 "name": "name",
+    //                 "description": "Description",
+    //                 "isActive": true,
+    //                 "createDateTime": "1998-11-13T00:00:00",
+    //                 "updateDateTime": "1976-04-13T00:00:00",
+    //                 "parent": null
+    //             }
+    //         },
+    //
+    //         {
+    //             "id": "8",
+    //             "name": "golf",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "9",
+    //             "name": "soccer",
+    //             "description": "Description category",
+    //             "isActive": true,
+    //             "createDateTime": "2000-11-12T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "11",
+    //             "name": "lifestyle",
+    //             "description": "Description",
+    //             "isActive": true,
+    //             "createDateTime": "1998-11-13T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "12",
+    //             "name": "dealbook",
+    //             "description": "Description category",
+    //             "isActive": true,
+    //             "createDateTime": "2000-11-12T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         },
+    //
+    //         {
+    //             "id": "13",
+    //             "name": "video",
+    //             "description": "Description category",
+    //             "isActive": true,
+    //             "createDateTime": "2000-11-12T00:00:00",
+    //             "updateDateTime": "1976-04-13T00:00:00",
+    //             "parent": null
+    //         }
+    //     ])
+    const [categories, setCategories] = useState([]);
     useEffect(() => {
         getAllCategories();
     }, []);
-
     function getAllCategories() {
         console.log('function getAllCategories');
         console.log('token: ', authToken);
-        axios.get("http://localhost:8080/api/categories", {
+        axios.get("http://localhost:8085/api/categories", {
             headers: {
                 "Authorization": authToken,
             }
@@ -185,7 +204,6 @@ const AllArticlesAdmin = () => {
             })
     }
 
-    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbDJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sImlhdCI6MTY2MDg0MTQ3NywiZXhwIjoxNjYxNjM0MDAwfQ.xkylFnDtkgIYgePPGCIila6BNiSZRryXC9LSY_jfijApRepHs4AQ7ED_JWI1vy8o9JusTSDYf4qVOV7wA86eWA');
 
     const [allArticles, setAllArticles] = useState(
         [
@@ -265,10 +283,91 @@ const AllArticlesAdmin = () => {
                 }
             }
         ]);
+    useEffect(() => {
+        getAllArticlesAllCategories();
+    }, []);
+    function getAllArticlesAllCategories() {
+        console.log('function getAllArticlesAllCategories');
+        console.log('token: ', authToken);
+        axios.get("http://localhost:8085/api/v1/admin/articles", {
+            headers: {
+                "Authorization": authToken,
+            }
+        })
+            .then((response) => {
+                const data = response.data
+                console.log('getAllArticlesAllCategories')
+                console.log(response.data)
+                setAllArticles(data)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            })
+    }
 
+
+    const [articlesWithPagination, setArticlesWithPagination] = useState([])
+    useEffect(() => {
+        getAllArticlesAllCategoriesWithPagination();
+    }, [currentPage]);
+    function getAllArticlesAllCategoriesWithPagination() {
+        console.log('function getAllArticlesAllCategoriesWithPagination');
+        console.log('token: ', authToken);
+        axios.get("http://localhost:8085/api/v1/admin/articles?page="+currentPage+"&size="+sizeOfArticlesOnPage, {
+            headers: {
+                "Authorization": authToken,
+            }
+        })
+            .then((response) => {
+                const data = response.data;
+                console.log('getAllArticlesAllCategories');
+                console.log(response.data);
+                setArticlesWithPagination(data);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            })
+    }
+
+
+    function getAllArticlesByCategoryId() {
+        console.log('function getAllArticlesByCategoryId');
+        console.log('token: ', authToken);
+        axios.get("http://localhost:8080/api/admin/articles/category_id/"+currentCategory.id, {
+            headers: {
+                "Authorization": authToken,
+            }
+        })
+            .then((response) => {
+                const data = response.data
+                console.log('getAllArticlesAllCategories')
+                console.log(response.data)
+                setAllArticles(data)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            })
+    }
 
     const [currentCategory, setCurrentCategory] = useState({"id": "0", "name": "HOME"});
 
+    // function findAllArticlesByCategoryId(currCategory) {
+    //     setCurrentCategory(currCategory);
+    //     getAllArticlesByCategoryId(currentCategory.id);
+    // }
+    //
+    // function changeCurrentCategory(category){
+    //     setCurrentCategory(category);
+    // }
 
     return (
         <div className='all_articles_admin__page'>
@@ -292,8 +391,29 @@ const AllArticlesAdmin = () => {
             </div>
 
             <div className='all_articles_admin__categories_buttons'>
-
-                <HorizontalScrollMenu/>
+                <div className='horizontal_scroll_menu'>
+                    <ScrollMenu itemClassName='scroll_menu'
+                                LeftArrow={LeftArrow}
+                                RightArrow={RightArrow}
+                                options={{
+                                    ratio: 0.9,
+                                    rootMargin: "5px",
+                                    threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
+                                }}
+                    >
+                        <div className='category_button'>
+                            <button onClick={getAllArticlesAllCategories}>HOME</button>
+                        </div>
+                        {
+                            categories.map(category => <div className='category_button'>
+                                {/*{setCurrentCategory(category)}*/}
+                                <button>{category.name.toUpperCase()}</button>
+                            </div>)
+                        }
+                    </ScrollMenu>
+                    {/*<button onClick={setCurrentCategory({"id": "1", "name": "NBA"})}>NBA</button>*/}
+                    {/*<button onClick={setCurrentCategory({"id": "1", "name": "SOCCER"})}>SOCCER</button>*/}
+                </div>
 
 
                 {/*<div className="categories_buttons__left_arrow">*/}
@@ -320,25 +440,46 @@ const AllArticlesAdmin = () => {
             </div>
 
 
-            {/*<button onClick={getAllCategories}>get categories</button>*/}
-
-
-
-
             <div className='all_articles_admin__body'>
                 <div className='all_articles_admin__left_buttons'>
                     <SidePanelBtns/>
                 </div>
                 <div className="all_articles_admin__articles">
                     {
-                        allArticles.map(article =>
+                        articlesWithPagination.map(article =>
                             <ShortArticleAdmin title={article.title} shortText={article.shortText}
                                                category={article.category.name} isPublished={article.isActive}/>
                         )
                     }
                 </div>
+
             </div>
 
+            <div className='pagination__component'>
+                <div className='pagination__back_button'>
+                    <button onClick={paginationBback}/>
+                </div>
+
+                <div className='pagination__pages'>
+                    <div className='pagination_number_active_page'>
+                        01
+                    </div>
+                    <div className='pagination_number_page'>
+                        02
+                    </div>
+                    <div className='pagination_number_page'>
+                        03
+                    </div>
+                    <div className='pagination_number_page'>
+                        04
+                    </div>
+                </div>
+
+                <div className='pagination__forward_button'>
+                    <button onClick={paginationForward}/>
+                </div>
+
+            </div>
 
         </div>
     );

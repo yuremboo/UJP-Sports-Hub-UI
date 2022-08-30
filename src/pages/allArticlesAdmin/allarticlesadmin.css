@@ -2,6 +2,7 @@
     width: 99%;
     height: 100%;
     margin-right: 0;
+    justify-content: center;
 }
 
 .all_articles_admin__header{
@@ -102,16 +103,17 @@
 
 .all_articles_admin__body{
     display: flex;
+    width: 100%;
     /*margin-left: 2%;*/
 }
 
 .all_articles_admin__articles{
     margin: 0 10%;
-    /*width: 85%;*/
+    width: 85%;
 }
 
 .all_articles_admin__left_buttons{
-    width: 13%;
+    width: 7%;
     height: 70%;
     border-right: rgba(178, 178, 178, 1) 2px solid;
 }
@@ -202,4 +204,74 @@
 
 .scrollmenu{
     margin: 5%;
+}
+
+
+
+/* pagination */
+.pagination__component{
+    display: flex;
+    justify-content: center;
+}
+.pagination__back_button {
+    width: 40px;
+    height: 40px;
+    /*border: 2px solid black;*/
+    border-radius: 50%;
+    /*background: url("../../icons/facebook.svg");*/
+    background-size: 35%;
+    /*margin-right: 10%;*/
+    background: url("../../icons/paginationBack.svg") center no-repeat;
+}
+.pagination__forward_button {
+    width: 40px;
+    height: 40px;
+    /*border: 2px solid black;*/
+    border-radius: 50%;
+    /*background: url("../../icons/facebook.svg");*/
+    background-size: 35%;
+    margin-left: 2%;
+    background: url("../../icons/paginationBack.svg") center no-repeat;
+    transform: rotate(180deg);
+}
+.pagination__back_button button,
+.pagination__forward_button button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    /*background-size: 35%;*/
+    /*margin-right: 10%;*/
+}
+.pagination__pages{
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    /*text-align: center;*/
+}
+.pagination_number_page{
+    /*justify-content: center;*/
+    /*text-align: center;*/
+    margin: 0 5%;
+    color: #B2B2B2;
+
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0.6233766078948975px;
+    text-align: left;
+}
+.pagination_number_active_page{
+    /*justify-content: center;*/
+    /*text-align: center;*/
+    margin: 0 5%;
+    color: #C63638;
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0.6233766078948975px;
+    text-align: left;
 }
