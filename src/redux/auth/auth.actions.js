@@ -13,9 +13,10 @@ export const authRequestSuccess = (data) => ({
   payload: data,
 })
 
-export const authRequestFailure = (errorsObject) => ({
+export const authRequestFailure = (errorsObject, errorsObjectLogin=false) => ({
   type: AuthActionTypes.USER_AUTH_REQUEST_FAILURE,
-  payload: errorsObject ? errorsObject.message: "Something went wrong, try again later",
+  payload: errorsObject ? errorsObject.message: 
+  errorsObjectLogin ? 'Incorrect user ID or password. Try again':"Something went wrong, try again later",
 })
 
 export function userSignUpRequest(userData) {
@@ -26,8 +27,6 @@ export function userSignUpRequest(userData) {
       .post('http://localhost:8080/api/v1/registration', userData)
       .then((data) => {
         result = true
-        localStorage.setItem('user', JSON.stringify(data.data))
-        dispatch(authRequestSuccess(data.data))
       })
       .catch((errorObject) => {
         console.log(errorObject)
@@ -43,14 +42,14 @@ export function userSignInRequest(userData) {
     let result = true
     dispatch(authRequestStart())
     await axios
-      .post('', userData)
-      .then((data) => {
-        localStorage.setItem('user', JSON.stringify(data.data))
-        dispatch(authRequestSuccess(data.data))
+      .post('http://localhost:8080/login', userData)
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data))
+        dispatch(authRequestSuccess(response.data))
       })
       .catch((errorObject) => {
         result = false
-        dispatch(authRequestFailure(errorObject.response.data))
+        dispatch(authRequestFailure(errorObject.response.data, true))
       })
     return result
   }

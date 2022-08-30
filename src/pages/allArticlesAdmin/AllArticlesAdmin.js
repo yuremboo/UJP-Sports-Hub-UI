@@ -13,11 +13,11 @@ const AllArticlesAdmin = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
     const [numOfPages, setNumOfPages] = useState(5)
+    const [pages, setPages] = useState([]);
 
-    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlhdCI6MTY2MTQxNDM5MCwiZXhwIjoxNjYyMjM4ODAwfQ.SHSFtRYAg0ucV0VXOVhqLlZNT8GmvW2wpWbStajNsPfdf9xWi9Keiw6UPE1ppYyglROaxktxBf7S13zYmv-hFA')
+    const authToken = 'Bearer ' + JSON.parse(localStorage.getItem('user')).jwt;
 
-
-    function paginationBback(){
+    function paginationBack(){
         console.log('before back: ', currentPage);
         if (currentPage > 0){
             setCurrentPage(currentPage-1);
@@ -32,169 +32,23 @@ const AllArticlesAdmin = () => {
         console.log('after forward: ', currentPage);
     }
 
-    // const [categories, setCategories] = useState(
-    //     [
-    //         {
-    //             "id": "1",
-    //             "name": "nba",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": {
-    //                 "id": "2",
-    //                 "name": "name",
-    //                 "description": "Description",
-    //                 "isActive": true,
-    //                 "createDateTime": "1998-11-13T00:00:00",
-    //                 "updateDateTime": "1976-04-13T00:00:00",
-    //                 "parent": null
-    //             }
-    //         },
-    //
-    //         {
-    //             "id": "2",
-    //             "name": "nfl",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "3",
-    //             "name": "mlb",
-    //             "description": "Description category 3",
-    //             "isActive": true,
-    //             "createDateTime": "2000-11-12T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "4",
-    //             "name": "nhl",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": {
-    //                 "id": "2",
-    //                 "name": "name",
-    //                 "description": "Description",
-    //                 "isActive": true,
-    //                 "createDateTime": "1998-11-13T00:00:00",
-    //                 "updateDateTime": "1976-04-13T00:00:00",
-    //                 "parent": null
-    //             }
-    //         },
-    //
-    //         {
-    //             "id": "5",
-    //             "name": "cbb",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "6",
-    //             "name": "cfb",
-    //             "description": "Description category",
-    //             "isActive": true,
-    //             "createDateTime": "2000-11-12T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "7",
-    //             "name": "nascar",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": {
-    //                 "id": "2",
-    //                 "name": "name",
-    //                 "description": "Description",
-    //                 "isActive": true,
-    //                 "createDateTime": "1998-11-13T00:00:00",
-    //                 "updateDateTime": "1976-04-13T00:00:00",
-    //                 "parent": null
-    //             }
-    //         },
-    //
-    //         {
-    //             "id": "8",
-    //             "name": "golf",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "9",
-    //             "name": "soccer",
-    //             "description": "Description category",
-    //             "isActive": true,
-    //             "createDateTime": "2000-11-12T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "11",
-    //             "name": "lifestyle",
-    //             "description": "Description",
-    //             "isActive": true,
-    //             "createDateTime": "1998-11-13T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "12",
-    //             "name": "dealbook",
-    //             "description": "Description category",
-    //             "isActive": true,
-    //             "createDateTime": "2000-11-12T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         },
-    //
-    //         {
-    //             "id": "13",
-    //             "name": "video",
-    //             "description": "Description category",
-    //             "isActive": true,
-    //             "createDateTime": "2000-11-12T00:00:00",
-    //             "updateDateTime": "1976-04-13T00:00:00",
-    //             "parent": null
-    //         }
-    //     ])
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         getAllCategories();
     }, []);
     function getAllCategories() {
-        console.log('function getAllCategories');
-        console.log('token: ', authToken);
-        axios.get("http://localhost:8085/api/categories", {
+        // console.log('function getAllCategories');
+        // console.log('token: ', authToken);
+        axios.get("http://localhost:8080/api/categories", {
             headers: {
                 "Authorization": authToken,
             }
         })
             .then((response) => {
-                const data = response.data
-                console.log('getCategories')
-                console.log(response.data)
-                setCategories(data)
+                const data = response.data;
+                console.log('getCategories data:');
+                console.log(response.data);
+                setCategories(data);
             })
             .catch((error) => {
                 if (error.response) {
@@ -285,11 +139,17 @@ const AllArticlesAdmin = () => {
         ]);
     useEffect(() => {
         getAllArticlesAllCategories();
+        setNumOfPages(Math.ceil(allArticles.length/numOfPages));
+        console.log('num of p ', numOfPages);
+        // for (var i = 0; i < numOfPages; i++) {
+        //     setPages(...i);
+        //     // ещё какие-то выражения
+        // }
     }, []);
     function getAllArticlesAllCategories() {
         console.log('function getAllArticlesAllCategories');
         console.log('token: ', authToken);
-        axios.get("http://localhost:8085/api/v1/admin/articles", {
+        axios.get("http://localhost:8080/api/v1/admin/articles", {
             headers: {
                 "Authorization": authToken,
             }
@@ -308,7 +168,6 @@ const AllArticlesAdmin = () => {
             })
     }
 
-
     const [articlesWithPagination, setArticlesWithPagination] = useState([])
     useEffect(() => {
         getAllArticlesAllCategoriesWithPagination();
@@ -316,7 +175,7 @@ const AllArticlesAdmin = () => {
     function getAllArticlesAllCategoriesWithPagination() {
         console.log('function getAllArticlesAllCategoriesWithPagination');
         console.log('token: ', authToken);
-        axios.get("http://localhost:8085/api/v1/admin/articles?page="+currentPage+"&size="+sizeOfArticlesOnPage, {
+        axios.get("http://localhost:8080/api/v1/admin/articles?page="+currentPage+"&size="+sizeOfArticlesOnPage, {
             headers: {
                 "Authorization": authToken,
             }
@@ -457,10 +316,17 @@ const AllArticlesAdmin = () => {
 
             <div className='pagination__component'>
                 <div className='pagination__back_button'>
-                    <button onClick={paginationBback}/>
+                    <button onClick={paginationBack}/>
                 </div>
 
                 <div className='pagination__pages'>
+                    {/*{*/}
+                    {/*    pages.map(page => <div className='pagination_number_page'>*/}
+                    {/*        {page}*/}
+                    {/*    </div>)*/}
+                    {/*}*/}
+
+
                     <div className='pagination_number_active_page'>
                         01
                     </div>

@@ -2,7 +2,7 @@ import { AuthActionTypes } from './auth.types'
 
 const INITIAL_STATE = {
   isLoading: false,
-  userObject: null,
+  userObject: getUserFromLocalStorage(),
   errorMessage: undefined,
 }
 
@@ -24,7 +24,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        errorMessage: action.payload.replace("Service: e", "E"),
+        errorMessage: action.payload,
       }
     case AuthActionTypes.USER_AUTH_LOGOUT:
       return {
@@ -39,4 +39,9 @@ export const authReducer = (state = INITIAL_STATE, action) => {
     default:
       return state
   }
+}
+
+function getUserFromLocalStorage () {
+  const user = localStorage.getItem('user')
+  return user ? JSON.parse(user):null
 }

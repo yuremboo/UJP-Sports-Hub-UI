@@ -51,6 +51,7 @@
 
 .sidePanel_btn:hover *{
     stroke: #D72130;
+    /*fill: #D72130;*/
     /*-webkit-text-stroke-color: #D72130;*/
     visibility: visible;
 }

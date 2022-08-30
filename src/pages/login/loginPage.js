@@ -1,129 +1,128 @@
-import React, {useState} from 'react';
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+
 import 'react-bootstrap';
-import {Form, NavLink} from "react-bootstrap";
-import './loginpage.css';
+import { Form, NavLink } from "react-bootstrap";
 
+import './loginpage.css'
+
+import { useNavigate } from 'react-router-dom'
 import {
-    useNavigate
-} from "react-router-dom";
+    authFailureReset,
+    userSignInRequest,
+} from '../../redux/auth/auth.actions'
+import { connect } from 'react-redux'
 
-const LoginPage = () => {
-    let navigate = useNavigate();
-    const [error, setError] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isErr, setIsErr] = useState(false);
-    const [authToken, setAuthToken] = useState('Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlhdCI6MTY2MTQxNDM5MCwiZXhwIjoxNjYyMjM4ODAwfQ.SHSFtRYAg0ucV0VXOVhqLlZNT8GmvW2wpWbStajNsPfdf9xWi9Keiw6UPE1ppYyglROaxktxBf7S13zYmv-hFA')
-    function login(e){
-        e.preventDefault();
-        axios({
-            method: "POST",
-            url: 'http://localhost:8080/login',
-            data: {
-                email: email,
-                password: password
+import { ReactComponent as Google } from '../../icons/google.svg'
+import { ReactComponent as Facebook } from '../../icons/facebook_clone.svg'
+
+const SignIn = ({
+                    signInRequest,
+                    resetErrorMessage,
+
+                    auth: { isLoading, errorMessage, userObject },
+                }) => {
+    const navigate = useNavigate()
+    useEffect(
+        () => {
+            if (errorMessage) {
+                resetErrorMessage()
             }
-        })
-            .then((response) => {
-                // console.log('response data');
-                // console.log(response.data);
-                console.log('then-response:');
-                console.log(response);
-                console.log('then-response.headers:');
-                console.log(response.headers);
-                console.log('response status: ', response.status);
-                if (response.status === 200)
-                {
-                    // setAuthToken(response.headers.authorization);
-                    // console.log('token: ', authToken);
-                    // console.log("response.headers.authorization:")
-                    // console.log(response.Headers.Authorization);
-                    // setCookie('jwt_session', response.data.jwt_session, 60);
-                    navigate("/");
-                }
-                else{
-                    console.log("Error then!");
-                    setIsErr(true);
-                }
-            })
-            .catch((error) => {
-                console.log("Catch error!");
-                setIsErr(true);
-                setError("Incorrect user ID or password. Try again");
-                if (error.response) {
-                    console.log(error.response);
-                    console.log("Catch error response status:");
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        },
+        []
+    )
 
-            })
+    useEffect(
+        () => {
+            if (userObject) {
+                navigate('/')
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        },
+        []
+    )
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    })
 
-        // if(isErr){
-        //     setError("Incorrect user ID or password. Try again");
-        // }
-        // else{
-        //     setError("");
-        //     navigate("/");
-        // }
-
-        console.log("email");
-        console.log(email);
-        console.log("password");
-        console.log(password);
+    const handleChange = ({ target: { name, value } }) => {
+        setUser({ ...user, [name]: value })
     }
 
+    const handleSubmit = async (event) => {
+        console.log('!')
+        event.preventDefault()
+        const result = await signInRequest(user)
+        if (result) {
+            setUser({
+                email: '',
+                password: '',
+            })
+            navigate('/')
+        }
+    }
 
-    function forgotPassword(){
+    function forgotPassword() {
         navigate("/forgot");
     }
 
-    function registration(){
+    function registration() {
         navigate("/registration");
     }
 
     return (
-        <div className='log-page'>
-            <div className='log-header'>
-                <div className='sportshub'>Sports hub</div>
+        <div className='login-page'>
+            <div className='login-header'>
+                <div className='sportshub'>
+                    <p className='sportshub__paragraph'>Sports Hub</p>
+                </div>
                 <div className='header--right'>
                     <div className='no-account'>
-                        <NavLink onClick={registration}>Don't have an account?</NavLink>
+                        Don't have an account?
                     </div>
                     <div className='getstarted'>
-                        {/*<Button variant="primary" type="submit">Get started</Button>*/}
-                        <button>Get started</button>
+                        <button onClick={registration}>Get started</button>
                     </div>
                 </div>
             </div>
 
-            <div className='log-form-outer'>
-                <div className='log-form'>
-                    <Form>
-                        <h2>Log in to Sports Hub</h2>
-                        <div className='log-in-with'>
-                            <div className='facebook'></div>
-                            <div className='email'></div>
+            <div className='login-form-outer'>
+                <div className='login-form'>
+                    <Form onSubmit={handleSubmit}>
+                        <h2 className='login-form__headline'>Log in to Sports Hub</h2>
+                        <div className='login-with'>
+                            <button className='login-with__facebook'>
+                                <Facebook className='login-with__svg' width='100%' height='100%'></Facebook>
+                            </button>
+                            <button className='login-with__google'>
+                                <Google className='login-with__svg' width='100%' height='100%'></Google>
+                            </button>
                         </div>
 
-                        <div className='errors'>
-                            {error}
-                        </div>
+                        {errorMessage && <p className='login-form__error'>
+                            {errorMessage}
+                        </p>}
 
                         <Form.Group className="form-group" controlId="formBasicEmail">
                             <div className='form-text'>
                                 <Form.Label>Email address</Form.Label>
                             </div>
                             <div className='form-input'>
-                                <Form.Control value={email} onChange={e => setEmail(e.target.value)}
-                                              type="email" placeholder="Email@gmail.com"/>
+                                <Form.Control
+                                    value={user.email}
+                                    onChange={handleChange}
+                                    type="text"
+                                    placeholder="Email@gmail.com"
+                                    name='email'
+                                    required
+                                />
                             </div>
                         </Form.Group>
 
                         <Form.Group className="form-group" controlId="formBasicPassword">
 
-                            <div className='log-password'>
+                            <div className='login-password'>
                                 <div className='form-text'>
                                     <Form.Label>Password</Form.Label>
                                 </div>
@@ -134,20 +133,19 @@ const LoginPage = () => {
                             </div>
 
                             <div className='form-input'>
-                                <Form.Control value={password} onChange={e => setPassword(e.target.value)}
-                                              type="password" placeholder="8+ characters (letters and numbers)"/>
+                                <Form.Control
+                                    value={user.password}
+                                    onChange={handleChange}
+                                    type="password"
+                                    placeholder="8+ characters (letters and numbers)"
+                                    name='password'
+                                    required
+                                />
                             </div>
                         </Form.Group>
-                        {/*<div className='login-button'>*/}
-                        {/*    <Button variant="primary" type="submit" onClick={login}>*/}
-                        {/*        LOG IN*/}
-                        {/*    </Button>*/}
-                        {/*</div>*/}
-                        <div className='login-button'>
-                            <button onClick={login}>
-                                LOG IN
-                            </button>
-                        </div>
+                        <button className='login-form__button' disabled={isLoading}>
+                            LOG IN
+                        </button>
                     </Form>
                 </div>
             </div>
@@ -155,4 +153,11 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+const mapDispatchToProps = (dispatch) => ({
+    signInRequest: (data) => dispatch(userSignInRequest(data)),
+    resetErrorMessage: () => dispatch(authFailureReset()),
+})
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
