@@ -24,10 +24,9 @@ export function userSignUpRequest(userData) {
     let result = false
     dispatch(authRequestStart())
     await axios
-      .post('http://localhost:8080/api/v1/registration', userData)
+      .post('https://ujp-sports-hub.herokuapp.com/api/v1/registration', userData)
       .then((data) => {
         result = true
-        // dispatch(authRequestSuccess(data.data))
       })
       .catch((errorObject) => {
         console.log(errorObject)
@@ -43,7 +42,7 @@ export function userSignInRequest(userData) {
     let result = true
     dispatch(authRequestStart())
     await axios
-      .post('http://localhost:8080/login', userData)
+      .post('https://ujp-sports-hub.herokuapp.com/login', userData)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data))
         dispatch(authRequestSuccess(response.data))
