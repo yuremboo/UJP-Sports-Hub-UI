@@ -11,9 +11,25 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
 import ArticlePage from "./pages/article/articlePage";
+import CategoryPage from "./pages/category_team_page/categoryPage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// var cors = require('cors')
 
+// const cors = require('cors');
+// const corsOptions ={
+//     origin:'http://localhost:3000',
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
+
+// router.get("/", (req, res) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*")
+//     res.setHeader("Access-Control-Allow-Credentials", "true");
+//     res.setHeader("Access-Control-Max-Age", "1800");
+//     res.setHeader("Access-Control-Allow-Headers", "content-type");
+//     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );
+// });
 root.render(
     <Provider store={store}>
         <BrowserRouter>
@@ -24,6 +40,7 @@ root.render(
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="articles" element={<ArticlePage/>}/>
+                    <Route path="category" element={<CategoryPage/>}/>
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
@@ -33,3 +50,5 @@ root.render(
         </BrowserRouter>
     </Provider>
 );
+
+// root.use(cors(corsOptions));
