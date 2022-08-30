@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./articlepage.css";
 import ArticleHeading from "../../components/article/ArticleHeading";
 import Comment from "../../components/article/Comment";
@@ -9,57 +9,124 @@ import smallArrowDown from "../../icons/article/smallArrowDown.svg";
 import MiniArticle from "../../components/article/MiniArticle";
 import parse from "html-react-parser";
 import SortByDropDown from "../../components/UI/select/SortByDropDown";
-import DeleteCommentPopUp from "../../components/article/DeleteCommentPopUp";
+import axios from 'axios';
 
 const ArticlePage = () => {
-  const currentUser = {
-    id: "777",
-    email: "curus@gmail.com",
-    firstName: "Ivan",
-    lastName: "Baloh",
-    role: "ROLE_USER",
-    isActive: true,
-    createDateTime: "2022-07-03T10:15:30",
-    updateDateTime: "2022-08-03T11:25:31",
-  };
+  // const currentUser = {
+  //   id: "777",
+  //   email: "curus@gmail.com",
+  //   firstName: "Ivan",
+  //   lastName: "Baloh",
+  //   role: "USER",
+  //   isActive: true,
+  //   createDateTime: "2022-07-03T10:15:30",
+  //   updateDateTime: "2022-08-03T11:25:31",
+  // };
 
-  const article = {
-    id: "1aa",
-    title:
-      "Register to receive the latest news on ticket sales for the four NBA London Games in 2019!",
-    text:
-      "    TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan\n" +
-      "      with the first of two games between the Oakland Athletics and the\n" +
-      '      <a href="#">Seattle Mariners</a>. NBA which equipe is the best? But when\n' +
-      "      the teams take the field at the Tokyo Dome, don’t say they’re playing on\n" +
-      "      foreign soil.\n" +
-      "      <br />\n" +
-      "      <br />\n" +
-      "      That’s because 12 tons of clay, silt and sand mixtures have been shipped\n" +
-      "      by boat from the United States to make the batter’s box, pitcher’s mound,\n" +
-      "      base pits and bullpens feel like home. The dirt swap was news to the\n" +
-      "      veteran Seattle pitcher Mike Leake, who nonetheless gave his stomp of\n" +
-      "      approval after starting the first of two exhibition games each club played\n" +
-      '      against teams from <a href="#">Japan’s Nippon Professional Baseball</a> as\n' +
-      "      a tuneup.\n" +
-      "      <br />\n" +
-      "      <br />\n" +
-      "      “Oh, you mean we weren’t pitching on the same mound the Japanese teams use\n" +
-      "      during their season?” Leake said Sunday. “It felt like the same mound that\n" +
-      "      we pitch on in the States. The only thing I would say is that maybe they\n" +
-      "      put a little too much water at first, so some of the clay stuck to my\n" +
-      "      spikes in the first inning, but that happens at home, too. After that, it\n" +
-      "      was perfect.”",
-    caption: "London Games return in 2019",
-    alt: "Basketball ring",
-    picture: "ArticlePhoto.jpg",
-    isActive: true,
-    commentsActive: true,
-    createDateTime: "20.09.2019",
-    updateDateTime: null,
-    category: "NBA", // here should be obj
-    team: "Seattle Mariners", // here should be obj
-  };
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    getArticleById();
+  }, []);
+
+  function getArticleById() {
+    console.log('function getArticleById');
+    const set1AuthToken = JSON.parse(localStorage.getItem('user'))
+    console.log('token: ', set1AuthToken['jwt']);
+    axios.get("http://localhost:8080/api/articles/1aa", {
+      headers: {
+        authorization:set1AuthToken['jwt']
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        console.log('getArticle');
+        console.log(response.data);
+        setArticle(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      })
+  }
+
+  const [article, setArticle] = useState({
+      id: "1aa",
+      title:
+        "Register to receive the latest news on ticket sales for the four NBA London Games in 2019!",
+      text:
+        "    TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan\n" +
+        "      with the first of two games between the Oakland Athletics and the\n" +
+        '      <a href="#">Seattle Mariners</a>. NBA which equipe is the best? But when\n' +
+        "      the teams take the field at the Tokyo Dome, don’t say they’re playing on\n" +
+        "      foreign soil.\n" +
+        "      <br />\n" +
+        "      <br />\n" +
+        "      That’s because 12 tons of clay, silt and sand mixtures have been shipped\n" +
+        "      by boat from the United States to make the batter’s box, pitcher’s mound,\n" +
+        "      base pits and bullpens feel like home. The dirt swap was news to the\n" +
+        "      veteran Seattle pitcher Mike Leake, who nonetheless gave his stomp of\n" +
+        "      approval after starting the first of two exhibition games each club played\n" +
+        '      against teams from <a href="#">Japan’s Nippon Professional Baseball</a> as\n' +
+        "      a tuneup.\n" +
+        "      <br />\n" +
+        "      <br />\n" +
+        "      “Oh, you mean we weren’t pitching on the same mound the Japanese teams use\n" +
+        "      during their season?” Leake said Sunday. “It felt like the same mound that\n" +
+        "      we pitch on in the States. The only thing I would say is that maybe they\n" +
+        "      put a little too much water at first, so some of the clay stuck to my\n" +
+        "      spikes in the first inning, but that happens at home, too. After that, it\n" +
+        "      was perfect.”",
+      caption: "London Games return in 2019",
+      alt: "Basketball ring",
+      picture: "ArticlePhoto.jpg",
+      isActive: true,
+      commentsActive: true,
+      createDateTime: "20.09.2019",
+      updateDateTime: null,
+      categoryId: "NBA", // here should be obj
+      teamId: "Seattle Mariners", // here should be obj
+    });
+
+  // const article = {
+  //   id: "1aa",
+  //   title:
+  //     "Register to receive the latest news on ticket sales for the four NBA London Games in 2019!",
+  //   text:
+  //     "    TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan\n" +
+  //     "      with the first of two games between the Oakland Athletics and the\n" +
+  //     '      <a href="#">Seattle Mariners</a>. NBA which equipe is the best? But when\n' +
+  //     "      the teams take the field at the Tokyo Dome, don’t say they’re playing on\n" +
+  //     "      foreign soil.\n" +
+  //     "      <br />\n" +
+  //     "      <br />\n" +
+  //     "      That’s because 12 tons of clay, silt and sand mixtures have been shipped\n" +
+  //     "      by boat from the United States to make the batter’s box, pitcher’s mound,\n" +
+  //     "      base pits and bullpens feel like home. The dirt swap was news to the\n" +
+  //     "      veteran Seattle pitcher Mike Leake, who nonetheless gave his stomp of\n" +
+  //     "      approval after starting the first of two exhibition games each club played\n" +
+  //     '      against teams from <a href="#">Japan’s Nippon Professional Baseball</a> as\n' +
+  //     "      a tuneup.\n" +
+  //     "      <br />\n" +
+  //     "      <br />\n" +
+  //     "      “Oh, you mean we weren’t pitching on the same mound the Japanese teams use\n" +
+  //     "      during their season?” Leake said Sunday. “It felt like the same mound that\n" +
+  //     "      we pitch on in the States. The only thing I would say is that maybe they\n" +
+  //     "      put a little too much water at first, so some of the clay stuck to my\n" +
+  //     "      spikes in the first inning, but that happens at home, too. After that, it\n" +
+  //     "      was perfect.”",
+  //   caption: "London Games return in 2019",
+  //   alt: "Basketball ring",
+  //   picture: "ArticlePhoto.jpg",
+  //   isActive: true,
+  //   commentsActive: true,
+  //   createDateTime: "20.09.2019",
+  //   updateDateTime: null,
+  //   categoryId: "NBA", // here should be obj
+  //   teamId: "Seattle Mariners", // here should be obj
+  // };
 
   const commentsList = [
     {
@@ -284,13 +351,13 @@ const ArticlePage = () => {
   return (
     <div className="article">
       <ArticleHeading
-        published={article.createDateTime}
-        title={article.title}
-        subtitle={article.caption}
+        published={article['createDateTime']}
+        title={article['title']}
+        subtitle={article['caption']}
       />
-      <img className="article-image" alt={article.alt} src={articleImage} />
-      <p className="main-text">{parse(article.text)}</p>
-      {article.commentsActive ? (
+      <img className="article-image" alt={article['alt']} src={articleImage} />
+      <p className="main-text">{parse(article['text'])}</p>
+      {article['commentsActive'] ? (
         <div className="comments-outer-box">
           <span className="comments-count">COMMENTS ({comments.length})</span>
           <div className="sort-by">

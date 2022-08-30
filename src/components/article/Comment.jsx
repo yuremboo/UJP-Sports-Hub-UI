@@ -10,7 +10,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     email: "curus@gmail.com",
     firstName: "Ivan",
     lastName: "Baloh",
-    role: "ROLE_USER",
+    role: "USER",
     isActive: true,
     createDateTime: "2022-07-03T10:15:30",
     updateDateTime: "2022-08-03T11:25:31",
@@ -23,7 +23,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         email: "curus@gmail.com",
         firstName: "Ivan",
         lastName: "Baloh",
-        role: "ROLE_USER",
+        role: "USER",
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
         updateDateTime: "2022-08-03T11:25:31",
@@ -33,7 +33,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         email: "oneone@gmail.com",
         firstName: "Willy",
         lastName: "Torrington",
-        role: "ROLE_USER",
+        role: "USER",
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
         updateDateTime: "2022-08-03T11:25:31",
@@ -43,7 +43,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         email: "romb@gmail.com",
         firstName: "Stephen",
         lastName: "Rombolo",
-        role: "ROLE_USER",
+        role: "USER",
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
         updateDateTime: "2022-08-03T11:25:31",
@@ -196,7 +196,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
             </span>
           )}
           {comment.commenterId === currentUser.id ||
-          currentUser.role === "ROLE_ADMIN" ? (
+          currentUser.role === "ADMIN" ? (
             <span>
               <button className="delete" onClick={deleteCommentById}>Delete</button>
               <button className="comment">Comment</button>
