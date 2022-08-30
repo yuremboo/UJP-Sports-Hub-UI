@@ -2,7 +2,6 @@ import React from 'react';
 import './TeamIcon.css';
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
 
-
 const TeamIcon = (props) => {
   return (
     <div className='team'>

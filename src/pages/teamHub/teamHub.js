@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import "./teamhub.css";
-import MiniArticle from "../../components/article/MiniArticle";
-import ShortArticle from "../../components/shortArticle/shortArticle";
-import TeamIcon from "../../components/team/TeamIcon";
+import MiniArticle from "../../Components/article/MiniArticle";
+import ShortArticle from "../../Components/article/ShortArticle";
+import TeamIcon from "../../Components/team/TeamIcon";
 import axios from "axios";
-//import {useEffect } from "@types/react";
-
-
+import ReactDOM from 'react-dom';
+import TeamComponent from "../../Components/team/TeamComponent";
 const TeamHub = () => {
     const miniHeading = "Lorem ipsum";
     const miniTextPreview = "Lorem ipsum dolor sit amet, consectetur";
@@ -213,39 +212,49 @@ const TeamHub = () => {
 
 
 
-
     return (
+
         <div className="team_hub">
 
             <div className='all_articles_body'>
 
                 <div className="all_teams">
                     {
-                        teamsSubscription.map(team => {
-                            const teamIcon = document.createElement("TeamIcon");
-                            teamIcon.setAttribute("title", team.name);
-                            teamIcon.setAttribute("following", "following");
-                            document.body.appendChild(teamIcon);
-                        })
+                        //ReactDOM.render(React.createElement(Example), document.getElementsByClassName("team_hub"))};
 
                         // teamsSubscription.map(team => {
-                        //     // return <TeamIcon title={team.name} following={"following"} />;
-                        //
-                        //     // getArticleByTeamsFollow(team.id)
-                        //     // articlesByTeamsId.forEach(article =>
-                        //     //   <ShortArticle title={article.title} shortText={article.shortText}
-                        //     //                 category={null} isPublished={null} />)
+                        //     const child = CreateTeamIcon(team.name, "following");
+                        //     const teamIcon = document.createElement(child);
+                        //     // teamIcon.setAttribute("title", team.name);
+                        //     // teamIcon.setAttribute("following", "following");
+                        //     document.body.appendChild(teamIcon);
                         // })
-                    }
-                </div>
-                <div className="all_articles">
-                    {
-                        // articlesByTeamsId.map(article =>
-                        //     <ShortArticle title={article.title} shortText={article.shortText}
-                        //                   category={null} isPublished={null}/>
+
+                         teamsSubscription.map(team =>
+                             <TeamComponent name={team.name} id={team.id}/>
+                         )
+                         //
+                         //            //getArticleByTeamsFollow(team.id)
+                         //        <div className="all_articles">
+                         //            {
+                         //                articlesByTeamsId.forEach(article =>
+                         //                <ShortArticle title={article.title} shortText={article.shortText}
+                         //                category={null}  />)
+                         //            }
+
+                        // teamsSubscription.map(team =>
+                        //     <TeamIcon title={team.name} following={"following"} />
                         // )
                     }
                 </div>
+            {/*    <div className="all_articles">*/}
+            {/*        {*/}
+            {/*            // articlesByTeamsId.map(article =>*/}
+            {/*            //     <ShortArticle title={article.title} shortText={article.shortText}*/}
+            {/*            //                   category={null} />*/}
+            {/*            // )*/}
+            {/*        }*/}
+            {/*    </div>*/}
             </div>
             <div className="mini-articles">
                 <div className="mini-articles-l">
@@ -266,5 +275,30 @@ const TeamHub = () => {
         </div>
     );
 };
+//
+// function CreateTeamIcon(title, following){
+//     return ` <div className='team'>
+//       <div className='team_image'>
+//         <img src={miniArticlePhoto} />
+//         {/*{props.image}*/}
+//       </div>
+//
+//       <div className='team_body'>
+//         <div className='team_title'>
+//           {0}
+//         </div>
+//         <div className='team_bottom'>
+//           <div className='team_following'>
+//             {1}
+//           </div>
+//         </div>
+//       </div>
+//     </div>`
+// }
+// const Example = () => {
+//     return React.createElement("h1", { style: { color: "black" } }, "Hello World");
+// };
+
+
 
 export default TeamHub;
