@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./articlepage.css";
 import ArticleHeading from "../../components/article/ArticleHeading";
 import Comment from "../../components/article/Comment";
@@ -9,175 +9,17 @@ import smallArrowDown from "../../icons/article/smallArrowDown.svg";
 import MiniArticle from "../../components/article/MiniArticle";
 import parse from "html-react-parser";
 import SortByDropDown from "../../components/UI/select/SortByDropDown";
-import axios from 'axios';
+import axios from "axios";
 
 const ArticlePage = () => {
-  // const currentUser = {
-  //   id: "777",
-  //   email: "curus@gmail.com",
-  //   firstName: "Ivan",
-  //   lastName: "Baloh",
-  //   role: "USER",
-  //   isActive: true,
-  //   createDateTime: "2022-07-03T10:15:30",
-  //   updateDateTime: "2022-08-03T11:25:31",
-  // };
 
-  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const [auth] = useState("Bearer ");
 
-  useEffect(() => {
-    getArticleById();
-  }, []);
-
-  function getArticleById() {
-    console.log('function getArticleById');
-    const set1AuthToken = JSON.parse(localStorage.getItem('user'))
-    console.log('token: ', set1AuthToken['jwt']);
-    axios.get("http://localhost:8080/api/articles/1aa", {
-      headers: {
-        authorization:set1AuthToken['jwt']
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        console.log('getArticle');
-        console.log(response.data);
-        setArticle(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      })
-  }
-
-  const [article, setArticle] = useState({
-      id: "1aa",
-      title:
-        "Register to receive the latest news on ticket sales for the four NBA London Games in 2019!",
-      text:
-        "    TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan\n" +
-        "      with the first of two games between the Oakland Athletics and the\n" +
-        '      <a href="#">Seattle Mariners</a>. NBA which equipe is the best? But when\n' +
-        "      the teams take the field at the Tokyo Dome, don’t say they’re playing on\n" +
-        "      foreign soil.\n" +
-        "      <br />\n" +
-        "      <br />\n" +
-        "      That’s because 12 tons of clay, silt and sand mixtures have been shipped\n" +
-        "      by boat from the United States to make the batter’s box, pitcher’s mound,\n" +
-        "      base pits and bullpens feel like home. The dirt swap was news to the\n" +
-        "      veteran Seattle pitcher Mike Leake, who nonetheless gave his stomp of\n" +
-        "      approval after starting the first of two exhibition games each club played\n" +
-        '      against teams from <a href="#">Japan’s Nippon Professional Baseball</a> as\n' +
-        "      a tuneup.\n" +
-        "      <br />\n" +
-        "      <br />\n" +
-        "      “Oh, you mean we weren’t pitching on the same mound the Japanese teams use\n" +
-        "      during their season?” Leake said Sunday. “It felt like the same mound that\n" +
-        "      we pitch on in the States. The only thing I would say is that maybe they\n" +
-        "      put a little too much water at first, so some of the clay stuck to my\n" +
-        "      spikes in the first inning, but that happens at home, too. After that, it\n" +
-        "      was perfect.”",
-      caption: "London Games return in 2019",
-      alt: "Basketball ring",
-      picture: "ArticlePhoto.jpg",
-      isActive: true,
-      commentsActive: true,
-      createDateTime: "20.09.2019",
-      updateDateTime: null,
-      categoryId: "NBA", // here should be obj
-      teamId: "Seattle Mariners", // here should be obj
-    });
-
-  // const article = {
-  //   id: "1aa",
-  //   title:
-  //     "Register to receive the latest news on ticket sales for the four NBA London Games in 2019!",
-  //   text:
-  //     "    TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan\n" +
-  //     "      with the first of two games between the Oakland Athletics and the\n" +
-  //     '      <a href="#">Seattle Mariners</a>. NBA which equipe is the best? But when\n' +
-  //     "      the teams take the field at the Tokyo Dome, don’t say they’re playing on\n" +
-  //     "      foreign soil.\n" +
-  //     "      <br />\n" +
-  //     "      <br />\n" +
-  //     "      That’s because 12 tons of clay, silt and sand mixtures have been shipped\n" +
-  //     "      by boat from the United States to make the batter’s box, pitcher’s mound,\n" +
-  //     "      base pits and bullpens feel like home. The dirt swap was news to the\n" +
-  //     "      veteran Seattle pitcher Mike Leake, who nonetheless gave his stomp of\n" +
-  //     "      approval after starting the first of two exhibition games each club played\n" +
-  //     '      against teams from <a href="#">Japan’s Nippon Professional Baseball</a> as\n' +
-  //     "      a tuneup.\n" +
-  //     "      <br />\n" +
-  //     "      <br />\n" +
-  //     "      “Oh, you mean we weren’t pitching on the same mound the Japanese teams use\n" +
-  //     "      during their season?” Leake said Sunday. “It felt like the same mound that\n" +
-  //     "      we pitch on in the States. The only thing I would say is that maybe they\n" +
-  //     "      put a little too much water at first, so some of the clay stuck to my\n" +
-  //     "      spikes in the first inning, but that happens at home, too. After that, it\n" +
-  //     "      was perfect.”",
-  //   caption: "London Games return in 2019",
-  //   alt: "Basketball ring",
-  //   picture: "ArticlePhoto.jpg",
-  //   isActive: true,
-  //   commentsActive: true,
-  //   createDateTime: "20.09.2019",
-  //   updateDateTime: null,
-  //   categoryId: "NBA", // here should be obj
-  //   teamId: "Seattle Mariners", // here should be obj
-  // };
-
-  const commentsList = [
-    {
-      id: "123213dfsdsf2",
-      comment:
-        "Not interesting article. Personally I am trying to slowly move away from\n" +
-        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
-        "          belong to are permanently on mute; otherwise.",
-      commenterId: "111",
-      articleId: "1aa",
-      likes: 100,
-      dislikes: 15,
-      createDateTime: Date.now(),
-      updateDateTime: null,
-    },
-    {
-      id: "123sad",
-      comment:
-        "Very interesting article. Personally I am trying to slowly move away from\n" +
-        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
-        "          belong to are permanently on mute; otherwise.",
-      commenterId: "777",
-      articleId: "1aa",
-      likes: 100,
-      dislikes: 133,
-      createDateTime: 1649999999999,
-      updateDateTime: 1650000335308,
-    },
-    {
-      id: "2123sds",
-      comment:
-        "Slightly interesting article. Personally I am trying to slowly move away from\n" +
-        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
-        "          belong to are permanently on mute; otherwise.",
-      commenterId: "222",
-      articleId: "1aa",
-      likes: 200,
-      dislikes: 22,
-      createDateTime: 1634993499999,
-      updateDateTime: 1636080335308,
-    },
-  ];
-
-  commentsList.sort((a, b) =>
-    a.likes + a.dislikes > b.likes + b.dislikes ? -1 : 1
-  );
-
-  const [comments, setComments] = useState(commentsList);
+  const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [comment, setComment] = useState(null);
+  const [commentObj, setCommentObj] = useState(null);
 
   const [selectedSort, setSelectedSort] = useState("");
 
@@ -191,44 +33,149 @@ const ArticlePage = () => {
       title: "Lorem ipsum",
       shortText: "Lorem ipsum dolor sit amet, consectetur1",
       isActive: true,
-      category: "",
+      category: ""
     },
     {
       id: "2ffa",
       title: "Lorem ipsum",
       shortText: "Lorem ipsum dolor sit amet, consectetur2",
       isActive: true,
-      category: "",
+      category: ""
     },
     {
       id: "2ffb",
       title: "Lorem ipsum",
       shortText: "Lorem ipsum dolor sit amet, consectetur3",
       isActive: true,
-      category: "",
+      category: ""
     },
     {
       id: "2ffc",
       title: "Lorem ipsum",
       shortText: "Lorem ipsum dolor sit amet, consectetur4",
       isActive: true,
-      category: "",
+      category: ""
     },
     {
       id: "2ffd",
       title: "Lorem ipsum",
       shortText: "Lorem ipsum dolor sit amet, consectetur5",
       isActive: true,
-      category: "",
+      category: ""
     },
     {
       id: "2ffe",
       title: "Lorem ipsum",
       shortText: "Lorem ipsum dolor sit amet, consectetur6",
       isActive: true,
-      category: "",
-    },
+      category: ""
+    }
   ];
+
+  useEffect(() => {
+    getArticleById();
+    getCommentsByArticleId();
+  }, []);
+
+  function getArticleById() {
+    console.log("function getArticleById");
+    axios.get("http://localhost:8080/api/v1/articles/1aa", {
+      headers: {
+        authorization: auth + currentUser["jwt"]
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        setArticle(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  // useEffect(()=>{
+  //   getCommentsByArticleId();
+  // }, [comments]);
+
+  const [article, setArticle] = useState({
+    id: "",
+    title:
+      "",
+    text:
+      "",
+    caption: "",
+    alt: "",
+    picture: "",
+    isActive: false,
+    commentsActive: false,
+    createDateTime: "",
+    updateDateTime: null,
+    categoryId: "",
+    teamId: ""
+  });
+
+  function getCommentsByArticleId() {
+    axios.get("http://localhost:8080/api/v1/1aa/comments", {
+      headers: {
+        authorization: auth + currentUser["jwt"]
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        setComments(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function postComment(newComment) {
+      axios.post("http://localhost:8080/api/v1/comments", newComment, {
+      headers: {
+        authorization: auth + currentUser["jwt"]
+      }
+    })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function putComment(comment) {
+    axios.put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
+      headers: {
+        authorization: auth + currentUser["jwt"]
+      }
+    })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function deleteComment(comment) {
+    axios.delete("http://localhost:8080/api/v1/comments/" + comment.id, {
+      headers: {
+        authorization: auth + currentUser["jwt"]
+      }
+    })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
 
   function uuidv4() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -248,13 +195,14 @@ const ArticlePage = () => {
       id: uuidv4(),
       comment: commentText,
       commenterId: currentUser.id,
-      articleId: "1aa",
+      articleId: article.id,
       likes: 0,
       dislikes: 0,
       createDateTime: Date.now(),
       updateDateTime: null,
-      edited: false,
+      edited: false
     };
+    postComment(newComment);
     setComments([...comments, newComment]);
     setCommentText("");
   }
@@ -300,19 +248,19 @@ const ArticlePage = () => {
       setComments([
         ...comments.sort((a, b) =>
           a.likes + a.dislikes > b.likes + b.dislikes ? -1 : 1
-        ),
+        )
       ]);
     } else if (sort === "oldest") {
       setComments([
         ...comments.sort((a, b) =>
           a.createDateTime > b.createDateTime ? 1 : -1
-        ),
+        )
       ]);
     } else if (sort === "newest") {
       setComments([
         ...comments.sort((a, b) =>
           b.createDateTime > a.createDateTime ? 1 : -1
-        ),
+        )
       ]);
     }
   }
@@ -320,7 +268,7 @@ const ArticlePage = () => {
   function editComment(comment) {
     setIsEditing(true);
     setCommentText(comment.comment);
-    setComment(comment);
+    setCommentObj(comment);
   }
 
   function putEditedComment(e) {
@@ -329,35 +277,37 @@ const ArticlePage = () => {
       return;
     }
     const newComment = {
-      id: comment.id,
+      id: commentObj.id,
       comment: commentText,
       commenterId: currentUser.id,
-      articleId: comment.articleId,
-      likes: comment.likes,
-      dislikes: comment.dislikes,
-      createDateTime: comment.createDateTime,
+      articleId: commentObj.articleId,
+      likes: commentObj.likes,
+      dislikes: commentObj.dislikes,
+      createDateTime: commentObj.createDateTime,
       updateDateTime: Date.now(),
       edited: true
     };
-    setComments([...comments.filter(c => c.id !== comment.id), newComment]);
+    putComment(newComment);
+    setComments([...comments.filter(c => c.id !== commentObj.id), newComment]);
     setCommentText("");
     setIsEditing(false);
   }
 
-  function deleteComment(commentId) {
+  function removeComment(commentId) {
+    deleteComment(commentId);
     setComments(comments.filter((comment) => comment.id !== commentId));
   }
 
   return (
     <div className="article">
       <ArticleHeading
-        published={article['createDateTime']}
-        title={article['title']}
-        subtitle={article['caption']}
+        published={article["createDateTime"]}
+        title={article["title"]}
+        subtitle={article["caption"]}
       />
-      <img className="article-image" alt={article['alt']} src={articleImage} />
-      <p className="main-text">{parse(article['text'])}</p>
-      {article['commentsActive'] ? (
+      <img className="article-image" alt={article["alt"]} src={articleImage} />
+      <p className="main-text">{parse(article["text"])}</p>
+      {article["commentsActive"] ? (
         <div className="comments-outer-box">
           <span className="comments-count">COMMENTS ({comments.length})</span>
           <div className="sort-by">
@@ -368,7 +318,7 @@ const ArticlePage = () => {
               options={[
                 { value: "mostPop", name: "Most popular" },
                 { value: "oldest", name: "Oldest first" },
-                { value: "newest", name: "Newest first" },
+                { value: "newest", name: "Newest first" }
               ]}
             ></SortByDropDown>
           </div>
@@ -397,7 +347,7 @@ const ArticlePage = () => {
                   key={comment.id}
                   updateLikesCount={updateLikesCount}
                   updateDislikesCount={updateDislikesCount}
-                  deleteComment={deleteComment}
+                  deleteComment={removeComment}
                   editComment={editComment}
                 />
               ))}
