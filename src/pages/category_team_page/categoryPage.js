@@ -115,7 +115,7 @@ const CategoryPage = () => {
     console.log('token: ', set1AuthToken['jwt']);
     axios.get("http://localhost:8080/api/v1/articles/category/name", {
       headers: {
-        authorization:set1AuthToken['jwt'],
+        authorization:auth+set1AuthToken['jwt'],
       }
     })
       .then((response) => {
@@ -131,6 +131,7 @@ const CategoryPage = () => {
         }
       })
   }
+  const [auth] = useState("Bearer ");
   return (
     <div className="category_page">
       <ArticleHeading
