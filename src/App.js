@@ -1,8 +1,11 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet } from "react-router-dom";
-import Heder from './components/Header'
-import Navbar from './components/NavBar'
+import Heder from './Components/Header'
+import Navbar from './Components/NavBar'
+import LoginPage from './pages/login/loginPage';
+import RegistrationPage from './pages/registration/registrationPage';
+import {Provider} from "react-redux";
 
 function App() {
     return (
@@ -10,8 +13,9 @@ function App() {
             {/* <header className="App-header">
                 <Heder></Heder>
             </header>
-            <Navbar></Navbar> */}
-            <Outlet />
+            <Navbar></Navbar>*/}
+            <Outlet /> 
+            {/* <RegistrationPage/> */}
         </div>
     );
 }
