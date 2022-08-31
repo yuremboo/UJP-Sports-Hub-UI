@@ -9,6 +9,7 @@ import HomePage from "./pages/home/homePage";
 import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import EditArticle from "./pages/editArticle/editArticle";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +23,7 @@ root.render(
                     <Route index element={<HomePage />} />
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
+                    <Route path="edit-article" element={<EditArticle/>} />
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
