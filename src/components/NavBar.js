@@ -13,7 +13,7 @@ export default function NavBar() {
       <ul>
         <Nav defaultActiveKey="/home" className="flex-column">
           <Nav.Link className='link-home' href="/home"><li>HOME</li></Nav.Link>
-          <Nav.Link className='link-1' eventKey="link-1"><li>NBA</li></Nav.Link>
+          <Nav.Link className='link-1' eventKey="link-1"href="/category"><li>NBA</li></Nav.Link>
           <Nav.Link className='link-1' eventKey="link-2"><li>NFL</li></Nav.Link>
           <Nav.Link className='link-1' eventKey="link-3"><li>MLB</li></Nav.Link>
           <Nav.Link className='link-1' eventKey="link-4"><li>NHL</li></Nav.Link>

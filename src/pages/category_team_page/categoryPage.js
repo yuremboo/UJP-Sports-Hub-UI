@@ -10,19 +10,7 @@ import MiniArticle from "../../Components/article/MiniArticle";
 import axios from "axios";
 
 const CategoryPage = () => {
-  const miniHeading = "Lorem ipsum";
-  const miniTextPreview = "Lorem ipsum dolor sit amet, consectetur";
-  const [articlesByCategory, setArticlesByCategory] = useState([]);
-  const currentUser = {
-    id: "777",
-    email: "curus@gmail.com",
-    firstName: "Ivan",
-    lastName: "Baloh",
-    role: "ROLE_USER",
-    isActive: true,
-    createDateTime: "2022-07-03T10:15:30",
-    updateDateTime: "2022-08-03T11:25:31",
-  };
+ const [articlesByCategory, setArticlesByCategory] = useState([]);
 
   const article = {
     id: "1aa",
@@ -113,9 +101,10 @@ const CategoryPage = () => {
     console.log('function getArticleByCategory');
     const set1AuthToken = JSON.parse(localStorage.getItem('user'))
     console.log('token: ', set1AuthToken['jwt']);
-    axios.get("http://localhost:8080/api/v1/articles/category/name", {
+    //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
+    axios.get("http://localhost:8080/api/v1/articles/category_id/1", {
       headers: {
-        authorization:auth+set1AuthToken['jwt'],
+        authorization:set1AuthToken['jwt'],
       }
     })
       .then((response) => {
@@ -134,14 +123,14 @@ const CategoryPage = () => {
   const [auth] = useState("Bearer ");
   return (
     <div className="category_page">
+
       <ArticleHeading
         published={article.createDateTime}
         title={article.title}
         subtitle={article.caption}
       />
-      <img className="article-image" alt={article.alt} src={articleImage} />
-      <p className="main-text">{parse(article.text)}</p>
-        <div className="all_articles">
+      <img className="article-image" alt={articlesByCategory.alt} src={articleImage} />
+        <div className="category_articles">
           {
             articlesByCategory.map(article =>
               <ShortArticle title={article.title} shortText={article.shortText}
