@@ -7,7 +7,6 @@ import LoginPage from "./pages/login/loginPage";
 import ForgotPassword from "./pages/login/forgotPassword";
 import HomePage from "./pages/home/homePage";
 import RegistrationPage from "./pages/registration/registrationPage";
-import EditArticle from "./pages/editArticle/editArticle";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -19,7 +18,6 @@ root.render(
                 <Route path="/" element={<HomePage/>} />
                 <Route path="forgot" element={<ForgotPassword/>} />
                 <Route path="registration" element={<RegistrationPage/>} />
-                <Route path="/edit-article" element={<EditArticle/>} />
             </Route>
             {/*<Route>*/}
             {/*    <Route path="registration" element={<RegistrationPage/>} />*/}

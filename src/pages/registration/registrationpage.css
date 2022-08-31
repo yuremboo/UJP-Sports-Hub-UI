@@ -1,20 +1,20 @@
-.login-page {
+.reg-page {
     width: 100%;
     height: 100%;
     background: url(../../icons/background.jpg) top left no-repeat;
     background-size: contain;
-    /* 35%; */
 }
 
 a.nav-link {
     text-decoration: none;
+    color: #434C5D;
 }
 
 .nav-link {
     padding: 0;
 }
 
-.login-header {
+.reg-header {
     display: flex;
     position: relative;
     height: 10%;
@@ -50,7 +50,7 @@ a.nav-link {
     color: #596377;
 }
 
-.no-account {
+.have_account {
     margin: auto;
     margin-right: 45px;
     width: max-content;
@@ -66,10 +66,14 @@ a.nav-link {
 }
 
 .getstarted Button {
+    padding: 2px 50px;
+}
+
+.getstarted__button {
     background-color: #FFFFFF;
     border: 1px solid #D72130;
     margin-right: 35px;
-    padding: 2px 25px;
+
     color: #D72130;
     width: max-content;
     height: 55%;
@@ -88,27 +92,71 @@ a.nav-link {
     text-transform: capitalize;
 }
 
-.getstarted:hover Button {
+.getstarted__button:hover {
     border: 1px solid #D72130;
     background-color: #D72130;
     color: #FFFFFF;
 }
 
-.login-form-outer {
+
+.reg-form-outer {
     width: 50%;
-    margin: 7% 0 0 auto;
+    margin: 3% 0 0 auto;
     height: 60%;
 }
 
-.login-form {
+.reg-form {
     display: flex;
 }
 
-.login-form Form {
+.reg-form Form {
     width: 50%;
 }
 
-.login-form__headline {
+.reg-form__error {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #D72130;
+}
+
+.form-control {
+    border-radius: 0;
+    border: 1px solid #D4D9E2;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    height: 42px;
+}
+
+.form-control::placeholder {
+    color: #C6CCD7;
+    opacity: 1;
+}
+
+.form-control:hover {
+    border: 1px solid #A6A9AF;
+}
+
+.form-control:focus {
+    border: 1px solid #7F8899;
+    box-shadow: none;
+}
+
+.reg-form__paragraph {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #434C5D;
+}
+
+.reg-form__headline {
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -117,51 +165,35 @@ a.nav-link {
     color: #000000;
 }
 
-.login-password {
+.reg-creds {
     display: flex;
+    justify-content: space-between;
+
+}
+
+.reg-name {
+    width: 47%;
+}
+
+.reg-password {
+    display: flex;
+    margin-top: 5%;
     margin-bottom: 1%;
 }
 
-.form-text {
+.form-label {
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 11px;
     letter-spacing: 0.9px;
     text-transform: uppercase;
     color: #434C5D;
-    margin: 3% 0;
 }
 
-.form-input {
-    color: #C6CCD7;
-    height: 5%;
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 11px;
-    letter-spacing: 0.9px;
-    text-transform: uppercase;
-    /*color: #434C5D;*/
-    margin: 1% 0;
-}
-
-.forgot-password {
-    margin: 4.5% 0 0 auto;
-    width: max-content;
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 14px;
-    color: #4A90E2;
-}
-
-
-.login-form__button {
-    height: 14%;
+.reg-form__button {
+    height: 10%;
     background-color: #D72130;
     border: none;
     margin-right: 35px;
@@ -184,22 +216,22 @@ a.nav-link {
     text-transform: capitalize;
 }
 
-.login-form__button:hover {
+.reg-form__button:hover {
     background-color: #E02232;
     color: #FFF5F5;
 }
 
-.login-form__button:active {
+.reg-form__button:active {
     background-color: #C80515;
     color: #FFFF;
 }
 
-.login-with {
+.reg-with {
     display: flex;
     margin: 5% 0;
 }
 
-.login-with__facebook {
+.reg-with__facebook {
     width: 40px;
     height: 40px;
     border: 1px solid #B2B2B2;
@@ -207,7 +239,7 @@ a.nav-link {
     background-color: transparent;
 }
 
-.login-with__google {
+.reg-with__google {
     width: 40px;
     height: 40px;
     margin-left: 5%;
@@ -216,21 +248,22 @@ a.nav-link {
     background-color: transparent;
 }
 
-.login-with__facebook:hover,
-.login-with__google:hover {
+.reg-with__facebook:hover,
+.reg-with__google:hover {
     border: 1px solid #2B2F43;
 }
 
-.login-with__google:active, .login-with__facebook:active  {
+.reg-with__google:active,
+.reg-with__facebook:active {
     border: 1px solid #C80515;
 }
 
-.login-with__google:active .login-with__svg {
+.reg-with__google:active .reg-with__svg {
     fill: #C80515;
 }
 
 
-.login-with__facebook:active .login-with__svg {
+.reg-with__facebook:active .reg-with__svg {
     fill: #C80515;
 }
 
@@ -242,15 +275,6 @@ a.nav-link {
     font-size: 14px;
     line-height: 19px;
 
-}
-
-.login-form__error {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    color: #D72130;
 }
 
 .btn {
