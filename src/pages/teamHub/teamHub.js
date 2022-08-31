@@ -116,7 +116,7 @@ const TeamHub = () => {
     ]);
     useEffect(() => {
         getTeamsFollow();
-        //getArticleByTeamsFollow(0);
+        getArticleByTeamsFollow(0);
     }, []);
 
     function getTeamsFollow() {

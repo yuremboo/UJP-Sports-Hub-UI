@@ -86,7 +86,7 @@ const TeamComponent = (props) => {
   ]);
 
   useEffect(() => {
-    //getArticleByTeamsFollow();
+    getArticleByTeamsFollow();
   }, []);
 
   function getArticleByTeamsFollow() {
