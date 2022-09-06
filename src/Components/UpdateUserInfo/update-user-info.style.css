@@ -1,0 +1,56 @@
+
+.update-profile-form{
+    max-width: 389px;
+    margin: 0 auto;
+}
+.update-profile-form input{
+    width: 100%;
+}
+.form-photo__container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.form-photo{
+    position: relative;
+}
+.ellipse-avatar-img{
+    border-radius: 50%;
+}
+.red-circle-photo{
+    cursor: pointer;
+    position: absolute;
+    display: flex;
+    background: #D72130;
+    border-radius: 50%;
+    padding: 10px;
+    right: 0;
+    bottom: 0;
+}
+.profile-icon-photo{
+    width: 20px;
+    height: 18px;
+}
+
+.update-user-information .custom-input input{
+    background-color: #F8F8F8;
+    margin-top: 10px;
+}
+.custom-input{
+    margin-top: 15px;
+}
+
+.update-profile-button{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+
+    margin-top: 35px;
+    padding: 10px 0;
+    background: #D72130;
+    text-transform: uppercase;
+    width: 100%;
+}

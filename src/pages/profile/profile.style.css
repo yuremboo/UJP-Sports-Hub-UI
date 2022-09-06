@@ -1,0 +1,43 @@
+.update-user-information{
+    background-color: #F8F8F8;
+    box-sizing: border-box;
+    height: 100vh;
+}
+.update-user-information .custom-input input{
+    background-color: #F8F8F8;
+    margin-top: 10px;
+}
+.update-user__wrapper{
+    position: relative;
+}
+.nav-bar-user{
+    max-width: 200px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.user-panel{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 3%;
+    margin-bottom: 3%;
+}
+
+.panel-button{
+    border: 1px solid #D4D9E2;
+    background: #F8F8F8;
+    height: 39px;
+    width: 250px;
+}
+.span-button{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+}
