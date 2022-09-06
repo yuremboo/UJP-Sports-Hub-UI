@@ -21,9 +21,6 @@ const ShortArticle = (props) => {
           <div className='shortarticle__category'>
             {props.category}
           </div>
-          <div className='shortarticle__is_published'>
-            {props.isPublished}
-          </div>
         </div>
       </div>
     </div>

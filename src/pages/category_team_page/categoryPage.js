@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 //import "../../pages/article/articlepage.css";
 import "./categorypage.css";
-import ArticleHeading from "../../Components/article/ArticleHeading";
+import ArticleHeading from "../../components/article/ArticleHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
-import ShortArticle from "../../Components/article/ShortArticle";
-import MiniArticle from "../../Components/article/MiniArticle";
+import ShortArticle from "../../components/article/ShortArticle";
+import MiniArticle from "../../components/article/MiniArticle";
 import axios from "axios";
 
 const CategoryPage = () => {
@@ -95,6 +95,7 @@ const CategoryPage = () => {
   ];
   useEffect(() => {
     getArticleByCategory();
+    getMorePopularArticles();
   }, []);
 
   function getArticleByCategory() {
@@ -102,7 +103,7 @@ const CategoryPage = () => {
     const set1AuthToken = JSON.parse(localStorage.getItem('user'))
     console.log('token: ', set1AuthToken['jwt']);
     //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
-    axios.get("http://localhost:8080/api/v1/articles/category_id/1", {
+    axios.get("http://localhost:8080/api/v1/articles/category_id/2", {
       headers: {
         authorization:set1AuthToken['jwt'],
       }
@@ -120,6 +121,28 @@ const CategoryPage = () => {
         }
       })
   }
+  function getMorePopularArticles() {
+    console.log("function getMorePopularArticles");
+    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
+    console.log("token: ", set1AuthToken["jwt"]);
+    axios.get("http://localhost:8080/api/v1/articles/morePopular", {
+      headers: {
+        authorization: set1AuthToken["jwt"]
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        setMorePopularArticles(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  const [morePopularArticles, setMorePopularArticles] = useState([]);
   const [auth] = useState("Bearer ");
   return (
     <div className="category_page">
@@ -142,7 +165,7 @@ const CategoryPage = () => {
         <div className="mini-articles-l">
           <span className="more-popular">MORE POPULAR</span>
           <hr className="more-lin-l"></hr>
-          {miniArticles.slice(0, 3).map((miniArticle) => (
+          {morePopularArticles.slice(0, 3).map((miniArticle) => (
             <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
           ))}
         </div>
