@@ -10,6 +10,7 @@ import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictur
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
 import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
+import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 
 const EditArticle = () => {
     const [article, setArticle] = useState({
@@ -45,6 +46,7 @@ const EditArticle = () => {
 
     return (
         <div className={"edit-article"}>
+            {/*<CancellationPopup/>*/}
             <header className={"edit-article-header"}>
                 <HeaderAdmin/>
                 <SaveCancelChanges/>
