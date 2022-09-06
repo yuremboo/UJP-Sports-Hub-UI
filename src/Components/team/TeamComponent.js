@@ -3,8 +3,6 @@ import './TeamComponent.css';
 import TeamIcon from "./TeamIcon";
 import ShortArticle from "../article/ShortArticle";
 import axios from "axios";
-//import { useEffect } from "@types/react";
-//import { useState } from "@types/react";
 
 export default function TeamComponent({team}) {
   const [articlesByTeamsId, setArticlesByTeamsId] = useState([
@@ -114,7 +112,7 @@ export default function TeamComponent({team}) {
   return (
     <div className='team_component'>
       <div className='team_head'>
-        <TeamIcon title={team.team.name} subscriptionId={team.subscriptionId} following={"following"} />
+        <TeamIcon title={team.team.name} image={team.team.alt} subscriptionId={team.subscriptionId} following={"following"} />
       </div>
 
       <div className='team_component_body'>

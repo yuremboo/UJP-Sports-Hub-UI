@@ -12,10 +12,10 @@ import AllArticlesAdmin from "./pages/allArticlesAdmin/AllArticlesAdmin";
 function App() {
     return (
         <div className="App">
-             <header className="App-header">
-                <Heder></Heder>
-            </header>
-            <Navbar></Navbar>
+            {/* <header className="App-header">*/}
+            {/*    <Heder></Heder>*/}
+            {/*</header>*/}
+            {/*<Navbar></Navbar>*/}
             <Outlet />
             {/* <RegistrationPage/> */}
         </div>

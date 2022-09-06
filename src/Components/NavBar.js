@@ -2,8 +2,8 @@ import React from 'react'
 import '../style_components/navbar.css'
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-export default function NavBar() {
 
+export default function NavBar() {
   return (
     <div className='main-nav'>
       <div className='position_line'>
