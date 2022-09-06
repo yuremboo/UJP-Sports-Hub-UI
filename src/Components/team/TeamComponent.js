@@ -6,7 +6,7 @@ import axios from "axios";
 //import { useEffect } from "@types/react";
 //import { useState } from "@types/react";
 
-const TeamComponent = (props) => {
+export default function TeamComponent({team}) {
   const [articlesByTeamsId, setArticlesByTeamsId] = useState([
     {
       "id": "1",
@@ -93,7 +93,7 @@ const TeamComponent = (props) => {
     console.log('function getArticleByTeamsFollow');
     const set1AuthToken = JSON.parse(localStorage.getItem('user'))
     console.log('token: ', set1AuthToken['jwt']);
-    axios.get("http://localhost:8080/api/v1/articles/teams/"+props.id, {
+    axios.get("http://localhost:8080/api/v1/articles/teams/"+team.team.id, {
       headers: {
         authorization:set1AuthToken['jwt'],
       }
@@ -114,18 +114,13 @@ const TeamComponent = (props) => {
   return (
     <div className='team_component'>
       <div className='team_head'>
-        <TeamIcon title={props.name} following={"following"} />
+        <TeamIcon title={team.team.name} subscriptionId={team.subscriptionId} following={"following"} />
       </div>
 
       <div className='team_component_body'>
-        {/*articlesByTeamsId.map(article =>*/}
-        {/*console.log(articlesByTeamsId['title']);*/}
-        <ShortArticle title={articlesByTeamsId['title']} shortText={articlesByTeamsId.shortText}
-                      category={null} />
-        {/*)*/}
+        {articlesByTeamsId.map(article =>
+             <ShortArticle title={article.title} shortText={article.shortText} category={null}  />)}
       </div>
     </div>
   );
 };
-
-export default TeamComponent;
