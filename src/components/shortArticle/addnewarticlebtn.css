@@ -1,0 +1,32 @@
+.add_new_article_button{
+    height: 100%;
+}
+
+.add_new_article_button button{
+    background-color: #D72130;
+    color: #FFFFFF;
+    border: 1px solid #D72130;
+    margin-right: 35px;
+    padding: 7% 10%;
+    width: max-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.add_new_article_button:hover button{
+    border: 1px solid #E02232;
+    background-color: #E02232;
+    color: #FFFFFF;
+}

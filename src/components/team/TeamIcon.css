@@ -1,0 +1,66 @@
+.team{
+    display: flex;
+    height: 140px;
+    border: black 1px solid;
+    /*margin-bottom: 4%;*/
+    /*padding-right: 2%;*/
+    margin: 4% 7%;
+    background: #FFFFFF;
+}
+#unfollow_button{
+    color: white;
+    margin: 0px;
+    background-color: #d72130;
+    font-family: "Roboto", serif;
+}
+
+#unfollow_button:hover{
+    color: red;
+    margin: 0px;
+    background-color: white;
+    font-family: "Roboto", serif;
+
+}
+
+.team_button{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.team_image {
+    width: auto;
+    padding: 5px;
+}
+
+.team_image img{
+    height: 100%;
+}
+
+.team_body{
+    width: 100%;
+}
+
+.team_title{
+    /*display: contents;*/
+    display: flex;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 22px;
+    align-items: center;
+    color: #2b2f43;
+    /*padding: 5px 18px 13px;*/
+    margin-left: 30px;
+    height: 30%;
+}
+
+.team_following{
+    display: block;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 22px;
+    color: #2b2f43;
+    /*padding: 5px 18px 13px;*/
+    height: auto;
+    margin-left: 30px;
+
+}

@@ -1,0 +1,20 @@
+.nav-bar-icons{
+    padding: 20px 10px 10px 10px;
+}
+
+.nav-bar-icons button{
+    background: none;
+    border: none;
+    margin: 5px;
+    padding: 15px;
+}
+
+.nav-bar-icons button:hover{
+    background-color: #EDEDED;
+    border-radius: 50%;
+}
+.nav-bar-icons button:hover svg *{
+
+    stroke: #D72130;
+}
+
