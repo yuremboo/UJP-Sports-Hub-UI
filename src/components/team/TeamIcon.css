@@ -7,7 +7,9 @@
     margin: 4% 7%;
     background: #FFFFFF;
 }
-
+#unfollow_button{
+    color:red;
+}
 
 .team_image {
     width: 40%;
@@ -17,7 +19,7 @@
 }
 
 .team_title{
-    display: block;
+    display: contents;
     font-weight: 700;
     font-size: 20px;
     line-height: 22px;
