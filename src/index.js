@@ -10,6 +10,7 @@ import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import EditArticle from "./pages/editArticle/editArticle";
+import Profile from "./pages/profile/profile";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,6 +25,7 @@ root.render(
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="edit-article" element={<EditArticle/>} />
+                    <Route path="update-user-information" element={<Profile/>} />
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
