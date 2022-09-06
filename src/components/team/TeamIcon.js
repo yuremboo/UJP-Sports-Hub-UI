@@ -29,12 +29,16 @@ const TeamIcon = (props) => {
       </div>
 
       <div className='team_body'>
+        <div className='team_button'>
+          <Button id='unfollow_button' variant="contained" onClick={deleteSubscription}>
+            Unfollow
+          </Button>
+        </div>
+
         <div className='team_title'>
           {props.title}
         </div>
-        <Button id='unfollow_button' variant="contained" onClick={deleteSubscription}>
-          Unfollow
-        </Button>
+
         <div className='team_bottom'>
           <div className='team_following'>
             {props.following}

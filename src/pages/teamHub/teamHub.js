@@ -8,8 +8,6 @@ import Heder from "../../components/Header";
 import Navbar from "../../components/NavBar";
 
 const TeamHub = () => {
-  const miniHeading = "Lorem ipsum";
-  const miniTextPreview = "Lorem ipsum dolor sit amet, consectetur";
   const [teamsSubscription, setTeamsSubscription] = useState([
     // {
     //   "subscriptionId": "1",
@@ -247,7 +245,7 @@ const TeamHub = () => {
           </div>
         </div>
       </div>
-      // </div>
+    </div>
   );
 };
 
