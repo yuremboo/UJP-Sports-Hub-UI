@@ -1,0 +1,61 @@
+.allSidePanelBtns{
+    width: 100%;
+    height: 100%;
+    padding: 0 25%;
+    /*border-right: #7F8899 2px solid;*/
+}
+
+.sidePanelBtn{
+    margin: 40% 0;
+}
+
+.sidePanelBtn button{
+    background-color: transparent;
+    border: none;
+
+    /**/
+    position: relative;
+    display: inline-block;
+    /**/
+}
+.sidePanelBtn .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    background-color:  #313541;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 20%;
+    margin-left: 20%;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+}
+.sidePanelBtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+.sidePanelBtn:hover button{
+    /*background-color: red;*/
+    border: none;
+}
+
+.sidePanel_btn:hover *{
+    stroke: #D72130;
+    /*-webkit-text-stroke-color: #D72130;*/
+    visibility: visible;
+}
+
+
+.tooltiptext{
+
+}
