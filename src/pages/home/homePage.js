@@ -6,6 +6,8 @@ import {
     userLogoutRequest
 } from '../../redux/auth/auth.actions'
 import { connect } from 'react-redux'
+import NavBar from "../../components/NavBar";
+import Header from "../../components/Header";
 
 const HomePage = ({
                       logOutUser,
@@ -20,7 +22,9 @@ const HomePage = ({
 
     return (
         <div>
-            <h2>Home page</h2>
+            {/*<h2>Home page</h2>*/}
+            <Header/>
+            <NavBar/>
             <button onClick={logOut}>LOG OUT</button>
         </div>
     );

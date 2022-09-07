@@ -20,7 +20,7 @@ import {
 
 const ShortArticleAdmin = (props) => {
     const [menu, setMenu] = useState([]);
-    const [isPublished, setIsPublished] = useState(true);
+    const [isPublished, setIsPublished] = useState({});
 
     function displayMenu() {
         if (props.isPublished === true) {

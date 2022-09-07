@@ -245,34 +245,71 @@
     /*background-size: 35%;*/
     /*margin-right: 10%;*/
 }
-.pagination__pages{
+.pagination__pages {
     display: flex;
-    /*justify-content: center;*/
+    margin-bottom: 2%;
     align-items: center;
-    /*text-align: center;*/
 }
-.pagination_number_page{
-    /*justify-content: center;*/
-    /*text-align: center;*/
-    margin: 0 5%;
-    color: #B2B2B2;
 
-    font-family: Open Sans, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 22px;
-    letter-spacing: 0.6233766078948975px;
-    text-align: left;
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root{
+    background-color: transparent;
+    color: #5C7694;
 }
-.pagination_number_active_page{
-    /*justify-content: center;*/
-    /*text-align: center;*/
-    margin: 0 5%;
-    color: #C63638;
-    font-family: Open Sans, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 22px;
-    letter-spacing: 0.6233766078948975px;
-    text-align: left;
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root{
+    color: black;
+    font-weight: 500;
+}
+
+
+/*.pagination_number_page{*/
+/*    margin: 0 5%;*/
+/*    color: #B2B2B2;*/
+/*    font-family: Open Sans, sans-serif;*/
+/*    font-size: 16px;*/
+/*    font-weight: 700;*/
+/*    line-height: 22px;*/
+/*    letter-spacing: 0.6233766078948975px;*/
+/*    text-align: left;*/
+/*}*/
+/*.pagination_number_active_page{*/
+/*    !*justify-content: center;*!*/
+/*    !*text-align: center;*!*/
+/*    margin: 0 5%;*/
+/*    color: #C63638;*/
+/*    font-family: Open Sans, sans-serif;*/
+/*    font-size: 16px;*/
+/*    font-weight: 700;*/
+/*    line-height: 22px;*/
+/*    letter-spacing: 0.6233766078948975px;*/
+/*    text-align: left;*/
+/*}*/
+
+
+.all_articles_admin__filter_articles{
+    margin: 4% 17% -2% 17%;
+}
+
+.filter_articles{
+    width: 30%;
+    padding: 0 2%;
+}
+
+
+.form-select-sm{
+    /*padding: 0;*/
+    border-radius: 0;
+    margin-left: 2%;
+}
+.form-select-sm {
+    /* padding-top: .25rem; */
+    /* padding-bottom: .25rem; */
+    /* padding-left: .5rem; */
+    /* font-size: .875rem; */
+    /* border-radius: .25rem; */
+}
+
+.h{
+    margin-left: 40%;
+    width: 200px;
+    height: 50px;
 }

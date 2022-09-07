@@ -50,7 +50,6 @@ root.render(
             </Routes>
         </BrowserRouter>
     </Provider>
-// >>>>>>> 8addd2c4671e20ede570e31cbc2e3381c994c1e0
 );
 
 // root.use(cors(corsOptions));
