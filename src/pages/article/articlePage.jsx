@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./articlepage.css";
 import ArticleHeading from "../../components/article/ArticleHeading";
 import Comment from "../../components/article/Comment";
@@ -9,105 +9,19 @@ import smallArrowDown from "../../icons/article/smallArrowDown.svg";
 import MiniArticle from "../../components/article/MiniArticle";
 import parse from "html-react-parser";
 import SortByDropDown from "../../components/UI/select/SortByDropDown";
+import axios from "axios";
+import NavBar from "../../components/NavBar";
+import Header from "../../components/Header";
+
 
 const ArticlePage = () => {
-  const currentUser = {
-    id: "777",
-    email: "curus@gmail.com",
-    firstName: "Ivan",
-    lastName: "Baloh",
-    role: "ROLE_USER",
-    isActive: true,
-    createDateTime: "2022-07-03T10:15:30",
-    updateDateTime: "2022-08-03T11:25:31",
-  };
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const [auth] = useState("Bearer ");
 
-  const article = {
-    id: "1aa",
-    title:
-      "Register to receive the latest news on ticket sales for the four NBA London Games in 2019!",
-    text:
-      "    TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan\n" +
-      "      with the first of two games between the Oakland Athletics and the\n" +
-      '      <a href="#">Seattle Mariners</a>. NBA which equipe is the best? But when\n' +
-      "      the teams take the field at the Tokyo Dome, don’t say they’re playing on\n" +
-      "      foreign soil.\n" +
-      "      <br />\n" +
-      "      <br />\n" +
-      "      That’s because 12 tons of clay, silt and sand mixtures have been shipped\n" +
-      "      by boat from the United States to make the batter’s box, pitcher’s mound,\n" +
-      "      base pits and bullpens feel like home. The dirt swap was news to the\n" +
-      "      veteran Seattle pitcher Mike Leake, who nonetheless gave his stomp of\n" +
-      "      approval after starting the first of two exhibition games each club played\n" +
-      '      against teams from <a href="#">Japan’s Nippon Professional Baseball</a> as\n' +
-      "      a tuneup.\n" +
-      "      <br />\n" +
-      "      <br />\n" +
-      "      “Oh, you mean we weren’t pitching on the same mound the Japanese teams use\n" +
-      "      during their season?” Leake said Sunday. “It felt like the same mound that\n" +
-      "      we pitch on in the States. The only thing I would say is that maybe they\n" +
-      "      put a little too much water at first, so some of the clay stuck to my\n" +
-      "      spikes in the first inning, but that happens at home, too. After that, it\n" +
-      "      was perfect.”",
-    caption: "London Games return in 2019",
-    alt: "Basketball ring",
-    picture: "ArticlePhoto.jpg",
-    isActive: true,
-    commentsActive: true,
-    createDateTime: "20.09.2019",
-    updateDateTime: null,
-    category: "NBA", // here should be obj
-    team: "Seattle Mariners", // here should be obj
-  };
-
-  const commentsList = [
-    {
-      id: "123213dfsdsf2",
-      comment:
-        "Not interesting article. Personally I am trying to slowly move away from\n" +
-        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
-        "          belong to are permanently on mute; otherwise.",
-      commenterId: "111",
-      articleId: "1aa",
-      likes: 100,
-      dislikes: 15,
-      createDateTime: Date.now(),
-      updateDateTime: null,
-    },
-    {
-      id: "123sad",
-      comment:
-        "Very interesting article. Personally I am trying to slowly move away from\n" +
-        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
-        "          belong to are permanently on mute; otherwise.",
-      commenterId: "777",
-      articleId: "1aa",
-      likes: 100,
-      dislikes: 133,
-      createDateTime: 1649999999999,
-      updateDateTime: 1650000335308
-    },
-    {
-      id: "2123sds",
-      comment:
-        "Slightly interesting article. Personally I am trying to slowly move away from\n" +
-        "          Whatsapp as I am doing with Facebook. Most of the Whatsapp group I\n" +
-        "          belong to are permanently on mute; otherwise.",
-      commenterId: "222",
-      articleId: "1aa",
-      likes: 200,
-      dislikes: 22,
-      createDateTime: 1634993499999,
-      updateDateTime: 1636080335308,
-    }
-  ];
-
-  commentsList.sort((a, b) =>
-    a.likes + a.dislikes > b.likes + b.dislikes ? -1 : 1
-  );
-
-  const [comments, setComments] = useState(commentsList);
-  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [commentInputText, setCommentInputText] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [commentObj, setCommentObj] = useState(null);
 
   const [selectedSort, setSelectedSort] = useState("");
 
@@ -115,78 +29,155 @@ const ArticlePage = () => {
 
   const [commentsNum, setCommentsNum] = useState(initialCommentsNum);
 
-  const miniArticles = [
-    {
-      id: "2fff",
-      title: "Lorem ipsum",
-      shortText: "Lorem ipsum dolor sit amet, consectetur1",
-      isActive: true,
-      category: "",
-    },
-    {
-      id: "2ffa",
-      title: "Lorem ipsum",
-      shortText: "Lorem ipsum dolor sit amet, consectetur2",
-      isActive: true,
-      category: "",
-    },
-    {
-      id: "2ffb",
-      title: "Lorem ipsum",
-      shortText: "Lorem ipsum dolor sit amet, consectetur3",
-      isActive: true,
-      category: "",
-    },
-    {
-      id: "2ffc",
-      title: "Lorem ipsum",
-      shortText: "Lorem ipsum dolor sit amet, consectetur4",
-      isActive: true,
-      category: "",
-    },
-    {
-      id: "2ffd",
-      title: "Lorem ipsum",
-      shortText: "Lorem ipsum dolor sit amet, consectetur5",
-      isActive: true,
-      category: "",
-    },
-    {
-      id: "2ffe",
-      title: "Lorem ipsum",
-      shortText: "Lorem ipsum dolor sit amet, consectetur6",
-      isActive: true,
-      category: "",
-    },
-  ];
+  const [miniArticles, setMiniArticles] = useState([]);
 
-  function uuidv4() {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-      (
-        c ^
-        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-      ).toString(16)
-    );
+  useEffect(() => {
+    getArticleById();
+    getSixActiveMiniArticlesByCategoryId();
+    getCommentsByArticleId();
+  }, []);
+
+  function getArticleById() {
+    console.log("function getArticleById");
+    axios
+      .get("http://localhost:8080/api/v1/articles/1aa", {
+        headers: {
+          authorization: auth + currentUser["jwt"],
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        setArticle(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
   }
 
+  // useEffect(()=>{
+  //   getCommentsByArticleId();
+  // }, [comments]);
+
+  const [article, setArticle] = useState({
+    id: "",
+    title: "",
+    text: "",
+    caption: "",
+    alt: "",
+    picture: "",
+    isActive: false,
+    commentsActive: false,
+    createDateTime: "",
+    updateDateTime: null,
+    categoryId: "",
+    teamId: ""
+  });
+
+  function getCommentsByArticleId() {
+    axios
+      .get("http://localhost:8080/api/v1/" + article.id.toString() +"/comments", {
+        headers: {
+          authorization: auth + currentUser["jwt"],
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setComments(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function getSixActiveMiniArticlesByCategoryId() {
+    axios
+      .get("http://localhost:8080/api/v1/articles/categories/" + article.categoryId, {
+        headers: {
+          authorization: auth + currentUser["jwt"],
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        setMiniArticles(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function postComment(newComment) {
+    axios
+      .post("http://localhost:8080/api/v1/comments", newComment, {
+        headers: {
+          authorization: auth + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function putComment(comment) {
+    axios
+      .put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
+        headers: {
+          authorization: auth + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function deleteComment(comment) {
+    axios
+      .delete("http://localhost:8080/api/v1/comments/" + comment.id, {
+        headers: {
+          authorization: auth + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
   function addNewComment(e) {
     e.preventDefault();
-    if (!comment) {
+    if (!commentInputText) {
       return;
     }
     const newComment = {
-      id: uuidv4(),
-      comment: comment,
-      commenterId: currentUser.id,
-      articleId: "1aa",
+      commentText: commentInputText,
+      userId: currentUser.id,
+      articleId: article.id,
       likes: 0,
       dislikes: 0,
       createDateTime: Date.now(),
       updateDateTime: null,
-      edited: false,
+      edited: false
     };
+    postComment(newComment);
     setComments([...comments, newComment]);
-    setComment("");
+    setCommentInputText("");
   }
 
   function updateLikesCount(newLikesVal, commentId) {
@@ -247,104 +238,154 @@ const ArticlePage = () => {
     }
   }
 
-  function deleteComment(commentId) {
-    setComments(comments.filter(comment => comment.id !== commentId));
+  function editComment(comment) {
+    setIsEditing(true);
+    setCommentInputText(comment.comment);
+    setCommentObj(comment);
+  }
+
+  function putEditedComment(e) {
+    e.preventDefault();
+    if (!commentInputText) {
+      return;
+    }
+    const newComment = {
+      id: commentObj.id,
+      commentText: commentInputText,
+      userId: currentUser.id,
+      articleId: commentObj.articleId,
+      likes: commentObj.likes,
+      dislikes: commentObj.dislikes,
+      createDateTime: commentObj.createDateTime,
+      updateDateTime: Date.now(),
+      edited: true,
+    };
+    putComment(newComment);
+    setComments([
+      ...comments.filter((c) => c.id !== commentObj.id),
+      newComment,
+    ]);
+    setCommentInputText("");
+    setIsEditing(false);
+  }
+
+  function removeComment(commentId) {
+    deleteComment(commentId);
+    setComments(comments.filter((comment) => comment.id !== commentId));
   }
 
   return (
-    <div className="article">
-      <ArticleHeading
-        published={article.createDateTime}
-        title={article.title}
-        subtitle={article.caption}
-      />
-      <img className="article-image" alt={article.alt} src={articleImage} />
-      <p className="main-text">{parse(article.text)}</p>
-      {article.commentsActive ? (
-        <div className="comments-outer-box">
-          <span className="comments-count">COMMENTS ({comments.length})</span>
-          <div className="sort-by">
-            <span> Sort by: </span>
-            <SortByDropDown
-              value={selectedSort}
-              onChange={sortComments}
-              options={[
-                { value: "mostPop", name: "Most popular" },
-                { value: "oldest", name: "Oldest first" },
-                { value: "newest", name: "Newest first" },
-              ]}
-            ></SortByDropDown>
-          </div>
-          <form className="write-comment-box">
-            <img className="user-image" src={userImage} alt="user" />
-            <textarea
-              className="comment-input"
-              rows="3"
-              placeholder="&#10;Write a comment"
-              value={comment}
-              onChange={(event) => setComment(event.target.value)}
-            />
-            <Button
-              className="submit-btn"
-              variant="light"
-              onClick={addNewComment}
-            >
-              Submit
-            </Button>
-          </form>
-          {comments.length > 0 ? (
-            <div className="read-comment-box">
-              {comments.slice(0, commentsNum).map((comment) => (
-                <Comment comment={comment} key={comment.id} updateLikesCount = {updateLikesCount} updateDislikesCount = {updateDislikesCount} deleteComment={deleteComment}/>
-              ))}
+    <div>
+      <div className="article">
+        <ArticleHeading
+          published={article["createDateTime"]}
+          title={article["title"]}
+          subtitle={article["caption"]}
+        />
+        <img
+          className="article-image"
+          alt={article["alt"]}
+          //src={article.picture}
+          src={articleImage}
+        />
+        <p className="main-text">{parse(article["text"])}</p>
+        {article["commentsActive"] ? (
+          <div className="comments-outer-box">
+            <span className="comments-count">COMMENTS ({comments.length})</span>
+            <div className="sort-by">
+              <span> Sort by: </span>
+              <SortByDropDown
+                value={selectedSort}
+                onChange={sortComments}
+                options={[
+                  { value: "mostPop", name: "Most popular" },
+                  { value: "oldest", name: "Oldest first" },
+                  { value: "newest", name: "Newest first" },
+                ]}
+              ></SortByDropDown>
             </div>
-          ) : (
-            <></>
-          )}
-          {commentsNum < comments.length ? (
-            <button
-              id="showMoreBtn"
-              className="show-more-less"
-              onClick={showMoreComments}
-            >
-              Show more
-              <img
-                className="small-arrow-down"
-                src={smallArrowDown}
-                alt="arrow-down"
+            <form className="write-comment-box">
+              <img className="user-image" src={userImage} alt="user" />
+              <textarea
+                className="comment-input"
+                rows="3"
+                placeholder="&#10;Write a comment"
+                value={commentInputText}
+                onChange={(event) => setCommentInputText(event.target.value)}
               />
-            </button>
-          ) : (
-            <button className="show-more-less" onClick={showLessComments}>
-              <img
-                className="small-arrow-up"
-                src={smallArrowDown}
-                alt="arrow-up"
-              />
-              Show less
-            </button>
-          )}
+              <Button
+                className="submit-btn"
+                variant="light"
+                onClick={isEditing ? putEditedComment : addNewComment}
+              >
+                Submit
+              </Button>
+            </form>
+            {comments.length > 0 ? (
+              <div className="read-comment-box">
+                {comments.slice(0, commentsNum).map((comment) => (
+                  <Comment
+                    comment={comment}
+                    key={comment.id}
+                    updateLikesCount={updateLikesCount}
+                    updateDislikesCount={updateDislikesCount}
+                    deleteComment={removeComment}
+                    editComment={editComment}
+                  />
+                ))}
+              </div>
+            ) : (
+              <></>
+            )}
+            {commentsNum < comments.length ? (
+              <button
+                id="showMoreBtn"
+                className="show-more-less"
+                onClick={showMoreComments}
+              >
+                Show more
+                <img
+                  className="small-arrow-down"
+                  src={smallArrowDown}
+                  alt="arrow-down"
+                />
+              </button>
+            ) : comments.length > 10 ? (
+              <button className="show-more-less" onClick={showLessComments}>
+                <img
+                  className="small-arrow-up"
+                  src={smallArrowDown}
+                  alt="arrow-up"
+                />
+                Show less
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
+        <div className="more">
+          <hr className="more-line-l"></hr>
+          <span className="more-articles">MORE ARTICLES</span>
+          <hr className="more-line-r" />
         </div>
-      ) : (
-        <></>
-      )}
-      <div className="more">
-        <hr className="more-line-l"></hr>
-        <span className="more-articles">MORE ARTICLES</span>
-        <hr className="more-line-r" />
+        <div className="mini-articles">
+          <div className="mini-articles-l">
+            {miniArticles.slice(0, 3).map((miniArticle) => (
+              <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
+            ))}
+          </div>
+          <div className="mini-articles-r">
+            {miniArticles.slice(3, 7).map((miniArticle) => (
+              <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="mini-articles">
-        <div className="mini-articles-l">
-          {miniArticles.slice(0, 3).map((miniArticle) => (
-            <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
-          ))}
-        </div>
-        <div className="mini-articles-r">
-          {miniArticles.slice(3, 7).map((miniArticle) => (
-            <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
-          ))}
-        </div>
-      </div>
+      <Header></Header>
+      <NavBar></NavBar>
     </div>
   );
 };
