@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./teamhub.css";
-import MiniArticle from "../../components/article/MiniArticle";
+import MiniArticle from "../../Components/article/MiniArticle";
 import axios from "axios";
 import ReactDOM from "react-dom";
-import TeamComponent from "../../components/team/TeamComponent";
-import Heder from "../../components/Header";
-import Navbar from "../../components/NavBar";
+import TeamComponent from "../../Components/team/TeamComponent";
+import Heder from "../../Components/Header";
+import Navbar from "../../Components/NavBar";
 
 const TeamHub = () => {
   const [teamsSubscription, setTeamsSubscription] = useState([

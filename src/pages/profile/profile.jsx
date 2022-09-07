@@ -1,8 +1,8 @@
 import "./profile.style.css";
-import Header from "../../components/Header";
-import NavBar from "../../components/NavBar";
-import UpdateUserInfo from "../../components/UpdateUserInfo/UpdateUserInfo";
-import ChangePassword from "../../components/ChangePassword/ChangePassword";
+import Header from "../../Components/Header";
+import NavBar from "../../Components/NavBar";
+import UpdateUserInfo from "../../Components/UpdateUserInfo/UpdateUserInfo";
+import ChangePassword from "../../Components/ChangePassword/ChangePassword";
 
 const Profile = () => {
     return (

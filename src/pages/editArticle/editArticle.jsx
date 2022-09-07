@@ -1,15 +1,15 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import CustomInput from "../../components/CustomInput/CustomInput";
+import CustomInput from "../../Components/CustomInput/CustomInput";
 import "./editArticle.style.css";
-import CustomSelect from "../../components/CustomSelect/CustomSelect";
-import NavBarIcons from "../../components/NavBarIcons/NavBarIcons";
+import CustomSelect from "../../Components/CustomSelect/CustomSelect";
+import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 import Eye from "../../icons/Eye.svg"
-import CustomTextarea from "../../components/CustomTextArea/CustomTextarea";
-import CustomPictureInput from "../../components/CustomPictureInput/CustomPictureInput";
-import SaveCancelChanges from "../../components/SaveCancelChanges/SaveCancelChanges";
+import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
+import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
+import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
-import HeaderAdmin from "../../components/HeaderAdmin/HeaderAdmin";
+import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
 
 const EditArticle = () => {
     const [article, setArticle] = useState({
