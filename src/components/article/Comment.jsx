@@ -4,50 +4,52 @@ import userImage from "../../icons/article/ellipse.svg";
 import inactiveLike from "../../icons/article/inactiveLike.svg";
 import activeLike from "../../icons/article/activeLike.svg";
 
-export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment}) {
-  const currentUser = {
-    id: "777",
-    email: "curus@gmail.com",
-    firstName: "Ivan",
-    lastName: "Baloh",
-    role: "ROLE_USER",
-    isActive: true,
-    createDateTime: "2022-07-03T10:15:30",
-    updateDateTime: "2022-08-03T11:25:31",
-  };
+export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment }) {
+
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   function getUserByID(userId) {
     const users = [
       {
-        id: "777",
-        email: "curus@gmail.com",
-        firstName: "Ivan",
-        lastName: "Baloh",
-        role: "ROLE_USER",
+        id: "4028d12a82f2ea8e0182f2ead72e0000",
+        firstName: "Andriy",
+        lastName: "Barskyi",
+        email: "andriy.barskyi@gmail.com",
+        role: "USER",
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31",
+        updateDateTime: "2022-08-03T11:25:31"
       },
       {
         id: "111",
         email: "oneone@gmail.com",
         firstName: "Willy",
         lastName: "Torrington",
-        role: "ROLE_USER",
+        role: "USER",
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31",
+        updateDateTime: "2022-08-03T11:25:31"
       },
       {
         id: "222",
         email: "romb@gmail.com",
         firstName: "Stephen",
         lastName: "Rombolo",
-        role: "ROLE_USER",
+        role: "USER",
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31",
+        updateDateTime: "2022-08-03T11:25:31"
       },
+      {
+        id: "4028d12a82f2ea8e0182f2ead72e0000",
+        firstName: "Andriy",
+        lastName: "Barskyi",
+        email: "abcd@gmail.com",
+        "role": "USER",
+        isActive: true,
+        createDateTime: "2022-07-03T10:15:30",
+        updateDateTime: "2022-08-03T11:25:31"
+      }
     ];
 
     for (let i = 0; i < users.length; i++) {
@@ -57,7 +59,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     }
   }
 
-  const commenter = getUserByID(comment.commenterId);
+  const commenter = getUserByID(comment.userId);
 
   const monthNames = [
     "Jan",
@@ -71,7 +73,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     "Sep",
     "Oct",
     "Nov",
-    "Dec",
+    "Dec"
   ];
 
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
@@ -121,7 +123,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     );
   }
 
-  function deleteCommentById() { // TODO add pop up window
+  function deleteCommentById() {
     deleteComment(comment.id);
   }
 
@@ -141,7 +143,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         ) : (
           <></>
         )}
-        <p className="comment-text">{comment.comment}</p>
+        <p className="comment-text">{comment.commentText}</p>
         <hr />
         <div className="underline-options">
           {" "}
@@ -196,7 +198,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
             </span>
           )}
           {comment.commenterId === currentUser.id ||
-          currentUser.role === "ROLE_ADMIN" ? (
+          currentUser.role === "ADMIN" ? (
             <span>
               <button className="delete" onClick={deleteCommentById}>Delete</button>
               <button className="comment">Comment</button>
@@ -205,7 +207,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
               </button>
             </span>
           ) : (
-            <button className="comment" >Comment</button>
+            <button className="comment">Comment</button>
           )}
         </div>
       </div>

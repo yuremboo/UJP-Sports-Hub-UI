@@ -9,7 +9,7 @@ import twitter from "../../icons/Twitter.png"
 export default function ArticleHeading(props) {
   return (
     <div className="headline-body">
-      <p className="publishing-date"> Published / {props.published}</p>
+      <p className="publishing-date"> Published / {props.published.toString().slice(0, 10)}</p>
       <p className="subtitle">{props.subtitle}</p>
       <p className="title">{props.title}</p>
       <button className="share-article-btn">

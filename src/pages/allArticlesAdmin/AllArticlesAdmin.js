@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import ShortArticleAdmin from "../../components/shortArticle/shortArticleAdmin";
-import CategoryButton from "../../components/shortArticle/categoryButton";
+import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
+import CategoryButton from "../../Components/shortArticle/categoryButton";
 import './allarticlesadmin.css';
-import AddNewArticleBtn from "../../components/shortArticle/addNewArticleBtn";
-import SidePanelBtns from "../../components/shortArticle/sidePanelBtns";
+import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
+import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import authToken from "../login/loginPage";
 import accountSwitcher from '../../icons/accountSwitcher.svg';
 import arrow from '../../icons/arrow.svg';
-import HorizontalScrollMenu from "../../components/horizontal-scroll-menu/horizontalScrollMenu";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
 const AllArticlesAdmin = () => {
     //const [categories, setCategories] = useState([]);
