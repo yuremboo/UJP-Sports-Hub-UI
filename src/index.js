@@ -32,7 +32,7 @@ root.render(
                     <Route path="articles" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>
-                    <Route path="category" element={<CategoryPage/>}/>
+                    <Route path="category/:id" element={<CategoryPage/>}/>
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}

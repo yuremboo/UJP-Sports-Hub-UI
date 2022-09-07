@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-//import "../../pages/article/articlepage.css";
 import "./categorypage.css";
-import ArticleHeading from "../../components/article/ArticleHeading";
+import { useParams } from 'react-router-dom'
+import ArticleHeading from "../../Components/article/ArticleHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
-import ShortArticle from "../../components/article/ShortArticle";
-import MiniArticle from "../../components/article/MiniArticle";
+import ShortArticle from "../../Components/article/ShortArticle";
+import MiniArticle from "../../Components/article/MiniArticle";
 import axios from "axios";
 
-const CategoryPage = () => {
+const CategoryPage = ({props, globalStore}) => {
  const [articlesByCategory, setArticlesByCategory] = useState([]);
 
   const article = {
@@ -93,17 +93,18 @@ const CategoryPage = () => {
       category: "",
     },
   ];
+  const { id } = useParams();
   useEffect(() => {
-    getArticleByCategory();
+    getArticleByCategory(id);
     getMorePopularArticles();
   }, []);
 
-  function getArticleByCategory() {
+  function getArticleByCategory(id) {
     console.log('function getArticleByCategory');
     const set1AuthToken = JSON.parse(localStorage.getItem('user'))
     console.log('token: ', set1AuthToken['jwt']);
     //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
-    axios.get("http://localhost:8080/api/v1/articles/category_id/2", {
+    axios.get("http://localhost:8080/api/v1/articles/category_id/"+id, {
       headers: {
         authorization:set1AuthToken['jwt'],
       }
