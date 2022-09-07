@@ -7,6 +7,7 @@ import activeLike from "../../icons/article/activeLike.svg";
 export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment }) {
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
+  console.log("Comment" + comment);
 
   function getUserByID(userId) {
     const users = [

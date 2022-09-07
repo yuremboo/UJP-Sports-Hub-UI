@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./articlepage.css";
+import { useParams } from 'react-router-dom'
 import ArticleHeading from "../../Components/article/ArticleHeading";
 import Comment from "../../Components/article/Comment";
 import Button from "react-bootstrap/Button";
@@ -14,7 +15,7 @@ import NavBar from "../../Components/NavBar";
 import Header from "../../Components/Header";
 
 
-const ArticlePage = () => {
+const ArticlePage = ({props, globalStore}) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [auth] = useState("Bearer ");
 
@@ -31,16 +32,33 @@ const ArticlePage = () => {
 
   const [miniArticles, setMiniArticles] = useState([]);
 
+  const [article, setArticle] = useState({
+    id: "",
+    title: "",
+    text: "",
+    caption: "",
+    alt: "",
+    picture: "",
+    isActive: false,
+    commentsActive: false,
+    createDateTime: "",
+    updateDateTime: null,
+    categoryId: "",
+    teamId: ""
+  });
+
+  const { id } = useParams();
+
   useEffect(() => {
-    getArticleById();
+    getArticleById(id);
     getSixActiveMiniArticlesByCategoryId();
     getCommentsByArticleId();
   }, []);
 
-  function getArticleById() {
+  function getArticleById(id) {
     console.log("function getArticleById");
     axios
-      .get("http://localhost:8080/api/v1/articles/1aa", {
+      .get("http://localhost:8080/api/v1/articles/" + id, {
         headers: {
           authorization: auth + currentUser["jwt"],
         },
@@ -62,32 +80,19 @@ const ArticlePage = () => {
   //   getCommentsByArticleId();
   // }, [comments]);
 
-  const [article, setArticle] = useState({
-    id: "",
-    title: "",
-    text: "",
-    caption: "",
-    alt: "",
-    picture: "",
-    isActive: false,
-    commentsActive: false,
-    createDateTime: "",
-    updateDateTime: null,
-    categoryId: "",
-    teamId: ""
-  });
 
   function getCommentsByArticleId() {
+    console.log("function getArticleById");
     axios
-      .get("http://localhost:8080/api/v1/" + article.id.toString() +"/comments", {
+      .get("http://localhost:8080/api/v1/1aa/comments", {
         headers: {
           authorization: auth + currentUser["jwt"],
         },
       })
       .then((response) => {
         const data = response.data;
-        console.log(data);
-        setComments(data);
+        setArticle(data);
+        console.log("Comments in articlePage" + data);
       })
       .catch((error) => {
         if (error.response) {
@@ -99,7 +104,7 @@ const ArticlePage = () => {
 
   function getSixActiveMiniArticlesByCategoryId() {
     axios
-      .get("http://localhost:8080/api/v1/articles/categories/" + article.categoryId, {
+      .get("http://localhost:8080/api/v1/articles/categories/1asd", {
         headers: {
           authorization: auth + currentUser["jwt"],
         },
