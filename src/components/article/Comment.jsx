@@ -5,23 +5,13 @@ import inactiveLike from "../../icons/article/inactiveLike.svg";
 import activeLike from "../../icons/article/activeLike.svg";
 
 export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment }) {
-  /*  const currentUser = {
-      id: "777",
-      email: "curus@gmail.com",
-      firstName: "Ivan",
-      lastName: "Baloh",
-      role: "USER",
-      isActive: true,
-      createDateTime: "2022-07-03T10:15:30",
-      updateDateTime: "2022-08-03T11:25:31",
-    };*/
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
   function getUserByID(userId) {
     const users = [
       {
-        id: "4028d12a82e8c95e0182e8d2f5ac0000",
+        id: "4028d12a82f2ea8e0182f2ead72e0000",
         firstName: "Andriy",
         lastName: "Barskyi",
         email: "andriy.barskyi@gmail.com",
@@ -49,6 +39,16 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         isActive: true,
         createDateTime: "2022-07-03T10:15:30",
         updateDateTime: "2022-08-03T11:25:31"
+      },
+      {
+        id: "4028d12a82f2ea8e0182f2ead72e0000",
+        firstName: "Andriy",
+        lastName: "Barskyi",
+        email: "abcd@gmail.com",
+        "role": "USER",
+        isActive: true,
+        createDateTime: "2022-07-03T10:15:30",
+        updateDateTime: "2022-08-03T11:25:31"
       }
     ];
 
@@ -59,7 +59,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     }
   }
 
-  const commenter = getUserByID(comment.commenterId);
+  const commenter = getUserByID(comment.userId);
 
   const monthNames = [
     "Jan",
@@ -123,7 +123,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
     );
   }
 
-  function deleteCommentById() { // TODO add pop up window
+  function deleteCommentById() {
     deleteComment(comment.id);
   }
 
@@ -143,7 +143,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         ) : (
           <></>
         )}
-        <p className="comment-text">{comment.comment}</p>
+        <p className="comment-text">{comment.commentText}</p>
         <hr />
         <div className="underline-options">
           {" "}
