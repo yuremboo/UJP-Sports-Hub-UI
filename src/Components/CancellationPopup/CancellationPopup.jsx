@@ -1,12 +1,23 @@
 import "./cancellation-popup.style.css";
 import {useNavigate} from "react-router-dom";
 import {ReactComponent as Warning} from "../../icons/Warning.svg"
+import {useEffect} from "react";
 
-const CancellationPopup = () => {
+const CancellationPopup = ({handleCancel}) => {
     const navigate = useNavigate()
-    return (
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => document.body.style.overflow = 'unset';
+    }, []);
 
-        <div className={"black-background"}>
+    const handleBackgroundClick = e => {
+        if (e.target.classList.contains("black-background")) {
+            handleCancel()
+        }
+    }
+
+    return (
+        <div className={"black-background"} onClick={handleBackgroundClick}>
 
             <div className={"auxiliary-div"}>
                 <div className={"red-circle-warning"}>
@@ -26,7 +37,7 @@ const CancellationPopup = () => {
                     <div className={"yes-no-div"}>
                         <div className={"yes-no-buttons"}>
                             <div>
-                                <button className={"button-no"}>
+                                <button className={"button-no"} onClick={handleCancel}>
                                     <span className={"span-no"}>No</span>
                                 </button>
                             </div>

@@ -13,6 +13,8 @@ import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 
 const EditArticle = () => {
+    const [isCancel, setIsCancel] = useState(false)
+
     const [article, setArticle] = useState({
         picture: 'Picture',
         category: 'Category',
@@ -46,11 +48,15 @@ const EditArticle = () => {
 
     return (
         <div className={"edit-article"}>
-            {/*<CancellationPopup/>*/}
             <header className={"edit-article-header"}>
                 <HeaderAdmin/>
-                <SaveCancelChanges/>
+                <SaveCancelChanges
+                handleCancel={() => setIsCancel(true)}
+                />
             </header>
+            {isCancel && <CancellationPopup
+                handleCancel={() => setIsCancel(false)}
+            />}
             <NavBarIcons className={"nav-bar-icons"}/>
 
             <form className="form-container">
