@@ -1,0 +1,113 @@
+.comment-body {
+    display: flex;
+    margin-bottom: 18px;
+    padding-right: 6.8%;
+}
+
+.comment-content {
+    flex: content;
+    padding-top: 2%;
+}
+
+.commenter-name {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.comment-date {
+    padding-right: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    color: #979797;
+}
+
+.edited {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #d4d9e2;
+}
+
+.comment-text {
+    padding-top: 4px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+}
+
+.underline-options {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #7f8899;
+    margin-top: -12px;
+}
+
+.like,
+.dislike {
+    color: inherit;
+    text-decoration: none;
+    padding: 8px;
+    background-color: inherit;
+    border-style: none;
+    outline: none;
+}
+
+.like-icon,
+.dislike-icon {
+    padding-right: 4px;
+}
+
+.dislike-icon {
+    rotate: 180deg;
+    transform: scaleX(-1);
+}
+
+.like:visited,
+.dislike:visited {
+    color: inherit;
+}
+
+.like:hover,
+.dislike:hover {
+    color: inherit;
+    font-size: 120%;
+    padding-right: 5px;
+}
+
+.like:hover .like-icon {
+    transform: scale(1.1, 1.1);
+}
+
+.dislike:hover .dislike-icon {
+    transform: scale(-1.1, 1.1);
+}
+
+.edit,
+.comment,
+.delete {
+    background-color: inherit;
+    border-style: none;
+    color: inherit;
+    float: right;
+    padding: 0 8px;
+    text-decoration: none;
+}
+
+.edit:hover,
+.comment:hover,
+.delete:hover {
+    color: inherit;
+    transform: scale(1.1, 1.1);
+}
+
+.edit:visited,
+.comment:visited,
+.delete:visited {
+    color: #7f8899;
+}

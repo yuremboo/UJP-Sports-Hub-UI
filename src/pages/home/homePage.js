@@ -8,9 +8,9 @@ import {
   import { connect } from 'react-redux'
 
 const HomePage = ({
-    logOutUser, 
+    logOutUser,
     auth: { isLoading, errorMessage, userObject },}) => {
-    
+
     let navigate = useNavigate();
 
     async function logOut(){

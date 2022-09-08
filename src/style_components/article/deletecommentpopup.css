@@ -1,0 +1,23 @@
+.delete-comment-popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 28px #818181;
+}
+
+.delete-comment-content {
+    padding-bottom: 18px;
+    padding-right: 34px;
+    min-width: 458px;
+    background: white;
+}
+
+.delete-comment-popup.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

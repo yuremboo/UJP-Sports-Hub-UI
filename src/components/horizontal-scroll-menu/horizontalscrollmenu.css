@@ -1,0 +1,56 @@
+.horizontal_scroll_menu{
+    width: 100%;
+    justify-content: center;
+}
+.scroll_menu{
+    width: max-content;
+    margin: 1% 2%;
+    justify-content: center;
+}
+
+.category_button{
+    margin: 7%;
+}
+
+.react-horizontal-scrolling-menu--wrapper{
+    width: 100%;
+}
+
+.react-horizontal-scrolling-menu--inner-wrapper{
+    width: 100%;
+}
+
+.react-horizontal-scrolling-menu--arrow-left,
+.react-horizontal-scrolling-menu--arrow-right{
+    width: max-content;
+    margin: 0 1%;
+}
+
+
+
+
+/* hide scrollbar */
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+}
+.react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+/**/
+
+
+.arrow_button{
+    border: none;
+    background-color: transparent;
+    /*margin: 0 1%;*/
+}
+.left_arrow_button{
+    transform: rotate(180deg);
+    /*margin-top: 1%;*/
+}
+
+.left_arrow_button:hover *,
+.right_arrow_button:hover *{
+    fill: #D72130;
+}
