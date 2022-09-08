@@ -37,7 +37,7 @@ const Profile = () => {
                     </div>
                 </div>
 
-                {/*<UpdateUserInfo/>*/}
+                <UpdateUserInfo/>
                 {/*<ChangePassword/>*/}
             </div>
         </div>

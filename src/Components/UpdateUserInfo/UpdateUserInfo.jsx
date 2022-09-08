@@ -23,7 +23,7 @@ const UpdateUserInfo = () => {
             lastName: userData.lastName,
             photo: userData.photo
         })
-    })
+    }, [user])
 
     const handleChange = event => {
         const {name, value} = event.target
@@ -36,9 +36,10 @@ const UpdateUserInfo = () => {
                 <div className={"form-photo__container"}>
                     <div className={"form-photo"}>
                         <img className={"ellipse-avatar-img"} src={EllipseAvatar} alt="EllipseAvatar"/>
-                        <div className={"red-circle-photo"}>
-                            <Photo className={"profile-icon-photo"}/>
-                        </div>
+                      <label className={"red-circle-photo"}>
+                        <input type="file" />
+                        <Photo className={"profile-icon-photo"}/>
+                      </label>
                     </div>
                 </div>
 
@@ -46,7 +47,8 @@ const UpdateUserInfo = () => {
                     <CustomInput
                         type="text"
                         label={"First name"}
-                        name={"first name"}
+                        name={"firstName"}
+                        value={user.firstName}
                         handleChange={handleChange}
                     />
                 </div>
@@ -54,7 +56,8 @@ const UpdateUserInfo = () => {
                     <CustomInput
                         type="text"
                         label={"Last name"}
-                        name={"last name"}
+                        name={"lastName"}
+                        value={user.lastName}
                         handleChange={handleChange}
                     />
                 </div>
@@ -62,7 +65,8 @@ const UpdateUserInfo = () => {
                     <CustomInput
                         type="text"
                         label={"Email"}
-                        name={"Email"}
+                        name={"email"}
+                        value={user.email}
                         handleChange={handleChange}
                     />
                 </div>

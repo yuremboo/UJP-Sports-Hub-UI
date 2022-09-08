@@ -36,7 +36,7 @@ const EditArticle = () => {
             title: articleData.title,
             text: articleData.text,
         })
-    }, [])
+    }, [article])
 
     const handleChange = event => {
         const {name, value} = event.target
