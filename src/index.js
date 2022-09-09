@@ -28,7 +28,7 @@ root.render(
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="edit-article" element={<EditArticle/>} />
-                    <Route path="update-user-information" element={<Profile/>} />
+                    <Route path="update-user-information/:profile" element={<Profile/>} />
                     <Route path="articles" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>

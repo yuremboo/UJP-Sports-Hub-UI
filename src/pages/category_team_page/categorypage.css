@@ -1,7 +1,22 @@
 * {
     font-family: "Open Sans", sans-serif;
 }
-
+.header-information{
+    background-color: #F8F8F8;
+    box-sizing: border-box;
+    height: 100vh;
+}
+.nav-bar-information{
+    position: relative;
+}
+.nav-bar{
+    max-width: 200px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
 .category_page {
     position: absolute;
     left: 16.4%;
