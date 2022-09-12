@@ -6,8 +6,8 @@ import {
     userLogoutRequest
 } from '../../redux/auth/auth.actions'
 import { connect } from 'react-redux'
-import NavBar from "../../components/NavBar";
-import Header from "../../components/Header";
+import NavBar from "../../Components/NavBar";
+import Header from "../../Components/Header";
 
 const HomePage = ({
                       logOutUser,

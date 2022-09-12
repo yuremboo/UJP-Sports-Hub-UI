@@ -1,53 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
-import CategoryButton from "../../Components/shortArticle/categoryButton";
-import './allarticlesadmin.css';
+import accountSwitcher from "../../icons/accountSwitcher.svg";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
-import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
-import accountSwitcher from '../../icons/accountSwitcher.svg';
 import {ScrollMenu} from "react-horizontal-scrolling-menu";
 import {LeftArrow, RightArrow} from "../../Components/horizontal-scroll-menu/arrows";
-import {Pagination} from '@mui/material';
-import Header from "../../Components/Header";
+import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
+import {Pagination} from "@mui/material";
 
-const AllArticlesAdmin = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
-    const [numOfPages, setNumOfPages] = useState(1);
-
-    const pages = [];
-    for (let i = 1; i <= numOfPages; i++) {
-        pages.push(i);
-    }
-
+const AllArticlesAdmin3 = () => {
     const authToken = 'Bearer ' + JSON.parse(localStorage.getItem('user')).jwt;
 
-    const [currentCategory, setCurrentCategory] = useState({
-        "id": "0",
-        "name": "HOME"
+    const[categories, setCategories] = useState([]);
+    const[displayArticles, setDisplayArticles] = useState([]);
+    const[totalPages, setTotalPages] = useState(1);
+    const[numOfArticlesPerPage, setNumOfArticlesPerPage] = useState(5);
+    const[currentPage, setCurrentPage] = useState(1);
+
+    const[currentCategory, setCurrentCategory] = useState({
+        "id":"0", "name":"HOME"
     });
 
-    // function paginationBack() {
-    //     console.log('before back: ', currentPage);
-    //     if (currentPage > 0) {
-    //         setCurrentPage(currentPage - 1);
-    //     }
-    //     console.log('after back: ', currentPage);
-    // }
-    // function paginationForward() {
-    //     console.log('before forward: ', currentPage);
-    //     if (currentPage < numOfPages - 1) { // !
-    //         setCurrentPage(currentPage + 1);
-    //     }
-    //     console.log('after forward: ', currentPage);
-    // }
 
-    const [categories, setCategories] = useState([]);
     useEffect(() => {
         getAllCategories();
     }, []);
-
     function getAllCategories() {
         axios.get("http://localhost:8080/api/categories", {
             headers: {
@@ -67,17 +44,12 @@ const AllArticlesAdmin = () => {
     }
 
 
-    const [allArticles, setAllArticles] = useState([]);
-    useEffect(() => {
-        getAllArticlesAllCategories();
-        setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
-    }, []);
 
-    function getAllArticlesAllCategories() {
-        setCurrentCategory({
-            "id": "0",
-            "name": "HOME"
-        })
+    const [allArtForNum, setAllArtForNum] = useState([]);
+    useEffect(() => {
+        getNumAllArticlesAllCategories();
+    }, []);  // ?
+    function getNumAllArticlesAllCategories() {
         axios.get("http://localhost:8080/api/v1/admin/allarticles", {
             headers: {
                 "Authorization": authToken,
@@ -85,10 +57,12 @@ const AllArticlesAdmin = () => {
         })
             .then((response) => {
                 const data = response.data;
+                setAllArtForNum(data);
                 console.log('getAllArticlesAllCategories without pagination');
                 console.log(response.data);
-                setAllArticles(data);
-                setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
+                setTotalPages(Math.ceil(allArtForNum.length / numOfArticlesPerPage));
+                console.log('data length: ', data.length)
+                console.log("total pages in getNumAllArticlesAllCategories just after: ", totalPages);
             })
             .catch((error) => {
                 if (error.response) {
@@ -96,25 +70,24 @@ const AllArticlesAdmin = () => {
                     console.log("error.response.status: ", error.response.status);
                 }
             })
-        setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
-        console.log('num of p aft', numOfPages);
-        console.log('pages aft: ', pages);
+        setTotalPages(Math.ceil(allArtForNum.length / numOfArticlesPerPage));
+        console.log("total pages in the end getNumAllArticlesAllCategories: ", totalPages);
     }
 
-    const [articlesWithPagination, setArticlesWithPagination] = useState([])
+
     useEffect(() => {
         getAllArticlesAllCategoriesWithPagination();
     }, [currentPage]);
-
     function getAllArticlesAllCategoriesWithPagination() {
-        axios.get("http://localhost:8080/api/v1/admin/articles?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
+        getNumAllArticlesAllCategories();
+        axios.get("http://localhost:8080/api/v1/admin/articles?page=" + (currentPage - 1) + "&size=" + numOfArticlesPerPage, {
             headers: {
                 "Authorization": authToken,
             }
         })
             .then((response) => {
                 const data = response.data;
-                setArticlesWithPagination(data);
+                setDisplayArticles(data);
             })
             .catch((error) => {
                 if (error.response) {
@@ -126,7 +99,7 @@ const AllArticlesAdmin = () => {
 
 
     useEffect(() => {
-        getAllArticlesByCategoryId();
+        getAllArticlesByCategoryId(currentCategory.id);
     }, [currentCategory]);
     function getAllArticlesByCategoryId(catId) {
         console.log('function getAllArticlesByCategoryId');
@@ -140,8 +113,8 @@ const AllArticlesAdmin = () => {
                 const data = response.data
                 console.log('getAllArticlesAllCategories')
                 console.log(response.data)
-                setAllArticles(data)
-                setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
+                setDisplayArticles(data);
+                setTotalPages(Math.ceil(allArtForNum.length / numOfArticlesPerPage));
             })
             .catch((error) => {
                 if (error.response) {
@@ -149,32 +122,9 @@ const AllArticlesAdmin = () => {
                     console.log("error.response.status: ", error.response.status);
                 }
             })
-        setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
+        setTotalPages(Math.ceil(allArtForNum.length / numOfArticlesPerPage));
     }
 
-    function getAllArticlesByCategorySoccer() {
-        console.log('function getAllArticlesByCategoryId');
-        console.log('token: ', authToken);
-        axios.get("http://localhost:8080/api/v1/admin/articles/category_id/9", {
-            headers: {
-                "Authorization": authToken,
-            }
-        })
-            .then((response) => {
-                const data = response.data
-                console.log('getAllArticlesAllCategories')
-                console.log(response.data)
-                setAllArticles(data)
-                setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response);
-                    console.log("error.response.status: ", error.response.status);
-                }
-            })
-        setNumOfPages(Math.ceil(allArticles.length / sizeOfArticlesOnPage));
-    }
 
     return (
         <div className='all_articles_admin__page'>
@@ -190,7 +140,7 @@ const AllArticlesAdmin = () => {
 
             <div className='all_articles_admin__current_category__new_article'>
                 <div className='all_articles_admin__current_category'>
-                    {currentCategory.name}
+                    {currentCategory.name !== null ? currentCategory.name : "HOME"}
                 </div>
                 <div className='all_articles_admin__new_article'>
                     <AddNewArticleBtn/>
@@ -209,11 +159,12 @@ const AllArticlesAdmin = () => {
                                 }}
                     >
                         <div className='category_button'>
-                            <button onClick={getAllArticlesAllCategories}>HOME</button>
+                            <button onClick={getAllArticlesAllCategoriesWithPagination}>HOME</button>
                         </div>
-                        <div className='category_button'>
-                            <button onClick={getAllArticlesByCategorySoccer}>SOCCER</button>
-                        </div>
+
+                        {/*<div className='category_button'>*/}
+                        {/*    <button onClick={getAllArticlesByCategoryId(9)}>SOCCER</button>*/}
+                        {/*</div>*/}
 
                         {
                             categories.map(category => <div className='category_button'>
@@ -246,7 +197,7 @@ const AllArticlesAdmin = () => {
                         </div>
                     </div>
                     {
-                        articlesWithPagination.map(article =>
+                        displayArticles.map(article =>
                             <ShortArticleAdmin title={article.title} shortText={article.shortText}
                                                category={article.category.name} isPublished={article.isActive}/>
                         )
@@ -256,22 +207,13 @@ const AllArticlesAdmin = () => {
             </div>
 
             <div className='pagination__component'>
-                {/*<div className='pagination__back_button'>*/}
-                {/*    <button onClick={paginationBack}/>*/}
-                {/*</div>*/}
-
                 <div className='pagination__pages'>
-                    <Pagination count={numOfPages} page={currentPage} onChange={(_, num) => setCurrentPage(num)}/>
+                    <Pagination count={totalPages} page={currentPage} onChange={(_, num) => setCurrentPage(num)}/>
                 </div>
-
-                {/*<div className='pagination__forward_button'>*/}
-                {/*    <button onClick={paginationForward}/>*/}
-                {/*</div>*/}
-
             </div>
 
         </div>
     );
 };
 
-export default AllArticlesAdmin;
+export default AllArticlesAdmin3;

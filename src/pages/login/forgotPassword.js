@@ -5,11 +5,14 @@ import './forgotpassword.css';
 import checkEmail from "../../icons/checkEmail.svg";
 import RegistrationPage from "../registration/registrationPage";
 import LoginPage from "./loginPage";
+import ResetPassword from "./resetPassword";
+import axios from "axios";
 
 const ForgotPassword = () => {
     let navigate = useNavigate();
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
+    const [token, setToken] = useState('');
     const [showComponent, setShowComponent] = useState(true);
 
     function reset(e) {
@@ -23,6 +26,25 @@ const ForgotPassword = () => {
         }
         else{
             setShowComponent(false);
+            axios({
+                method: "POST",
+                url: 'http://localhost:8080/api/v1/forgot/password?email='+email,
+            })
+                .then((response) => {
+                    console.log('forgot response');
+                    console.log(response);
+                    console.log('forgot response data');
+                    console.log(response.data);
+                    setToken(response.data);
+                    console.log('forgot response status');
+                    console.log(response.status);
+                    if (response.status === 200)
+                    {
+                        // setCookie('jwt_session', response.data.jwt_session, 60);
+                        // console.log('redirect')
+                        // navigate("/");
+                    }
+                })
         }
 
         // for password
@@ -45,7 +67,7 @@ const ForgotPassword = () => {
                 <div className='sportshub'>Sports hub</div>
                 <div className='header--right'>
                     <div className='no-account'>
-                        <NavLink onClick={registration}>Don't have an account?</NavLink>
+                        Don't have an account?
                     </div>
                     <div className='getstarted'>
                         <button onClick={registration}>Get started</button>

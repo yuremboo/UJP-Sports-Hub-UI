@@ -10,6 +10,8 @@ import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import AllArticlesAdmin from "./pages/allArticlesAdmin/AllArticlesAdmin";
+import ResetPassword from "./pages/login/resetPassword";
+import AllArticlesAdmin3 from "./pages/allArticlesAdmin/AllArticlesAdmin3";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -42,6 +44,7 @@ root.render(
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>
+                    <Route path="reset/password/:token" element={<ResetPassword/>}/>
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
