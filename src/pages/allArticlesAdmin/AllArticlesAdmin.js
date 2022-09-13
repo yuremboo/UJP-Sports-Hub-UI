@@ -269,13 +269,6 @@ const AllArticlesAdmin = () => {
   //     setCurrentCategory(category);
   // }
 
-  function displayHeader(){
-    if (true){
-      <Header/>
-    }
-
-  }
-
   return (
     <div className='all_articles_admin__page'>
       <div className='all_articles_admin__header'>
@@ -367,7 +360,6 @@ const AllArticlesAdmin = () => {
 
       </div>
 
-      <button onClick={displayHeader} className='h'>Header</button>
     </div>
   );
 };

@@ -1,16 +1,16 @@
-.shortArticle__outer{
+.n_shortArticle__outer{
     display: flex;
     padding: 2%;
     /*border: black 3px solid;*/
     margin: 3% 17% 3% 17%;
 }
-.shortArticle__outer:hover{
+.n_shortArticle__outer:hover{
     -webkit-box-shadow: 0px 0px 30px 2px rgba(222,222,222,1);
     -moz-box-shadow: 0px 0px 30px 2px rgba(222,222,222,1);
     box-shadow: 0px 0px 30px 2px rgba(222,222,222,1);
 }
 
-.shortArticle{
+.n_shortArticle{
     display: flex;
     margin-top: 2%;
     /*width: 100%;*/
@@ -20,25 +20,25 @@
 
 
 }
-.shortarticle__image{
+.n_shortarticle__image{
     /*margin-right: 5%;*/
     /*background: url(../../icons/shortArticleImg.jpg) top left no-repeat;*/
     /*background-size: contain;*/
 }
 
-.shortarticle__image img{
+.n_shortarticle__image img{
     width: fit-content;
     height: fit-content;
 
 }
 
-.shortarticle__body{
+.n_shortarticle__body{
     margin: 0 5%;
     /*border: black 2px solid; !**!*/
     /*width: 60%;*/
 }
 
-.shortarticle__title{
+.n_shortarticle__title{
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -47,7 +47,7 @@
     color: #2B2F43;
 }
 
-.shortarticle__short_text{
+.n_shortarticle__short_text{
     margin-top: 2%;
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
@@ -57,12 +57,12 @@
     color: #7F7B7B;
 }
 
-.shortarticle__bottom{
+.n_shortarticle__bottom{
     display: flex;
     margin-top: 2%;
 }
-.shortarticle__is_published,
-.shortarticle__category{
+.n_shortarticle__is_published,
+.n_shortarticle__category{
     /*margin-top: 8%;*/
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
@@ -73,17 +73,17 @@
 
 }
 
-.shortarticle__is_published{
+.n_shortarticle__is_published{
     color: black;
     margin-left: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.shortarticle__is_published__ispubl{
+.n_shortarticle__is_published__ispubl{
     /*margin-top: 8%;*/
 }
-.shortarticle__is_published__dot{
+.n_shortarticle__is_published__dot{
     width: 40%;
     height: 40%;
     border-radius: 50%;
