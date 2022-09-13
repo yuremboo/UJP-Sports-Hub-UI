@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import "../style_components/navbar.css";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-// import { useEffect, useState } from "@types/react";
 import axios from "axios";
 
 export default function NavBar() {
@@ -51,40 +50,12 @@ export default function NavBar() {
             </Nav.Link>
             {
               categories.map(category =>
-                <Nav.Link className="link-1" href="/category/2">
+                <Nav.Link className="link-1" href={"/category/" + category.id}>
                   <li>{category.name}</li>
                 </Nav.Link>
-              // <ShortArticle title={article.title} shortText={article.shortText} category={null}  />)
-            )
+              )
             }
-            {/*<Nav.Link className='link-1' eventKey="link-1">*/}
-            {/*  <li>NBA</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-2">*/}
-            {/*  <li>NFL</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-3">*/}
-            {/*  <li>MLB</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-4">*/}
-            {/*  <li>NHL</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-5">*/}
-            {/*  <li>CBB</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-6">*/}
-            {/*  <li>CFB</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-7">*/}
-            {/*  <li>NASCAR</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-8' eventKey="link-8">*/}
-            {/*  <li>GOLF</li>*/}
-            {/*</Nav.Link>*/}
-            {/*<Nav.Link className='link-1' eventKey="link-9">*/}
-            {/*  <li>SOCCER</li>*/}
-            {/*</Nav.Link>*/}
-            <Nav.Link className="link-1" eventKey="link-10">
+            <Nav.Link className="link-1" href="/teams">
               <li>TEAM HUB</li>
             </Nav.Link>
             <Nav.Link className="link-1" eventKey="link-11">

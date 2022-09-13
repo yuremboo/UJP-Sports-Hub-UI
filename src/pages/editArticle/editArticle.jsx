@@ -22,6 +22,34 @@ const EditArticle = () => {
         caption: 'Caption',
         text: 'Text',
     })
+    const AuthToken = JSON.parse(localStorage.getItem("user"));
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    function getCategories() {
+        console.log("function getCategories");
+        console.log("token: ", AuthToken["jwt"]);
+        axios.get("http://localhost:8080/api/categories", {
+            headers: {
+                authorization: AuthToken["jwt"]
+            }
+        })
+          .then((response) => {
+              const data = response.data;
+              console.log("getCategories");
+              console.log(response.data);
+              setCategories(data);
+          })
+          .catch((error) => {
+              if (error.response) {
+                  console.log(error.response);
+                  console.log("error.response.status: ", error.response.status);
+              }
+          });
+    }
 
     useEffect(() => {
         const articleData = axios.get("http://localhost:8080/api/v1/articles/1")
@@ -41,6 +69,7 @@ const EditArticle = () => {
     const handleChange = event => {
         const {name, value} = event.target
         setArticle({...article, [name]: value})
+        console.log(article)
     }
 
     return (
@@ -70,21 +99,21 @@ const EditArticle = () => {
                     <CustomSelect
                         label={"Subcategory"}
                         name={"subcategory"}
-                        value={article.category}
+                        enumeration={categories}
                         handleChange={handleChange}
                     />
-                    <CustomSelect
-                        label={"Team"}
-                        name={"Team"}
-                        value={article.team}
-                        handleChange={handleChange}
-                    />
-                    <CustomSelect
-                        label={"Location"}
-                        name={"Location"}
-                        value={article.location}
-                        handleChange={handleChange}
-                    />
+                    {/*<CustomSelect*/}
+                    {/*    label={"Team"}*/}
+                    {/*    name={"Team"}*/}
+                    {/*    value={article.team}*/}
+                    {/*    handleChange={handleChange}*/}
+                    {/*/>*/}
+                    {/*<CustomSelect*/}
+                    {/*    label={"Location"}*/}
+                    {/*    name={"Location"}*/}
+                    {/*    value={article.location}*/}
+                    {/*    handleChange={handleChange}*/}
+                    {/*/>*/}
                 </div>
 
                 <CustomInput
