@@ -1,6 +1,6 @@
 import "./custom-select.style.css";
 
-const CustomSelect = ({handleChange,enumeration, label, ...otherProps}) => {
+const CustomSelect = ({handleChange,enumeration,get, label, ...otherProps}) => {
 
     return (
         <div className="custom-select">
@@ -9,7 +9,7 @@ const CustomSelect = ({handleChange,enumeration, label, ...otherProps}) => {
             <select className="form-select" name="select" id="select" onChange={handleChange} {...otherProps}>
               {
                 enumeration.map(enumerate =>
-                  <option value={enumerate.name}>{enumerate.name}</option>)
+                  <option value={enumerate.name}>{enumerate+get}</option>)
               }
             </select>
         </div>

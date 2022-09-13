@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import ForgotPassword from "./pages/login/forgotPassword";
 import HomePage from "./pages/home/homePage";
+import AdminHomePage from "./pages/home/AdminHomePage";
 import TeamHub from "./pages/teamHub/teamHub";
 import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
@@ -33,6 +34,7 @@ root.render(
                     <Route path="teams" element={<TeamHub/>}/>
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>
                     <Route path="category/:id" element={<CategoryPage/>}/>
+                    <Route path="admin/home" element={<AdminHomePage/>}/>
                 </Route>
                 {/*<Route>*/}
                 {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
