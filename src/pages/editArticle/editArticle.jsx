@@ -10,8 +10,11 @@ import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictur
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
 import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
+import { authRequestFailure } from "../../redux/auth/auth.actions";
+import { useParams } from "react-router-dom";
 
-const EditArticle = () => {
+const EditArticle = ({ props, globalStore }) => {
+    const { id } = useParams();
     const [article, setArticle] = useState({
         picture: 'Picture',
         category: 'Category',
@@ -22,32 +25,77 @@ const EditArticle = () => {
         caption: 'Caption',
         text: 'Text',
     })
+    const AuthToken = JSON.parse(localStorage.getItem("user"));
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        const articleData = axios.get("http://localhost:8080/api/v1/articles/1")
-        setArticle({
-            ...article,
-            picture: articleData.picture,
-            category: articleData.category,
-            team: articleData.team,
-            location: articleData.location,
-            alt: articleData.alt,
-            caption: articleData.caption,
-            title: articleData.title,
-            text: articleData.text,
+        getCategories();
+    }, []);
+
+    function getCategories() {
+        console.log("function getCategories");
+        console.log("token: ", AuthToken["jwt"]);
+        axios.get("http://localhost:8080/api/categories", {
+            headers: {
+                authorization: AuthToken["jwt"]
+            }
         })
-    }, [])
+          .then((response) => {
+              const data = response.data;
+              console.log("getCategories");
+              console.log(response.data);
+              setCategories(data);
+          })
+          .catch((error) => {
+              if (error.response) {
+                  console.log(error.response);
+                  console.log("error.response.status: ", error.response.status);
+              }
+          });
+    }
+
+    function putAtricle(article,id) {
+        let result = true
+      console.log('token: ', AuthToken['jwt']);
+      axios.put("http://localhost:8080/api/v1/articles/"+id, article, {
+        headers: {
+          authorization: AuthToken["jwt"]
+        }
+      })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+            console.log("error.response.status: ", error.response.status);
+          }
+        });
+        return result;
+    }
+    // useEffect(() => {
+    //     // const articleData = axios.get("http://localhost:8080/api/v1/articles/1")
+    //     // setArticle({
+    //     //     ...article,
+    //     //     picture: articleData.picture,
+    //     //     category: articleData.category,
+    //     //     team: articleData.team,
+    //     //     location: articleData.location,
+    //     //     alt: articleData.alt,
+    //     //     caption: articleData.caption,
+    //     //     title: articleData.title,
+    //     //     text: articleData.text,
+    //     })
+    // }, [])
 
     const handleChange = event => {
         const {name, value} = event.target
         setArticle({...article, [name]: value})
+        console.log(article)
     }
 
     return (
         <div className={"edit-article"}>
             <header className={"edit-article-header"}>
                 <HeaderAdmin/>
-                <SaveCancelChanges/>
+                <SaveCancelChanges handleSubmit={putAtricle(article,id)}/>
             </header>
             <NavBarIcons className={"nav-bar-icons"}/>
 
@@ -70,21 +118,21 @@ const EditArticle = () => {
                     <CustomSelect
                         label={"Subcategory"}
                         name={"subcategory"}
-                        value={article.category}
+                        enumeration={categories}
                         handleChange={handleChange}
                     />
-                    <CustomSelect
-                        label={"Team"}
-                        name={"Team"}
-                        value={article.team}
-                        handleChange={handleChange}
-                    />
-                    <CustomSelect
-                        label={"Location"}
-                        name={"Location"}
-                        value={article.location}
-                        handleChange={handleChange}
-                    />
+                    {/*<CustomSelect*/}
+                    {/*    label={"Team"}*/}
+                    {/*    name={"Team"}*/}
+                    {/*    value={article.team}*/}
+                    {/*    handleChange={handleChange}*/}
+                    {/*/>*/}
+                    {/*<CustomSelect*/}
+                    {/*    label={"Location"}*/}
+                    {/*    name={"Location"}*/}
+                    {/*    value={article.location}*/}
+                    {/*    handleChange={handleChange}*/}
+                    {/*/>*/}
                 </div>
 
                 <CustomInput

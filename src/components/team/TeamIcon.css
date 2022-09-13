@@ -1,4 +1,4 @@
-.team{
+.team_icon{
     display: flex;
     height: 140px;
     border: black 1px solid;
@@ -7,14 +7,14 @@
     margin: 4% 7%;
     background: #FFFFFF;
 }
-#unfollow_button{
+#unfollow_button_icon{
     color: white;
     margin: 0px;
     background-color: #d72130;
     font-family: "Roboto", serif;
 }
 
-#unfollow_button:hover{
+#unfollow_button_icon:hover{
     color: red;
     margin: 0px;
     background-color: white;
@@ -22,25 +22,25 @@
 
 }
 
-.team_button{
+.team_icon_button{
     display: flex;
     justify-content: flex-end;
 }
 
-.team_image {
+.team_icon_image {
     width: auto;
     padding: 5px;
 }
 
-.team_image img{
+.team_icon_image img{
     height: 100%;
 }
 
-.team_body{
+.team_icon_body{
     width: 100%;
 }
 
-.team_title{
+.team_icon_title{
     /*display: contents;*/
     display: flex;
     font-weight: 700;
@@ -53,7 +53,7 @@
     height: 30%;
 }
 
-.team_following{
+.team_icon_following{
     display: block;
     font-weight: 400;
     font-size: 10px;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './TeamComponent.css';
 import TeamIcon from "./TeamIcon";
-import ShortArticle from "../article/ShortArticle";
+import ShortArticle from "../article/ShortArticleUser";
 import axios from "axios";
 
 export default function TeamComponent({team}) {
