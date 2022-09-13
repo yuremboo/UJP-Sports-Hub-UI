@@ -6,35 +6,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import ForgotPassword from "./pages/login/forgotPassword";
 import HomePage from "./pages/home/homePage";
+import TeamHub from "./pages/teamHub/teamHub";
 import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import EditArticle from "./pages/editArticle/editArticle";
+import Profile from "./pages/profile/profile";
+import ArticlePage from "./pages/article/articlePage";
 import AllArticlesAdmin from "./pages/allArticlesAdmin/AllArticlesAdmin";
 import ResetPassword from "./pages/login/resetPassword";
-import AllArticlesAdmin3 from "./pages/allArticlesAdmin/AllArticlesAdmin3";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// var cors = require('cors')
-
-// const cors = require('cors');
-// const corsOptions ={
-//     origin:'http://localhost:3000',
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200
-// }
-
-// router.get("/", (req, res) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*")
-//     res.setHeader("Access-Control-Allow-Credentials", "true");
-//     res.setHeader("Access-Control-Max-Age", "1800");
-//     res.setHeader("Access-Control-Allow-Headers", "content-type");
-//     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );
-// });
-
-
 root.render(
-
     <Provider store={store}>
         <BrowserRouter>
             <Routes>
@@ -43,6 +27,10 @@ root.render(
                     <Route index element={<HomePage />} />
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
+                    <Route path="edit-article" element={<EditArticle/>} />
+                    <Route path="update-user-information" element={<Profile/>} />
+                    <Route path="articles" element={<ArticlePage/>}/>
+                    <Route path="teams" element={<TeamHub/>}/>
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>
                     <Route path="reset/password/:token" element={<ResetPassword/>}/>
                 </Route>
@@ -54,5 +42,3 @@ root.render(
         </BrowserRouter>
     </Provider>
 );
-
-// root.use(cors(corsOptions));

@@ -76,49 +76,49 @@ const ShortArticleAdmin = (props) => {
     }, []);
 
     return (
-        <div className='shortArticle__outer'>
-            <div className='shortArticle'>
-                <div className='shortarticle__image'>
-                    <img src={articleImage} alt="article"
-                         width="100%" height="100%"/>
-                </div>
+      <div className='n_shortArticle__outer'>
+          <div className='n_shortArticle'>
+              <div className='n_shortarticle__image'>
+                  <img src={articleImage} alt="article"
+                       width="100%" height="100%"/>
+              </div>
 
-                <div className='shortarticle__body'>
-                    <div className='shortarticle__title'>
-                        {props.title}
-                    </div>
-                    <div className='shortarticle__short_text'>
-                        {props.shortText}
-                    </div>
-                    <div className='shortarticle__bottom'>
-                        <div className='shortarticle__category'>
-                            {props.category}
-                        </div>
-                        <div className='shortarticle__is_published'>
-                            <div className='shortarticle__is_published__dot'>
-                                {isPublished.dot}
-                            </div>
-                            <div className='shortarticle__is_published__ispubl'>
-                                {isPublished.isPubl}
-                            </div>
+              <div className='n_shortarticle__body'>
+                  <div className='n_shortarticle__title'>
+                      {props.title}
+                  </div>
+                  <div className='n_shortarticle__short_text'>
+                      {props.shortText}
+                  </div>
+                  <div className='n_shortarticle__bottom'>
+                      <div className='n_shortarticle__category'>
+                          {props.category}
+                      </div>
+                      <div className='n_shortarticle__is_published'>
+                          <div className='n_shortarticle__is_published__dot'>
+                              {isPublished.dot}
+                          </div>
+                          <div className='n_shortarticle__is_published__ispubl'>
+                              {isPublished.isPubl}
+                          </div>
 
-                        </div>
-                    </div>
-                </div>
+                      </div>
+                  </div>
+              </div>
 
 
-            </div>
-            <div className='shortarticle__button'>
-                <DropdownButton id="dropdown-basic-button" onClick={displayMenu} title="...">
-                    {/*<Dropdown.Item>Action</Dropdown.Item>*/}
-                    {/*<Dropdown.Item>Another action</Dropdown.Item>*/}
-                    {/*<Dropdown.Item>Something else</Dropdown.Item>*/}
-                    {
-                        menu.map(action => <Dropdown.Item onClick={action.onclick}>{action.action}</Dropdown.Item>)
-                    }
-                </DropdownButton>
-            </div>
-        </div>
+          </div>
+          <div className='n_shortarticle__button'>
+              <DropdownButton id="dropdown-basic-button" onClick={displayMenu} title="...">
+                  {/*<Dropdown.Item>Action</Dropdown.Item>*/}
+                  {/*<Dropdown.Item>Another action</Dropdown.Item>*/}
+                  {/*<Dropdown.Item>Something else</Dropdown.Item>*/}
+                  {
+                      menu.map(action => <Dropdown.Item onClick={action.onclick}>{action.action}</Dropdown.Item>)
+                  }
+              </DropdownButton>
+          </div>
+      </div>
     );
 };
 

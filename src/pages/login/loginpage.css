@@ -134,7 +134,10 @@ a.nav-link {
     margin: 3% 0;
 }
 
-.form-input {
+.login-page .form-input, .reg-page .form-input {
+    border: medium none currentColor;
+    padding: 0;
+    width: auto;
     color: #C6CCD7;
     height: 5%;
     font-family: 'Roboto', sans-serif;

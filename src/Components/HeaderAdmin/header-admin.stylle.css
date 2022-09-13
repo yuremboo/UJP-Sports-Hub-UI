@@ -1,0 +1,34 @@
+.header_admin{
+    background: #FFFFFF;
+    border-bottom: 1px solid #EDEDED;
+    display: flex;
+}
+
+.header_admin_sport_hub {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+}
+
+.logo_admin_sport_hub {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+
+    width: 15%;
+    height: 100%;
+    background: #D72130;
+    color: #FFFBFB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-panel{
+    width: 20%;
+    height: 10vh;
+    border-left: 1px solid #EDEDED;
+
+}
