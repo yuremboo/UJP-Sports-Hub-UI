@@ -3,15 +3,27 @@
   border: 1px solid #ededed;
   width: 390px;
   height: fit-content;
+  position: relative;
+  height: calc(295px / 3);
+
 }
 
 .mini-article-img {
     width: 150px;
-    height: 100px;
+    height: 100%;
 }
 
-.article-link {
+.article-link { 
+  position: relative;
   text-decoration: none;
+}
+
+.article-link:hover {
+  box-shadow: 0 10px 25px -10px #0000001a, 0 4px 6px -2px #0000000d;
+}
+
+.article-link:hover .breakdown-arrow{
+  display: block;
 }
 
 .mini-article-text {
