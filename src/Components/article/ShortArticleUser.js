@@ -1,8 +1,8 @@
 import React from 'react';
-import '../../style_components/article/short_article.css';
+import '../../style_components/article/shortarticle.css';
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
 
-const ShortArticle = (props) => {
+const ShortArticleUser = (props) => {
   return (
     <div className='shortArticle'>
       <div className='shortarticle__image'>
@@ -27,4 +27,4 @@ const ShortArticle = (props) => {
   );
 };
 
-export default ShortArticle;
+export default ShortArticleUser;

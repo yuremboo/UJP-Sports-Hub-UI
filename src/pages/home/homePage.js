@@ -10,7 +10,7 @@ import './home-page.css'
 import MiniArticle from '../../Components/article/MiniArticle'
 import MediumArticle from '../../Components/article/MediumArticle'
 
-import NavBar from '../../Components/NavBar'
+import NavBar from "../../Components/NavBar/MainNavBar";
 import Header from '../../Components/Header'
 
 // actions

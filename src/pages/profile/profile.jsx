@@ -1,7 +1,7 @@
 import "./profile.style.css";
 import { useParams } from "react-router-dom";
 import Header from "../../Components/Header";
-import NavBar from "../../Components/NavBar";
+import NavBar from "../../Components/NavBar/MainNavBar";
 import UpdateUserInfo from "../../Components/UpdateUserInfo/UpdateUserInfo";
 import ChangePassword from "../../Components/ChangePassword/ChangePassword";
 import SubscriptionUser from "../../Components/Subscriptions/SubscriptionUser";

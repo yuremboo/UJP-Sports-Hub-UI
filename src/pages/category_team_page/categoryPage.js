@@ -5,11 +5,11 @@ import ArticleHeading from "../../Components/article/ArticleHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
-import ShortArticle from "../../Components/article/ShortArticle";
+import ShortArticle from "../../Components/article/ShortArticleUser";
 import MiniArticle from "../../Components/article/MiniArticle";
 import axios from "axios";
 import Header from "../../Components/Header";
-import NavBar from "../../Components/NavBar";
+import NavBar from "../../Components/NavBar/MainNavBar";
 
 const CategoryPage = ({ props, globalStore }) => {
   const [articlesByCategory, setArticlesByCategory] = useState([]);
