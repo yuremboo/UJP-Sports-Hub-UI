@@ -1,0 +1,50 @@
+.breakdown-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 36px;
+    padding: 40px 0;
+}
+
+.breakdown-header {
+    position: relative;
+}
+
+.breakdown-header p {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+    padding: 12px 42px;
+    margin-top: 0;   
+    margin-bottom: 0;
+}
+
+.breakdown-header__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    border: 1px solid #B2B2B2;
+    border-radius: 21px;
+
+}
+
+.medium-articles{
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.mini-articles {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.home-page {
+    display: flex;
+    gap: 120px;
+}

@@ -1,0 +1,66 @@
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
+.team_hub {
+    position: absolute;
+    left: 16.4%;
+    top: 23.4%;
+    width: 63%;
+
+}
+.team_{
+    display: flex;
+    height: 250px;
+}
+
+
+
+.all_articles_body{
+    background: #F8F8F8;
+}
+.all_articles{
+    //display: flex;
+}
+.all_teams{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 1000px;
+}
+
+.all_articles_left_buttons{
+    width: 10%;
+    height: 70%;
+}
+.more {
+    justify-items: center;
+    margin-bottom: 60px;
+}
+
+.more-lin-l {
+    margin-left: 41.6%;
+    margin-top: -22px;
+}
+
+.more-lin-r {
+    margin-left: 48.6%;
+    margin-top: -22px;
+}
+
+.more-popular {
+    display: table;
+    padding: 11px 33px 12px 33px;
+    font-weight: 700;
+}
+.more-commented {
+    display: table;
+    padding: 11px 33px 12px 33px;
+    font-weight: 700;
+}
+.mini-articles {
+    display: flex;
+}
+
+.mini-articles-r {
+    padding-left: 34px;
+}

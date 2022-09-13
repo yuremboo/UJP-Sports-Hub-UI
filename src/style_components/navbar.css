@@ -1,9 +1,10 @@
 .main-nav a {
-    height: 6vh;
+    height: 40px;
 }
 .main-nav{
-    margin-left: 6%;
-    margin-top: 3%;
+    max-width: 200px;
+    margin-left: 50px;
+    margin-top: 40px;
 } 
 .main-nav ul{
     padding-left: 0px;
@@ -15,7 +16,7 @@
 .link-home,
 .link-home:hover {
     margin-top: 3%;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -81,9 +82,10 @@
 }
 .position_line{
     display: flex;
+    position: relative;
 }
 .line{
-    margin-left: -2%;
-    margin-right: 2%;
-    margin-top: 3%;
+    position: absolute;
+    top: 40px;
+    right: 175px;
 }
