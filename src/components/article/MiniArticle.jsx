@@ -4,7 +4,7 @@ import "../../style_components/article/miniarticle.css";
 
 const MiniArticle = ({miniArticle}) => {
   return (
-    <a className="article-link" href="#">
+    <a className="article-link" href={"http://localhost:3000/articles/" + miniArticle.id}>
       <div className="mini-article">
         <img className="mini-article-img" src={miniArticlePhoto} alt={miniArticle.alt} />
         <div className="mini-article-text">

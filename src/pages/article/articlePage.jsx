@@ -13,18 +13,19 @@ import SortByDropDown from "../../Components/UI/select/SortByDropDown";
 import axios from "axios";
 import NavBar from "../../Components/NavBar";
 import Header from "../../Components/Header";
+import defaultUserImage from "../../icons/defaultUser.jpg";
 
 
-const ArticlePage = ({props, globalStore}) => {
+const ArticlePage = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const [auth] = useState("Bearer ");
+  const bearer = "Bearer ";
 
   const [comments, setComments] = useState([]);
   const [commentInputText, setCommentInputText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [commentObj, setCommentObj] = useState(null);
 
-  const [selectedSort, setSelectedSort] = useState("");
+  const [selectedSortingMethod, setSelectedSortingMethod] = useState("popular");
 
   const initialCommentsNum = 10;
 
@@ -51,16 +52,27 @@ const ArticlePage = ({props, globalStore}) => {
 
   useEffect(() => {
     getArticleById(id);
-    getSixActiveMiniArticlesByCategoryId();
-    getCommentsByArticleId();
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (article.categoryId){
+    getSixActiveMiniArticlesByCategoryId(article.categoryId, article.id);
+    }
+    if (article.commentsActive) {
+    getCommentsByArticleId(id, "popular");
+    }
+  }, [article]);
+
+  useEffect(() => {
+    getCommentsByArticleId(id, selectedSortingMethod);
+  }, [selectedSortingMethod]);
 
   function getArticleById(id) {
     console.log("function getArticleById");
     axios
       .get("http://localhost:8080/api/v1/articles/" + id, {
         headers: {
-          authorization: auth + currentUser["jwt"],
+          authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
@@ -76,22 +88,19 @@ const ArticlePage = ({props, globalStore}) => {
       });
   }
 
-  // useEffect(()=>{
-  //   getCommentsByArticleId();
-  // }, [comments]);
-
-
-  function getCommentsByArticleId() {
-    console.log("function getArticleById");
+  function getCommentsByArticleId(id, sortingMethod) {
+    console.log("function getCommentsByArticleId");
     axios
-      .get("http://localhost:8080/api/v1/1aa/comments", {
+      .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod, {
         headers: {
-          authorization: auth + currentUser["jwt"],
+          authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
         const data = response.data;
-        setArticle(data);
+        if (data.length !== 0){
+        setComments(data);
+        }
         console.log("Comments in articlePage" + data);
       })
       .catch((error) => {
@@ -102,11 +111,12 @@ const ArticlePage = ({props, globalStore}) => {
       });
   }
 
-  function getSixActiveMiniArticlesByCategoryId() {
+  function getSixActiveMiniArticlesByCategoryId(categoryId, articleId) {
+    console.log("CategoryId" + article.categoryId)
     axios
-      .get("http://localhost:8080/api/v1/articles/categories/1asd", {
+      .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId, {
         headers: {
-          authorization: auth + currentUser["jwt"],
+          authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
@@ -125,7 +135,7 @@ const ArticlePage = ({props, globalStore}) => {
     axios
       .post("http://localhost:8080/api/v1/comments", newComment, {
         headers: {
-          authorization: auth + currentUser["jwt"],
+          authorization: bearer + currentUser["jwt"],
         },
       })
       .catch((error) => {
@@ -140,7 +150,7 @@ const ArticlePage = ({props, globalStore}) => {
     axios
       .put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
         headers: {
-          authorization: auth + currentUser["jwt"],
+          authorization: bearer + currentUser["jwt"],
         },
       })
       .catch((error) => {
@@ -151,11 +161,11 @@ const ArticlePage = ({props, globalStore}) => {
       });
   }
 
-  function deleteComment(comment) {
+  function deleteComment(commentId) {
     axios
-      .delete("http://localhost:8080/api/v1/comments/" + comment.id, {
+      .delete("http://localhost:8080/api/v1/comments/" + commentId, {
         headers: {
-          authorization: auth + currentUser["jwt"],
+          authorization: bearer + currentUser["jwt"],
         },
       })
       .catch((error) => {
@@ -165,6 +175,7 @@ const ArticlePage = ({props, globalStore}) => {
         }
       });
   }
+
   function addNewComment(e) {
     e.preventDefault();
     if (!commentInputText) {
@@ -173,12 +184,7 @@ const ArticlePage = ({props, globalStore}) => {
     const newComment = {
       commentText: commentInputText,
       userId: currentUser.id,
-      articleId: article.id,
-      likes: 0,
-      dislikes: 0,
-      createDateTime: Date.now(),
-      updateDateTime: null,
-      edited: false
+      articleId: article.id
     };
     postComment(newComment);
     setComments([...comments, newComment]);
@@ -189,12 +195,14 @@ const ArticlePage = ({props, globalStore}) => {
     let newComments = [...comments];
     newComments[getCommentIndex(commentId)].likes = newLikesVal;
     setComments(newComments);
+    putComment(newComments[getCommentIndex(commentId)]);
   }
 
   function updateDislikesCount(newDislikesVal, commentId) {
     let newComments = [...comments];
     newComments[getCommentIndex(commentId)].dislikes = newDislikesVal;
     setComments(newComments);
+    putComment(newComments[getCommentIndex(commentId)]);
   }
 
   function getCommentIndex(commentId) {
@@ -220,32 +228,14 @@ const ArticlePage = ({props, globalStore}) => {
     }
   }
 
-  function sortComments(sort) {
-    setSelectedSort(sort);
-    if (sort === "mostPop") {
-      setComments([
-        ...comments.sort((a, b) =>
-          a.likes + a.dislikes > b.likes + b.dislikes ? -1 : 1
-        ),
-      ]);
-    } else if (sort === "oldest") {
-      setComments([
-        ...comments.sort((a, b) =>
-          a.createDateTime > b.createDateTime ? 1 : -1
-        ),
-      ]);
-    } else if (sort === "newest") {
-      setComments([
-        ...comments.sort((a, b) =>
-          b.createDateTime > a.createDateTime ? 1 : -1
-        ),
-      ]);
-    }
+  function sortComments(sortingMethod) {
+    console.log(sortingMethod);
+    setSelectedSortingMethod(sortingMethod);
   }
 
   function editComment(comment) {
     setIsEditing(true);
-    setCommentInputText(comment.comment);
+    setCommentInputText(comment.commentText);
     setCommentObj(comment);
   }
 
@@ -262,8 +252,7 @@ const ArticlePage = ({props, globalStore}) => {
       likes: commentObj.likes,
       dislikes: commentObj.dislikes,
       createDateTime: commentObj.createDateTime,
-      updateDateTime: Date.now(),
-      edited: true,
+      isEdited: true
     };
     putComment(newComment);
     setComments([
@@ -300,17 +289,17 @@ const ArticlePage = ({props, globalStore}) => {
             <div className="sort-by">
               <span> Sort by: </span>
               <SortByDropDown
-                value={selectedSort}
+                value={selectedSortingMethod}
                 onChange={sortComments}
                 options={[
-                  { value: "mostPop", name: "Most popular" },
+                  { value: "popular", name: "Most popular" },
                   { value: "oldest", name: "Oldest first" },
                   { value: "newest", name: "Newest first" },
                 ]}
               ></SortByDropDown>
             </div>
             <form className="write-comment-box">
-              <img className="user-image" src={userImage} alt="user" />
+              <img className="user-image" src={currentUser.image? currentUser.image: defaultUserImage} alt="user" />
               <textarea
                 className="comment-input"
                 rows="3"
