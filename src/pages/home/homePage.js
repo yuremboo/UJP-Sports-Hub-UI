@@ -12,6 +12,7 @@ import MediumArticle from '../../Components/article/MediumArticle'
 
 import NavBar from "../../Components/NavBar/MainNavBar";
 import Header from '../../Components/Header'
+import Footer from '../../Components/Footer'
 
 // actions
 import { getBreakdownArticles } from '../../redux/article-breakdown/breakdown.action';
@@ -78,6 +79,7 @@ const HomePage = ({
                     </div>
                 </main>
             </div>
+          <Footer/>
         </div>
     );
 };
