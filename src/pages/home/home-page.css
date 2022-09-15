@@ -44,7 +44,21 @@
     gap: 48px;
 }
 
+.home-page main{
+    width: 80%;
+    margin-right: 20%;
+}
+
 .home-page {
+    width: 100%;
     display: flex;
     gap: 120px;
+}
+
+.most-popular-and-commented-section{
+    width: 100%;
+    /*height: 20%;*/
+    /*background-color: #4A90E2;*/
+    display: flex;
+
 }
