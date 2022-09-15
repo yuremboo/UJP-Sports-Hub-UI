@@ -39,83 +39,6 @@ const TeamHub = () => {
     //   }
     // }
   ]);
-  const [articlesByTeamsId, setArticlesByTeamsId] = useState([
-    {
-      "id": "1",
-      "title": "I'ts title of article 1",
-      "shortText": "I'ts short text article 1. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "isActive": true,
-      "category": {
-        "id": "1",
-        "name": "soccer",
-        "description": "its description11",
-        "isActive": true,
-        "createDateTime": "2002-11-12T00:00:00",
-        "updateDateTime": "2021-11-12T00:00:00",
-        "parent": null
-      }
-    },
-    {
-      "id": "2",
-      "title": "It is a title of article 2",
-      "shortText": "I'ts a short text article 2. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      "isActive": true,
-      "category": {
-        "id": "1",
-        "name": "soccer",
-        "description": "its description11",
-        "isActive": true,
-        "createDateTime": "2002-11-12T00:00:00",
-        "updateDateTime": "2021-11-12T00:00:00",
-        "parent": null
-      }
-    },
-    {
-      "id": "5",
-      "title": "its title article 5",
-      "shortText": "I'ts short text article 5. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "isActive": false,
-      "category": {
-        "id": "1",
-        "name": "soccer",
-        "description": "its description11",
-        "isActive": true,
-        "createDateTime": "2002-11-12T00:00:00",
-        "updateDateTime": "2021-11-12T00:00:00",
-        "parent": null
-      }
-    },
-    {
-      "id": "6",
-      "title": "It is title article 6",
-      "shortText": "It is text article 6 and it is first sentence. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      "isActive": true,
-      "category": {
-        "id": "1",
-        "name": "soccer",
-        "description": "its description11",
-        "isActive": true,
-        "createDateTime": "2002-11-12T00:00:00",
-        "updateDateTime": "2021-11-12T00:00:00",
-        "parent": null
-      }
-    },
-    {
-      "id": "7",
-      "title": "its title article 7",
-      "shortText": "First sentence of article 7. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "isActive": true,
-      "category": {
-        "id": "1",
-        "name": "soccer",
-        "description": "its description11",
-        "isActive": true,
-        "createDateTime": "2002-11-12T00:00:00",
-        "updateDateTime": "2021-11-12T00:00:00",
-        "parent": null
-      }
-    }
-  ]);
   useEffect(() => {
     getTeamsFollow();
     getMorePopularArticles();
@@ -155,6 +78,8 @@ const TeamHub = () => {
     })
       .then((response) => {
         const data = response.data;
+        console.log("getMorePopularArticles");
+        console.log(response.data);
         setMorePopularArticles(data);
       })
       .catch((error) => {
@@ -235,7 +160,7 @@ const TeamHub = () => {
               <div className="mini-articles-l">
                 <span className="more-popular">MORE POPULAR</span>
                 <hr className="more-lin-l"></hr>
-                {morePopularArticles.slice(0, 3).map((miniArticle) => (
+                {morePopularArticles.map((miniArticle) => (
                   <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
                 ))}
               </div>

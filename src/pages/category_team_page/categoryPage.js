@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./categorypage.css";
 import { useParams } from "react-router-dom";
-import ArticleHeading from "../../Components/article/ArticleHeading";
+import CategoryHeading from "../../Components/article/CategoryHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
@@ -159,17 +159,19 @@ const CategoryPage = ({ props, globalStore }) => {
           <NavBar />
         </div>
         <div className="category_page">
-          <ArticleHeading
-            published={article["createDateTime"]}
-            title={article["title"]}
-            subtitle={article["caption"]}
-          />
+          {articlesByCategory.slice(0, 1).map((article) => (
+
+          <CategoryHeading
+            article={articlesByCategory[0]}
+          />))}
+          {articlesByCategory.slice(0, 1).map((article) => (
           <img
             className="article-image"
             alt={article["alt"]}
             //src={article.picture}
             src={articleImage}
           />
+            ))}
           <div className="category_articles">
             {
               articlesByCategory.map(article =>
