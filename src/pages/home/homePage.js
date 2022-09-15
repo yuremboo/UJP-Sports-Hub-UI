@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-    useNavigate
+  useNavigate
 } from "react-router-dom";
 import {
     userLogoutRequest
@@ -10,7 +10,7 @@ import './home-page.css'
 import MiniArticle from '../../Components/article/MiniArticle'
 import MediumArticle from '../../Components/article/MediumArticle'
 
-import NavBar from '../../Components/NavBar'
+import NavBar from "../../Components/NavBar/MainNavBar";
 import Header from '../../Components/Header'
 
 // actions
@@ -22,7 +22,7 @@ const HomePage = ({
                       // auth: { isLoading, errorMessage, userObject },
                       breakdown: { firstArticlesPayload, secondArticlesPayload } }) => {
 
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 
     async function logOut() {
         await logOutUser()
