@@ -19,7 +19,7 @@ import { getBreakdownArticles } from '../../redux/article-breakdown/breakdown.ac
 const HomePage = ({
                       logOutUser,
                       getArticles,
-                      // auth: { isLoading, errorMessage, userObject },
+                      auth: { isLoading, errorMessage, userObject },
                       breakdown: { firstArticlesPayload, secondArticlesPayload } }) => {
 
   let navigate = useNavigate();
