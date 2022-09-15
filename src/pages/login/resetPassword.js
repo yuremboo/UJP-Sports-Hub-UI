@@ -81,19 +81,19 @@ const ResetPassword = () => {
                             {successfully}
                         </div>
 
-                        <Form.Group className="form-group" controlId="formBasicEmail">
-                            <div className='form-text'>
+                        <Form.Group className="form-group-reset-password" controlId="formBasicEmail">
+                            <div className='form-text-reset-password'>
                                 <Form.Label>NEW PASSWORD</Form.Label>
                             </div>
-                            <div className='form-input'>
+                            <div className='form-input-reset-password'>
                                 <Form.Control value={newPassword} onChange={e => setNewPassword(e.target.value)}
                                               type="password" placeholder="new password"/>
                             </div>
 
-                            <div className='form-text'>
+                            <div className='form-text-reset-password'>
                                 <Form.Label>PASSWORD</Form.Label>
                             </div>
-                            <div className='form-input'>
+                            <div className='form-input-reset-password'>
                                 <Form.Control value={newPassword2} onChange={e => setNewPassword2(e.target.value)}
                                               type="password" placeholder="confirm password"/>
                             </div>

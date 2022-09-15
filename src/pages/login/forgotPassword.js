@@ -87,11 +87,11 @@ const ForgotPassword = () => {
                                 {error}
                             </div>
 
-                            <Form.Group className="form-group" controlId="formBasicEmail">
+                            <Form.Group className="form-group-forgot-password" controlId="formBasicEmail">
                                 <div className='form-text'>
                                     <Form.Label>Email address</Form.Label>
                                 </div>
-                                <div className='form-input'>
+                                <div className='form-input-forgot-password'>
                                     <Form.Control value={email} onChange={e => setEmail(e.target.value)}
                                                   type="email" placeholder="Email@gmail.com"/>
                                 </div>
