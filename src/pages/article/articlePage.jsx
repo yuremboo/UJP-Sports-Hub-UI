@@ -5,7 +5,6 @@ import ArticleHeading from "../../Components/article/ArticleHeading";
 import Comment from "../../Components/article/Comment";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
-import userImage from "../../icons/article/ellipse.svg";
 import smallArrowDown from "../../icons/article/smallArrowDown.svg";
 import MiniArticle from "../../Components/article/MiniArticle";
 import parse from "html-react-parser";
@@ -48,6 +47,8 @@ const ArticlePage = () => {
     teamId: ""
   });
 
+  const [allCommentsNum, setAllCommentNum] = useState(0);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -59,16 +60,20 @@ const ArticlePage = () => {
     getSixActiveMiniArticlesByCategoryId(article.categoryId, article.id);
     }
     if (article.commentsActive) {
-    getCommentsByArticleId(id, "popular");
+    getCommentsByArticleId(id, "popular", commentsNum);
+    getCommentsNumByArticleId(id);
     }
   }, [article]);
 
   useEffect(() => {
-    getCommentsByArticleId(id, selectedSortingMethod);
+    getCommentsNumByArticleId(id);
+  }, [comments]);
+
+  useEffect(() => {
+    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
   }, [selectedSortingMethod]);
 
   function getArticleById(id) {
-    console.log("function getArticleById");
     axios
       .get("http://localhost:8080/api/v1/articles/" + id, {
         headers: {
@@ -78,7 +83,6 @@ const ArticlePage = () => {
       .then((response) => {
         const data = response.data;
         setArticle(data);
-        console.log(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -88,10 +92,9 @@ const ArticlePage = () => {
       });
   }
 
-  function getCommentsByArticleId(id, sortingMethod) {
-    console.log("function getCommentsByArticleId");
+  function getCommentsByArticleId(id, sortingMethod, commentsNum) {
     axios
-      .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod, {
+      .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -101,7 +104,25 @@ const ArticlePage = () => {
         if (data.length !== 0){
         setComments(data);
         }
-        console.log("Comments in articlePage" + data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function getCommentsNumByArticleId(id) {
+    axios
+      .get("http://localhost:8080/api/v1/articles/" + id + "/comments-num", {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        setAllCommentNum(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -112,7 +133,6 @@ const ArticlePage = () => {
   }
 
   function getSixActiveMiniArticlesByCategoryId(categoryId, articleId) {
-    console.log("CategoryId" + article.categoryId)
     axios
       .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId, {
         headers: {
@@ -183,12 +203,14 @@ const ArticlePage = () => {
     }
     const newComment = {
       commentText: commentInputText,
+      likes: 0,
+      dislikes: 0,
       userId: currentUser.id,
       articleId: article.id
     };
     postComment(newComment);
-    setComments([...comments, newComment]);
     setCommentInputText("");
+    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
   }
 
   function updateLikesCount(newLikesVal, commentId) {
@@ -221,15 +243,16 @@ const ArticlePage = () => {
   function showMoreComments(e) {
     e.preventDefault();
     const newCommentsNum = commentsNum + initialCommentsNum;
-    if (newCommentsNum >= comments.length) {
-      setCommentsNum(comments.length);
+    if (newCommentsNum >= allCommentsNum) {
+      setCommentsNum(allCommentsNum);
+      getCommentsByArticleId(id, selectedSortingMethod, allCommentsNum);
     } else {
       setCommentsNum(newCommentsNum);
+      getCommentsByArticleId(id, selectedSortingMethod, newCommentsNum);
     }
   }
 
   function sortComments(sortingMethod) {
-    console.log(sortingMethod);
     setSelectedSortingMethod(sortingMethod);
   }
 
@@ -255,17 +278,15 @@ const ArticlePage = () => {
       isEdited: true
     };
     putComment(newComment);
-    setComments([
-      ...comments.filter((c) => c.id !== commentObj.id),
-      newComment,
-    ]);
     setCommentInputText("");
     setIsEditing(false);
+    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
   }
 
   function removeComment(commentId) {
     deleteComment(commentId);
-    setComments(comments.filter((comment) => comment.id !== commentId));
+    // setComments(comments.filter((comment) => comment.id !== commentId));
+    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
   }
 
   return (
@@ -285,7 +306,7 @@ const ArticlePage = () => {
         <p className="main-text">{parse(article["text"])}</p>
         {article["commentsActive"] ? (
           <div className="comments-outer-box">
-            <span className="comments-count">COMMENTS ({comments.length})</span>
+            <span className="comments-count">COMMENTS ({allCommentsNum})</span>
             <div className="sort-by">
               <span> Sort by: </span>
               <SortByDropDown
@@ -331,7 +352,7 @@ const ArticlePage = () => {
             ) : (
               <></>
             )}
-            {commentsNum < comments.length ? (
+            {commentsNum < allCommentsNum ? (
               <button
                 id="showMoreBtn"
                 className="show-more-less"
@@ -344,7 +365,7 @@ const ArticlePage = () => {
                   alt="arrow-down"
                 />
               </button>
-            ) : comments.length > 10 ? (
+            ) : allCommentsNum > 10 ? (
               <button className="show-more-less" onClick={showLessComments}>
                 <img
                   className="small-arrow-up"
