@@ -12,6 +12,7 @@ import {MDBSwitch} from 'mdb-react-ui-kit';
 import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
 import { authRequestFailure } from "../../redux/auth/auth.actions";
 import { useParams } from "react-router-dom";
+import PhotoOfTheDay from "../../Components/photo-of-the-day/PhotoOfTheDay";
 
 const EditArticle = ({ props, globalStore }) => {
     const { id } = useParams();
@@ -174,6 +175,7 @@ const EditArticle = ({ props, globalStore }) => {
                                }}/>
                 </div>
             </form>
+            <PhotoOfTheDay label={"PICTURE*"}/>
         </div>);
 }
 
