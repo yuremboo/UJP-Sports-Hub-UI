@@ -1,7 +1,7 @@
 .mini-article {
   display: flex;
   border: 1px solid #ededed;
-  width: 390px;
+  width: 100%;
   height: fit-content;
   position: relative;
   height: calc(295px / 3);
