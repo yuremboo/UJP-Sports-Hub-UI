@@ -15,17 +15,12 @@ import Header from '../../Components/Header'
 
 // actions
 import { getBreakdownArticles } from '../../redux/article-breakdown/breakdown.action';
-import {getPhotoOfTheDay} from '../../redux/photo-of-the-day/photo-day.action';
-
-import dayPhoto from './Bitmap.png';
 
 const HomePage = ({
                       logOutUser,
                       getArticles,
-                      getPhotoOfTheDay,
                       auth: { isLoading, errorMessage, userObject },
-                      breakdown: { firstArticlesPayload, secondArticlesPayload },
-                      photoOfTheDay: {photoOfTheDay}   }) => {
+                      breakdown: { firstArticlesPayload, secondArticlesPayload } }) => {
 
   let navigate = useNavigate();
 
@@ -36,12 +31,7 @@ const HomePage = ({
 
     useEffect(() => {
         getArticles()
-        getPhotoOfTheDay()
     }, [])
-
-    useEffect(() => {
-       console.log(photoOfTheDay)
-    }, [photoOfTheDay])
 
     const miniFirstArticlesPayload = firstArticlesPayload.slice(1)
     const miniSecondArticlesPayload = secondArticlesPayload.slice(1)
@@ -95,27 +85,6 @@ const HomePage = ({
 
                       </div>
                   </div>
-                  <div className='breakdown-header'>
-                      <hr />
-                      <div className='breakdown-header__text'>
-                          <p>PHOTO OF THE DAY</p>
-                      </div>
-                  </div>
-                  <div className='photo-of-the-day'>
-                            {/* <div className='photo-of-the-day-container'> */}
-                                <div className='photo-triangle'>
-                                    <p className='photo-triangle__paragraph'>
-                                        PHOTO OF THE DAY
-                                    </p>
-                                </div>
-                                <img src={dayPhoto} alt='image'/>
-                                <div className='text-container'>
-                                    <p className='text-container__title'>Defending The Throne</p>
-                                    <p className='text-container__caption'>Los Angeles Lakes guard Derek Fisher, right, is pressured by the Denver Nuggets Nene during th efirst quarter of NBA exhibition action on Oct 16</p>
-                                    <p className='text-container__author'>Photo Courtesy MCT</p>
-                                </div>
-                            {/* </div> */}
-                  </div>
               </main>
           </div>
       </div>
@@ -124,13 +93,11 @@ const HomePage = ({
 
 const mapDispatchToProps = (dispatch) => ({
     logOutUser: () => dispatch(userLogoutRequest()),
-    getArticles: () => dispatch(getBreakdownArticles(1, 4)), // ids
-    getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay('40289fc883458cca0183458df55c0000'))
+    getArticles: () => dispatch(getBreakdownArticles(1, 4)) // ids
 })
 const mapStateToProps = (state) => ({
     auth: state.auth,
     breakdown: state.breakdown,
-    photoOfTheDay: state.photoOfTheDay
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
