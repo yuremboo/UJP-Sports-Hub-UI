@@ -5,21 +5,23 @@ import inactiveLike from "../../icons/article/inactiveLike.svg";
 import activeLike from "../../icons/article/activeLike.svg";
 import axios from "axios";
 
-export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment }) {
+export default function Comment({ comment, deleteComment, editComment }) {
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [commenter, setCommenter] = useState(null);
+  const [likesCount, setLikesCount] = useState(comment.likes);
+  const [dislikesCount, setDislikesCount] = useState(comment.dislikes);
   const bearer = "Bearer ";
 
   useEffect(() => {
     if (comment) {
-    getUserById(comment.userId);
-    getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id);
+    getUserById(comment.userId).then(r => console.error(r.toString()));
+    getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id).then(r => console.error(r.toString()));
     }
   }, []);
 
-  function getUserById(userId) {
-      axios
+  async function getUserById(userId) {
+      await axios
         .get("http://localhost:8080/api/v1/users/" + userId, {
           headers: {
             authorization: bearer + currentUser["jwt"],
@@ -37,8 +39,8 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         });
   }
 
-  function getLikeDislikeStatusByUserIdAndCommentId(userId, commentId) {
-    axios
+  async function getLikeDislikeStatusByUserIdAndCommentId(userId, commentId) {
+    await axios
       .get("http://localhost:8080/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
         headers: {
           authorization: bearer + currentUser["jwt"],
@@ -57,8 +59,8 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
       });
   }
 
-  function postLikeDislikeStatus(newLikeDislikeStatus) {
-    axios
+  async function postLikeDislikeStatus(newLikeDislikeStatus) {
+    await axios
       .post("http://localhost:8080/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
         headers: {
           authorization: bearer + currentUser["jwt"],
@@ -72,9 +74,9 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
       });
   }
 
-  function putLikeDislikeStatus(likeDislikeStatus) {
+  async function putLikeDislikeStatus(likeDislikeStatus) {
     console.log("put likedislike: " + likeDislikeStatus);
-    axios
+    await axios
       .put("http://localhost:8080/api/v1/like-dislike-statuses/" + likeDislikeStatus.id, likeDislikeStatus, {
         headers: {
           authorization: bearer + currentUser["jwt"],
@@ -88,8 +90,8 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
       });
   }
 
-  function deleteLikeDislikeStatus(likeDislikeStatusId) {
-    axios
+  async function deleteLikeDislikeStatus(likeDislikeStatusId) {
+    await axios
       .delete("http://localhost:8080/api/v1/like-dislike-statuses/" + likeDislikeStatusId, {
         headers: {
           authorization: bearer + currentUser["jwt"],
@@ -103,6 +105,20 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
       });
   }
 
+  async function putComment(comment) {
+    await axios
+      .put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
 
   const monthNames = [
     "Jan",
@@ -121,8 +137,8 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
 
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
 
-  function toggleLike(e) {
-
+  async function toggleLike(e) {
+    e.preventDefault();
     if (likeDislikeStatus === null || likeDislikeStatus === undefined || likeDislikeStatus === "") {
       const lDStatus = {
         likedDisliked: true,
@@ -130,12 +146,16 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         commentId: comment.id
       };
       setLikeDislikeStatus(lDStatus);
-      updateLikesCount(comment.likes + 1, comment.id);
-      postLikeDislikeStatus(lDStatus);
+      await postLikeDislikeStatus(lDStatus);
+      comment.likes += 1;
+      setLikesCount(likesCount + 1)
+      await putComment(comment, comment.id);
     } else if (likeDislikeStatus.likedDisliked === true) {
-      deleteLikeDislikeStatus(likeDislikeStatus.id);
+      await deleteLikeDislikeStatus(likeDislikeStatus.id);
       setLikeDislikeStatus(null);
-      updateLikesCount(comment.likes - 1, comment.id);
+      comment.likes -= 1;
+      setLikesCount(likesCount - 1)
+      await putComment(comment, comment.id);
     } else {
       const lDStatus = {
         id: likeDislikeStatus.id,
@@ -144,28 +164,34 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         commentId: comment.id
       };
       setLikeDislikeStatus(lDStatus);
-      putLikeDislikeStatus(lDStatus);
-      updateLikesCount(comment.likes + 1, comment.id);
-      updateDislikesCount(comment.dislikes - 1, comment.id);
+      await putLikeDislikeStatus(lDStatus);
+      comment.likes += 1;
+      setLikesCount(likesCount + 1)
+      comment.dislikes -= 1;
+      setDislikesCount(dislikesCount - 1)
+      await putComment(comment, comment.id);
     }
   }
 
-  function toggleDislike(e) {
+  async function toggleDislike(e) {
     e.preventDefault();
-
     if (likeDislikeStatus === null || likeDislikeStatus === undefined || likeDislikeStatus === "") {
-      updateDislikesCount(comment.dislikes + 1, comment.id);
       const lDStatus = {
         likedDisliked: false,
         userId: currentUser.id,
         commentId: comment.id
       };
       setLikeDislikeStatus(lDStatus);
-      postLikeDislikeStatus(lDStatus);
+      await postLikeDislikeStatus(lDStatus);
+      comment.dislikes += 1;
+      setDislikesCount(dislikesCount + 1);
+      await putComment(comment, comment.id);
     } else if (likeDislikeStatus.likedDisliked === false) {
-      deleteLikeDislikeStatus(likeDislikeStatus.id);
+      await deleteLikeDislikeStatus(likeDislikeStatus.id);
       setLikeDislikeStatus(null);
-      updateDislikesCount(comment.dislikes - 1, comment.id);
+      comment.dislikes -= 1;
+      setDislikesCount(dislikesCount - 1);
+      await putComment(comment, comment.id);
     } else {
       const lDStatus = {
         id: likeDislikeStatus.id,
@@ -174,9 +200,12 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         commentId: comment.id
       };
       setLikeDislikeStatus(lDStatus);
-      updateLikesCount(comment.likes - 1, comment.id);
-      updateDislikesCount(comment.dislikes + 1, comment.id);
-      putLikeDislikeStatus(lDStatus);
+      await putLikeDislikeStatus(lDStatus);
+      comment.likes -= 1;
+      setLikesCount(likesCount + 1);
+      comment.dislikes += 1;
+      setDislikesCount(dislikesCount + 1);
+      await putComment(comment, comment.id);
     }
   }
 
@@ -223,7 +252,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
             <span>
               <button className="like" onClick={toggleLike}>
                 <img className="like-icon" src={inactiveLike} alt="like" />
-                {comment.likes}
+                {likesCount}
               </button>
               <button className="dislike" onClick={toggleDislike}>
                 <img
@@ -231,7 +260,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                   src={inactiveLike}
                   alt="dislike"
                 />{" "}
-                {comment.dislikes}
+                {dislikesCount}
               </button>
             </span>
           ) : (
@@ -240,7 +269,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                 <span>
                   <button className="like" onClick={toggleLike}>
                     <img className="like-icon" src={activeLike} alt="like" />
-                    {comment.likes}
+                    {likesCount}
                   </button>
                   <button className="dislike" onClick={toggleDislike}>
                     <img
@@ -248,14 +277,14 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                       src={inactiveLike}
                       alt="dislike"
                     />{" "}
-                    {comment.dislikes}
+                    {dislikesCount}
                   </button>
                 </span>
               ) : (
                 <span>
                   <button className="like" onClick={toggleLike}>
                     <img className="like-icon" src={inactiveLike} alt="like" />
-                    {comment.likes}
+                    {likesCount}
                   </button>
                   <button className="dislike" onClick={toggleDislike}>
                     <img
@@ -263,7 +292,7 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                       src={activeLike}
                       alt="dislike"
                     />{" "}
-                    {comment.dislikes}
+                    {dislikesCount}
                   </button>
                 </span>
               )}
