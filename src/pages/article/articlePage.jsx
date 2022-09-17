@@ -18,11 +18,16 @@ import defaultUserImage from "../../icons/defaultUser.jpg";
 const ArticlePage = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const bearer = "Bearer ";
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
 
   const [comments, setComments] = useState([]);
   const [commentInputText, setCommentInputText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [commentObj, setCommentObj] = useState(null);
+  const [commentsUpdated, setCommentsUpdated] = useState(null);
 
   const [selectedSortingMethod, setSelectedSortingMethod] = useState("popular");
 
@@ -53,6 +58,7 @@ const ArticlePage = () => {
 
   useEffect(() => {
     getArticleById(id);
+    getCommentsByArticleId(id, "popular", commentsNum);
   }, [id]);
 
   useEffect(() => {
@@ -63,7 +69,7 @@ const ArticlePage = () => {
     getCommentsByArticleId(id, "popular", commentsNum);
     getCommentsNumByArticleId(id);
     }
-  }, [article]);
+  }, [article, commentsUpdated]);
 
   useEffect(() => {
     getCommentsNumByArticleId(id);
@@ -93,6 +99,7 @@ const ArticlePage = () => {
   }
 
   function getCommentsByArticleId(id, sortingMethod, commentsNum) {
+    console.log("getCommentsByArticleId: ______________");
     axios
       .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {
         headers: {
@@ -101,9 +108,8 @@ const ArticlePage = () => {
       })
       .then((response) => {
         const data = response.data;
-        if (data.length !== 0){
         setComments(data);
-        }
+        console.log(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -196,8 +202,7 @@ const ArticlePage = () => {
       });
   }
 
-  function addNewComment(e) {
-    e.preventDefault();
+  async function addNewComment() {
     if (!commentInputText) {
       return;
     }
@@ -210,21 +215,8 @@ const ArticlePage = () => {
     };
     postComment(newComment);
     setCommentInputText("");
-    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
-  }
-
-  function updateLikesCount(newLikesVal, commentId) {
-    let newComments = [...comments];
-    newComments[getCommentIndex(commentId)].likes = newLikesVal;
-    setComments(newComments);
-    putComment(newComments[getCommentIndex(commentId)]);
-  }
-
-  function updateDislikesCount(newDislikesVal, commentId) {
-    let newComments = [...comments];
-    newComments[getCommentIndex(commentId)].dislikes = newDislikesVal;
-    setComments(newComments);
-    putComment(newComments[getCommentIndex(commentId)]);
+    await delay(500);
+    setCommentsUpdated(newComment);
   }
 
   function getCommentIndex(commentId) {
@@ -262,7 +254,7 @@ const ArticlePage = () => {
     setCommentObj(comment);
   }
 
-  function putEditedComment(e) {
+  async function putEditedComment(e) {
     e.preventDefault();
     if (!commentInputText) {
       return;
@@ -280,13 +272,15 @@ const ArticlePage = () => {
     putComment(newComment);
     setCommentInputText("");
     setIsEditing(false);
-    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
+    await delay(500);
+    setCommentsUpdated(newComment);
   }
 
-  function removeComment(commentId) {
+  async function removeComment(commentId) {
     deleteComment(commentId);
-    // setComments(comments.filter((comment) => comment.id !== commentId));
-    getCommentsByArticleId(id, selectedSortingMethod, commentsNum);
+    setComments(comments.filter((comment) => comment.id !== commentId));
+    await delay(500);
+    setCommentsUpdated(commentId);
   }
 
   return (
@@ -342,8 +336,6 @@ const ArticlePage = () => {
                   <Comment
                     comment={comment}
                     key={comment.id}
-                    updateLikesCount={updateLikesCount}
-                    updateDislikesCount={updateDislikesCount}
                     deleteComment={removeComment}
                     editComment={editComment}
                   />
