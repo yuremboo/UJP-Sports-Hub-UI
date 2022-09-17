@@ -22,25 +22,25 @@ const TeamIcon = (props) => {
 
 
   return (
-    <div className='team'>
-      <div className='team_image'>
+    <div className='team_icon'>
+      <div className='team_icon_image'>
         <img src={miniArticlePhoto} />
         {/*{props.image}*/}
       </div>
 
-      <div className='team_body'>
-        <div className='team_button'>
-          <Button id='unfollow_button' variant="contained" onClick={deleteSubscription}>
+      <div className='team_icon_body'>
+        <div className='team_icon_button'>
+          <Button id='unfollow_button_icon' variant="contained" onClick={deleteSubscription}>
             Unfollow
           </Button>
         </div>
 
-        <div className='team_title'>
+        <div className='team_icon_title'>
           {props.title}
         </div>
 
-        <div className='team_bottom'>
-          <div className='team_following'>
+        <div className='team_icon_bottom'>
+          <div className='team_icon_following'>
             {props.following}
           </div>
         </div>

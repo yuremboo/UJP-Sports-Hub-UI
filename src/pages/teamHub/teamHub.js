@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./teamhub.css";
 import MiniArticle from "../../Components/article/MiniArticle";
 import axios from "axios";
-import ReactDOM from "react-dom";
 import TeamComponent from "../../Components/team/TeamComponent";
-import Heder from "../../Components/Header";
-import Navbar from "../../Components/NavBar";
+import Header from "../../Components/Header";
+import NavBar from "../../Components/NavBar/MainNavBar";
+
 
 const TeamHub = () => {
   const [teamsSubscription, setTeamsSubscription] = useState([
@@ -213,35 +213,40 @@ const TeamHub = () => {
 
 
   return (
+    <div className={"header-information"}>
+      <Header />
 
-    <div className="team_hub">
-
-      {/*<Heder />*/}
-      {/*<div className="team_">*/}
-      {/*  <Navbar />*/}
-      <div className="all_articles_body">
-
-        <div className="all_teams">
-          {
-            teamsSubscription.map(team =>
-              <TeamComponent team={team} />
-            )
-          }
+      <div className={"nav-bar-information"}>
+        <div className={"nav-bar"}>
+          <NavBar />
         </div>
-        <div className="mini-articles">
-          <div className="mini-articles-l">
-            <span className="more-popular">MORE POPULAR</span>
-            <hr className="more-lin-l"></hr>
-            {morePopularArticles.slice(0, 3).map((miniArticle) => (
-              <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
-            ))}
-          </div>
-          <div className="mini-articles-r">
-            <span className="more-commented">MORE COMMENTED</span>
-            <hr className="more-lin-r" />
-            {miniArticles.slice(3, 7).map((miniArticle) => (
-              <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
-            ))}
+        <div className="team_hub">
+
+          <div className="all_articles_body">
+
+            <div className="all_teams">
+              {
+                teamsSubscription.map(team =>
+                  <TeamComponent team={team} />
+                )
+              }
+            </div>
+            <div className="mini-articles">
+              <div className="mini-articles-l">
+                <span className="more-popular">MORE POPULAR</span>
+                <hr className="more-lin-l"></hr>
+                {morePopularArticles.slice(0, 3).map((miniArticle) => (
+                  <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
+                ))}
+              </div>
+              <div className="mini-articles-r">
+                <span className="more-commented">MORE COMMENTED</span>
+                <hr className="more-lin-r" />
+                {miniArticles.slice(3, 7).map((miniArticle) => (
+                  <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
