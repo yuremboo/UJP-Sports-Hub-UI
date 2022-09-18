@@ -6,6 +6,7 @@ html, body {
 .edit-article{
     background-color: #F8F8F8;
     box-sizing: border-box;
+    padding-bottom: 500px;
 }
 .edit-article input,.edit-article select,.edit-article textarea{
     background-color: #F8F8F8;

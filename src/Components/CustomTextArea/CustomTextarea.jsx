@@ -3,9 +3,9 @@ import "./custom-textarea.style.css"
 const CustomTextarea = ({handleChange, label, ...otherProps}) => {
     return (
         <div className="custom-textarea">
-            <label className="form-label" htmlFor="content">{label}</label>
+            <label className="form-label" htmlFor="text">{label}</label>
             <br/>
-            <textarea className="form-textarea" name="content" id="content" onChange={handleChange} {...otherProps}></textarea>
+            <textarea className="form-textarea" name="text" id="text" onChange={handleChange} {...otherProps}></textarea>
         </div>
     );
 }
