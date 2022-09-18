@@ -4,7 +4,6 @@ import CustomInput from "../CustomInput/CustomInput";
 import axios from "axios";
 import SubscriptionTeam from "./SubscriptionTeam";
 
-import { Formik, Field, Form } from "formik";
 import CustomSelect from "../CustomSelect/CustomSelect";
 import SelectTeam from "./SelectTeam";
 const SubscriptionUser = () => {
