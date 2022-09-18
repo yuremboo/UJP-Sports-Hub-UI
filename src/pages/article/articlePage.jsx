@@ -211,7 +211,8 @@ const ArticlePage = () => {
       likes: 0,
       dislikes: 0,
       userId: currentUser.id,
-      articleId: article.id
+      articleId: article.id,
+      isEdited: false
     };
     postComment(newComment);
     setCommentInputText("");
