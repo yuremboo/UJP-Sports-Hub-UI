@@ -10,7 +10,7 @@ import MiniArticle from "../../Components/article/MiniArticle";
 import parse from "html-react-parser";
 import SortByDropDown from "../../Components/UI/select/SortByDropDown";
 import axios from "axios";
-import NavBar from "../../Components/NavBar";
+import NavBar from "../../Components/NavBar/MainNavBar";
 import Header from "../../Components/Header";
 
 

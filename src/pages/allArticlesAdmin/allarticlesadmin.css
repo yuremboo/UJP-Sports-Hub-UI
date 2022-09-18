@@ -1,7 +1,9 @@
 .all_articles_admin__page{
-    width: 99%;
-    height: 100%;
+    width: 100%;
+    height: 100vh;
     margin-right: 0;
+    justify-content: center;
+    /*background-color: #F2F2F2;*/
 }
 
 .all_articles_admin__header{
@@ -102,16 +104,17 @@
 
 .all_articles_admin__body{
     display: flex;
+    width: 100%;
     /*margin-left: 2%;*/
 }
 
 .all_articles_admin__articles{
     margin: 0 10%;
-    /*width: 85%;*/
+    width: 85%;
 }
 
 .all_articles_admin__left_buttons{
-    width: 13%;
+    width: 7%;
     height: 70%;
     border-right: rgba(178, 178, 178, 1) 2px solid;
 }
@@ -202,4 +205,111 @@
 
 .scrollmenu{
     margin: 5%;
+}
+
+
+
+/* pagination */
+.pagination__component{
+    display: flex;
+    justify-content: center;
+}
+.pagination__back_button {
+    width: 40px;
+    height: 40px;
+    /*border: 2px solid black;*/
+    border-radius: 50%;
+    /*background: url("../../icons/facebook.svg");*/
+    background-size: 35%;
+    /*margin-right: 10%;*/
+    background: url("../../icons/paginationBack.svg") center no-repeat;
+}
+.pagination__forward_button {
+    width: 40px;
+    height: 40px;
+    /*border: 2px solid black;*/
+    border-radius: 50%;
+    /*background: url("../../icons/facebook.svg");*/
+    background-size: 35%;
+    margin-left: 2%;
+    background: url("../../icons/paginationBack.svg") center no-repeat;
+    transform: rotate(180deg);
+}
+.pagination__back_button button,
+.pagination__forward_button button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    /*background-size: 35%;*/
+    /*margin-right: 10%;*/
+}
+.pagination__pages {
+    display: flex;
+    margin-bottom: 2%;
+    align-items: center;
+}
+
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root{
+    background-color: transparent;
+    color: #5C7694;
+}
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root{
+    color: black;
+    font-weight: 500;
+}
+
+
+/*.pagination_number_page{*/
+/*    margin: 0 5%;*/
+/*    color: #B2B2B2;*/
+/*    font-family: Open Sans, sans-serif;*/
+/*    font-size: 16px;*/
+/*    font-weight: 700;*/
+/*    line-height: 22px;*/
+/*    letter-spacing: 0.6233766078948975px;*/
+/*    text-align: left;*/
+/*}*/
+/*.pagination_number_active_page{*/
+/*    !*justify-content: center;*!*/
+/*    !*text-align: center;*!*/
+/*    margin: 0 5%;*/
+/*    color: #C63638;*/
+/*    font-family: Open Sans, sans-serif;*/
+/*    font-size: 16px;*/
+/*    font-weight: 700;*/
+/*    line-height: 22px;*/
+/*    letter-spacing: 0.6233766078948975px;*/
+/*    text-align: left;*/
+/*}*/
+
+
+.all_articles_admin__filter_articles{
+    margin: 4% 17% -2% 17%;
+}
+
+.filter_articles{
+    width: 30%;
+    padding: 0 2%;
+}
+
+
+.form-select-sm{
+    /*padding: 0;*/
+    border-radius: 0;
+    margin-left: 2%;
+}
+.form-select-sm {
+    /* padding-top: .25rem; */
+    /* padding-bottom: .25rem; */
+    /* padding-left: .5rem; */
+    /* font-size: .875rem; */
+    /* border-radius: .25rem; */
+}
+
+.h{
+    margin-left: 40%;
+    width: 200px;
+    height: 50px;
 }
