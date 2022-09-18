@@ -18,6 +18,7 @@ const EditArticle = ({ props, globalStore }) => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
 
     const [IsLoading, setIsLoading] = useState(true);
+    const [errors, setErrors] = useState("");
 
     const [isCancel, setIsCancel] = useState(false)
 
@@ -76,6 +77,7 @@ const EditArticle = ({ props, globalStore }) => {
     }
 
     function putArticle(article,id) {
+        if (isValid()) {
       const sendArticle = {
         id: article.id,
         title: article.title,
@@ -88,9 +90,13 @@ const EditArticle = ({ props, globalStore }) => {
         commentsActive: article.commentsActive,
         createDateTime: article.createDateTime,
         updateDateTime: article.updateDateTime,
-        categoryId: "2",
-        teamId: "2"
+        categoryId: article.category,
+        teamId: article.team
       };
+        console.log("article");
+        console.log(article);
+        console.log("sendArticle");
+        console.log(sendArticle);
         console.log('token: ', AuthToken['jwt']);
         axios.put("http://localhost:8080/api/v1/articles/"+id, sendArticle, {
             headers: {
@@ -103,12 +109,47 @@ const EditArticle = ({ props, globalStore }) => {
                   console.log("error.response.status: ", error.response.status);
               }
           });
+        }
+        else {
+            console.log("Fields are not valid!");
+        }
+    }
+
+    const validateInput = data => {
+        let errors = {}
+
+        if (data.alt === "") {
+            errors.alt = "Alt cannot be empty"
+        }
+        if (data.title === "") {
+            errors.title = "Title cannot be empty"
+        }
+        if (data.caption === "") {
+            errors.caption = "Caption cannot be empty"
+        }
+        if (data.text === "") {
+            errors.text = "Text cannot be empty"
+        }
+
+        return {
+            errors,
+            isValid: JSON.stringify(errors) === '{}'
+        }
+    }
+
+    const isValid = () => {
+        const { errors, isValid } = validateInput(article)
+        if (!isValid) {
+            setErrors(errors)
+        }
+
+        return isValid
     }
 
     const handleChange = event => {
         const {name, value} = event.target
         setArticle({...article, [name]: value})
-        console.log(article)
+        setErrors({ ...errors, [name]: '' })
     }
 
     return (
