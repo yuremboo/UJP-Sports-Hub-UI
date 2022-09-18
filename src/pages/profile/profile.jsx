@@ -53,9 +53,9 @@ const Profile = ({ props, globalStore }) => {
             </button>
           </div>
         </div>
-        {/*<UpdateUserInfo />*/}
+        <UpdateUserInfo />
         {/*<ChangePassword />*/}
-        <SubscriptionUser/>
+        {/*<SubscriptionUser/>*/}
       </div>
     </div>
   );
