@@ -16,11 +16,11 @@ import { ReactComponent as Google } from '../../icons/google.svg'
 import { ReactComponent as Facebook } from '../../icons/facebook_clone.svg'
 
 const SignIn = ({
-  signInRequest,
-  resetErrorMessage,
+                  signInRequest,
+                  resetErrorMessage,
 
-  auth: { isLoading, errorMessage, userObject },
-}) => {
+                  auth: { isLoading, errorMessage, userObject },
+                }) => {
   const navigate = useNavigate()
   useEffect(
     () => {
@@ -51,6 +51,7 @@ const SignIn = ({
   }
 
   const handleSubmit = async (event) => {
+    console.log('!')
     event.preventDefault()
     const result = await signInRequest(user)
     if (result) {
@@ -92,10 +93,10 @@ const SignIn = ({
             <h2 className='login-form__headline'>Log in to Sports Hub</h2>
             <div className='login-with'>
               <button className='login-with__facebook'>
-                  <Facebook className='login-with__svg' width='100%' height='100%'></Facebook>
+                <Facebook className='login-with__svg' width='100%' height='100%'></Facebook>
               </button>
               <button className='login-with__google'>
-                  <Google className='login-with__svg' width='100%' height='100%'></Google>
+                <Google className='login-with__svg' width='100%' height='100%'></Google>
               </button>
             </div>
 

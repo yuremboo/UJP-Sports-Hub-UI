@@ -1,7 +1,7 @@
 .allSidePanelBtns{
     width: 100%;
     height: 100%;
-    padding: 0 25%;
+    padding: 0 20%;
     /*border-right: #7F8899 2px solid;*/
 }
 
@@ -51,6 +51,7 @@
 
 .sidePanel_btn:hover *{
     stroke: #D72130;
+    /*fill: #D72130;*/
     /*-webkit-text-stroke-color: #D72130;*/
     visibility: visible;
 }
