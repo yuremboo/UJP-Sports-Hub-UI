@@ -119,9 +119,7 @@ const SignIn = ({
                 />
               </div>
             </Form.Group>
-            <input class="section-shdfhsd-input">
-                
-            </input>
+
             <Form.Group className="form-group" controlId="formBasicPassword">
 
               <div className='login-password'>
