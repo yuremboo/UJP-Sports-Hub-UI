@@ -31,7 +31,7 @@ root.render(
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="edit-article/:id" element={<EditArticle/>} />
                     <Route path="update-user-information/:profile" element={<Profile/>} />
-                    <Route path="articles" element={<ArticlePage/>}/>
+                    <Route path="articles/:id" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>
                     <Route path="admin/articles/category/:category" element={<ArticlesByCategoryAdmin/>}/>
