@@ -1,65 +1,124 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style_components/article/comment.css";
-import userImage from "../../icons/article/ellipse.svg";
+import defaultUserImage from "../../icons/defaultUser.jpg";
 import inactiveLike from "../../icons/article/inactiveLike.svg";
 import activeLike from "../../icons/article/activeLike.svg";
+import axios from "axios";
 
-export default function Comment({ comment, updateLikesCount, updateDislikesCount, deleteComment, editComment }) {
+export default function Comment({ comment, deleteComment, editComment }) {
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
+  const [commenter, setCommenter] = useState(null);
+  const [likesCount, setLikesCount] = useState(comment.likes);
+  const [dislikesCount, setDislikesCount] = useState(comment.dislikes);
+  const bearer = "Bearer ";
 
-  function getUserByID(userId) {
-    const users = [
-      {
-        id: "4028d12a82f2ea8e0182f2ead72e0000",
-        firstName: "Andriy",
-        lastName: "Barskyi",
-        email: "andriy.barskyi@gmail.com",
-        role: "USER",
-        isActive: true,
-        createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31"
-      },
-      {
-        id: "111",
-        email: "oneone@gmail.com",
-        firstName: "Willy",
-        lastName: "Torrington",
-        role: "USER",
-        isActive: true,
-        createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31"
-      },
-      {
-        id: "222",
-        email: "romb@gmail.com",
-        firstName: "Stephen",
-        lastName: "Rombolo",
-        role: "USER",
-        isActive: true,
-        createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31"
-      },
-      {
-        id: "4028d12a82f2ea8e0182f2ead72e0000",
-        firstName: "Andriy",
-        lastName: "Barskyi",
-        email: "abcd@gmail.com",
-        "role": "USER",
-        isActive: true,
-        createDateTime: "2022-07-03T10:15:30",
-        updateDateTime: "2022-08-03T11:25:31"
-      }
-    ];
-
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].id === userId) {
-        return users[i];
-      }
+  useEffect(() => {
+    if (comment) {
+    getUserById(comment.userId).then(r => console.error(r.toString()));
+    getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id).then(r => console.error(r.toString()));
     }
+  }, []);
+
+  async function getUserById(userId) {
+      await axios
+        .get("http://localhost:8080/api/v1/users/" + userId, {
+          headers: {
+            authorization: bearer + currentUser["jwt"],
+          },
+        })
+        .then((response) => {
+          const data = response.data;
+            setCommenter(data);
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+            console.log("error.response.status: ", error.response.status);
+          }
+        });
   }
 
-  const commenter = getUserByID(comment.userId);
+  async function getLikeDislikeStatusByUserIdAndCommentId(userId, commentId) {
+    await axios
+      .get("http://localhost:8080/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setLikeDislikeStatus(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  async function postLikeDislikeStatus(newLikeDislikeStatus) {
+    await axios
+      .post("http://localhost:8080/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  async function putLikeDislikeStatus(likeDislikeStatus) {
+    console.log("put likedislike: " + likeDislikeStatus);
+    await axios
+      .put("http://localhost:8080/api/v1/like-dislike-statuses/" + likeDislikeStatus.id, likeDislikeStatus, {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  async function deleteLikeDislikeStatus(likeDislikeStatusId) {
+    await axios
+      .delete("http://localhost:8080/api/v1/like-dislike-statuses/" + likeDislikeStatusId, {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  async function putComment(comment) {
+    await axios
+      .put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
+        headers: {
+          authorization: bearer + currentUser["jwt"],
+        },
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
 
   const monthNames = [
     "Jan",
@@ -78,39 +137,82 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
 
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
 
-  function toggleLike(e) {
+  async function toggleLike(e) {
     e.preventDefault();
-
-    if (likeDislikeStatus === null) {
-      setLikeDislikeStatus(true);
-      updateLikesCount(comment.likes + 1, comment.id);
-    } else if (likeDislikeStatus) {
+    if (likeDislikeStatus === null || likeDislikeStatus === undefined || likeDislikeStatus === "") {
+      const lDStatus = {
+        likedDisliked: true,
+        userId: currentUser.id,
+        commentId: comment.id
+      };
+      setLikeDislikeStatus(lDStatus);
+      await postLikeDislikeStatus(lDStatus);
+      comment.likes += 1;
+      setLikesCount(likesCount + 1)
+      await putComment(comment, comment.id);
+    } else if (likeDislikeStatus.likedDisliked === true) {
+      await deleteLikeDislikeStatus(likeDislikeStatus.id);
       setLikeDislikeStatus(null);
-      updateLikesCount(comment.likes - 1, comment.id);
+      comment.likes -= 1;
+      setLikesCount(likesCount - 1)
+      await putComment(comment, comment.id);
     } else {
-      setLikeDislikeStatus(true);
-      updateLikesCount(comment.likes + 1, comment.id);
-      updateDislikesCount(comment.dislikes - 1, comment.id);
+      const lDStatus = {
+        id: likeDislikeStatus.id,
+        likedDisliked: true,
+        userId: currentUser.id,
+        commentId: comment.id
+      };
+      setLikeDislikeStatus(lDStatus);
+      await putLikeDislikeStatus(lDStatus);
+      comment.likes += 1;
+      setLikesCount(likesCount + 1)
+      comment.dislikes -= 1;
+      setDislikesCount(dislikesCount - 1)
+      await putComment(comment, comment.id);
     }
   }
 
-  function toggleDislike(e) {
+  async function toggleDislike(e) {
     e.preventDefault();
-
-    if (likeDislikeStatus === null) {
-      setLikeDislikeStatus(false);
-      updateDislikesCount(comment.dislikes + 1, comment.id);
-    } else if (!likeDislikeStatus) {
+    if (likeDislikeStatus === null || likeDislikeStatus === undefined || likeDislikeStatus === "") {
+      const lDStatus = {
+        likedDisliked: false,
+        userId: currentUser.id,
+        commentId: comment.id
+      };
+      setLikeDislikeStatus(lDStatus);
+      await postLikeDislikeStatus(lDStatus);
+      comment.dislikes += 1;
+      setDislikesCount(dislikesCount + 1);
+      await putComment(comment, comment.id);
+    } else if (likeDislikeStatus.likedDisliked === false) {
+      await deleteLikeDislikeStatus(likeDislikeStatus.id);
       setLikeDislikeStatus(null);
-      updateDislikesCount(comment.dislikes - 1, comment.id);
+      comment.dislikes -= 1;
+      setDislikesCount(dislikesCount - 1);
+      await putComment(comment, comment.id);
     } else {
-      setLikeDislikeStatus(false);
-      updateLikesCount(comment.likes - 1, comment.id);
-      updateDislikesCount(comment.dislikes + 1, comment.id);
+      const lDStatus = {
+        id: likeDislikeStatus.id,
+        likedDisliked: false,
+        userId: currentUser.id,
+        commentId: comment.id
+      };
+      setLikeDislikeStatus(lDStatus);
+      await putLikeDislikeStatus(lDStatus);
+      comment.likes -= 1;
+      setLikesCount(likesCount + 1);
+      comment.dislikes += 1;
+      setDislikesCount(dislikesCount + 1);
+      await putComment(comment, comment.id);
     }
   }
 
   function formatDate(date) {
+    if (isNaN(date.getFullYear())) {
+      date = new Date();
+    }
     if (date.getFullYear() === new Date().getFullYear()) {
       return monthNames[date.getMonth()] + " " + date.getDate();
     }
@@ -129,16 +231,15 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
 
   return (
     <div className="comment-body">
-      <img className="user-image" src={userImage} alt="commenter" />
+      <img className="user-image" src={commenter && commenter["photo"] ? commenter["photo"]: defaultUserImage} alt="commenter" />
       <div className="comment-content">
         <span className="commenter-name">
-          {commenter.firstName + " " + commenter.lastName}
+          {commenter !== null ? commenter["firstName"] + " " + commenter["lastName"] : "Firstname Lastname"}
         </span>
         <span className="comment-date">
-          {/*comment.updateDateTime? formatDate(new Date(comment.updateDateTime)) :*/}{" "}
           {formatDate(new Date(comment.createDateTime))}
         </span>
-        {comment.updateDateTime ? (
+        {comment.isEdited ? (
           <span className="edited"> edited</span>
         ) : (
           <></>
@@ -147,11 +248,11 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
         <hr />
         <div className="underline-options">
           {" "}
-          {likeDislikeStatus === null ? (
+          {likeDislikeStatus === null || likeDislikeStatus === undefined || likeDislikeStatus === "" ? (
             <span>
               <button className="like" onClick={toggleLike}>
                 <img className="like-icon" src={inactiveLike} alt="like" />
-                {comment.likes}
+                {likesCount}
               </button>
               <button className="dislike" onClick={toggleDislike}>
                 <img
@@ -159,16 +260,16 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                   src={inactiveLike}
                   alt="dislike"
                 />{" "}
-                {comment.dislikes}
+                {dislikesCount}
               </button>
             </span>
           ) : (
             <span>
-              {likeDislikeStatus ? (
+              {likeDislikeStatus.likedDisliked === true ? (
                 <span>
                   <button className="like" onClick={toggleLike}>
                     <img className="like-icon" src={activeLike} alt="like" />
-                    {comment.likes}
+                    {likesCount}
                   </button>
                   <button className="dislike" onClick={toggleDislike}>
                     <img
@@ -176,14 +277,14 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                       src={inactiveLike}
                       alt="dislike"
                     />{" "}
-                    {comment.dislikes}
+                    {dislikesCount}
                   </button>
                 </span>
               ) : (
                 <span>
                   <button className="like" onClick={toggleLike}>
                     <img className="like-icon" src={inactiveLike} alt="like" />
-                    {comment.likes}
+                    {likesCount}
                   </button>
                   <button className="dislike" onClick={toggleDislike}>
                     <img
@@ -191,13 +292,13 @@ export default function Comment({ comment, updateLikesCount, updateDislikesCount
                       src={activeLike}
                       alt="dislike"
                     />{" "}
-                    {comment.dislikes}
+                    {dislikesCount}
                   </button>
                 </span>
               )}
             </span>
           )}
-          {comment.commenterId === currentUser.id ||
+          {comment.userId === currentUser.id ||
           currentUser.role === "ADMIN" ? (
             <span>
               <button className="delete" onClick={deleteCommentById}>Delete</button>
