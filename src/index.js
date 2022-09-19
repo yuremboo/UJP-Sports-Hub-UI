@@ -16,6 +16,7 @@ import ArticlePage from "./pages/article/articlePage";
 import AllArticlesAdmin from "./pages/allArticlesAdmin/AllArticlesAdmin";
 import ResetPassword from "./pages/login/resetPassword";
 import CategoryPage from "./pages/category_team_page/categoryPage";
+import ArticlesByCategoryAdmin from "./pages/allArticlesAdmin/ArticllesByCategoryAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -25,7 +26,7 @@ root.render(
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route path="login" element={<LoginPage />} />
-                    <Route path="home" index element={<HomePage />} />
+                    <Route path="/" index element={<HomePage />} />
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="edit-article/:id" element={<EditArticle/>} />
@@ -33,6 +34,8 @@ root.render(
                     <Route path="articles" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>
                     <Route path="admin/articles" element={<AllArticlesAdmin/>}/>
+                    <Route path="admin/articles/category/:category" element={<ArticlesByCategoryAdmin/>}/>
+
                     <Route path="reset/password/:token" element={<ResetPassword/>}/>
                     <Route path="category/:id" element={<CategoryPage/>}/>
                 </Route>

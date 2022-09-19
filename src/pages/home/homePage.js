@@ -15,6 +15,7 @@ import Header from '../../Components/Header'
 
 // actions
 import { getBreakdownArticles } from '../../redux/article-breakdown/breakdown.action';
+import MostCommentedArticles from "../../Components/mostCommentedArticles/MostCommentedArticles";
 
 const HomePage = ({
                       logOutUser,
@@ -82,7 +83,7 @@ const HomePage = ({
 
                       </div>
                       <div className='most-commented-section'>
-
+                        <MostCommentedArticles/>
                       </div>
                   </div>
               </main>
