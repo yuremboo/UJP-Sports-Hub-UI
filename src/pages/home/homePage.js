@@ -16,12 +16,13 @@ import Footer from '../../Components/Footer'
 
 // actions
 import { getBreakdownArticles } from '../../redux/article-breakdown/breakdown.action';
+import MostCommentedArticles from "../../Components/mostCommentedArticles/MostCommentedArticles";
 
 const HomePage = ({
-    logOutUser,
-    getArticles,
-    // auth: { isLoading, errorMessage, userObject },
-    breakdown: { firstArticlesPayload, secondArticlesPayload } }) => {
+                      logOutUser,
+                      getArticles,
+                      // auth: { isLoading, errorMessage, userObject },
+                      breakdown: { firstArticlesPayload, secondArticlesPayload } }) => {
 
   let navigate = useNavigate();
 
@@ -38,49 +39,57 @@ const HomePage = ({
     const miniSecondArticlesPayload = secondArticlesPayload.slice(1)
 
     return (
-        <div>
-            <Header />
-            <div className='home-page'>
-                <NavBar />
-                <main>
-                    <h2>Home page</h2>
-                    <button onClick={logOut}>LOG OUT</button>
-                    <div className='breakdown-header'>
-                        <hr />
-                        <div className='breakdown-header__text'>
-                            <p>BREAKDOWN</p>
-                        </div>
-                    </div>
-                    <div className='breakdown-section'>
-                        <div className='medium-articles'>
-                            {
-                                firstArticlesPayload.length !== 0 && <MediumArticle mediumArticle={firstArticlesPayload[0]} />
-                            }
-                            {
-                                secondArticlesPayload.length !== 0 && <MediumArticle mediumArticle={secondArticlesPayload[0]} />
-                            }
-                        </div>
-                        <div className='mini-articles'>
-                            <div className='mini-articles-section'>
-                                {
-                                    miniFirstArticlesPayload !== 0 && miniFirstArticlesPayload.map(article => {
-                                        return <MiniArticle key={article.id} miniArticle={article} />
-                                    })
-                                }
-                            </div>
-                            <div className='mini-articles-section'>
-                                {
-                                    miniSecondArticlesPayload !== 0 && miniSecondArticlesPayload.map(article => {
-                                        return <MiniArticle key={article.id} miniArticle={article} />
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-          <Footer/>
-        </div>
+      <div>
+          <Header />
+          <div className='home-page'>
+              <NavBar />
+              <main>
+                  <h2>Home page</h2>
+                  <button onClick={logOut}>LOG OUT</button>
+                  <div className='breakdown-header'>
+                      <hr />
+                      <div className='breakdown-header__text'>
+                          <p>BREAKDOWN</p>
+                      </div>
+                  </div>
+                  <div className='breakdown-section'>
+                      <div className='medium-articles'>
+                          {
+                            firstArticlesPayload.length !== 0 && <MediumArticle mediumArticle={firstArticlesPayload[0]} />
+                          }
+                          {
+                            secondArticlesPayload.length !== 0 && <MediumArticle mediumArticle={secondArticlesPayload[0]} />
+                          }
+                      </div>
+                      <div className='mini-articles'>
+                          <div className='mini-articles-section'>
+                              {
+                                miniFirstArticlesPayload !== 0 && miniFirstArticlesPayload.map(article => {
+                                    return <MiniArticle key={article.id} miniArticle={article} />
+                                })
+                              }
+                          </div>
+                          <div className='mini-articles-section'>
+                              {
+                                miniSecondArticlesPayload !== 0 && miniSecondArticlesPayload.map(article => {
+                                    return <MiniArticle key={article.id} miniArticle={article} />
+                                })
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div className='most-popular-and-commented-section'>
+                      <div className='most-popular-section'>
+
+                      </div>
+                      <div className='most-commented-section'>
+                        <MostCommentedArticles/>
+                      </div>
+                  </div>
+              </main>
+          </div>
+      </div>
     );
 };
 

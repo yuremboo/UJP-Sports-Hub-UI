@@ -45,56 +45,56 @@ const SidePanelBtns = () => {
         <div className='allSidePanelBtns'>
             <div className='sidePanelBtn'>
                 <button onClick={surveysFunc}>
-                    <Surveys className="sidePanel_btn" width='100%' height='100%'/>
+                    <Surveys className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Surveys</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={bannersFunc}>
-                    <Banners className="sidePanel_btn" width='100%' height='100%'/>
+                    <Banners className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Banners</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={languagesFunc}>
-                    <Languages className="sidePanel_btn" width='100%' height='100%'/>
+                    <Languages className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Languages</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={footerFunc}>
-                    <Footer className="sidePanel_btn" width='100%' height='100%'/>
+                    <Footer className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Footer</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={sharesFunc}>
-                    <Shares className="sidePanel_btn" width='100%' height='100%'/>
+                    <Shares className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Social networks</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={myusersFunc}>
-                    <Myusers className="sidePanel_btn" width='100%' height='100%'/>
+                    <Myusers className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Users</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={iaFunc}>
-                    <IA className="sidePanel_btn" width='100%' height='100%'/>
+                    <IA className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">IA</span>
                 </button>
             </div>
 
             <div className='sidePanelBtn'>
                 <button onClick={teamsFunc}>
-                    <Teams className="sidePanel_btn" width='100%' height='100%'/>
+                    <Teams className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Teams</span>
                 </button>
             </div>

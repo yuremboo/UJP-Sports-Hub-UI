@@ -1,0 +1,11 @@
+.most_commented_title{
+    display: flex;
+    width: 100%;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
+
+.most_commented_title hr{
+    width: 40%;
+    margin-left: 5%;
+}

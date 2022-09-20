@@ -1,22 +1,18 @@
 .allSidePanelBtns{
     width: 100%;
     height: 100%;
-    padding: 0 25%;
-    /*border-right: #7F8899 2px solid;*/
+    padding: 0 2%;
 }
 
 .sidePanelBtn{
-    margin: 40% 0;
+    padding: 1px;
 }
 
 .sidePanelBtn button{
     background-color: transparent;
     border: none;
-
-    /**/
     position: relative;
     display: inline-block;
-    /**/
 }
 .sidePanelBtn .tooltiptext {
     visibility: hidden;
@@ -26,9 +22,7 @@
     text-align: center;
     border-radius: 4px;
     padding: 20%;
-    margin-left: 20%;
-
-    /* Position the tooltip */
+    margin-left: 30%;
     position: absolute;
     z-index: 1;
 
@@ -42,8 +36,6 @@
     visibility: visible;
 }
 
-
-
 .sidePanelBtn:hover button{
     /*background-color: red;*/
     border: none;
@@ -51,11 +43,20 @@
 
 .sidePanel_btn:hover *{
     stroke: #D72130;
-    /*-webkit-text-stroke-color: #D72130;*/
     visibility: visible;
 }
 
+.sidePanelBtn button{
+    background: none;
+    border: none;
+    margin: 5px;
+    padding: 18px 15px;
+}
 
-.tooltiptext{
-
+.sidePanelBtn button:hover{
+    background-color: #EDEDED;
+    border-radius: 50%;
+}
+.sidePanelBtn button:hover svg *{
+    stroke: #D72130;
 }

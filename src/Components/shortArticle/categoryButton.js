@@ -109,9 +109,13 @@ const CategoryButton = (props) => {
 
     // const link = "/"+props.categoryName;
 
+    function changeCurrentCategory(id){
+        props.setCategory(id);
+    }
+
     return (
         <div className='category_button'>
-            <button onClick={findArticlesByCategoryId}>{props.categoryName.toUpperCase()}</button>
+            <button onClick={changeCurrentCategory(props.categoryId)}>{props.categoryName.toUpperCase()}</button>
 
             {/*<Nav.Link className='cat_button' eventKey="link-1" onClick={findArticlesByCategoryId} href={link}><li>{props.categoryName}</li></Nav.Link>*/}
 
