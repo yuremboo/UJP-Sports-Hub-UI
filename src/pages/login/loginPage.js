@@ -59,7 +59,7 @@ const SignIn = ({
         email: '',
         password: '',
       })
-      navigate('/')
+      navigate('/home')
     }
   }
 
