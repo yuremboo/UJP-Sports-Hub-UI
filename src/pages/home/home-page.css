@@ -148,3 +148,13 @@
     font-style: italic;
 }
 
+
+.most-popular-section{
+    width: 48%;
+}
+
+.most-commented-section{
+    width: 48%;
+    margin-left: 4%;
+}
+

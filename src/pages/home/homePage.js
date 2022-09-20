@@ -15,9 +15,13 @@ import Header from '../../Components/Header'
 
 // actions
 import { getBreakdownArticles } from '../../redux/article-breakdown/breakdown.action';
+
 import { getPhotoOfTheDay } from '../../redux/photo-of-the-day/photo-day.action';
 
 import dayPhoto from './Bitmap.png';
+
+import MostCommentedArticles from "../../Components/mostCommentedArticles/MostCommentedArticles";
+
 
 const HomePage = ({
     logOutUser,
@@ -40,7 +44,6 @@ const HomePage = ({
     }, [])
 
     useEffect(() => {
-        console.log(photoOfTheDay)
     }, [photoOfTheDay])
 
     const miniFirstArticlesPayload = firstArticlesPayload.slice(1)
@@ -110,13 +113,13 @@ const HomePage = ({
 
                         </div>
                         <div className='most-popular-and-commented-section'>
-                      <div className='most-popular-section'>
+                            <div className='most-popular-section'>
 
-                      </div>
-                      <div className='most-commented-section'>
-                        <MostCommentedArticles/>
-                      </div>
-                  </div>
+                            </div>
+                            <div className='most-commented-section'>
+                                <MostCommentedArticles />
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>
@@ -127,7 +130,7 @@ const HomePage = ({
 const mapDispatchToProps = (dispatch) => ({
     logOutUser: () => dispatch(userLogoutRequest()),
     getArticles: () => dispatch(getBreakdownArticles(1, 4)), // ids
-    getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay('35e179ef-cbea-48ee-8ed0-311afde739b3.png'))
+    getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay('photo-of-the-day.jpg'))
 })
 const mapStateToProps = (state) => ({
     auth: state.auth,

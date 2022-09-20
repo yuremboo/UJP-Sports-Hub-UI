@@ -21,13 +21,17 @@ import {
 const ShortArticleAdmin = (props) => {
     const [menu, setMenu] = useState([]);
     const [isPublished, setIsPublished] = useState({});
+    let navigate = useNavigate();
 
+    useEffect(() => {
+        displayMenu();
+    }, []);
     function displayMenu() {
         if (props.isPublished === true) {
             setMenu([
                 {
                     "action": "Unpublish",
-                    "onclick": "unpublish"
+                    "onclick": unpublish()
                 },
                 {
                     "action": "Delete",
@@ -58,6 +62,11 @@ const ShortArticleAdmin = (props) => {
                 }
             ])
         }
+    }
+
+    function unpublish(){
+        console.log("unpublish func");
+        console.log("article.id: ", props.id)
     }
 
     function isArticlePublished() {

@@ -8,7 +8,20 @@ import facebook from '../icons/facebook.png'
 import path from '../icons/Twitter.png'
 import google from '../icons/GoogleSmall.png'
 import google1 from '../icons/Plus.png'
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
+  let navigate = useNavigate();
+
+  function login(){
+    // await logOutUser()
+    navigate("/login");
+  }
+
+  function signUp(){
+    navigate("/registration");
+  }
+
   return (
 
     <div className='main_header_sport_hub'>
@@ -39,8 +52,8 @@ export default function Header() {
       </div>
 
       <div className='sign_up_login_in'>
-        <Button variant="light">Sign up</Button>{' '}
-        <Button id='log_in_button' variant="light">Log in</Button>{' '}
+        <Button variant="light" onClick={signUp}>Sign up</Button>{' '}
+        <Button id='log_in_button' variant="light" onClick={login}>Log in</Button>{' '}
       </div>
 
       <div className='languages'>
