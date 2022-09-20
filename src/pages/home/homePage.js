@@ -112,7 +112,6 @@ const HomePage = ({
                         <div className='most-popular-section'>
 
                         </div>
-                            </div>
                             <div className='most-commented-section'>
                                 <MostCommentedArticles />
                             </div>
