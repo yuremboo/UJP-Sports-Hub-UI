@@ -104,10 +104,10 @@ const AdminHomePage = ({ props, globalStore }) => {
       });
   }
 
-  function putAtricle(article, id) {
+  function putArticle(article) {
     let result = true;
     console.log("token: ", AuthToken["jwt"]);
-    axios.put("http://localhost:8080/api/v1/articles/" + id, article, {
+    axios.put("http://localhost:8080/api/v1/admin/articles/", article, {
       headers: {
         authorization: AuthToken["jwt"]
       }
@@ -145,7 +145,7 @@ const AdminHomePage = ({ props, globalStore }) => {
           deleteSection={deleteSection}
           categories={categories}
           teams={teams}
-          allArticles={allArticles}
+          //allArticles={allArticles}
         />));
     }
   };
@@ -158,7 +158,7 @@ const AdminHomePage = ({ props, globalStore }) => {
         deleteSection={deleteSection}
         categories={categories}
         teams={teams}
-        allArticles={allArticles}
+        //allArticles={allArticles}
       />));
   };
   function deleteSection (key) {
@@ -175,7 +175,7 @@ const AdminHomePage = ({ props, globalStore }) => {
     <div className={"edit-article"}>
       <header className={"edit-article-header"}>
         <HeaderAdmin />
-        <SaveCancelChanges handleSubmit={putAtricle(article, id)} />
+        <SaveCancelChanges handleSubmit={putArticle(article)} />
       </header>
       <NavBarIcons className={"nav-bar-icons"} />
 

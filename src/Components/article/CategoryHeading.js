@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style_components/article/articleheading.css";
+import "../../style_components/article/categoryheading.css";
 import share from "../../icons/Share.svg";
 import google from "../../icons/GoogleSmall.png"
 import plus from "../../icons/Plus.png"
