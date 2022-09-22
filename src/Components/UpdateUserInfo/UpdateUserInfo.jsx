@@ -4,10 +4,15 @@ import {ReactComponent as Photo} from "../../icons/photoEditor/Photo.svg";
 import CustomInput from "../CustomInput/CustomInput";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {userLogoutRequest} from "../../redux/auth/auth.actions";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const UpdateUserInfo = ({props, globalStore}) => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
     const [profile, setProfile] = useState({});
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getProfile();
@@ -42,7 +47,6 @@ const UpdateUserInfo = ({props, globalStore}) => {
             lastName: profile.lastName,
             photo: profile.photo
         };
-        console.log('token: ', AuthToken['jwt']);
         axios.put("http://localhost:8080/api/v1/profile", sendProfile, {
             headers: {
                 authorization: AuthToken["jwt"]
@@ -59,11 +63,15 @@ const UpdateUserInfo = ({props, globalStore}) => {
     const handleClick = event => {
         event.preventDefault()
         putProfile(profile)
-        // localStorage.setItem("user", JSON.stringify({...AuthToken,
-        //     firstName:profile.firstName,
-        //     lastName:profile.lastName,
-        //     photo:profile.photo
-        // }))
+        localStorage.setItem("user", JSON.stringify({...AuthToken,
+            firstName:profile.firstName,
+            lastName:profile.lastName,
+            photo:profile.photo
+        }))
+        if (profile.email.length !== 0) {
+            dispatch(userLogoutRequest())
+            navigate("/login");
+        }
     }
 
     const handleChange = event => {
