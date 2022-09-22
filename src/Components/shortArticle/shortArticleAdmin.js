@@ -6,6 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import {
     useNavigate
 } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
 
 // function BasicButtonExample() {
 //     return (
@@ -86,7 +87,7 @@ const ShortArticleAdmin = (props) => {
 
     return (
       <div className='n_shortArticle__outer'>
-          <div className='n_shortArticle'>
+          <Nav.Link className='n_shortArticle' /*onClick={viewTheArticle(props.id)}*/ href={"/articles/" + props.id}>
               <div className='n_shortarticle__image'>
                   <img src={articleImage} alt="article"
                        width="100%" height="100%"/>
@@ -116,7 +117,7 @@ const ShortArticleAdmin = (props) => {
               </div>
 
 
-          </div>
+          </Nav.Link>
           <div className='n_shortarticle__button'>
               <DropdownButton id="dropdown-basic-button" onClick={displayMenu} title="...">
                   {/*<Dropdown.Item>Action</Dropdown.Item>*/}

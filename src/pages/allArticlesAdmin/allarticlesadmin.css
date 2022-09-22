@@ -301,3 +301,21 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
     letter-spacing: 0.07rem;
     color: #C63638;
 }
+
+
+.all_articles_admin__category_preview{
+    width: max-content;
+    display: flex;
+    margin: 4% 17% -2% 17%;
+    padding-left: 2%;
+}
+.all_articles_admin__category_preview_text{
+    margin-left: 5% ;
+    /*padding: 2%;*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #D72130;
+}
