@@ -43,7 +43,7 @@ const UpdateUserInfo = ({props, globalStore}) => {
             photo: profile.photo
         };
         console.log('token: ', AuthToken['jwt']);
-        axios.put("http://localhost:8080/api/v1/profile/edit", sendProfile, {
+        axios.put("http://localhost:8080/api/v1/profile", sendProfile, {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -60,7 +60,6 @@ const UpdateUserInfo = ({props, globalStore}) => {
         event.preventDefault()
         putProfile(profile)
         // localStorage.setItem("user", JSON.stringify({...AuthToken,
-        //     email:profile.email,
         //     firstName:profile.firstName,
         //     lastName:profile.lastName,
         //     photo:profile.photo

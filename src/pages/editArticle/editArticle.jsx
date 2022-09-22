@@ -17,15 +17,12 @@ const EditArticle = ({ props, globalStore }) => {
     const { id } = useParams();
     const AuthToken = JSON.parse(localStorage.getItem("user"));
 
-    const [IsLoading, setIsLoading] = useState(true);
-
     const [isCancel, setIsCancel] = useState(false)
 
   const [teams, setTeams] = useState([]);
   const [categories, setCategories] = useState([]);
     const [article, setArticle] = useState({})
     useEffect(() => {
-      setIsLoading(true);
         getArticle();
     }, []);
 
@@ -42,7 +39,6 @@ const EditArticle = ({ props, globalStore }) => {
               console.log("getArticle");
               console.log(response.data);
               setArticle({...data, category: data.category.id, team: data.team.id});
-            setIsLoading(false);
             return axios.get("http://localhost:8080/api/categories", {
               headers: {
                 authorization: AuthToken["jwt"]
@@ -66,7 +62,6 @@ const EditArticle = ({ props, globalStore }) => {
             console.log(response.data);
             setTeams(data);
           })
-          .then(() => {setIsLoading(false);})
           .catch((error) => {
               if (error.response) {
                   console.log(error.response);
@@ -88,9 +83,13 @@ const EditArticle = ({ props, globalStore }) => {
         commentsActive: article.commentsActive,
         createDateTime: article.createDateTime,
         updateDateTime: article.updateDateTime,
-        categoryId: "2",
-        teamId: "2"
+        categoryId: article.category,
+        teamId: article.team
       };
+        console.log("article");
+        console.log(article);
+        console.log("sendArticle");
+        console.log(sendArticle);
         console.log('token: ', AuthToken['jwt']);
         axios.put("http://localhost:8080/api/v1/articles/"+id, sendArticle, {
             headers: {
@@ -125,7 +124,6 @@ const EditArticle = ({ props, globalStore }) => {
             />}
             <NavBarIcons className={"nav-bar-icons"}/>
 
-          {!IsLoading ?
             <form className="form-container">
               <div className={"form-preview"}>
                 <button className={"button-eye"} type={"button"}>
@@ -205,7 +203,6 @@ const EditArticle = ({ props, globalStore }) => {
                            }} />
               </div>
             </form>
-          :<h1>loading</h1>}
         </div>);
 }
 
