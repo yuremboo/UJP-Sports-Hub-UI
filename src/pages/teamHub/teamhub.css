@@ -67,7 +67,7 @@
 .geolocation-popup{
     margin: 0;
     box-sizing: border-box;
-    background-color: lightgray;
+    background-color: #eeeeee;
     width: 420px;
     padding: 10px 10px 30px;
     position: absolute;
@@ -76,8 +76,6 @@
     text-align: center;
     display: block;
 
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 11px;
@@ -86,7 +84,7 @@
 
 .geolocation-popup__button-close{
     display: block;
-    margin: 0 0 40px auto;
+    margin: 10px 10px 40px auto;
     background-color: transparent;
     font-size: 20px;
     color: #ffffff;
@@ -103,7 +101,7 @@
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 26px;
+    font-size: 28px;
     line-height: 17px;
     text-align: center;
     margin-top: -20px;

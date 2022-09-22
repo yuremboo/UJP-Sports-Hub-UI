@@ -97,9 +97,9 @@ export default function TeamComponent({team, isSubscribed}) {
     console.log(team);
     console.log(team.team.id)
     axios.get(`http://localhost:8080/api/v1/articles/${url}/${team.team.id}`, {
-      // headers: {
-      //   authorization:set1AuthToken['jwt'],
-      // }
+      headers: {
+        authorization:set1AuthToken['jwt'],
+      }
     })
       .then((response) => {
         const data = response.data
