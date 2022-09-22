@@ -30,16 +30,16 @@ const EditArticle = ({ props, globalStore }) => {
 
     function getArticle() {
         console.log("function getArticle");
-        axios.get("http://localhost:8080/api/v1/articles/"+id, {
-            headers: {
-                authorization: AuthToken["jwt"]
-            }
-        })
+                axios.get("http://localhost:8080/api/v1/articles/"+id, {
+                headers: {
+                    authorization: AuthToken["jwt"]
+                }
+            })
           .then((response) => {
               const data = response.data;
               console.log("getArticle");
               console.log(response.data);
-              setArticle({...data, category: data.category.id, team: data.team.id});
+              setArticle({...data, categoryId: data.category.id, teamId: data.team.id});
             return axios.get("http://localhost:8080/api/categories", {
               headers: {
                 authorization: AuthToken["jwt"]
@@ -85,8 +85,8 @@ const EditArticle = ({ props, globalStore }) => {
         commentsActive: article.commentsActive,
         createDateTime: article.createDateTime,
         updateDateTime: article.updateDateTime,
-        categoryId: article.category,
-        teamId: article.team
+        categoryId: article.categoryId,
+        teamId: article.teamId
       };
         console.log("article");
         console.log(article);
