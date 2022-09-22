@@ -1,21 +1,28 @@
-import React, {useEffect, useState} from "react";
+import React from 'react';
+import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
-import "./allarticlesadmin.css";
-import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
-import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
+import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import {ScrollMenu} from "react-horizontal-scrolling-menu";
 import {LeftArrow, RightArrow} from "../../Components/horizontal-scroll-menu/arrows";
-import {Pagination} from "@mui/material";
 import Nav from "react-bootstrap/Nav";
-import Dropdown from 'react-bootstrap/Dropdown';
-import {useNavigate, useParams} from "react-router-dom";
+import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import preview from "../../icons/Preview.svg";
+import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
+import {Pagination} from "@mui/material";
+import "./allarticlesadmin.css";
+import Dropdown from "react-bootstrap/Dropdown";
 
-const ArticlesByCategoryAdmin = () => {
+const IsActiveArticlesByCatAdmin = () => {
+    {/*props : categoryId, isActive */}
     const params = useParams();
     const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
+    const [totalPages, setTotalPages] = useState(1);
+    let navigate = useNavigate();
+    const [toggleName, setToggleName] = useState('');
 
     const [currentCategory, setCurrentCategory] = useState({});
     useEffect(() => {
@@ -30,7 +37,6 @@ const ArticlesByCategoryAdmin = () => {
             }
         })
             .then((response) => {
-                // console.log("SUCCESS getCategoryById function");
                 setCurrentCategory(response.data);
             })
             .catch((error) => {
@@ -41,20 +47,12 @@ const ArticlesByCategoryAdmin = () => {
             });
     }
 
-    console.log(useParams());
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
-    const [totalPages, setTotalPages] = useState(1);
-
-    let navigate = useNavigate();
-
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         getAllCategories();
     }, []);
 
     function getAllCategories() {
-        getCategoryById();
         axios.get("http://localhost:8080/api/categories", {
             headers: {
                 "Authorization": authToken
@@ -74,11 +72,13 @@ const ArticlesByCategoryAdmin = () => {
 
     const [allArticlesByCategoryId, setAllArticlesByCategoryId] = useState([]);
     useEffect(() => {
-        getAllArticlesByCategoryId();
-    }, [currentCategory, currentPage]);
+        getAllArticlesByCategoryIdAndIsActive();
+    }, [currentPage]);
 
-    function getAllArticlesByCategoryId() {
-        axios.get("http://localhost:8080/api/v1/admin/articles/category_id/" + currentCategory.id + "?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
+    function getAllArticlesByCategoryIdAndIsActive() {
+        params.isActive === "true" ? setToggleName("Published") : setToggleName("Unpublished");
+        axios.get("http://localhost:8080/api/v1/admin/articles/category_id/" + params.category + "/is_active/" + params.isActive +
+            "?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
             headers: {
                 "Authorization": authToken
             }
@@ -102,12 +102,8 @@ const ArticlesByCategoryAdmin = () => {
 
     function previewCategory() {
         console.log("preview category");
-        navigate("/category/" + currentCategory.id);
+        navigate("/category/" + params.category);
     }
-
-    // function published() {
-    //     navigate("/category/" + currentCategory.id + "/is_active/true");
-    // }
 
     return (
         <div className="all_articles_admin__page">
@@ -126,7 +122,6 @@ const ArticlesByCategoryAdmin = () => {
                     {
                         currentCategory.name
                     }
-                    {/*{currentCategory.name.toUpperCase()}*/}
                 </div>
                 <div className="all_articles_admin__new_article">
                     <AddNewArticleBtn/>
@@ -171,29 +166,27 @@ const ArticlesByCategoryAdmin = () => {
                                 <div className="all_articles_admin__category_preview_text">Preview</div>
                             </div>
                             <div className="all_articles_admin__filter_articles">
-
                                 <Dropdown className="filter_articles">
                                     <Dropdown.Toggle className="dropdown-toggle-filter" variant="success" id="dropdown-basic">
-                                        All
+                                        { params.isActive === "true" ? <div>Published</div> : <div>Unpublished</div>}
+                                        {/*{toggleName}*/}
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item className="dropdown-item-active" href="#/action-2">All</Dropdown.Item>
-                                        <Dropdown.Item className="dropdown-item"  href={"/admin/articles/category/" + currentCategory.id
-                                            + "/is_active/true"}>Published</Dropdown.Item>
-                                        <Dropdown.Item className="dropdown-item"  href={"/admin/articles/category/" + currentCategory.id
-                                            + "/is_active/false"}>Unpublished</Dropdown.Item>
+                                        <Dropdown.Item className="dropdown-item"
+                                                       href={"/admin/articles/category/" + currentCategory.id}>All</Dropdown.Item>
+
+                                        <Dropdown.Item /*className="dropdown-item-active"*/
+                                                       className={params.isActive === "true" ? "dropdown-item-active" : "dropdown-item"}
+                                                       href={"/admin/articles/category/" + currentCategory.id + "/is_active/true"}>Published</Dropdown.Item>
+
+                                        <Dropdown.Item className={params.isActive === "false" ? "dropdown-item-active" : "dropdown-item"}
+                                                       href={"/admin/articles/category/" + currentCategory.id + "/is_active/false"}>Unpublished</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-
                                 <div className="filter_articles">
-                                    {/*<select className="form-select form-select-sm">*/}
-                                    {/*    <option>All</option>*/}
-                                    {/*    <option onClick={published}>Published</option>*/}
-                                    {/*    <option>Unpublished</option>*/}
-                                    {/*</select>*/}
-                                </div>
 
+                                </div>
                                 <div className="filter_articles">
 
                                 </div>
@@ -216,8 +209,8 @@ const ArticlesByCategoryAdmin = () => {
                     <Pagination count={totalPages} page={currentPage} onChange={(_, num) => setCurrentPage(num)}/>
                 </div>
             </div>
-        </div>);
-
+        </div>
+    );
 };
 
-export default ArticlesByCategoryAdmin;
+export default IsActiveArticlesByCatAdmin;

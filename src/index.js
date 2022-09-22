@@ -18,6 +18,7 @@ import ResetPassword from "./pages/login/resetPassword";
 import CategoryPage from "./pages/category_team_page/categoryPage";
 import ArticlesByCategoryAdmin from "./pages/allArticlesAdmin/ArticllesByCategoryAdmin";
 import AdminHomePage from "./pages/home/AdminHomePage";
+import IsActiveArticlesByCatAdmin from "./pages/allArticlesAdmin/IsActiveArticlesByCatAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 function getUserRole(){
@@ -43,11 +44,11 @@ root.render(
                     <Route path="edit-article/:id" element={<EditArticle/>} />
                     <Route path="update-user-information/:profile" element={<Profile/>} />
                     <Route path="articles/:id" element={<ArticlePage/>}/>
-                    {/*<Route path="admin/articles/category/:category/articles/:id" element={<ArticlePage/>}/>*/}
                     <Route path="teams" element={<TeamHub/>}/>
-                    <Route path="admin/articles" element={getUserRole() === "ADMIN" ? <AllArticlesAdmin/> : null}/>
+                    {/*<Route path="admin/articles" element={getUserRole() === "ADMIN" ? <AllArticlesAdmin/> : null}/>*/}
                     <Route path="admin/articles/category/:category" element={getUserRole() === "ADMIN" ? <ArticlesByCategoryAdmin/> : null}/>
-
+                    <Route path="admin/articles/category/:category/is_active/:isActive"
+                           element={getUserRole() === "ADMIN" ? <IsActiveArticlesByCatAdmin/> : null}/>
 
                     <Route path="reset/password/:token" element={<ResetPassword/>}/>
                     <Route path="category/:id" element={<CategoryPage/>}/>

@@ -7,6 +7,7 @@ import {
     useNavigate
 } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
+import axios from "axios";
 
 // function BasicButtonExample() {
 //     return (
@@ -20,6 +21,7 @@ import Nav from "react-bootstrap/Nav";
 // export default BasicButtonExample;
 
 const ShortArticleAdmin = (props) => {
+    const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
     const [menu, setMenu] = useState([]);
     const [isPublished, setIsPublished] = useState({});
     let navigate = useNavigate();
@@ -66,8 +68,21 @@ const ShortArticleAdmin = (props) => {
     }
 
     function unpublish(){
-        console.log("unpublish func");
-        console.log("article.id: ", props.id)
+        console.log("unpublish article.id: ", props.id)
+        axios.put("http://localhost:8080/api/v1/admin/articles/publish/" + props.id, {
+            headers: {
+                "Authorization": authToken
+            }
+        })
+            .then((response) => {
+                console.log("isActive was changed");
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            });
     }
 
     function isArticlePublished() {
@@ -87,7 +102,7 @@ const ShortArticleAdmin = (props) => {
 
     return (
       <div className='n_shortArticle__outer'>
-          <Nav.Link className='n_shortArticle' /*onClick={viewTheArticle(props.id)}*/ href={"/articles/" + props.id}>
+          <Nav.Link className='n_shortArticle' href={"/articles/" + props.id}>
               <div className='n_shortarticle__image'>
                   <img src={articleImage} alt="article"
                        width="100%" height="100%"/>
