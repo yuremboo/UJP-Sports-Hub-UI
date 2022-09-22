@@ -17,22 +17,19 @@ const EditArticle = ({ props, globalStore }) => {
     const { id } = useParams();
     const AuthToken = JSON.parse(localStorage.getItem("user"));
 
-    const [IsLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState("");
 
     const [isCancel, setIsCancel] = useState(false)
 
-  const [teams, setTeams] = useState([]);
-  const [categories, setCategories] = useState([]);
+    const [teams, setTeams] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [article, setArticle] = useState({})
     useEffect(() => {
-      setIsLoading(true);
         getArticle();
     }, []);
 
     function getArticle() {
         console.log("function getArticle");
-        console.log("token: ", AuthToken["jwt"]);
         axios.get("http://localhost:8080/api/v1/articles/"+id, {
             headers: {
                 authorization: AuthToken["jwt"]
@@ -43,7 +40,6 @@ const EditArticle = ({ props, globalStore }) => {
               console.log("getArticle");
               console.log(response.data);
               setArticle({...data, category: data.category.id, team: data.team.id});
-            setIsLoading(false);
             return axios.get("http://localhost:8080/api/categories", {
               headers: {
                 authorization: AuthToken["jwt"]
@@ -67,7 +63,6 @@ const EditArticle = ({ props, globalStore }) => {
             console.log(response.data);
             setTeams(data);
           })
-          .then(() => {setIsLoading(false);})
           .catch((error) => {
               if (error.response) {
                   console.log(error.response);
@@ -97,7 +92,6 @@ const EditArticle = ({ props, globalStore }) => {
         console.log(article);
         console.log("sendArticle");
         console.log(sendArticle);
-        console.log('token: ', AuthToken['jwt']);
         axios.put("http://localhost:8080/api/v1/articles/"+id, sendArticle, {
             headers: {
                 authorization: AuthToken["jwt"]
@@ -166,7 +160,6 @@ const EditArticle = ({ props, globalStore }) => {
             />}
             <NavBarIcons className={"nav-bar-icons"}/>
 
-          {!IsLoading ?
             <form className="form-container">
               <div className={"form-preview"}>
                 <button className={"button-eye"} type={"button"}>
@@ -235,18 +228,17 @@ const EditArticle = ({ props, globalStore }) => {
               />
               <div className={"comments-show"}>
                 <span className={"span-comments"}>Comments:</span>
-                {article.isHidden ?
+                {article.commentsActive ?
                   <span className={"span-show"}>Show</span>
                   : <span className={"span-hide"}>Hide</span>}
                 <MDBSwitch id='show-hide-toggle'
                            className={"show-hide-toggle"}
-                           value={article.isHidden}
+                           value={article.commentsActive}
                            onClick={() => {
-                             setArticle({ ...article, isHidden: !article.isHidden })
+                             setArticle({ ...article, commentsActive: !article.commentsActive })
                            }} />
               </div>
             </form>
-          :<h1>loading</h1>}
         </div>);
 }
 
