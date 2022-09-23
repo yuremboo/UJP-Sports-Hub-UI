@@ -14,6 +14,7 @@ import {Pagination} from "@mui/material";
 import "./allarticlesadmin.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
 const IsActiveArticlesByCatAdmin = () => {
     {/*props : categoryId, isActive */}
@@ -48,28 +49,28 @@ const IsActiveArticlesByCatAdmin = () => {
             });
     }
 
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        getAllCategories();
-    }, []);
-
-    function getAllCategories() {
-        axios.get("http://localhost:8080/api/categories", {
-            headers: {
-                "Authorization": authToken
-            }
-        })
-            .then((response) => {
-                const data = response.data;
-                setCategories(data);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response);
-                    console.log("error.response.status: ", error.response.status);
-                }
-            });
-    }
+    // const [categories, setCategories] = useState([]);
+    // useEffect(() => {
+    //     getAllCategories();
+    // }, []);
+    //
+    // function getAllCategories() {
+    //     axios.get("http://localhost:8080/api/categories", {
+    //         headers: {
+    //             "Authorization": authToken
+    //         }
+    //     })
+    //         .then((response) => {
+    //             const data = response.data;
+    //             setCategories(data);
+    //         })
+    //         .catch((error) => {
+    //             if (error.response) {
+    //                 console.log(error.response);
+    //                 console.log("error.response.status: ", error.response.status);
+    //             }
+    //         });
+    // }
 
     const [allArticlesByCategoryId, setAllArticlesByCategoryId] = useState([]);
     useEffect(() => {
@@ -136,27 +137,28 @@ const IsActiveArticlesByCatAdmin = () => {
             </div>
 
             <div className="all_articles_admin__categories_buttons">
-                <div className="horizontal_scroll_menu">
-                    <ScrollMenu itemClassName="scroll_menu"
-                                LeftArrow={LeftArrow}
-                                RightArrow={RightArrow}
-                                options={{
-                                    ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
-                                }}
-                    >
-                        <div className="category_button">
-                            <button onClick={returnHome}>HOME</button>
-                        </div>
+                {/*<div className="horizontal_scroll_menu">*/}
+                {/*    <ScrollMenu itemClassName="scroll_menu"*/}
+                {/*                LeftArrow={LeftArrow}*/}
+                {/*                RightArrow={RightArrow}*/}
+                {/*                options={{*/}
+                {/*                    ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]*/}
+                {/*                }}*/}
+                {/*    >*/}
+                {/*        <div className="category_button">*/}
+                {/*            <button onClick={returnHome}>HOME</button>*/}
+                {/*        </div>*/}
 
-                        {
-                            categories.map(category =>
-                                <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
-                                    <li>{category.name}</li>
-                                </Nav.Link>
-                            )
-                        }
-                    </ScrollMenu>
-                </div>
+                {/*        {*/}
+                {/*            categories.map(category =>*/}
+                {/*                <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>*/}
+                {/*                    <li>{category.name}</li>*/}
+                {/*                </Nav.Link>*/}
+                {/*            )*/}
+                {/*        }*/}
+                {/*    </ScrollMenu>*/}
+                {/*</div>*/}
+                <HorizontalScrollMenu/>
             </div>
 
             <div className="all_articles_admin__body">

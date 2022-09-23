@@ -13,6 +13,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {useNavigate, useParams} from "react-router-dom";
 import preview from "../../icons/Preview.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -49,29 +50,29 @@ const ArticlesByCategoryAdmin = () => {
 
     let navigate = useNavigate();
 
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        getAllCategories();
-    }, []);
-
-    function getAllCategories() {
-        getCategoryById();
-        axios.get("http://localhost:8080/api/categories", {
-            headers: {
-                "Authorization": authToken
-            }
-        })
-            .then((response) => {
-                const data = response.data;
-                setCategories(data);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response);
-                    console.log("error.response.status: ", error.response.status);
-                }
-            });
-    }
+    // const [categories, setCategories] = useState([]);
+    // useEffect(() => {
+    //     getAllCategories();
+    // }, []);
+    //
+    // function getAllCategories() {
+    //     getCategoryById();
+    //     axios.get("http://localhost:8080/api/categories", {
+    //         headers: {
+    //             "Authorization": authToken
+    //         }
+    //     })
+    //         .then((response) => {
+    //             const data = response.data;
+    //             setCategories(data);
+    //         })
+    //         .catch((error) => {
+    //             if (error.response) {
+    //                 console.log(error.response);
+    //                 console.log("error.response.status: ", error.response.status);
+    //             }
+    //         });
+    // }
 
     const [allArticlesByCategoryId, setAllArticlesByCategoryId] = useState([]);
     useEffect(() => {
@@ -97,18 +98,14 @@ const ArticlesByCategoryAdmin = () => {
             });
     }
 
-    function returnHome() {
-        navigate("/");
-    }
+    // function returnHome() {
+    //     navigate("/");
+    // }
 
     function previewCategory() {
         console.log("preview category");
         navigate("/category/" + currentCategory.id);
     }
-
-    // function published() {
-    //     navigate("/category/" + currentCategory.id + "/is_active/true");
-    // }
 
     return (
         <div className="all_articles_admin__page">
@@ -141,27 +138,28 @@ const ArticlesByCategoryAdmin = () => {
             </div>
 
             <div className="all_articles_admin__categories_buttons">
-                <div className="horizontal_scroll_menu">
-                    <ScrollMenu itemClassName="scroll_menu"
-                                LeftArrow={LeftArrow}
-                                RightArrow={RightArrow}
-                                options={{
-                                    ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
-                                }}
-                    >
-                        <div className="category_button">
-                            <button onClick={returnHome}>HOME</button>
-                        </div>
+                {/*<div className="horizontal_scroll_menu">*/}
+                {/*    <ScrollMenu itemClassName="scroll_menu"*/}
+                {/*                LeftArrow={LeftArrow}*/}
+                {/*                RightArrow={RightArrow}*/}
+                {/*                options={{*/}
+                {/*                    ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]*/}
+                {/*                }}*/}
+                {/*    >*/}
+                {/*        <div className="category_button">*/}
+                {/*            <button onClick={returnHome}>HOME</button>*/}
+                {/*        </div>*/}
 
-                        {
-                            categories.map(category =>
-                                <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
-                                    <li>{category.name}</li>
-                                </Nav.Link>
-                            )
-                        }
-                    </ScrollMenu>
-                </div>
+                {/*        {*/}
+                {/*            categories.map(category =>*/}
+                {/*                <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>*/}
+                {/*                    <li>{category.name}</li>*/}
+                {/*                </Nav.Link>*/}
+                {/*            )*/}
+                {/*        }*/}
+                {/*    </ScrollMenu>*/}
+                {/*</div>*/}
+                <HorizontalScrollMenu/>s
             </div>
 
             <div className="all_articles_admin__body">
