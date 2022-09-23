@@ -44,18 +44,12 @@ root.render(
                     <Route path="update-user-information/:profile" element={<Profile/>} />
                     <Route path="articles/:id" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>
-                    {/*<Route path="admin/articles" element={getUserRole() === "ADMIN" ? <AllArticlesAdmin/> : null}/>*/}
                     <Route path="admin/articles/category/:category" element={getUserRole() === "ADMIN" ? <ArticlesByCategoryAdmin/> : null}/>
                     <Route path="admin/articles/category/:category/is_active/:isActive"
                            element={getUserRole() === "ADMIN" ? <IsActiveArticlesByCatAdmin/> : null}/>
-
                     <Route path="reset/password/:token" element={<ResetPassword/>}/>
                     <Route path="category/:id" element={<CategoryPage/>}/>
                 </Route>
-                {/*<Route>*/}
-                {/*    <Route path="registration" element={<RegistrationPage/>} />*/}
-                {/*    <Route path="login" element={<LoginPage/>} />*/}
-                {/*</Route>*/}
             </Routes>
         </BrowserRouter>
     </Provider>

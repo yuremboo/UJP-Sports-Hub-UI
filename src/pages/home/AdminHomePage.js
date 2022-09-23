@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
-import CategoryButton from "../../Components/shortArticle/categoryButton";
-// import "";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import accountSwitcher from "../../icons/accountSwitcher.svg";

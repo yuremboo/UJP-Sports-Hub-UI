@@ -5,14 +5,12 @@ import "./allarticlesadmin.css";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
-import {ScrollMenu} from "react-horizontal-scrolling-menu";
-import {LeftArrow, RightArrow} from "../../Components/horizontal-scroll-menu/arrows";
 import {Pagination} from "@mui/material";
-import Nav from "react-bootstrap/Nav";
 import Dropdown from 'react-bootstrap/Dropdown';
 import {useNavigate, useParams} from "react-router-dom";
 import preview from "../../icons/Preview.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -31,7 +29,6 @@ const ArticlesByCategoryAdmin = () => {
             }
         })
             .then((response) => {
-                // console.log("SUCCESS getCategoryById function");
                 setCurrentCategory(response.data);
             })
             .catch((error) => {
@@ -49,30 +46,6 @@ const ArticlesByCategoryAdmin = () => {
 
     let navigate = useNavigate();
 
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        getAllCategories();
-    }, []);
-
-    function getAllCategories() {
-        getCategoryById();
-        axios.get("http://localhost:8080/api/categories", {
-            headers: {
-                "Authorization": authToken
-            }
-        })
-            .then((response) => {
-                const data = response.data;
-                setCategories(data);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response);
-                    console.log("error.response.status: ", error.response.status);
-                }
-            });
-    }
-
     const [allArticlesByCategoryId, setAllArticlesByCategoryId] = useState([]);
     useEffect(() => {
         getAllArticlesByCategoryId();
@@ -85,8 +58,7 @@ const ArticlesByCategoryAdmin = () => {
             }
         })
             .then((response) => {
-                const data = response.data.content;
-                setAllArticlesByCategoryId(data);
+                setAllArticlesByCategoryId(response.data.content);
                 setTotalPages(response.data.totalPages);
             })
             .catch((error) => {
@@ -97,18 +69,10 @@ const ArticlesByCategoryAdmin = () => {
             });
     }
 
-    function returnHome() {
-        navigate("/");
-    }
-
     function previewCategory() {
         console.log("preview category");
         navigate("/category/" + currentCategory.id);
     }
-
-    // function published() {
-    //     navigate("/category/" + currentCategory.id + "/is_active/true");
-    // }
 
     return (
         <div className="all_articles_admin__page">
@@ -118,13 +82,9 @@ const ArticlesByCategoryAdmin = () => {
                     <button className="accountSwitcher__button">
                         <img src={accountSwitcher} width="30%" height="30%"/>
                     </button>
-                    {/*<div className="all_articles_admin__profile_section">*/}
-                    {/*    <ProfileSection/>*/}
-                    {/*</div>*/}
                     <div className="admin__profile_section">
                         <ProfileSection/>
                     </div>
-
                 </div>
             </div>
 
@@ -133,7 +93,6 @@ const ArticlesByCategoryAdmin = () => {
                     {
                         currentCategory.name
                     }
-                    {/*{currentCategory.name.toUpperCase()}*/}
                 </div>
                 <div className="all_articles_admin__new_article">
                     <AddNewArticleBtn/>
@@ -141,27 +100,7 @@ const ArticlesByCategoryAdmin = () => {
             </div>
 
             <div className="all_articles_admin__categories_buttons">
-                <div className="horizontal_scroll_menu">
-                    <ScrollMenu itemClassName="scroll_menu"
-                                LeftArrow={LeftArrow}
-                                RightArrow={RightArrow}
-                                options={{
-                                    ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
-                                }}
-                    >
-                        <div className="category_button">
-                            <button onClick={returnHome}>HOME</button>
-                        </div>
-
-                        {
-                            categories.map(category =>
-                                <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
-                                    <li>{category.name}</li>
-                                </Nav.Link>
-                            )
-                        }
-                    </ScrollMenu>
-                </div>
+                <HorizontalScrollMenu/>
             </div>
 
             <div className="all_articles_admin__body">
@@ -187,7 +126,7 @@ const ArticlesByCategoryAdmin = () => {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item
-                                            className="dropdown-item-active" /*href="#/action-2"*/>All</Dropdown.Item>
+                                            className="dropdown-item-active">All</Dropdown.Item>
                                         <Dropdown.Item className="dropdown-item"
                                                        href={"/admin/articles/category/" + currentCategory.id
                                                            + "/is_active/true"}>Published</Dropdown.Item>
@@ -196,12 +135,6 @@ const ArticlesByCategoryAdmin = () => {
                                                            + "/is_active/false"}>Unpublished</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-
-                                {/*<div className="filter_articles">*/}
-                                {/*</div>*/}
-
-                                {/*<div className="filter_articles">*/}
-                                {/*</div>*/}
                             </div>
 
                             {
