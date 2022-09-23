@@ -12,6 +12,7 @@ import {MDBSwitch} from 'mdb-react-ui-kit';
 import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
 import { useParams } from "react-router-dom";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
 const EditArticle = ({ props, globalStore }) => {
     const { id } = useParams();
@@ -39,7 +40,7 @@ const EditArticle = ({ props, globalStore }) => {
               const data = response.data;
               console.log("getArticle");
               console.log(response.data);
-              setArticle({...data, categoryId: data.category.id, teamId: data.team.id});
+              setArticle({...data, category: data.category.id, team: data.team.id});
             return axios.get("http://localhost:8080/api/categories", {
               headers: {
                 authorization: AuthToken["jwt"]
@@ -154,6 +155,7 @@ const EditArticle = ({ props, globalStore }) => {
                   handleSubmit={() => putArticle(article,id)}
                   handleCancel={() => setIsCancel(true)}
                 />
+                <HorizontalScrollMenu/>
             </header>
             {isCancel && <CancellationPopup
               handleCancel={() => setIsCancel(false)}
@@ -169,7 +171,6 @@ const EditArticle = ({ props, globalStore }) => {
               </div>
 
               <CustomPictureInput
-                // type="image"
                 label={"Picture.*"}
                 name={"picture"}
                 value={article.picture}
