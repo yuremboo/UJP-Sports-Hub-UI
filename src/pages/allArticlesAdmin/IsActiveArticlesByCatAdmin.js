@@ -4,9 +4,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
-import {ScrollMenu} from "react-horizontal-scrolling-menu";
-import {LeftArrow, RightArrow} from "../../Components/horizontal-scroll-menu/arrows";
-import Nav from "react-bootstrap/Nav";
 import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import preview from "../../icons/Preview.svg";
 import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
@@ -17,7 +14,6 @@ import ProfileSection from "../../Components/profileSectionHeader/profileSection
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
 const IsActiveArticlesByCatAdmin = () => {
-    {/*props : categoryId, isActive */}
     const params = useParams();
     const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
     const [currentPage, setCurrentPage] = useState(1);
@@ -49,29 +45,6 @@ const IsActiveArticlesByCatAdmin = () => {
             });
     }
 
-    // const [categories, setCategories] = useState([]);
-    // useEffect(() => {
-    //     getAllCategories();
-    // }, []);
-    //
-    // function getAllCategories() {
-    //     axios.get("http://localhost:8080/api/categories", {
-    //         headers: {
-    //             "Authorization": authToken
-    //         }
-    //     })
-    //         .then((response) => {
-    //             const data = response.data;
-    //             setCategories(data);
-    //         })
-    //         .catch((error) => {
-    //             if (error.response) {
-    //                 console.log(error.response);
-    //                 console.log("error.response.status: ", error.response.status);
-    //             }
-    //         });
-    // }
-
     const [allArticlesByCategoryId, setAllArticlesByCategoryId] = useState([]);
     useEffect(() => {
         getAllArticlesByCategoryIdAndIsActive();
@@ -86,8 +59,7 @@ const IsActiveArticlesByCatAdmin = () => {
             }
         })
             .then((response) => {
-                const data = response.data.content;
-                setAllArticlesByCategoryId(data);
+                setAllArticlesByCategoryId(response.data.content);
                 setTotalPages(response.data.totalPages);
             })
             .catch((error) => {
@@ -96,10 +68,6 @@ const IsActiveArticlesByCatAdmin = () => {
                     console.log("error.response.status: ", error.response.status);
                 }
             });
-    }
-
-    function returnHome() {
-        navigate("/");
     }
 
     function previewCategory() {
@@ -115,13 +83,9 @@ const IsActiveArticlesByCatAdmin = () => {
                     <button className="accountSwitcher__button">
                         <img src={accountSwitcher} width="30%" height="30%"/>
                     </button>
-                    {/*<div className="all_articles_admin__profile_section">*/}
-                    {/*    <ProfileSection/>*/}
-                    {/*</div>*/}
                     <div className="admin__profile_section">
                         <ProfileSection/>
                     </div>
-
                 </div>
             </div>
 
@@ -137,30 +101,8 @@ const IsActiveArticlesByCatAdmin = () => {
             </div>
 
             <div className="all_articles_admin__categories_buttons">
-                {/*<div className="horizontal_scroll_menu">*/}
-                {/*    <ScrollMenu itemClassName="scroll_menu"*/}
-                {/*                LeftArrow={LeftArrow}*/}
-                {/*                RightArrow={RightArrow}*/}
-                {/*                options={{*/}
-                {/*                    ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]*/}
-                {/*                }}*/}
-                {/*    >*/}
-                {/*        <div className="category_button">*/}
-                {/*            <button onClick={returnHome}>HOME</button>*/}
-                {/*        </div>*/}
-
-                {/*        {*/}
-                {/*            categories.map(category =>*/}
-                {/*                <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>*/}
-                {/*                    <li>{category.name}</li>*/}
-                {/*                </Nav.Link>*/}
-                {/*            )*/}
-                {/*        }*/}
-                {/*    </ScrollMenu>*/}
-                {/*</div>*/}
                 <HorizontalScrollMenu/>
             </div>
-
             <div className="all_articles_admin__body">
                 <div className="all_articles_admin__left_buttons">
                     <SidePanelBtns/>
@@ -178,26 +120,19 @@ const IsActiveArticlesByCatAdmin = () => {
                                 <Dropdown className="filter_articles">
                                     <Dropdown.Toggle className="dropdown-toggle-filter" variant="success" id="dropdown-basic">
                                         { params.isActive === "true" ? <div>Published</div> : <div>Unpublished</div>}
-                                        {/*{toggleName}*/}
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="dropdown-item"
                                                        href={"/admin/articles/category/" + currentCategory.id}>All</Dropdown.Item>
 
-                                        <Dropdown.Item /*className="dropdown-item-active"*/
-                                                       className={params.isActive === "true" ? "dropdown-item-active" : "dropdown-item"}
+                                        <Dropdown.Item className={params.isActive === "true" ? "dropdown-item-active" : "dropdown-item"}
                                                        href={"/admin/articles/category/" + currentCategory.id + "/is_active/true"}>Published</Dropdown.Item>
 
                                         <Dropdown.Item className={params.isActive === "false" ? "dropdown-item-active" : "dropdown-item"}
                                                        href={"/admin/articles/category/" + currentCategory.id + "/is_active/false"}>Unpublished</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-
-                                {/*<div className="filter_articles">*/}
-                                {/*</div>*/}
-                                {/*<div className="filter_articles">*/}
-                                {/*</div>*/}
                             </div>
 
                             {

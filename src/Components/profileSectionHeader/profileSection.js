@@ -1,14 +1,6 @@
 import React from 'react';
-// import Dropdown from "react-bootstrap/Dropdown";
 import {useNavigate} from "react-router-dom";
-import Header from "../Header";
-import NavBar from "../NavBar/MainNavBar";
-import MediumArticle from "../article/MediumArticle";
-import MiniArticle from "../article/MiniArticle";
-import MostCommentedArticles from "../mostCommentedArticles/MostCommentedArticles";
 import {userLogoutRequest} from "../../redux/auth/auth.actions";
-import {getBreakdownArticles} from "../../redux/article-breakdown/breakdown.action";
-import {getPhotoOfTheDay} from "../../redux/photo-of-the-day/photo-day.action";
 import {connect} from "react-redux";
 import profilePhoto from "../../icons/userProfilePhoto.svg";
 import "./profilesectionheader.css";
