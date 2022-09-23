@@ -68,7 +68,7 @@ const UpdateUserInfo = ({props, globalStore}) => {
             lastName:profile.lastName,
             photo:profile.photo
         }))
-        if (profile.email.length !== 0) {
+        if (profile.email !== JSON.parse(localStorage.getItem("user")).email) {
             dispatch(userLogoutRequest())
             navigate("/login");
         }
