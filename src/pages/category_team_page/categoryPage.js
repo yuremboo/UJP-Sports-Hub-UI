@@ -115,7 +115,7 @@ const CategoryPage = ({ props, globalStore }) => {
         const data = response.data;
         console.log("getArticles");
         console.log(response.data);
-        setArticlesByCategory(data);
+        setArticlesByCategory(response.data.content);
       })
       .catch((error) => {
         if (error.response) {

@@ -4,6 +4,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import axios from "axios";
 import SubscriptionTeam from "./SubscriptionTeam";
 
+//import { Formik, Field, Form } from "formik";
 import CustomSelect from "../CustomSelect/CustomSelect";
 import SelectTeam from "./SelectTeam";
 const SubscriptionUser = () => {
@@ -79,6 +80,8 @@ const SubscriptionUser = () => {
     })
       .then((response) => {
         const data = response.data;
+        console.log('getTeamsByName')
+        console.log(response.data)
         setTeamsSearch(data);
       })
       .catch((error) => {
@@ -170,18 +173,19 @@ const SubscriptionUser = () => {
   ];
 
   const handleChange = event => {
-    const {name, value} = event.target
+    //const {name, value} = event.target
     //setArticle({...article, [name]: value})
    // console.log(article)
   }
   const loadOptions = (searchValue,callback) => {
     setTimeout(()=>{
-      const filteredOptions= subscriptionUser.filter((data) => {
-                return data.team.name.toLowerCase().includes(searchValue.toLowerCase());
-      })
-      console.log("loadOptions",searchValue,filteredOptions,subscriptionUser)
-      callback(filteredOptions);
-    },2000)
+      getTeamsByName(searchValue);
+      // const filteredOptions= teamsSearch.filter((data) => {
+      //           return data.team.name.toLowerCase().includes(searchValue.toLowerCase());
+      // })
+      console.log("loadOptions",searchValue,teamsSearch)
+      callback(teamsSearch);
+    },1000)
   }
   // function constantu() {
   //   // getting all required elements
@@ -272,11 +276,17 @@ const SubscriptionUser = () => {
         {/*  </div>*/}
         {/*</div>*/}
 
-
+        <CustomSelect
+            label={"Article*"}
+            name={"article"}
+            enumeration={subscriptionUser.map((article)=>({...article, name:article.team.name, id:article.team.name}))}
+            handleChange={handleChange}
+            loadOptions={loadOptions}
+        />
         <SelectTeam
           label={"Subcategory"}
           name={"subcategory"}
-          enumeration={subscriptionUser}
+          enumeration={teamsSearch}
           loadOptions={loadOptions}
           handleChange={handleChange}
         />

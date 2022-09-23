@@ -8,42 +8,43 @@ export default function AdminMainArticleSection ({key,handleChange,deleteSection
   const [article, setArticle] = useState({
     //picture: "Picture",
   });
-  const [teamName, setTeamName] = useState({});
+  const [teamName, setTeamName] = useState();
   const [allArticles, setAllArticle] = useState([]);
+    useEffect(() => {
+        getArticleByTeamsFollow(teamName);
+    }, [teamName]);
 
-  useEffect(() => {
-    //getArticleByTeamsFollow(teamName);
-  }, []);
-  // function getArticleByTeamsFollow(teamName) {
-  //   console.log('function getArticleByTeamsFollow');
-  //   const set1AuthToken = JSON.parse(localStorage.getItem('user'))
-  //   console.log('token: ', set1AuthToken['jwt']);
-  //   var id;
-  //   var idNull;
-  //   {
-  //     teams.map(team =>
-  //         (team.team.name=teamName )?(id=team.team.id):(idNull=null)
-  //       )
-  //   }
-  //   axios.get("http://localhost:8080/api/v1/articles/teams/"+id//+team.team.id
-  //     , {
-  //     headers: {
-  //       authorization:set1AuthToken['jwt'],
-  //     }
-  //   })
-  //     .then((response) => {
-  //       const data = response.data
-  //       console.log('getArticles')
-  //       console.log(response.data)
-  //       setAllArticle(data)
-  //     })
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         console.log(error.response);
-  //         console.log("error.response.status: ", error.response.status);
-  //       }
-  //     })
-  // }
+  function getArticleByTeamsFollow(teamName) {
+    console.log('function getArticleByTeamsFollow');
+    const set1AuthToken = JSON.parse(localStorage.getItem('user'))
+    console.log('token: ', set1AuthToken['jwt']);
+      console.log(teamName);
+    // var id;
+    // var idNull;
+    // {
+    //   teams.map(team =>
+    //       (team.team.name=teamName )?(id=team.team.id):(idNull=null)
+    //     )
+    // }
+    axios.get("http://localhost:8080/api/v1/articles/teams/"+teamName//+team.team.id
+      , {
+      headers: {
+        authorization:set1AuthToken['jwt'],
+      }
+    })
+      .then((response) => {
+        const data = response.data
+        console.log('getArticles')
+        console.log(response.data)
+        setAllArticle(prevState => [...data])
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      })
+  }
   function deleteSectionById() {
     deleteSection(key);
   }
@@ -54,7 +55,8 @@ export default function AdminMainArticleSection ({key,handleChange,deleteSection
   };
   const getTeam = event => {
     const { value } = event.target;
-    setTeamName({ value });
+    setTeamName({ ...teamName,value });
+    console.log(value);
     console.log(teamName);
   };
   return (
@@ -83,14 +85,12 @@ export default function AdminMainArticleSection ({key,handleChange,deleteSection
           label={"Subcategory"}
           name={"subcategory"}
           enumeration={categories}
-          get={"name"}
           handleChange={handleChange}
         />
         <CustomSelect
           label={"Team"}
           name={"Team"}
           enumeration={teams}
-          get={"name"}
           handleChange={getTeam}
         />
 
@@ -98,8 +98,7 @@ export default function AdminMainArticleSection ({key,handleChange,deleteSection
       <CustomSelect
         label={"Article*"}
         name={"article"}
-        enumeration={allArticles}
-        get={"title"}
+        enumeration={allArticles.map((article)=>({...article, name:article.title, id:article.title}))}
         handleChange={handleChange}
         //getArticleByTeamsFollow(teamName)}
       />

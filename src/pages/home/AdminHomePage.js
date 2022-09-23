@@ -94,7 +94,7 @@ const AdminHomePage = ({ props, globalStore }) => {
         const data = response.data;
         console.log("getArticles");
         console.log(response.data);
-        setAllArticle(data);
+        setAllArticle(response.data.content);
       })
       .catch((error) => {
         if (error.response) {

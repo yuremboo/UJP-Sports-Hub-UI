@@ -52,7 +52,7 @@ const AllArticlesAdmin = () => {
   }, [currentPage]);
 
   function getAllArticlesAllCategories() {
-    axios.get("http://localhost:8080/api/v1/admin/articles?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
+    axios.get("http://localhost:8080/api/v1/articles?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
       headers: {
         "Authorization": authToken
       }
@@ -179,7 +179,7 @@ const AllArticlesAdmin = () => {
             </div>
             {
               allArticles.map(article => <ShortArticleAdmin key={article.id} id={article.id} title={article.title}
-                                                            shortText={article.shortText}
+                                                              shortText={article.shortText}
                                                             category={article.category.name}
                                                             isPublished={article.isActive} />)
             }
@@ -190,7 +190,7 @@ const AllArticlesAdmin = () => {
 
     <div className="pagination__component">
       <div className="pagination__pages">
-        <Pagination count={totalPages} page={currentPage} onChange={(_, num) => setCurrentPage(num)} />
+        <Pagination count={totalPages} page={currentPage} onChange={(_, num) =>   (num)} />
       </div>
     </div>
   </div>);
