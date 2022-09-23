@@ -53,7 +53,7 @@ const EditArticle = ({props, globalStore}) => {
                 console.log("getCategories");
                 console.log(response.data);
                 setCategories(data);
-                return axios.get("http://localhost:8080/api/teams", {
+                return axios.get("http://localhost:8080/api/v1/teams", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
@@ -90,8 +90,8 @@ const EditArticle = ({props, globalStore}) => {
                 commentsActive: article.commentsActive,
                 createDateTime: article.createDateTime,
                 updateDateTime: article.updateDateTime,
-                categoryId: article.categoryId,
-                teamId: article.teamId
+                categoryId: article.category,
+                teamId: article.team
             };
             console.log("article");
             console.log(article);
@@ -237,8 +237,8 @@ const EditArticle = ({props, globalStore}) => {
                             : <span className={"span-hide"}>Hide</span>}
                         <MDBSwitch id='show-hide-toggle'
                                    className={"show-hide-toggle"}
-                                   value={article.commentsActive}
-                                   onClick={() => {
+                                   checked={article.commentsActive}
+                                   onChange={() => {
                                        setArticle({...article, commentsActive: !article.commentsActive})
                                    }}/>
                     </div>
