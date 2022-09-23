@@ -27,7 +27,7 @@
     text-align: center;
 }
 
-.all_articles_admin__right_header button img{
+.accountSwitcher__button img{
     width: 50%;
     height: 50%;
     padding: 0;
@@ -366,4 +366,24 @@ button#dropdown-basic{
     font-size: 14px;
     line-height: 19px;
     color: #D72130;
+}
+
+
+.all_articles_admin__profile_section{
+    /*width: 45%;*/
+    width: 250px;
+    vertical-align: center;
+    align-items: center;
+}
+
+.admin__profile_section{
+    width: 50%;
+    margin-right: 6%;
+}
+
+button#dropdown-basic {
+    box-shadow: none !important;
+    width: 100%;
+    height: 100%;
+    border: none;
 }

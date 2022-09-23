@@ -124,3 +124,12 @@ input#form_search {
     background-color: white;
 
 }
+
+.profile-section{
+    width: 450px;
+    vertical-align: middle;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}

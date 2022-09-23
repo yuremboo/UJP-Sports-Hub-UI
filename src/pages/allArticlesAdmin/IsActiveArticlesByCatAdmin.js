@@ -184,12 +184,11 @@ const IsActiveArticlesByCatAdmin = () => {
                                                        href={"/admin/articles/category/" + currentCategory.id + "/is_active/false"}>Unpublished</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                                <div className="filter_articles">
 
-                                </div>
-                                <div className="filter_articles">
-
-                                </div>
+                                {/*<div className="filter_articles">*/}
+                                {/*</div>*/}
+                                {/*<div className="filter_articles">*/}
+                                {/*</div>*/}
                             </div>
 
                             {

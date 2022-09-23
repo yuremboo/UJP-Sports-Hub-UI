@@ -1,0 +1,63 @@
+.profile-section-header{
+    vertical-align: middle;
+    align-items: center;
+}
+
+.dropdown-menu.show{
+    border-radius: 0;
+}
+
+#root > div > div > div.all_articles_admin__header > div.all_articles_admin__right_header > div > div > div{
+    margin-top: 20px;
+    height: 100%;
+}
+
+#dropdown-basic,
+.dropdown-toggle-prodile{
+    display: flex;
+}
+
+.profile-section-header--image{
+    width: 20%;
+    margin-right: 4%;
+    border-radius: 50%;
+    align-items: center;
+    vertical-align: center;
+}
+.profile-section-header--image img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.profile-section-header--text {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.profile-section-header--text img{
+    display: flex;
+}
+.profile-section-header--text-name{
+    display: flex;
+}
+.profile-section-header--text-name img{
+    padding-top: 6%;
+    padding-left: 3%;
+}
+.profile-name{
+    display: flex;
+}
+.profile-section-header--text-admin{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 24px;
+    color: #B2B2B2;
+}
+
+
+
+

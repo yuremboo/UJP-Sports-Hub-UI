@@ -12,6 +12,7 @@ import Nav from "react-bootstrap/Nav";
 import Dropdown from 'react-bootstrap/Dropdown';
 import {useNavigate, useParams} from "react-router-dom";
 import preview from "../../icons/Preview.svg";
+import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -114,10 +115,16 @@ const ArticlesByCategoryAdmin = () => {
             <div className="all_articles_admin__header">
                 <div className="sportshub">Sports hub</div>
                 <div className="all_articles_admin__right_header">
-                    <button>
+                    <button className="accountSwitcher__button">
                         <img src={accountSwitcher} width="30%" height="30%"/>
                     </button>
-                    <div></div>
+                    {/*<div className="all_articles_admin__profile_section">*/}
+                    {/*    <ProfileSection/>*/}
+                    {/*</div>*/}
+                    <div className="admin__profile_section">
+                        <ProfileSection/>
+                    </div>
+
                 </div>
             </div>
 
@@ -173,30 +180,28 @@ const ArticlesByCategoryAdmin = () => {
                             <div className="all_articles_admin__filter_articles">
 
                                 <Dropdown className="filter_articles">
-                                    <Dropdown.Toggle className="dropdown-toggle-filter" variant="success" id="dropdown-basic">
+                                    <Dropdown.Toggle className="dropdown-toggle-filter" variant="success"
+                                                     id="dropdown-basic">
                                         All
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item className="dropdown-item-active" href="#/action-2">All</Dropdown.Item>
-                                        <Dropdown.Item className="dropdown-item"  href={"/admin/articles/category/" + currentCategory.id
-                                            + "/is_active/true"}>Published</Dropdown.Item>
-                                        <Dropdown.Item className="dropdown-item"  href={"/admin/articles/category/" + currentCategory.id
-                                            + "/is_active/false"}>Unpublished</Dropdown.Item>
+                                        <Dropdown.Item
+                                            className="dropdown-item-active" /*href="#/action-2"*/>All</Dropdown.Item>
+                                        <Dropdown.Item className="dropdown-item"
+                                                       href={"/admin/articles/category/" + currentCategory.id
+                                                           + "/is_active/true"}>Published</Dropdown.Item>
+                                        <Dropdown.Item className="dropdown-item"
+                                                       href={"/admin/articles/category/" + currentCategory.id
+                                                           + "/is_active/false"}>Unpublished</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
 
-                                <div className="filter_articles">
-                                    {/*<select className="form-select form-select-sm">*/}
-                                    {/*    <option>All</option>*/}
-                                    {/*    <option onClick={published}>Published</option>*/}
-                                    {/*    <option>Unpublished</option>*/}
-                                    {/*</select>*/}
-                                </div>
+                                {/*<div className="filter_articles">*/}
+                                {/*</div>*/}
 
-                                <div className="filter_articles">
-
-                                </div>
+                                {/*<div className="filter_articles">*/}
+                                {/*</div>*/}
                             </div>
 
                             {
