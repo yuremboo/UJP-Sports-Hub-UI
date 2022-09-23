@@ -55,6 +55,32 @@ export function userSignInRequest(userData) {
   }
 }
 
+export function userGetLocationRequest() {
+  return async (dispatch) => {
+    let result = false
+    dispatch({
+      type: AuthActionTypes.USER_GET_LOCATION_START
+    })
+    await axios
+      .get('http://localhost:8080/api/v1/location')
+      .then((response) => {
+        result = true
+        dispatch({
+          type: AuthActionTypes.USER_GET_LOCATION_SUCCESS,
+          payload: response.data.city
+        })
+      })
+      .catch((errorObject) => {
+        console.log(errorObject)
+        dispatch({
+          type: AuthActionTypes.USER_GET_LOCATION_FAILURE
+        })
+        result = false
+      })
+    return result
+  }
+}
+
 export const userLogout = () => ({
   type: AuthActionTypes.USER_AUTH_LOGOUT,
 })

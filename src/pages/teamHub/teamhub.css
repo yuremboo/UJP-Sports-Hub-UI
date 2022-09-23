@@ -19,9 +19,9 @@
 .all_articles_body{
     background: #F8F8F8;
 }
-.all_articles{
+/* .all_articles{
     //display: flex;
-}
+} */
 .all_teams{
     overflow-y: scroll;
     overflow-x: hidden;
@@ -64,3 +64,83 @@
 .mini-articles-r {
     padding-left: 34px;
 }
+.geolocation-popup{
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #eeeeee;
+    width: 420px;
+    padding: 10px 10px 30px;
+    position: absolute;
+    right: 3%;
+    bottom: 5%;
+    text-align: center;
+    display: block;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+}
+
+.geolocation-popup__button-close{
+    display: block;
+    margin: 10px 10px 40px auto;
+    background-color: transparent;
+    font-size: 20px;
+    color: #ffffff;
+    background: #D72130;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.geolocation-popup__headline {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 17px;
+    text-align: center;
+    margin-top: -20px;
+}
+
+.geolocation-popup__paragraph {
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 30px;
+    line-height: 25px;
+}
+
+.geolocation-popup__button-accept {
+    display: block;
+    width: 50%;
+    position: relative;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #D72130;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 0;
+    border: none;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+}
+
+.geolocation-popup__button-accept:hover {
+    background-color: #E02232;
+    color: #FFF5F5;
+}
+
+.geolocation-popup__button-accept:active {
+    background-color: #C80515;
+    color: #FFFF;
+}
+    
