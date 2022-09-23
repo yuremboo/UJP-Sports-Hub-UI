@@ -120,7 +120,6 @@ const HomePage = ({
                         <div className='most-commented-section'>
                             <MostCommentedArticles/>
                         </div>
-                        {/*</div>*/}
                     </div>
                 </main>
             </div>

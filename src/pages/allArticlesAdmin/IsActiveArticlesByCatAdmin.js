@@ -13,6 +13,7 @@ import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
 import {Pagination} from "@mui/material";
 import "./allarticlesadmin.css";
 import Dropdown from "react-bootstrap/Dropdown";
+import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 
 const IsActiveArticlesByCatAdmin = () => {
     {/*props : categoryId, isActive */}
@@ -110,10 +111,16 @@ const IsActiveArticlesByCatAdmin = () => {
             <div className="all_articles_admin__header">
                 <div className="sportshub">Sports hub</div>
                 <div className="all_articles_admin__right_header">
-                    <button>
+                    <button className="accountSwitcher__button">
                         <img src={accountSwitcher} width="30%" height="30%"/>
                     </button>
-                    <div></div>
+                    {/*<div className="all_articles_admin__profile_section">*/}
+                    {/*    <ProfileSection/>*/}
+                    {/*</div>*/}
+                    <div className="admin__profile_section">
+                        <ProfileSection/>
+                    </div>
+
                 </div>
             </div>
 
