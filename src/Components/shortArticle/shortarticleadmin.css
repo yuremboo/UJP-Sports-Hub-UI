@@ -92,8 +92,11 @@
     display: flex;
 }
 
+button#dropdown-basic-button{
+    box-shadow: none;
+}
 
-.dropdown-toggle{
+#dropdown-basic-button{
     background-color: #FFFFFF;
     color: #D72130;
     border: none;
