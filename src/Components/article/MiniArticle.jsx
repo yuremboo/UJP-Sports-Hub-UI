@@ -5,7 +5,7 @@ import arrow from "../../icons/arrow-red.svg"
 
 const MiniArticle = ({miniArticle}) => {
   return (
-    <a className="article-link" href="#">
+    <a className="article-link" href={"http://localhost:3000/articles/" + miniArticle.id}>
       <div className="mini-article">
         <img className="mini-article-img" src={miniArticlePhoto} alt="article-img" />
         <div className="mini-article-text">

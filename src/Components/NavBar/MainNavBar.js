@@ -45,7 +45,7 @@ export default function NavBar() {
         </div>
         <ul>
           <Nav defaultActiveKey="/home" className="flex-column">
-            <Nav.Link className="link-home" href="/home">
+            <Nav.Link className="link-home" href="/">
               <li>HOME</li>
             </Nav.Link>
             {
@@ -58,12 +58,12 @@ export default function NavBar() {
             <Nav.Link className="link-1" href="/teams">
               <li>TEAM HUB</li>
             </Nav.Link>
-            <Nav.Link className="link-1" eventKey="link-11">
-              <li>LIFESTYLE</li>
-            </Nav.Link>
-            <Nav.Link className="link-1" eventKey="link-12">
-              <li>DEALBOOK</li>
-            </Nav.Link>
+            {/*<Nav.Link className="link-1" eventKey="link-11">*/}
+            {/*  <li>LIFESTYLE</li>*/}
+            {/*</Nav.Link>*/}
+            {/*<Nav.Link className="link-1" eventKey="link-12">*/}
+            {/*  <li>DEALBOOK</li>*/}
+            {/*</Nav.Link>*/}
             <Nav.Link className="link-1" eventKey="link-13">
               <li>VIDEO</li>
             </Nav.Link>
