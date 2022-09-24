@@ -12,6 +12,7 @@ import {MDBSwitch} from 'mdb-react-ui-kit';
 import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
 import {useParams} from "react-router-dom";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
+import Header from "../../Components/Header";
 
 const EditArticle = ({props, globalStore}) => {
     const {id} = useParams();
@@ -153,7 +154,7 @@ const EditArticle = ({props, globalStore}) => {
     return (
         <div className={"edit-article"}>
             <header className={"edit-article-header"}>
-                <HeaderAdmin/>
+                <Header/>
                 <SaveCancelChanges
                     handleSubmit={() => putArticle(article, id)}
                     handleCancel={() => setIsCancel(true)}
