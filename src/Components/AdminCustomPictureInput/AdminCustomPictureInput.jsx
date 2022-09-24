@@ -8,6 +8,8 @@ import { ReactComponent as Fullscreen } from "../../icons/photoEditor/Fullscreen
 import { ReactComponent as Filter } from "../../icons/photoEditor/Filter.svg";
 import { MDBSwitch } from 'mdb-react-ui-kit';
 import { useEffect } from "react";
+import { Form } from "react-bootstrap";
+import { addPhotoOfTheDaySection, addPhotoOfTheDay } from "../../redux/admin-photo-of-the-day/admin-photo.action";
 
 const initialValues = {
     alt: "",
@@ -30,17 +32,22 @@ const AdminCustomPictureInput = () => {
 
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value })
-        console.log(values)
     }
 
     const handleImageChange = (e) => {
         setImage([...e.target.files])
     }
 
-
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const {alt, shortDescription, photoTitle, author} = values
+        const res1 = await addPhotoOfTheDaySection({alt, shortDescription, title:photoTitle, author})
+        const res2 =  await addPhotoOfTheDay(image)
+        console.log("siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",res1, res2)
+    }
 
     return (
-        <div className="admin-photo-of-the-day">
+        <form className="admin-photo-of-the-day" onSubmit={handleSubmit}>
             <label className="admin-form-label" htmlFor="pictureInput">{"PICTURE*"}</label>
             <label className="photo-wrapper">
                 <div className={"admin-form-picture"}>
@@ -118,7 +125,10 @@ const AdminCustomPictureInput = () => {
                         setValues({ ...values, isHidden: !values.isHidden })
                     }} />
             </div>
-        </div>
+            <button type="submit">
+                submit
+            </button>
+        </form>
     );
 }
 
