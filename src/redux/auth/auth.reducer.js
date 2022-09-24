@@ -3,6 +3,7 @@ import { AuthActionTypes } from './auth.types'
 const INITIAL_STATE = {
   isLoading: false,
   userObject: getUserFromLocalStorage(),
+  userLocation: "",
   errorMessage: undefined,
 }
 
@@ -36,6 +37,22 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         errorMessage: null,
       }
+      case AuthActionTypes.USER_GET_LOCATION_START:
+        return {
+          ...state,
+          isLoading: true,
+        }
+      case AuthActionTypes.USER_GET_LOCATION_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          userLocation: action.payload
+        }
+      case AuthActionTypes.USER_GET_LOCATION_FAILURE:
+        return {
+          ...state,
+          isLoading: false,
+        }
     default:
       return state
   }
