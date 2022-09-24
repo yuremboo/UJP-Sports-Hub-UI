@@ -2,17 +2,93 @@ import "./update-user-info.style.css";
 import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
 import {ReactComponent as Photo} from "../../icons/photoEditor/Photo.svg";
 import CustomInput from "../CustomInput/CustomInput";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {userLogoutRequest} from "../../redux/auth/auth.actions";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
-const UpdateUserInfo = () => {
-    return(
+const UpdateUserInfo = ({props, globalStore}) => {
+    const AuthToken = JSON.parse(localStorage.getItem("user"));
+    const [profile, setProfile] = useState({});
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        getProfile();
+    }, []);
+
+    function getProfile() {
+        console.log("function getProfile");
+        console.log("token: ", AuthToken["jwt"]);
+        axios.get("http://localhost:8080/api/v1/profile", {
+            headers: {
+                authorization: AuthToken["jwt"]
+            }
+        })
+            .then((response) => {
+                const data = response.data;
+                console.log("getProfile");
+                console.log(response.data);
+                setProfile(data);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            });
+    }
+
+    function putProfile(profile) {
+        const sendProfile = {
+            email: profile.email,
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            photo: profile.photo
+        };
+        axios.put("http://localhost:8080/api/v1/profile", sendProfile, {
+            headers: {
+                authorization: AuthToken["jwt"]
+            }
+        })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            });
+    }
+
+    const handleClick = event => {
+        event.preventDefault()
+        putProfile(profile)
+        localStorage.setItem("user", JSON.stringify({...AuthToken,
+            firstName:profile.firstName,
+            lastName:profile.lastName,
+            photo:profile.photo
+        }))
+        if (profile.email !== JSON.parse(localStorage.getItem("user")).email) {
+            dispatch(userLogoutRequest())
+            navigate("/login");
+        }
+    }
+
+    const handleChange = event => {
+        const {name, value} = event.target;
+        setProfile({...profile, [name]: value});
+    };
+
+    return (
         <div>
             <form className={"update-profile-form"}>
                 <div className={"form-photo__container"}>
                     <div className={"form-photo"}>
                         <img className={"ellipse-avatar-img"} src={EllipseAvatar} alt="EllipseAvatar"/>
-                        <div className={"red-circle-photo"}>
+                        <label className={"red-circle-photo"}>
+                            <input type="file"/>
                             <Photo className={"profile-icon-photo"}/>
-                        </div>
+                        </label>
                     </div>
                 </div>
 
@@ -20,30 +96,36 @@ const UpdateUserInfo = () => {
                     <CustomInput
                         type="text"
                         label={"First name"}
-                        name={"first name"}
+                        name={"firstName"}
+                        value={profile.firstName}
+                        handleChange={handleChange}
                     />
                 </div>
                 <div className={"custom-input"}>
                     <CustomInput
                         type="text"
                         label={"Last name"}
-                        name={"last name"}
+                        name={"lastName"}
+                        value={profile.lastName}
+                        handleChange={handleChange}
                     />
                 </div>
                 <div className={"custom-input"}>
                     <CustomInput
                         type="text"
                         label={"Email"}
-                        name={"Email"}
+                        name={"email"}
+                        value={profile.email}
+                        handleChange={handleChange}
                     />
                 </div>
 
-                <button className={"update-profile-button"}>
+                <button className={"update-profile-button"} onClick={handleClick}>
                     Update profile
                 </button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default UpdateUserInfo;
