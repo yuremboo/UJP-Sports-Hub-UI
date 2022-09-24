@@ -2,10 +2,15 @@ import "./change-password.style.css";
 import CustomInput from "../CustomInput/CustomInput";
 import {useState} from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {userLogoutRequest} from "../../redux/auth/auth.actions";
 
 const ChangePassword = () => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
     const [password, setPassword] = useState({});
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function putPassword(password) {
         const sendPassword = {
@@ -31,12 +36,16 @@ const ChangePassword = () => {
 
     const handleClick = event => {
         event.preventDefault()
-        if (password.newPassword === password.confirmPassword) {
+        if (password.newPassword === password.confirmPassword &&
+            password.oldPassword.length !== 0 &&
+            password.newPassword.length !== 0 &&
+            password.confirmPassword.length !== 0) {
             putPassword(password)
+            dispatch(userLogoutRequest())
+            navigate("/login");
         } else {
             console.log("The new password and the confirmation password do not match!")
         }
-
     }
 
     const handleChange = event => {
