@@ -9,6 +9,7 @@ import {
   userGetLocationRequest
 } from '../../redux/auth/auth.actions'
 import { connect, useSelector } from 'react-redux'
+import GeoPopup from "../../Components/GeolocationPopup/GeoPopup";
 
 
 const TeamHub = ({ getLocation }) => {
@@ -266,21 +267,7 @@ const TeamHub = ({ getLocation }) => {
         </div>
       </div>
       {isPopupOpened &&
-        <div className="geolocation-popup">
-          <button className="geolocation-popup__button-close" onClick={() => {
-            setIsPopupOpened(false)
-          }}>×</button>
-          <h2 className="geolocation-popup__headline">Geolocation needed</h2>
-          <p className="geolocation-popup__paragraph">
-            You haven't configured your favotite teams yet. Do you want to use your geolocation to show corresponding teams?
-          </p>
-          <button className="geolocation-popup__button-accept" onClick={async () => {
-            setIsPopupOpened(false);
-            console.log(userLocation, "location form above");
-            await getTeamsFollow(userLocation)
-          }
-          }>Accept</button>
-        </div>
+       <GeoPopup handleCancel={setIsPopupOpened} getTeamsFollow={getTeamsFollow} userLocation={userLocation}/>
       }
     </div>
   );
