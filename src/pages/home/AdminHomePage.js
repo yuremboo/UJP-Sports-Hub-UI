@@ -21,13 +21,18 @@ import { LeftArrow, RightArrow } from "../../Components/horizontal-scroll-menu/a
 import { Pagination } from "@mui/material";
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
+import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
+//import React from "@types/react";
 
-const AdminHomePage = ({ props, globalStore }) => {
-  const { id } = useParams();
+const AdminHomePage = () => {
+  //const { id } = useParams();
   const AuthToken = JSON.parse(localStorage.getItem("user"));
   const [categories, setCategories] = useState([]);
   const [teams, setTeams] = useState([]);
   const [allArticles, setAllArticle] = useState([]);
+    const [isCancel, setIsCancel] = useState(false)
   const [article, setArticle] = useState({
     picture: "Picture",
     category: "Category",
@@ -78,7 +83,7 @@ const AdminHomePage = ({ props, globalStore }) => {
   function getTeam() {
     console.log("function getTeam");
     console.log("token: ", AuthToken["jwt"]);
-    axios.get("http://localhost:8080/api/teams", {
+    axios.get("http://localhost:8080/api/v1/teams", {
       headers: {
         authorization: AuthToken["jwt"]
       }
@@ -136,20 +141,6 @@ const AdminHomePage = ({ props, globalStore }) => {
     return result;
   }
 
-  // useEffect(() => {
-  //     // const articleData = axios.get("http://localhost:8080/api/v1/articles/1")
-  //     // setArticle({
-  //     //     ...article,
-  //     //     picture: articleData.picture,
-  //     //     category: articleData.category,
-  //     //     team: articleData.team,
-  //     //     location: articleData.location,
-  //     //     alt: articleData.alt,
-  //     //     caption: articleData.caption,
-  //     //     title: articleData.title,
-  //     //     text: articleData.text,
-  //     })
-  // }, [])
   const [inputList, setInputList] = useState([] );
   function addInInput () {
     for(let i=0;i<3;i++) {
@@ -186,124 +177,43 @@ const AdminHomePage = ({ props, globalStore }) => {
     console.log(article);
   };
 
-  // return (
-    // <div className={"edit-article"}>
-    //   <header className={"edit-article-header"}>
-    //     <HeaderAdmin />
-    //     <SaveCancelChanges handleSubmit={putArticle(article)} />
-    //   </header>
-    //   <NavBarIcons className={"nav-bar-icons"} />
-
-      {/*<form className="form-container">*/}
-      {/*  <div className={"form-preview"}>*/}
-      {/*    <button className={"button-eye"} type={"button"}>*/}
-      {/*      <img className={"img-eye"} src={Eye} alt="Eye" />*/}
-      {/*      <span className={"span-preview"}>Preview</span>*/}
-      {/*    </button>*/}
-      {/*  </div>*/}
-      {/*  <div className="breakdown-header">*/}
-      {/*    <hr />*/}
-      {/*    <div className="article-home-main-header__text">*/}
-      {/*      <p>MAIN ARTICLES</p>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-
-      {/*  {inputList}*/}
-      {/*  {inputList.length < 5 ? (*/}
-      {/*    <div>*/}
-      {/*      <button className={"add-article-section"}*/}
-      {/*              onClick={onAddBtnClick}>*/}
-      {/*        <span className={"span-add-article-section"}>+Add one more article</span>*/}
-      {/*      </button>*/}
-      {/*    </div>*/}
-      {/*  ) : (*/}
-      {/*    <></>*/}
-      {/*  )}*/}
-      {/*  <CustomPictureInput*/}
-      {/*    // type="image"*/}
-      {/*    label={"Picture.*"}*/}
-      {/*    name={"picture"}*/}
-      {/*    value={article.picture}*/}
-      {/*    handleChange={handleChange}*/}
-      {/*  />*/}
-      {/*  <CustomInput*/}
-      {/*    type="text"*/}
-      {/*    label={"Alt.*"}*/}
-      {/*    name={"alt"}*/}
-      {/*    value={"Picture represent teams"}*/}
-      {/*    handleChange={handleChange}*/}
-      {/*  />*/}
-      {/*  <CustomInput*/}
-      {/*    type="text"*/}
-      {/*    label={"Photo title*"}*/}
-      {/*    name={"title"}*/}
-      {/*    value={"Defending The Throne"}*/}
-      {/*    handleChange={handleChange}*/}
-      {/*  />*/}
-      {/*  <CustomInput*/}
-      {/*    type="text"*/}
-      {/*    label={"Short Description*"}*/}
-      {/*    name={"caption"}*/}
-      {/*    value={"Los Angeles Lakes guard Derek Fisher, right, pressured by the Denver Nuggets Nene during th efirst quarter of NBA exhibition action on Oct 16"}*/}
-      {/*    handleChange={handleChange}*/}
-      {/*  />*/}
-      {/*  <CustomInput*/}
-      {/*    type="text"*/}
-      {/*    label={"Author*"}*/}
-      {/*    name={"caption"}*/}
-      {/*    value={"Photo Courtesy MCT"}*/}
-      {/*    handleChange={handleChange}*/}
-      {/*  />*/}
-
-
-      {/*</form>*/}
-    // </div>);
-
-    return (<div className="all_articles_admin__page">
-        <div className="all_articles_admin__header">
-            <div className="sportshub">Sports hub</div>
-            <div className="all_articles_admin__right_header">
-                <button>
-                    <img src={accountSwitcher} width="30%" height="30%" />
-                </button>
-                <div></div>
-            </div>
-        </div>
-
-        <div className="all_articles_admin__current_category__new_article">
-            <div className="all_articles_admin__current_category">
-                {currentCategory.name}
-            </div>
-            <div className="all_articles_admin__new_article">
-                <AddNewArticleBtn />
-            </div>
-        </div>
-
-        <div className="all_articles_admin__categories_buttons">
-            <div className="horizontal_scroll_menu">
-                <ScrollMenu itemClassName="scroll_menu"
-                            LeftArrow={LeftArrow}
-                            RightArrow={RightArrow}
-                            options={{
-                                ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
-                            }}
-                >
-                    <div className="category_button">
-                        <button>HOME</button>
+    return (
+        <div className="all_articles_admin__page">
+            <div className="all_articles_admin__header">
+                <div className="sportshub">Sports hub</div>
+                <div className="all_articles_admin__right_header">
+                    <button className="accountSwitcher__button">
+                        <img src={accountSwitcher} width="30%" height="30%"/>
+                    </button>
+                    <div className="admin__profile_section">
+                        <ProfileSection/>
                     </div>
-
-                    {
-                        categories.map(category =>
-                            <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
-                                <li>{category.name}</li>
-                            </Nav.Link>
-                        )
-                    }
-                </ScrollMenu>
+                </div>
             </div>
-        </div>
 
-        ADMIN HOME PAGE
+            <div className="all_articles_admin__current_category__new_article">
+                <div className="all_articles_admin__current_category">
+                    {
+                        currentCategory.name
+                    }
+                </div>
+                <div className="all_articles_admin__new_article">
+                    <AddNewArticleBtn/>
+                    {/*<SaveCancelChanges*/}
+                    {/*    handleSubmit={putArticle(article)}*/}
+                    {/*    handleCancel={() => setIsCancel(true)}*/}
+                    {/*/>*/}
+                </div>
+                {isCancel && <CancellationPopup
+                    handleCancel={() => setIsCancel(false)}
+                />}
+                {/*<NavBarIcons className={"nav-bar-icons"}/>*/}
+            </div>
+
+            <div className="all_articles_admin__categories_buttons">
+                <HorizontalScrollMenu/>
+            </div>
+
         <form className="form-container">
             <div className={"form-preview"}>
                 <button className={"button-eye"} type={"button"}>

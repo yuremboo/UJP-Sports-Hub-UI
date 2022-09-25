@@ -26,7 +26,7 @@ export default function AdminMainArticleSection ({key,handleChange,deleteSection
     //       (team.team.name=teamName )?(id=team.team.id):(idNull=null)
     //     )
     // }
-    axios.get("http://localhost:8080/api/v1/articles/teams/"+teamName//+team.team.id
+    axios.get("http://localhost:8080/api/v1/articles/team/"+{teamName}//+team.team.id
       , {
       headers: {
         authorization:set1AuthToken['jwt'],

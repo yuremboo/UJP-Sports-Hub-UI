@@ -17,7 +17,6 @@ import ArticlePage from "./pages/article/articlePage";
 import ResetPassword from "./pages/login/resetPassword";
 import CategoryPage from "./pages/category_team_page/categoryPage";
 import ArticlesByCategoryAdmin from "./pages/allArticlesAdmin/ArticllesByCategoryAdmin";
-import AdminHomePage from "./pages/home/AdminHomePage";
 import IsActiveArticlesByCatAdmin from "./pages/allArticlesAdmin/IsActiveArticlesByCatAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
