@@ -14,9 +14,10 @@ const CustomPictureInput = ({handleChange, label, ...otherProps}) => {
                 <img className={"form-img"} src={Basketball} alt="Basketball"/>
 
                 <div>
-                    <div className={"red-circle center-icon"}>
-                        <Photo className={"icon-photo"}/>
-                    </div>
+                        <label className={"red-circle center-icon"}>
+                            <input type="file"/>
+                            <Photo className={"icon-photo"}/>
+                        </label>
                     <div className={"center-span"}>
                         <div className={"span-under-photo-icon"}>
                             <span className={"span-add-picture"}>+Add picture</span> or drop it right here
