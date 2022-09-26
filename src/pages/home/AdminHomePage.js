@@ -29,6 +29,7 @@ import CancellationPopup from "../../Components/CancellationPopup/CancellationPo
 const AdminHomePage = () => {
   //const { id } = useParams();
   const AuthToken = JSON.parse(localStorage.getItem("user"));
+    const [IsLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [teams, setTeams] = useState([]);
   const [allArticles, setAllArticle] = useState([]);
@@ -52,82 +53,60 @@ const AdminHomePage = () => {
         "id": "0", "name": "HOME"
     });
     useEffect(() => {
-    getCategories();
-    getTeam();
-    getArticles();
+        getData();
     addInInput();
   }, []);
 
-  function getCategories() {
-    console.log("function getCategories");
-    console.log("token: ", AuthToken["jwt"]);
-    axios.get("http://localhost:8080/api/categories", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        console.log("getCategories");
-        console.log(response.data);
-        setCategories(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
+    function getData() {
+        console.log("function getData");
+        axios.get("http://localhost:8080/api/categories", {
+            headers: {
+                authorization: AuthToken["jwt"]
+            }
+        })
+            .then((response) => {
+                const data = response.data;
+                console.log("getCategories");
+                console.log(response.data);
+                setCategories(data);
+                return  axios.get("http://localhost:8080/api/v1/teams", {
+                    headers: {
+                        authorization: AuthToken["jwt"]
+                    }
+                })
+            })
+            .then((response) => {
+                const data = response.data;
+                console.log("getTeam");
+                console.log(response.data);
+                setTeams(data);
+                return axios.get("http://localhost:8080/api/v1/admin/articles", {
+                    headers: {
+                        authorization: AuthToken["jwt"]
+                    }
+                })
+            })
+            .then((response) => {
+                console.log("getArticles");
+                console.log(response.data);
+                setAllArticle(response.data.content);
+            })
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            });
+    }
 
-  function getTeam() {
-    console.log("function getTeam");
-    console.log("token: ", AuthToken["jwt"]);
-    axios.get("http://localhost:8080/api/v1/teams", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        console.log("getTeam");
-        console.log(response.data);
-        setTeams(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
-
-  function getArticles() {
-    console.log("function getArticles");
-    console.log("token: ", AuthToken["jwt"]);
-    axios.get("http://localhost:8080/api/v1/admin/articles", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        console.log("getArticles");
-        console.log(response.data);
-        setAllArticle(response.data.content);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
-
-  function putArticle(article) {
+  function putArticle() {
     let result = true;
     console.log("token: ", AuthToken["jwt"]);
-    axios.put("http://localhost:8080/api/v1/admin/articles/", article, {
+      console.log(articlesSelectedByAdmin);
+    axios.put("http://localhost:8080/api/v1/admin/articles/", articlesSelectedByAdmin, {
       headers: {
         authorization: AuthToken["jwt"]
       }
@@ -147,11 +126,11 @@ const AdminHomePage = () => {
       setInputList(inputList.concat(
         <AdminMainArticleSection
           key={inputList.length}
-          handleChange={handleChange}
           deleteSection={deleteSection}
+          getArticleList={getArticleList}
           categories={categories}
           teams={teams}
-          //allArticles={allArticles}
+          allArticles={allArticles}
         />));
     }
   };
@@ -160,17 +139,23 @@ const AdminHomePage = () => {
     setInputList(inputList.concat(
       <AdminMainArticleSection
         key={inputList.length}
-        handleChange={handleChange}
         deleteSection={deleteSection}
+        getArticleList={getArticleList}
         categories={categories}
         teams={teams}
-        //allArticles={allArticles}
+        allArticles={allArticles}
       />));
   };
   function deleteSection (key) {
     setInputList(inputList.filter((article) => inputList.indexOf(article) !== key));
     //setInputList(inputList.splice(key, 1));
   };
+    const [articlesSelectedByAdmin, setArticlesSelectedByAdmin] = useState([]);
+    function getArticleList (value) {
+        setArticlesSelectedByAdmin(articlesSelectedByAdmin.concat( value) );
+        console.log(articlesSelectedByAdmin);
+    };
+
   const handleChange = event => {
     const { name, value } = event.target;
     setArticle({ ...article, [name]: value });
@@ -197,10 +182,10 @@ const AdminHomePage = () => {
                         currentCategory.name
                     }
                 </div>
-                    {/*<SaveCancelChanges*/}
-                    {/*    handleSubmit={putArticle(article)}*/}
-                    {/*    handleCancel={() => setIsCancel(true)}*/}
-                    {/*/>*/}
+                    <SaveCancelChanges
+                        handleSubmit={putArticle()}
+                        handleCancel={() => setIsCancel(true)}
+                    />
                 {isCancel && <CancellationPopup
                     handleCancel={() => setIsCancel(false)}
                 />}
