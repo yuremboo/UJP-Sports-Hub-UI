@@ -49,7 +49,6 @@ root.render(
                            element={getUserRole() === "ADMIN" ? <IsActiveArticlesByCatAdmin/> : null}/>
                     <Route path="reset/password/:token" element={<ResetPassword/>}/>
                     <Route path="category/:id" element={<CategoryPage/>}/>
-                    <Route path="admin/home" element={<AdminHomePage/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
