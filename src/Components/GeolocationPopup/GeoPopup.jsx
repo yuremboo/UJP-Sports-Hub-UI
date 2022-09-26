@@ -4,16 +4,9 @@ import { useEffect } from "react";
 
 const CancellationPopup = ({ handleCancel, getTeamsFollow, userLocation }) => {
     useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        // const isLocationSet = localStorage.getItem("isLocationSet")
-        // if(isLocationSet){
-        //     if(JSON.parse(isLocationSet)){
-        //         handleConfirm()
-        //     }else{
-        //         handleCancel(false)
-        //     }
-        // }
-        return () => document.body.style.overflow = 'unset';
+        document.body.style.overflowY = 'hidden';
+        document.body.scroll = 'no';
+        return () => document.body.style.overflowY = 'unset';
     }, []);
 
     const handleBackgroundClick = e => {
@@ -50,14 +43,12 @@ const CancellationPopup = ({ handleCancel, getTeamsFollow, userLocation }) => {
                         <div className={"yes-no-buttons"}>
                             <div>
                                 <button className={"button-no"} onClick={() => {handleCancel(false)
-                                // localStorage.setItem("isLocationSet", false) 
                                 }}>
                                     <span className={"span-no"}>Cancel</span>
                                 </button>
                             </div>
                             <div>
                                 <button className={"button-yes"} onClick={() => {handleConfirm()
-                                //   localStorage.setItem("isLocationSet", true)
                                   }}>
                                     <span className={"span-yes"}>Yes</span>
                                 </button>
