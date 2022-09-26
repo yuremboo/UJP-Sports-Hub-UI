@@ -106,7 +106,7 @@ const CategoryPage = ({ props, globalStore }) => {
     const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     console.log("token: ", set1AuthToken["jwt"]);
     //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
-    axios.get("http://localhost:8080/api/v1/articles/category_id/" + id, {
+    axios.get("http://localhost:8080/api/v1/articles/category_id/" + id+ "/is_active/true", {
       headers: {
         authorization: set1AuthToken["jwt"]
       }

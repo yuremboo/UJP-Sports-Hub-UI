@@ -197,13 +197,10 @@ const AdminHomePage = () => {
                         currentCategory.name
                     }
                 </div>
-                <div className="all_articles_admin__new_article">
-                    <AddNewArticleBtn/>
                     {/*<SaveCancelChanges*/}
                     {/*    handleSubmit={putArticle(article)}*/}
                     {/*    handleCancel={() => setIsCancel(true)}*/}
                     {/*/>*/}
-                </div>
                 {isCancel && <CancellationPopup
                     handleCancel={() => setIsCancel(false)}
                 />}
