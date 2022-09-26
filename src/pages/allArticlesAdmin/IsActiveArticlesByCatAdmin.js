@@ -52,7 +52,7 @@ const IsActiveArticlesByCatAdmin = () => {
 
     function getAllArticlesByCategoryIdAndIsActive() {
         params.isActive === "true" ? setToggleName("Published") : setToggleName("Unpublished");
-        axios.get("http://localhost:8080/api/v1/admin/articles/category_id/" + params.category + "/is_active/" + params.isActive +
+        axios.get("http://localhost:8080/api/v1/articles/category_id/" + params.category + "/is_active/" + params.isActive +
             "?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
             headers: {
                 "Authorization": authToken

@@ -1,0 +1,21 @@
+.admin-main-article-section{
+    background-color: #F8F8F8;
+    box-sizing: border-box;
+}
+.admin-main-article-section input,.admin-main-article-section select{
+    background-color: #F8F8F8;
+}
+.span-delete1-section{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #D72130;
+}
+.delete1-section{
+    left: 313px;
+    top: 505px;
+    border: 0;
+}
