@@ -8,6 +8,7 @@
     justify-content: center;
     background: rgba(77, 75, 75, 0.4);
     backdrop-filter: blur(14px);
+    z-index: 102;
 }
 .auxiliary-div{
     width: 458px;
@@ -47,12 +48,11 @@
     width: 458px;
     height: 100%;
 }
-.span-headline-warning{
+.span-headline{
     position: absolute;
-    width: 235px;
+    width: 300px;
     height: 20px;
     top: 27%;
-    /* left: 25%; */
     width: 100%;
 
     font-family: 'Open Sans', sans-serif;

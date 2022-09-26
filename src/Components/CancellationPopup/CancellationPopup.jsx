@@ -27,7 +27,7 @@ const CancellationPopup = ({handleCancel, handleSubmit, title, text}) => {
                 <div className={"white-rectangle"}>
                     <div className={"div-text"}>
                         <div>
-                            <span className={"span-headline-warning"}>{title || "Are you sure you want to cancel?"}</span>
+                            <span className={"span-headline"}>{title || "Are you sure you want to cancel?"}</span>
                         </div>
                         <div>
                             <span className={"span-cancellation-info"}>{text || "If you cancel this page all entered information will be missed!"}</span>

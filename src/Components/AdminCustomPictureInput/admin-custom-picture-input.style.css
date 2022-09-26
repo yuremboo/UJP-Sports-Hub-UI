@@ -191,3 +191,19 @@
 .disable-icons {
     display: none;
 }
+
+.photo__error {
+    margin: 0;
+    margin-top: 10px;
+    color: #D72130;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 19px;
+}
+
+.admin-photo-of-the-day .show-hide-toggle{
+    background-color: inherit;
+    color: inherit;
+}

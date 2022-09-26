@@ -47,7 +47,8 @@ const AdminHomePage = () => {
   const [allArticles, setAllArticle] = useState([]);
   const [isCancel, setIsCancel] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  
+  const [errors, setErrors] = useState("");
+
   const [article, setArticle] = useState({
     picture: "Picture",
     category: "Category",
@@ -174,14 +175,20 @@ const AdminHomePage = () => {
     setImage([])
     setValues(initialValues)
     setIsCancel(false)
+    setErrors({})
+    setIsSaved(false)
   }
 
   const handleSubmit = async () => {
     const { alt, shortDescription, photoTitle, author } = values
-    await addPhotoOfTheDaySection({ alt, shortDescription, title: photoTitle, author })
-    await addPhotoOfTheDay(image[0])
-    clearAllInputs()
-    setIsSaved(false)
+    console.log("errors", errors)
+    if (isValid()) {
+      const resultPhoto = await addPhotoOfTheDaySection({ alt, shortDescription, title: photoTitle, author })
+      const resultPhotoSection = await addPhotoOfTheDay(image[0])
+      if (resultPhoto && resultPhotoSection) {
+        clearAllInputs()
+      }
+    }
   }
 
   function deleteSection(key) {
@@ -193,21 +200,57 @@ const AdminHomePage = () => {
     setArticle({ ...article, [name]: value });
   };
 
+  const validateInput = data => {
+    let errors = {}
+    console.log("data", data)
+    if (!/^[A-Za-z]{1,32}$/.test(data.author)) {
+      errors.author = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.alt)) {
+      errors.alt = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.shortDescription)) {
+      errors.shortDescription = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.photoTitle)) {
+      errors.photoTitle = "Field should't be empty"
+    }
+    console.log("title", data.photoTitle)
+    if (image.length === 0) {
+      errors.image = "Field should't be empty"
+    }
+
+    return {
+      errors,
+      isValid: JSON.stringify(errors) === '{}'
+    }
+  }
+
+  const isValid = () => {
+    const { errors, isValid } = validateInput(values, image)
+    if (!isValid) {
+      setErrors(errors)
+    }
+
+    return isValid
+  }
+
   return (
     <>
-    {isSaved && <CancellationPopup
-      handleCancel={() => setIsSaved(false)}
-      handleSubmit={handleSubmit}
-      title={"Would you like to save last changement?"}
-      text={"You've made some changes! Do you want to save them?"}
-    />} 
-    {isCancel && <CancellationPopup
-      handleCancel={() => setIsCancel(false)}
-      handleSubmit={clearAllInputs}
-    />}
+      {isSaved && <CancellationPopup
+        handleCancel={() => setIsSaved(false)}
+        handleSubmit={handleSubmit}
+        title={"Would you like to save last changement?"}
+        text={"You've made some changes! Do you want to save them?"}
+      />}
+      {isCancel && <CancellationPopup
+        handleCancel={() => setIsCancel(false)}
+        handleSubmit={clearAllInputs}
+      />}
       <div className="all_articles_admin__page">
-        <div className="all_articles_admin__header">
+        <div className="all_articles_admin__header admin__header">
           <div className="sportshub">Sports hub</div>
+
           <div className="all_articles_admin__right_header">
             <button className="accountSwitcher__button">
               <img src={accountSwitcher} width="30%" height="30%" />
@@ -217,7 +260,7 @@ const AdminHomePage = () => {
             </div>
           </div>
         </div>
-        <SaveCancelChanges handleSubmit={()=>{setIsSaved(true)}} handleCancel={()=>{setIsCancel(true)}} saveProp={"Save all changes"} title={"Home"} />
+        <SaveCancelChanges handleSubmit={() => { isValid() && setIsSaved(true) }} handleCancel={() => { setIsCancel(true) }} saveProp={"Save all changes"} title={"Home"} />
 
         <div className="all_articles_admin__categories_buttons">
           <HorizontalScrollMenu />
@@ -291,6 +334,8 @@ const AdminHomePage = () => {
             setImage={setImage}
             values={values}
             setValues={setValues}
+            errors={errors}
+            setErrors={setErrors}
           />
         </>
       </div>

@@ -54,7 +54,6 @@ const HomePage = ({
                 <NavBar/>
                 <main>
                     <h2>Home page</h2>
-                    <button onClick={logOut}>LOG OUT</button>
                     <div className='breakdown-header'>
                         <hr/>
                         <div className='breakdown-header__text'>
