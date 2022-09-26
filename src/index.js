@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import ForgotPassword from "./pages/login/forgotPassword";
 import HomePage from "./pages/home/homePage";
+import AdminHomePage from "./pages/home/AdminHomePage";
 import TeamHub from "./pages/teamHub/teamHub";
 import RegistrationPage from "./pages/registration/registrationPage";
 import { store } from "./redux/store";
@@ -16,7 +17,6 @@ import ArticlePage from "./pages/article/articlePage";
 import ResetPassword from "./pages/login/resetPassword";
 import CategoryPage from "./pages/category_team_page/categoryPage";
 import ArticlesByCategoryAdmin from "./pages/allArticlesAdmin/ArticllesByCategoryAdmin";
-import AdminHomePage from "./pages/home/AdminHomePage";
 import IsActiveArticlesByCatAdmin from "./pages/allArticlesAdmin/IsActiveArticlesByCatAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

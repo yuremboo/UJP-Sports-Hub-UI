@@ -45,7 +45,7 @@ const TeamHub = ({ getLocation }) => {
     //       }
     //     }
     //   }
-    // }  
+    // }
   ]);
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -171,11 +171,12 @@ const TeamHub = ({ getLocation }) => {
     })
       .then((response) => {
         const data = response.data;
+        console.log("getMorePopularArticles");
+        console.log(response.data);
         setMorePopularArticles(data);
       })
       .catch((error) => {
-        if (error.response) {
-        }
+        if (error.response) {}
       });
   }
 
@@ -240,9 +241,9 @@ const TeamHub = ({ getLocation }) => {
 
             <div className="all_teams">
               {
-                teamsSubscription.map((team, index) => 
+                teamsSubscription.map((team, index) =>
                        <TeamComponent key={index} team={team} isSubscribed={isUserSubscribed} />
-                
+
                 )
               }
             </div>
@@ -250,7 +251,7 @@ const TeamHub = ({ getLocation }) => {
               <div className="mini-articles-l">
                 <span className="more-popular">MORE POPULAR</span>
                 <hr className="more-lin-l"></hr>
-                {morePopularArticles.slice(0, 3).map((miniArticle) => (
+                {morePopularArticles.map((miniArticle) => (
                   <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
                 ))}
               </div>
