@@ -19,9 +19,9 @@ const initialValues = {
     isHidden: false
 }
 
-const AdminCustomPictureInput = () => {
-    const [values, setValues] = useState(initialValues);
-    const [image, setImage] = useState([]);
+const AdminCustomPictureInput = ({image, setImage, values, setValues}) => {
+    // const [values, setValues] = useState(initialValues);
+    // const [image, setImage] = useState([]);
     const [imageURL, setImageURL] = useState([]);
 
     useEffect(() => {
@@ -40,13 +40,16 @@ const AdminCustomPictureInput = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const {alt, shortDescription, photoTitle, author} = values
-        const res1 = await addPhotoOfTheDaySection({alt, shortDescription, title:photoTitle, author})
-        const res2 =  await addPhotoOfTheDay(image[0])
-        console.log("siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",res1, res2)
     }
 
     return (
+        <div className='admin-photo-of-the-day'>
+        <div className='breakdown-header admin-breakdown-header'>
+               <hr />
+               <div className='breakdown-header__text'>
+                   <p>PHOTO OF THE DAY</p>
+               </div>
+           </div>
         <form className="admin-photo-of-the-day" onSubmit={handleSubmit}>
             <label className="admin-form-label" htmlFor="pictureInput">{"PICTURE*"}</label>
             <label className="photo-wrapper">
@@ -87,7 +90,6 @@ const AdminCustomPictureInput = () => {
                 name={"alt"}
                 value={values.alt}
                 handleChange={handleChange}
-            // placeholder="alt example"
             />
 
             <CustomInput
@@ -96,7 +98,6 @@ const AdminCustomPictureInput = () => {
                 name={"photoTitle"}
                 value={values.photoTitle}
                 handleChange={handleChange}
-            // placeholder="alt example"
             />
 
             <CustomInput
@@ -105,7 +106,6 @@ const AdminCustomPictureInput = () => {
                 name={"shortDescription"}
                 value={values.shortDescription}
                 handleChange={handleChange}
-            // placeholder="alt example"
             />
 
             <CustomInput
@@ -114,7 +114,6 @@ const AdminCustomPictureInput = () => {
                 name={"author"}
                 value={values.author}
                 handleChange={handleChange}
-            // placeholder="alt example"
             />
             <div className="admin-photo-switch">
                 <span className={"span-photo"}>Show on the main page</span>
@@ -125,10 +124,8 @@ const AdminCustomPictureInput = () => {
                         setValues({ ...values, isHidden: !values.isHidden })
                     }} />
             </div>
-            <button type="submit">
-                submit
-            </button>
         </form>
+    </div>
     );
 }
 

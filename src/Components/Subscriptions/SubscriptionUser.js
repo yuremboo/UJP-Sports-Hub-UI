@@ -4,6 +4,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import axios from "axios";
 import SubscriptionTeam from "./SubscriptionTeam";
 
+//import { Formik, Field, Form } from "formik";
 import CustomSelect from "../CustomSelect/CustomSelect";
 import SelectTeam from "./SelectTeam";
 const SubscriptionUser = () => {
@@ -44,15 +45,13 @@ const SubscriptionUser = () => {
   const [teamsSearch, setTeamsSearch] = useState([]);
   const AuthToken = JSON.parse(localStorage.getItem('user'))
   useEffect(() => {
-    getSubscriptionUser();
-    //constantu();
-    //myFunctionSuggestions(subscriptionUser);
+    getSubscriptionByUserId();
   }, []);
 
-  function getSubscriptionUser() {
+  function getSubscriptionByUserId() {
     console.log('function getSubscriptionUser');
     console.log('token: ', AuthToken['jwt']);
-    axios.get("http://localhost:8080/api/teams/subscription", {
+    axios.get("http://localhost:8080/api/v1/teams/subscription", {
       headers: {
         authorization: AuthToken['jwt'],
       }
@@ -72,13 +71,15 @@ const SubscriptionUser = () => {
   }
 
   function getTeamsByName(search_name) {
-    axios.get("http://localhost:8080/api/teams/search_name/"+search_name, {
+    axios.get("http://localhost:8080/api/v1/teams/search_name/"+search_name, {
       headers: {
         authorization:AuthToken["jwt"]
       }
     })
       .then((response) => {
         const data = response.data;
+        console.log('getTeamsByName')
+        console.log(response.data)
         setTeamsSearch(data);
       })
       .catch((error) => {
@@ -126,128 +127,21 @@ const SubscriptionUser = () => {
   //     });
   // }
 
-  function deleteSubscription(team) {
-    console.log('token: ', AuthToken['jwt']);
-    axios.delete("http://localhost:8080/api/subscription/" + team.subscriptionId + "/team", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
-  let suggestions = [
-    "Channel",
-    "CodingLab",
-    "CodingNepal",
-    "YouTube",
-    "YouTuber",
-    "YouTube Channel",
-    "Blogger",
-    "Bollywood",
-    "Vlogger",
-    "Vechiles",
-    "Facebook",
-    "Freelancer",
-    "Facebook Page",
-    "Designer",
-    "Developer",
-    "Web Designer",
-    "Web Developer",
-    "Login Form in HTML & CSS",
-    "How to learn HTML & CSS",
-    "How to learn JavaScript",
-    "How to became Freelancer",
-    "How to became Web Designer",
-    "How to start Gaming Channel",
-    "How to start YouTube Channel",
-    "What does HTML stands for?",
-    "What does CSS stands for?",
-  ];
-
   const handleChange = event => {
-    const {name, value} = event.target
+    //const {name, value} = event.target
     //setArticle({...article, [name]: value})
    // console.log(article)
   }
   const loadOptions = (searchValue,callback) => {
     setTimeout(()=>{
-      const filteredOptions= subscriptionUser.filter((data) => {
-                return data.team.name.toLowerCase().includes(searchValue.toLowerCase());
-      })
-      console.log("loadOptions",searchValue,filteredOptions,subscriptionUser)
-      callback(filteredOptions);
-    },2000)
+      getTeamsByName(searchValue);
+      // const filteredOptions= teamsSearch.filter((data) => {
+      //           return data.team.name.toLowerCase().includes(searchValue.toLowerCase());
+      // })
+      console.log("loadOptions",searchValue,teamsSearch)
+      callback(teamsSearch);
+    },1000)
   }
-  // function constantu() {
-  //   // getting all required elements
-  //   const searchWrapper = document.querySelector(".search-input");
-  //   const inputBox = searchWrapper.querySelector("input");
-  //   const suggBox = searchWrapper.querySelector(".autocom-box");
-  //   const icon = searchWrapper.querySelector(".icon");
-  //   let linkTag = searchWrapper.querySelector("a");
-  //   let webLink;
-  //
-  //   inputBox.onkeyup = (e) => {
-  //     let userData = e.target.value; //user enetered data
-  //     let emptyArray = [];
-  //     console.log(inputBox.value)
-  //
-  //     //getTeamsByName(inputBox.value);
-  //     //myFunctionSuggestions(teamsSearch);
-  //     console.log(suggestions)
-  //     if (userData) {
-  //       icon.onclick = () => {
-  //         webLink = `https://www.google.com/search?q=${userData}`;
-  //         linkTag.setAttribute("href", webLink);
-  //         linkTag.click();
-  //       }
-  //       emptyArray = suggestions.filter((data) => {
-  //         //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-  //         return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-  //       });
-  //       emptyArray = emptyArray.map((data) => {
-  //         // passing return data inside li tag
-  //         return data = `<li>${data}</li>`;
-  //       });
-  //       searchWrapper.classList.add("active"); //show autocomplete box
-  //       showSuggestions(emptyArray);
-  //       let allList = suggBox.querySelectorAll("li");
-  //       for (let i = 0; i < allList.length; i++) {
-  //         //adding onclick attribute in all li tag
-  //         allList[i].setAttribute("onclick", "select(this)");
-  //       }
-  //     } else {
-  //       searchWrapper.classList.remove("active"); //hide autocomplete box
-  //     }
-  //   }
-  //
-  //   function select(element){
-  //     let selectData = element.textContent;
-  //     inputBox.value = selectData;
-  //     icon.onclick = ()=>{
-  //       webLink = `https://www.google.com/search?q=${selectData}`;
-  //       linkTag.setAttribute("href", webLink);
-  //       linkTag.click();
-  //     }
-  //     searchWrapper.classList.remove("active");
-  //   }
-  //   function showSuggestions(list){
-  //     let listData;
-  //     if(!list.length){
-  //       let userValue;
-  //       userValue = inputBox.value;
-  //       listData = `<li>${userValue}</li>`;
-  //     }else{
-  //       listData = list.join('');
-  //     }
-  //     suggBox.innerHTML = listData;
-  //   }
-  // }
   return(
     <div>
 
@@ -272,11 +166,17 @@ const SubscriptionUser = () => {
         {/*  </div>*/}
         {/*</div>*/}
 
-
+        <CustomSelect
+            label={"Article*"}
+            name={"article"}
+            enumeration={subscriptionUser.map((article)=>({...article, name:article.team.name, id:article.team.name}))}
+            handleChange={handleChange}
+            loadOptions={loadOptions}
+        />
         <SelectTeam
           label={"Subcategory"}
           name={"subcategory"}
-          enumeration={subscriptionUser}
+          enumeration={teamsSearch}
           loadOptions={loadOptions}
           handleChange={handleChange}
         />
@@ -305,13 +205,6 @@ const SubscriptionUser = () => {
     </div>
   );
 
-  //
-  // function myFunctionSuggestions(teamsSearch) {
-  //   for(var sub in teamsSearch )
-  //   {
-  //     suggestions.push(sub.team.name);
-  //   }
-  // }
 }
 
 export default SubscriptionUser;

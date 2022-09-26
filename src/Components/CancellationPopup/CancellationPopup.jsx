@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {ReactComponent as Warning} from "../../icons/Warning.svg"
 import {useEffect} from "react";
 
-const CancellationPopup = ({handleCancel}) => {
+const CancellationPopup = ({handleCancel, handleSubmit, title, text}) => {
     const navigate = useNavigate()
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -27,10 +27,10 @@ const CancellationPopup = ({handleCancel}) => {
                 <div className={"white-rectangle"}>
                     <div className={"div-text"}>
                         <div>
-                            <span className={"span-headline-warning"}>Are you sure you want to cancel?</span>
+                            <span className={"span-headline-warning"}>{title || "Are you sure you want to cancel?"}</span>
                         </div>
                         <div>
-                            <span className={"span-cancellation-info"}>If you cancel this page all entered information will be missed!</span>
+                            <span className={"span-cancellation-info"}>{text || "If you cancel this page all entered information will be missed!"}</span>
                         </div>
                     </div>
 
@@ -38,12 +38,12 @@ const CancellationPopup = ({handleCancel}) => {
                         <div className={"yes-no-buttons"}>
                             <div>
                                 <button className={"button-no"} onClick={handleCancel}>
-                                    <span className={"span-no"}>No</span>
+                                    <span className={"span-no"}>{title ? "Cancel": "No"}</span>
                                 </button>
                             </div>
                             <div>
-                                <button className={"button-yes"} onClick={() => navigate("/")}>
-                                    <span className={"span-yes"}>Yes</span>
+                                <button className={"button-yes"} onClick={handleSubmit}>
+                                    <span className={"span-yes"}>{title ? "Save": "Yes"}</span>
                                 </button>
                             </div>
                         </div>
