@@ -21,7 +21,7 @@ export async function addPhotoOfTheDay(photoData) {
     console.log("not photo", photoData)
     let result = false
     const formData = new FormData();
-    formData.append("image", new Blob([photoData], { type: 'image/png' }));
+    formData.append("image", photoData);
     console.log("not form", formData)
     await axios
         .post('http://localhost:8080/api/v1/image?photoOfTheDay=true', formData,

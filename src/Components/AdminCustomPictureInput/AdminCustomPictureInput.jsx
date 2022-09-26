@@ -42,7 +42,7 @@ const AdminCustomPictureInput = () => {
         e.preventDefault()
         const {alt, shortDescription, photoTitle, author} = values
         const res1 = await addPhotoOfTheDaySection({alt, shortDescription, title:photoTitle, author})
-        const res2 =  await addPhotoOfTheDay(image)
+        const res2 =  await addPhotoOfTheDay(image[0])
         console.log("siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",res1, res2)
     }
 
