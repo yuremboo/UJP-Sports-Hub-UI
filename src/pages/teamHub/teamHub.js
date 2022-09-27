@@ -164,11 +164,11 @@ const TeamHub = ({ getLocation }) => {
   }
 
   function getMorePopularArticles() {
-    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
+    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     axios.get("http://localhost:8080/api/v1/articles/morePopular", {
-      headers: {
-        authorization: set1AuthToken["jwt"]
-      }
+      // headers: {
+      //   authorization: set1AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
