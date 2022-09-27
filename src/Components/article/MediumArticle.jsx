@@ -5,7 +5,7 @@ import arrow from "../../icons/arrow-red.svg"
 
 const MediumArticle = ({mediumArticle}) => {
   return (
-    <a className="article-link" href="#">
+    <a className="article-link" href={"http://localhost:3000/articles/" + mediumArticle.id}>
       <div className="medium-article">
         <div className="category">
             <p className="category__text">{mediumArticle.category}</p>
