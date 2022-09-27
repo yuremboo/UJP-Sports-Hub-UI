@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./categorypage.css";
 import { useParams } from "react-router-dom";
-import ArticleHeading from "../../Components/article/ArticleHeading";
+import CategoryHeading from "../../Components/article/CategoryHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
@@ -102,20 +102,16 @@ const CategoryPage = ({ props, globalStore }) => {
   }, []);
 
   function getArticleByCategory(id) {
-    console.log("function getArticleByCategory");
-    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
-    console.log("token: ", set1AuthToken["jwt"]);
+    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
-    axios.get("http://localhost:8080/api/v1/articles/category_id/" + id, {
-      headers: {
-        authorization: set1AuthToken["jwt"]
-      }
+    axios.get("http://localhost:8080/api/v1/articles/category_id/" + id+ "/is_active/true", {
+      // headers: {
+      //   authorization: set1AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
-        console.log("getArticles");
-        console.log(response.data);
-        setArticlesByCategory(data);
+        setArticlesByCategory(response.data.content);
       })
       .catch((error) => {
         if (error.response) {
@@ -126,13 +122,11 @@ const CategoryPage = ({ props, globalStore }) => {
   }
 
   function getMorePopularArticles() {
-    console.log("function getMorePopularArticles");
-    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
-    console.log("token: ", set1AuthToken["jwt"]);
+    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     axios.get("http://localhost:8080/api/v1/articles/morePopular", {
-      headers: {
-        authorization: set1AuthToken["jwt"]
-      }
+      // headers: {
+      //   authorization: set1AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
@@ -159,17 +153,19 @@ const CategoryPage = ({ props, globalStore }) => {
           <NavBar />
         </div>
         <div className="category_page">
-          <ArticleHeading
-            published={article["createDateTime"]}
-            title={article["title"]}
-            subtitle={article["caption"]}
-          />
+          {articlesByCategory.slice(0, 1).map((article) => (
+
+          <CategoryHeading
+            article={articlesByCategory[0]}
+          />))}
+          {articlesByCategory.slice(0, 1).map((article) => (
           <img
             className="article-image"
             alt={article["alt"]}
             //src={article.picture}
             src={articleImage}
           />
+            ))}
           <div className="category_articles">
             {
               articlesByCategory.map(article =>

@@ -9,6 +9,7 @@ import {
   userGetLocationRequest
 } from '../../redux/auth/auth.actions'
 import { connect, useSelector } from 'react-redux'
+import GeoPopup from "../../Components/GeolocationPopup/GeoPopup";
 
 
 const TeamHub = ({ getLocation }) => {
@@ -45,7 +46,7 @@ const TeamHub = ({ getLocation }) => {
     //       }
     //     }
     //   }
-    // }  
+    // }
   ]);
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -163,19 +164,20 @@ const TeamHub = ({ getLocation }) => {
   }
 
   function getMorePopularArticles() {
-    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
+    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     axios.get("http://localhost:8080/api/v1/articles/morePopular", {
-      headers: {
-        authorization: set1AuthToken["jwt"]
-      }
+      // headers: {
+      //   authorization: set1AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
+        console.log("getMorePopularArticles");
+        console.log(response.data);
         setMorePopularArticles(data);
       })
       .catch((error) => {
-        if (error.response) {
-        }
+        if (error.response) {}
       });
   }
 
@@ -240,9 +242,9 @@ const TeamHub = ({ getLocation }) => {
 
             <div className="all_teams">
               {
-                teamsSubscription.map((team, index) => 
+                teamsSubscription.map((team, index) =>
                        <TeamComponent key={index} team={team} isSubscribed={isUserSubscribed} />
-                
+
                 )
               }
             </div>
@@ -250,7 +252,7 @@ const TeamHub = ({ getLocation }) => {
               <div className="mini-articles-l">
                 <span className="more-popular">MORE POPULAR</span>
                 <hr className="more-lin-l"></hr>
-                {morePopularArticles.slice(0, 3).map((miniArticle) => (
+                {morePopularArticles.map((miniArticle) => (
                   <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
                 ))}
               </div>
@@ -266,21 +268,7 @@ const TeamHub = ({ getLocation }) => {
         </div>
       </div>
       {isPopupOpened &&
-        <div className="geolocation-popup">
-          <button className="geolocation-popup__button-close" onClick={() => {
-            setIsPopupOpened(false)
-          }}>×</button>
-          <h2 className="geolocation-popup__headline">Geolocation needed</h2>
-          <p className="geolocation-popup__paragraph">
-            You haven't configured your favotite teams yet. Do you want to use your geolocation to show corresponding teams?
-          </p>
-          <button className="geolocation-popup__button-accept" onClick={async () => {
-            setIsPopupOpened(false);
-            console.log(userLocation, "location form above");
-            await getTeamsFollow(userLocation)
-          }
-          }>Accept</button>
-        </div>
+       <GeoPopup handleCancel={setIsPopupOpened} getTeamsFollow={getTeamsFollow} userLocation={userLocation}/>
       }
     </div>
   );

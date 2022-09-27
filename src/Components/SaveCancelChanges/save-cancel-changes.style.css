@@ -1,61 +1,52 @@
-.all-components{
+.bottom-header {
     width: 100%;
-    padding: 20px;
-    height: 8vh;
+    padding: 0 101px;
+    height: 95px;
     border-bottom: 1px solid #D4D9E2;
+    border-top: 1px solid #D4D9E2;
     background: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.left-label{
-    position: absolute;
+.bottom-header__tittle {
     font-family: 'Open Sans', sans-serif;
-    font-style: normal;
     font-weight: 700;
     font-size: 30px;
     line-height: 45px;
     text-transform: capitalize;
     color: #000000;
-    left: 5%;
 }
 
-.buttons{
-    position: absolute;
-    right: 7%;
+.bottom-header__buttons {
     display: flex;
+    gap: 30px;
 }
 
-.button-cancel{
+.bottom-header__buttons button {
     border: none;
     background: none;
-    width: 100px;
-    height: 36px;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
 }
 
-.button-save{
-    background: #D72130;
+.buttons__cancel {
+    color: #D72130;
+}
+
+.bottom-header__buttons .buttons__save {
+    background-color: #D72130;
     border: 1px solid #C63638;
     box-sizing: border-box;
-    width: 100px;
-    height: 36px;
+    width: 134px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
 }
 
-.span-cancel{
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 16px;
-    text-align: center;
-    color: #D72130;
-    padding-bottom: 5px;
-}
-.span-save{
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 16px;
-    text-align: center;
-    color: #FFFFFF;
-    padding-bottom: 5px;
-}

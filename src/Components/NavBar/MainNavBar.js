@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function NavBar() {
 
-  const AuthToken = JSON.parse(localStorage.getItem("user"));
+  // const AuthToken = JSON.parse(localStorage.getItem("user"));
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -14,17 +14,13 @@ export default function NavBar() {
   }, []);
 
   function getCategories() {
-    console.log("function getCategories");
-    console.log("token: ", AuthToken["jwt"]);
-    axios.get("http://localhost:8080/api/categories", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
+    axios.get("http://localhost:8080/api/v1/categories", {
+      // headers: {
+      //   authorization: AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
-        console.log("getCategories");
-        console.log(response.data);
         setCategories(data);
       })
       .catch((error) => {

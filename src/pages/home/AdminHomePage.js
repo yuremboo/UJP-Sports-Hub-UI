@@ -1,6 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
+import CustomInput from "../../Components/CustomInput/CustomInput";
+import "./AdminHomePage.css";
+import CustomSelect from "../../Components/CustomSelect/CustomSelect";
+import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
+import Eye from "../../icons/Eye.svg";
+import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
+import AdminMainArticleSection from "../../Components/Home/AdminMainArticleSection";
+import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
+import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
+import { MDBSwitch } from "mdb-react-ui-kit";
+import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
+import { authRequestFailure } from "../../redux/auth/auth.actions";
+import { useParams } from "react-router-dom";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
@@ -9,88 +21,290 @@ import { LeftArrow, RightArrow } from "../../Components/horizontal-scroll-menu/a
 import { Pagination } from "@mui/material";
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
+import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
+import PhotoOfTheDay from "../../Components/photo-of-the-day/PhotoOfTheDay";
+import AdminCustomPictureInput from "../../Components/AdminCustomPictureInput/AdminCustomPictureInput";
+import { addPhotoOfTheDay, addPhotoOfTheDaySection } from "../../redux/admin-photo-of-the-day/admin-photo.action";
 
-const AllArticlesAdmin = () => {
-    const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
-    const [totalPages, setTotalPages] = useState(1);
+const initialValues = {
+  alt: "",
+  photoTitle: "",
+  shortDescription: "",
+  author: "",
+  isHidden: false
+}
 
-    let navigate = useNavigate();
+const AdminHomePage = () => {
+  //const { id } = useParams();
+  const navigate = useNavigate();
+  const AuthToken = JSON.parse(localStorage.getItem("user"));
+  const [categories, setCategories] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [values, setValues] = useState(initialValues);
+  const [image, setImage] = useState([]);
+  const [allArticles, setAllArticle] = useState([]);
+  const [isCancel, setIsCancel] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [errors, setErrors] = useState("");
 
-    const [currentCategory, setCurrentCategory] = useState({
-        "id": "0", "name": "HOME"
-    });
+  const [article, setArticle] = useState({
+    picture: "Picture",
+    category: "Category",
+    team: "Team",
+    location: "Location",
+    alt: "Alt",
+    title: "Title",
+    caption: "Caption",
+    text: "Text"
+  });
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
+  // const [totalPages, setTotalPages] = useState(1);
+  // let navigate = useNavigate();
 
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        getAllCategories();
-    }, []);
+  const [currentCategory, setCurrentCategory] = useState({
+    "id": "0", "name": "HOME"
+  });
+  useEffect(() => {
+    getCategories();
+    getTeam();
+    getArticles();
+    addInInput();
+  }, []);
 
-    function getAllCategories() {
-        axios.get("http://localhost:8080/api/categories", {
-            headers: {
-                "Authorization": authToken
-            }
-        })
-            .then((response) => {
-                setCategories(response.data);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response);
-                    console.log("error.response.status: ", error.response.status);
-                }
-            });
+  function getCategories() {
+    axios.get("http://localhost:8080/api/categories", {
+      headers: {
+        authorization: AuthToken["jwt"]
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        setCategories(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function getTeam() {
+    axios.get("http://localhost:8080/api/v1/teams", {
+      headers: {
+        authorization: AuthToken["jwt"]
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        setTeams(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function getArticles() {
+    axios.get("http://localhost:8080/api/v1/admin/articles", {
+      headers: {
+        authorization: AuthToken["jwt"]
+      }
+    })
+      .then((response) => {
+        const data = response.data;
+        setAllArticle(response.data.content);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+  }
+
+  function putArticle(article) {
+    let result = true;
+    axios.put("http://localhost:8080/api/v1/admin/articles/", article, {
+      headers: {
+        authorization: AuthToken["jwt"]
+      }
+    })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+        }
+      });
+    return result;
+  }
+
+  const [inputList, setInputList] = useState([]);
+  function addInInput() {
+    for (let i = 0; i < 3; i++) {
+      setInputList(inputList.concat(
+        <AdminMainArticleSection
+          key={inputList.length}
+          handleChange={handleChange}
+          deleteSection={deleteSection}
+          categories={categories}
+          teams={teams}
+        //allArticles={allArticles}
+        />));
+    }
+  };
+  const onAddBtnClick = event => {
+    event.preventDefault();
+    setInputList(inputList.concat(
+      <AdminMainArticleSection
+        key={inputList.length}
+        handleChange={handleChange}
+        deleteSection={deleteSection}
+        categories={categories}
+        teams={teams}
+      //allArticles={allArticles}
+      />));
+  };
+
+  const clearAllInputs = () => {
+    setImage([])
+    setValues(initialValues)
+    setIsCancel(false)
+    setErrors({})
+    setIsSaved(false)
+  }
+
+  const handleSubmit = async () => {
+    const { alt, shortDescription, photoTitle, author } = values
+    console.log("errors", errors)
+    if (isValid()) {
+      const resultPhoto = await addPhotoOfTheDaySection({ alt, shortDescription, title: photoTitle, author })
+      const resultPhotoSection = await addPhotoOfTheDay(image[0])
+      if (resultPhoto && resultPhotoSection) {
+        clearAllInputs()
+      }
+    }
+  }
+
+  function deleteSection(key) {
+    setInputList(inputList.filter((article) => inputList.indexOf(article) !== key));
+    //setInputList(inputList.splice(key, 1));
+  };
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setArticle({ ...article, [name]: value });
+  };
+
+  const validateInput = data => {
+    let errors = {}
+    console.log("data", data)
+    if (!/^[A-Za-z]{1,32}$/.test(data.author)) {
+      errors.author = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.alt)) {
+      errors.alt = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.shortDescription)) {
+      errors.shortDescription = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.photoTitle)) {
+      errors.photoTitle = "Field should't be empty"
+    }
+    console.log("title", data.photoTitle)
+    if (image.length === 0) {
+      errors.image = "Field should't be empty"
     }
 
-    return (<div className="all_articles_admin__page">
-        <div className="all_articles_admin__header">
-            <div className="sportshub">Sports hub</div>
-            <div className="all_articles_admin__right_header">
-                <button>
-                    <img src={accountSwitcher} width="30%" height="30%" />
-                </button>
-                <div></div>
-            </div>
-        </div>
+    return {
+      errors,
+      isValid: JSON.stringify(errors) === '{}'
+    }
+  }
 
-        <div className="all_articles_admin__current_category__new_article">
-            <div className="all_articles_admin__current_category">
-                {currentCategory.name}
+  const isValid = () => {
+    const { errors, isValid } = validateInput(values, image)
+    if (!isValid) {
+      setErrors(errors)
+    }
+
+    return isValid
+  }
+
+  return (
+    <>
+      {isSaved && <CancellationPopup
+        handleCancel={() => setIsSaved(false)}
+        handleSubmit={handleSubmit}
+        title={"Would you like to save last changement?"}
+        text={"You've made some changes! Do you want to save them?"}
+      />}
+      {isCancel && <CancellationPopup
+        handleCancel={() => setIsCancel(false)}
+        handleSubmit={clearAllInputs}
+      />}
+      <div className="all_articles_admin__page">
+        <div className="all_articles_admin__header admin__header">
+          <div className="sportshub">Sports hub</div>
+
+          <div className="all_articles_admin__right_header">
+            <button className="accountSwitcher__button">
+              <img src={accountSwitcher} width="30%" height="30%" />
+            </button>
+            <div className="admin__profile_section">
+              <ProfileSection />
             </div>
-            <div className="all_articles_admin__new_article">
-                <AddNewArticleBtn />
-            </div>
+          </div>
         </div>
+        <SaveCancelChanges handleSubmit={() => { isValid() && setIsSaved(true) }} handleCancel={() => { setIsCancel(true) }} saveProp={"Save all changes"} title={"Home"} />
 
         <div className="all_articles_admin__categories_buttons">
-            <div className="horizontal_scroll_menu">
-                <ScrollMenu itemClassName="scroll_menu"
-                            LeftArrow={LeftArrow}
-                            RightArrow={RightArrow}
-                            options={{
-                                ratio: 0.9, rootMargin: "5px", threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
-                            }}
-                >
-                    <div className="category_button">
-                        <button>HOME</button>
-                    </div>
-
-                    {
-                        categories.map(category =>
-                            <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
-                                <li>{category.name}</li>
-                            </Nav.Link>
-                        )
-                    }
-                </ScrollMenu>
-            </div>
+          <HorizontalScrollMenu />
         </div>
+        <>
+          <form className="form-container">
+            <div className={"form-preview"}>
+              <button className={"button-eye"} type={"button"}>
+                <img className={"img-eye"} src={Eye} alt="Eye" />
+                <span className={"span-preview"}>Preview</span>
+              </button>
+            </div>
+            <div className="breakdown-header">
+              <hr />
+              <div className="article-home-main-header__text">
+                <p>MAIN ARTICLES</p>
+              </div>
+            </div>
 
-        ADMIN HOME PAGE
-
-    </div>);
+            {inputList}
+            {inputList.length < 5 ? (
+              <div>
+                <button className={"add-article-section"}
+                  onClick={onAddBtnClick}>
+                  <span className={"span-add-article-section"}>+Add one more article</span>
+                </button>
+              </div>
+            ) : (
+              <></>
+            )}
+          </form>
+          <AdminCustomPictureInput
+            handlePhotoSubmit={obj => addPhotoOfTheDay(obj)}
+            handlePhotoSectionSubmit={obj => addPhotoOfTheDaySection(obj)}
+            image={image}
+            setImage={setImage}
+            values={values}
+            setValues={setValues}
+            errors={errors}
+            setErrors={setErrors}
+          />
+        </>
+      </div>
+    </>);
 };
 
-export default AllArticlesAdmin;
+export default AdminHomePage;

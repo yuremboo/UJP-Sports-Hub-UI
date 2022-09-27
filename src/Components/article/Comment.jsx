@@ -15,17 +15,19 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   useEffect(() => {
     if (comment) {
-    getUserById(comment.userId).then(r => console.error(r.toString()));
-    getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id).then(r => console.error(r.toString()));
+    getUserById(comment.userId);
+    if(currentUser !== null){
+      getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id);
+    }
     }
   }, []);
 
   async function getUserById(userId) {
       await axios
         .get("http://localhost:8080/api/v1/users/" + userId, {
-          headers: {
-            authorization: bearer + currentUser["jwt"],
-          },
+          // headers: {
+          //   authorization: bearer + currentUser["jwt"],
+          // },
         })
         .then((response) => {
           const data = response.data;
@@ -298,8 +300,9 @@ export default function Comment({ comment, deleteComment, editComment }) {
               )}
             </span>
           )}
-          {comment.userId === currentUser.id ||
-          currentUser.role === "ADMIN" ? (
+          {currentUser === null ? (
+            <button className="comment">Comment</button>
+          ) :(
             <span>
               <button className="delete" onClick={deleteCommentById}>Delete</button>
               <button className="comment">Comment</button>
@@ -307,9 +310,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
                 Edit
               </button>
             </span>
-          ) : (
-            <button className="comment">Comment</button>
-          )}
+          ) }
         </div>
       </div>
     </div>

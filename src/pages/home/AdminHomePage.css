@@ -1,0 +1,218 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.edit-article{
+    background-color: #F8F8F8;
+    box-sizing: border-box;
+}
+.edit-article input,.edit-article select,.edit-article textarea{
+    background-color: #F8F8F8;
+}
+
+.edit-article-header{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    z-index: 5;
+}
+
+.nav-bar-icons{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: 18%;
+    justify-content: space-between;
+    background-color: #F8F8F8;
+    border-right: 1px solid #D4D9E2;
+}
+
+.form-preview{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+.button-eye{
+    background: none;
+    border: none;
+}
+.img-eye{
+    width: 15px;
+    height: 10px;
+}
+.span-preview{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    color: #D72130;
+    text-align: center;
+    padding-left: 6px;
+}
+
+.all_articles_admin__page .form-container{
+    padding-top: calc(12.5% + 95px);
+    max-width: 814px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-select-container{
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding-top: 10px;
+}
+
+.comments-show{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    padding-top: 15px;
+}
+.span-comments{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #7F8899;
+    padding-right: 5px;
+    padding-top: 3px;
+}
+.span-show{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #D72130;
+    padding-right: 5px;
+    padding-top: 3px;
+}
+.span-hide{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #2B2F43;
+    padding-right: 5px;
+    padding-top: 3px;
+}
+.show-hide-toggle{
+    height: 55%;
+    color: #D72130;
+    background-color: #D72130;
+    border-color: #D4D9E2;
+}
+
+.show-hide-toggle:checked{
+
+}
+.form-check-input:checked{
+    background-color: #D72130;
+    border: 1px solid #D4D9E2;
+}
+.article-home-more {
+    justify-items: center;
+    margin-bottom: 60px;
+}
+
+.article-home-more-line-l {
+    /*margin-left: 41.6%;*/
+    /*margin-top: -22px;*/
+    width: 320px;
+    height: 0px;
+    left: 313px;
+    top: 313px;
+}
+
+.article-home-more-line-r {
+    /*margin-left: 48.6%;*/
+    /*margin-top: -22px;*/
+    width: 316px;
+    height: 0px;
+    left: 811px;
+    top: 313px;
+}
+.breakdown-header {
+    position: relative;
+}
+
+.breakdown-header p {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+    padding: 12px 42px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.article-home-main-header__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    border: 1px solid #B2B2B2;
+    border-radius: 21px;
+
+}
+
+.span-add-article-section{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    text-decoration-line: underline;
+    text-transform: lowercase;
+    color: #D72130;
+}
+.add-article-section{
+    left: 385px;
+    top: 933px;
+    border: 0;
+}
+
+.all_articles_admin__page{
+    position: relative;
+}
+
+.all_articles_admin__page .admin__header{
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    z-index: 101;
+}
+
+.all_articles_admin__page .bottom-header {
+    position: fixed;
+    right: 0;
+    top: 12%;
+    left: 0;
+    z-index: 100;
+}
+
+.all_articles_admin__page .all_articles_admin__categories_buttons {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    left: 0;
+    top: calc(12% + 80px);
+}
