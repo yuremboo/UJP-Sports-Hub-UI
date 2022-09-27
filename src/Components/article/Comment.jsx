@@ -15,8 +15,8 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   useEffect(() => {
     if (comment) {
-    getUserById(comment.userId).then(r => console.error(r.toString()));
-    getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id).then(r => console.error(r.toString()));
+    getUserById(comment.userId).then(r =>{});
+    getLikeDislikeStatusByUserIdAndCommentId(currentUser.id, comment.id).then(r => {});
     }
   }, []);
 

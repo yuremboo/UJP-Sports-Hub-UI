@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,300");
 
 .headline-body {
-  position: absolute;
-  width: 51.6%;
+  position: relative;
+  width: 430px;
   height: fit-content;
   left: 640px;
   top: 84px;
   z-index: 2;
   background: #f6f6f6;
-  padding: 50px 4% 0 33px;
+  padding: 50px 4% 10px 33px;
 }
 
 .publishing-date {
@@ -29,17 +29,17 @@
 }
 
 .title {
-  margin-bottom: 21px;
   font-weight: bold;
   font-size: 22px;
   line-height: 30px;
   color: #2b2f43;
+  padding-bottom: 20px;
 }
 
 .share-article-btn {
   float: bottom;
   width: 100%;
-  height: 62px;
+  height: 42px;
   background: #f6f6f6;
   color: #7f7b7b;
   text-align: left;
@@ -80,4 +80,17 @@
   left: 30px;
   border-radius: 0;
   margin-bottom: 4px;
+}
+
+.more-button {
+  float: bottom;
+  color: #f8f8f8;
+  padding: 12px 69px;
+  background-color: #d82434;
+  margin-left: -33px;
+}
+
+.more-button:hover {
+  text-decoration: none;
+  color: #f8f8f8;
 }

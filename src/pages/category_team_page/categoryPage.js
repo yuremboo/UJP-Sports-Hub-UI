@@ -160,9 +160,8 @@ const CategoryPage = ({ props, globalStore }) => {
         </div>
         <div className="category_page">
           <ArticleHeading
-            published={article["createDateTime"]}
-            title={article["title"]}
-            subtitle={article["caption"]}
+            article={article}
+            isArticlePage={false}
           />
           <img
             className="article-image"

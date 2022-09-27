@@ -1,4 +1,5 @@
 import "./custom-select.style.css";
+import React from 'react';
 
 const CustomSelect = ({handleChange,enumeration, label, selected, name, ...otherProps}) => {
     return (

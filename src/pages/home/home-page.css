@@ -1,3 +1,20 @@
+.home-articles {
+    padding-top: 60px;
+}
+
+.main-article-image {
+    margin-top: -28%;
+    height: 30%;
+    width: 84%;
+    max-height: 460px;
+    max-width: 814px;
+}
+.v-mini-articles {
+    display: flex;
+    flex-direction: row;
+    margin: 20px -14px;
+}
+
 .breakdown-section {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
