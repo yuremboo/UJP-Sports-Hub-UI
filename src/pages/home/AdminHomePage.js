@@ -291,41 +291,6 @@ const AdminHomePage = () => {
             ) : (
               <></>
             )}
-            <CustomPictureInput
-              // type="image"
-              label={"Picture.*"}
-              name={"picture"}
-              value={article.picture}
-              handleChange={handleChange}
-            />
-            <CustomInput
-              type="text"
-              label={"Alt.*"}
-              name={"alt"}
-              value={article.alt}
-              handleChange={handleChange}
-            />
-            <CustomInput
-              type="text"
-              label={"Photo title*"}
-              name={"title"}
-              value={article.title}
-              handleChange={handleChange}
-            />
-            <CustomInput
-              type="text"
-              label={"Short Description*"}
-              name={"caption"}
-              value={article.caption}
-              handleChange={handleChange}
-            />
-            <CustomInput
-              type="text"
-              label={"Author*"}
-              name={"author"}
-              value={article.author}
-              handleChange={handleChange}
-            />
           </form>
           <AdminCustomPictureInput
             handlePhotoSubmit={obj => addPhotoOfTheDay(obj)}

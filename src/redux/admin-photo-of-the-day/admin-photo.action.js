@@ -25,7 +25,7 @@ export async function addPhotoOfTheDay(photoData) {
     console.log("not form", formData)
     await axios
         .post('http://localhost:8080/api/v1/image?photoOfTheDay=true', formData,
-            { headers: {'Content-Type': 'multipart/form-data'} }
+            { headers: {'Content-Type': 'multipart/form-data', authorization: getJWTtoken()} }
         )
         .then((data) => {
             result = true
