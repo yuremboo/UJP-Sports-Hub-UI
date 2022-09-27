@@ -5,9 +5,18 @@ import axios from "axios";
 import TeamComponent from "../../Components/team/TeamComponent";
 import Header from "../../Components/Header";
 import NavBar from "../../Components/NavBar/MainNavBar";
+import {
+  userGetLocationRequest
+} from '../../redux/auth/auth.actions'
+import { connect, useSelector } from 'react-redux'
+import GeoPopup from "../../Components/GeolocationPopup/GeoPopup";
 
 
-const TeamHub = () => {
+const TeamHub = ({ getLocation }) => {
+  // const { userLocation } = auth;
+  const userLocation = useSelector(state => state.auth.userLocation);
+  console.log(userLocation, "location");
+  const [isUserSubscribed, setIsUserSubscribed] = useState(false);
   const [teamsSubscription, setTeamsSubscription] = useState([
     // {
     //   "subscriptionId": "1",
@@ -39,6 +48,9 @@ const TeamHub = () => {
     //   }
     // }
   ]);
+
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
+
   const [articlesByTeamsId, setArticlesByTeamsId] = useState([
     {
       "id": "1",
@@ -117,51 +129,55 @@ const TeamHub = () => {
     }
   ]);
   useEffect(() => {
-    getTeamsFollow();
+    getTeamsFollow("subscription");
     getMorePopularArticles();
+    getLocation();
   }, []);
 
-  function getTeamsFollow() {
-    console.log("function getTeamsFollow");
+  function getTeamsFollow(url) {
+    console.log(url);
     const set1AuthToken = JSON.parse(localStorage.getItem("user"));
-    console.log("token: ", set1AuthToken["jwt"]);
-    axios.get("http://localhost:8080/api/teams/subscription", {
+    axios.get(`http://localhost:8080/api/v1/teams/${url!=="subscription" ? userLocation: "subscription" }`, {
       headers: {
         authorization: set1AuthToken["jwt"]
       }
     })
       .then((response) => {
         const data = response.data;
-        console.log("getTeams");
-        console.log(response.data);
-        setTeamsSubscription(data);
+        if(url === "subscription"){
+          setIsUserSubscribed(true);
+          setTeamsSubscription(prevState => [...data]);
+        } else{
+          setIsUserSubscribed(false);
+          setTeamsSubscription(prevState => data.map(team => ({team:team})))
+        }
+
+        if (data.length === 0) {
+          setIsPopupOpened(true);
+          setTeamsSubscription([]);
+        }
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
         }
       });
   }
 
   function getMorePopularArticles() {
-    console.log("function getMorePopularArticles");
-    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
-    console.log("token: ", set1AuthToken["jwt"]);
+    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     axios.get("http://localhost:8080/api/v1/articles/morePopular", {
-      headers: {
-        authorization: set1AuthToken["jwt"]
-      }
+      // headers: {
+      //   authorization: set1AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
+        console.log("getMorePopularArticles");
+        console.log(response.data);
         setMorePopularArticles(data);
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
+        if (error.response) {}
       });
   }
 
@@ -226,8 +242,9 @@ const TeamHub = () => {
 
             <div className="all_teams">
               {
-                teamsSubscription.map(team =>
-                  <TeamComponent team={team} />
+                teamsSubscription.map((team, index) =>
+                       <TeamComponent key={index} team={team} isSubscribed={isUserSubscribed} />
+
                 )
               }
             </div>
@@ -235,7 +252,7 @@ const TeamHub = () => {
               <div className="mini-articles-l">
                 <span className="more-popular">MORE POPULAR</span>
                 <hr className="more-lin-l"></hr>
-                {morePopularArticles.slice(0, 3).map((miniArticle) => (
+                {morePopularArticles.map((miniArticle) => (
                   <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
                 ))}
               </div>
@@ -250,8 +267,16 @@ const TeamHub = () => {
           </div>
         </div>
       </div>
+      {isPopupOpened &&
+       <GeoPopup handleCancel={setIsPopupOpened} getTeamsFollow={getTeamsFollow} userLocation={userLocation}/>
+      }
     </div>
   );
 };
 
-export default TeamHub;
+const mapDispatchToProps = (dispatch) => ({
+  getLocation: () => dispatch(userGetLocationRequest()),
+})
+
+
+export default connect(null, mapDispatchToProps)(TeamHub);

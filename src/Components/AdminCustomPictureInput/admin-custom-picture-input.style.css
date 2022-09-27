@@ -1,0 +1,209 @@
+.admin-form-label{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    margin: 0;
+    color: #7F8899;
+}
+.admin-form-picture{
+    width: 814px;
+    height: 578px;
+    position: relative;
+    overflow: hidden;
+    background-color: #C4C4C414;
+    border: 1px dashed #D1D1D1;
+}
+.admin-form-img{
+    width: 100%;
+    height: 100%;
+}
+
+.admin-form-picture:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* background: rgba(0,0,0,0.3); */
+    z-index: 2;
+}
+
+.admin-form-icons{
+    width: 18px;
+    height: 18px;
+}
+
+.admin-red-circle{
+    cursor: pointer;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D72130;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+
+.admin-center-icon{
+    width: 63px;
+    height: 63px;
+    top: 40%;
+    left: 50%;
+    padding: 16px;
+    transform: translate(-50%, -50%);
+}
+.admin-center-span{
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+.admin-span-under-photo-icon{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    align-items: center;
+    text-align: center;
+    color: black;
+}
+.admin-span-add-picture{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #D72130;
+}
+
+.admin-photo-switch {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.admin-photo-switch .show-hide-toggle{
+    height: 14px;
+    width: 26px;
+}
+
+.form-switch .form-check-input {
+    margin-left: 0;
+    margin-top: 2px;
+}
+
+.form-switch {
+    padding: 0;
+    /* padding-right: 5px; */
+}
+
+.span-photo {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: right;
+    color: #2B2F43;
+}
+
+.red-icon {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D72130;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.icon-wrapper {
+    position: absolute;
+    right: 23px;
+    top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transition: 0.4s;
+    z-index: 3;
+    overflow: hidden;
+}
+
+.photo-wrapper {
+    position: relative;
+}
+
+.admin-form-picture:hover .icon-wrapper{
+    transition: 0.4s;
+    opacity: 1;
+}
+
+.photo-wrapper input{
+    display: none;
+}
+
+.disable-span {
+    opacity: 0;
+}
+
+.disable-span .admin-span-under-photo-icon {
+    color: white;
+}
+
+.admin-form-picture:hover .disable-span {
+    opacity: 1;
+}
+
+.admin-form-picture:hover .background-photo {
+    filter: blur(4px);
+}
+
+
+.background-photo{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* background: rgba(0,0,0,0.3); */
+    z-index: 1;
+    transition: 0.4s;
+}
+.background-photo:hover{
+    filter: blur(4px);
+    transition: 0.4s;
+}
+
+.disable-icons {
+    display: none;
+}
+
+.photo__error {
+    margin: 0;
+    margin-top: 10px;
+    color: #D72130;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 19px;
+}
+
+.admin-photo-of-the-day .show-hide-toggle{
+    background-color: inherit;
+    color: inherit;
+}

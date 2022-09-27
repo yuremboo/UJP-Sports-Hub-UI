@@ -83,7 +83,7 @@ const ArticlePage = () => {
     axios
       .get("http://localhost:8080/api/v1/articles/" + id, {
         headers: {
-          authorization: bearer + currentUser["jwt"],
+          // authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
@@ -102,7 +102,7 @@ const ArticlePage = () => {
     axios
       .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {
         headers: {
-          authorization: bearer + currentUser["jwt"],
+          // authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
@@ -122,7 +122,7 @@ const ArticlePage = () => {
     axios
       .get("http://localhost:8080/api/v1/articles/" + id + "/comments-num", {
         headers: {
-          authorization: bearer + currentUser["jwt"],
+          // authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
@@ -141,7 +141,7 @@ const ArticlePage = () => {
     axios
       .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId, {
         headers: {
-          authorization: bearer + currentUser["jwt"],
+          // authorization: bearer + currentUser["jwt"],
         },
       })
       .then((response) => {
@@ -312,8 +312,9 @@ const ArticlePage = () => {
                 ]}
               ></SortByDropDown>
             </div>
+              {currentUser === null ? "" :
             <form className="write-comment-box">
-              <img className="user-image" src={currentUser.image? currentUser.image: defaultUserImage} alt="user" />
+            <img className="user-image" src={currentUser.image? currentUser.image: defaultUserImage} alt="user" />
               <textarea
                 className="comment-input"
                 rows="3"
@@ -328,7 +329,7 @@ const ArticlePage = () => {
               >
                 Submit
               </Button>
-            </form>
+            </form>}
             {comments.length > 0 ? (
               <div className="read-comment-box">
                 {comments.slice(0, commentsNum).map((comment) => (

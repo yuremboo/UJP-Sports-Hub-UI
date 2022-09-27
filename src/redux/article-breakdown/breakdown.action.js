@@ -19,12 +19,10 @@ export function getBreakdownArticles(firstCategoryId, secondCategoryId) {
         try {
             dispatch(breakdownRequestStart())
             const firstArticlesResponse = await axios.get(`http://localhost:8080/api/v1/articles/newest/${firstCategoryId}`, {
-                headers: { authorization: getState().auth.userObject.jwt }
             })
             const firstArticlesPayload = cutArticles(firstArticlesResponse.data);
 
             const secondArticlesResponse = await axios.get(`http://localhost:8080/api/v1/articles/newest/${secondCategoryId}`, {
-                headers: { authorization: getState().auth.userObject.jwt }
             })
             const secondArticlesPayload = cutArticles(secondArticlesResponse.data);
 

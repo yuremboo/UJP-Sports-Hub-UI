@@ -20,37 +20,79 @@
     width: 100%;
 }
 
+.horizontal_scroll_menu{
+    width: 100%;
+    justify-content: center;
+    background-color: #FFFFFF;
+}
+.category_button{
+    margin: 7%;
+    background-color: #FFFFFF;
+}
+
 .react-horizontal-scrolling-menu--arrow-left,
 .react-horizontal-scrolling-menu--arrow-right{
     width: max-content;
     margin: 0 1%;
 }
 
-
-
-
 /* hide scrollbar */
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
     display: none;
 }
 .react-horizontal-scrolling-menu--scroll-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
-/**/
-
 
 .arrow_button{
     border: none;
     background-color: transparent;
-    /*margin: 0 1%;*/
 }
 .left_arrow_button{
     transform: rotate(180deg);
-    /*margin-top: 1%;*/
 }
 
 .left_arrow_button:hover *,
 .right_arrow_button:hover *{
     fill: #D72130;
+}
+
+.category_button{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #B2B2B2;
+    margin: 2% 1%;
+}
+
+.category_button button{
+    width: max-content;
+    border: none;
+    background-color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 19px;
+    color: rgba(178, 178, 178, 1);
+}
+
+.category_button:hover button {
+    color: #D72130;
+}
+
+.cat_button,
+.cat_button:hover {
+    marker: none;
+    margin-top: 3%;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #C63638;
 }
