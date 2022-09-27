@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {userLogoutRequest} from "../../redux/auth/auth.actions";
 import {connect} from "react-redux";
-import profilePhoto from "../../icons/userProfilePhoto.svg";
+import profilePhoto from "../../icons/userProfilePhoto.jpg";
 import "./profilesectionheader.css";
 import Dropdown from 'react-bootstrap/Dropdown';
 import polygon from "../../icons/Polygon.svg";

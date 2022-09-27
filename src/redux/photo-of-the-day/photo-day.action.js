@@ -19,7 +19,6 @@ export function getPhotoOfTheDay() {
         try {
             dispatch(photoOfTheDayRequestStart())
             const photoOfTheDayResponse = await axios.get("http://localhost:8080/api/v1/photoOfTheDay", {
-                headers: { authorization: getState().auth.userObject.jwt }
             })
 
             dispatch(photoOfTheDayRequestSuccess(photoOfTheDayResponse.data))

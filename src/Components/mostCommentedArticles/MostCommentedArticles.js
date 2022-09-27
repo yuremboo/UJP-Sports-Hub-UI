@@ -5,7 +5,7 @@ import MiniArticle from "../article/MiniArticle";
 import "./mostcommentedarticles.css";
 
 const MostCommentedArticles = () => {
-  const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
+  // const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
   const [mostCommentedArticles, setMostCommentedArticles] = useState([]);
   useEffect(() => {
     getMostCommentedArticles();
@@ -13,9 +13,9 @@ const MostCommentedArticles = () => {
 
   function getMostCommentedArticles() {
     axios.get("http://localhost:8080/api/v1/articles/most_commented", {
-      headers: {
-        "Authorization": authToken
-      }
+      // headers: {
+      //   "Authorization": authToken
+      // }
     })
       .then((response) => {
         setMostCommentedArticles(response.data);
