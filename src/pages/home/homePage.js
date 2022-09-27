@@ -44,9 +44,6 @@ const HomePage = ({
         getPhotoOfTheDay()
     }, [])
 
-    useEffect(() => {
-    }, [photoOfTheDay])
-
     const miniFirstArticlesPayload = firstArticlesPayload.slice(1)
     const miniSecondArticlesPayload = secondArticlesPayload.slice(1)
 
@@ -57,7 +54,6 @@ const HomePage = ({
                 <NavBar/>
                 <main>
                     <h2>Home page</h2>
-                    <button onClick={logOut}>LOG OUT</button>
                     <div className='breakdown-header'>
                         <hr/>
                         <div className='breakdown-header__text'>
@@ -104,13 +100,11 @@ const HomePage = ({
                                 PHOTO OF THE DAY
                             </p>
                         </div>
-                        <img src="http://localhost:8080/api/v1/image/photo-of-the-day.jpg" alt='dayPhoto'/>
+                        <img src="http://localhost:8080/api/v1/image/photo-of-the-day.jpg" alt={photoOfTheDay?.alt ?? "dayPhoto"} />
                         <div className='text-container'>
-                            <p className='text-container__title'>Defending The Throne</p>
-                            <p className='text-container__caption'>Los Angeles Lakes guard Derek Fisher, right, is
-                                pressured by the Denver Nuggets Nene during th efirst quarter of NBA exhibition action
-                                on Oct 16</p>
-                            <p className='text-container__author'>Photo Courtesy MCT</p>
+                            <p className='text-container__title'>{photoOfTheDay?.title ?? ""}</p>
+                            <p className='text-container__caption'>{photoOfTheDay?.shortDescription ?? ""}</p>
+                            <p className='text-container__author'>{photoOfTheDay?.author ?? ""}</p>
                         </div>
                     </div>
                     <div className='most-popular-and-commented-section'>
@@ -121,6 +115,7 @@ const HomePage = ({
                             <MostCommentedArticles/>
                         </div>
                     </div>
+                    <Footer/>
                 </main>
             </div>
         </div>
@@ -130,7 +125,7 @@ const HomePage = ({
 const mapDispatchToProps = (dispatch) => ({
     logOutUser: () => dispatch(userLogoutRequest()),
     getArticles: () => dispatch(getBreakdownArticles(1, 4)), // ids
-    getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay('photo-of-the-day.jpg'))
+    getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay())
 })
 const mapStateToProps = (state) => ({
     auth: state.auth,

@@ -1,0 +1,131 @@
+.blured-background{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(77, 75, 75, 0.4);
+    z-index: 11;
+    backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.auxiliary-div{
+    width: 458px;
+    height: 293px;
+    display: flex;
+    align-items: end;
+    position: relative;
+    justify-content: center;
+}
+.white-rectangle{
+    width: 458px;
+    height: 250px;
+    background: #FFFFFF;
+    z-index: 12;
+    position: relative;
+}
+
+.red-circle-warning{
+    top: 0;
+    position: absolute;
+    width: 86px;
+    height: 86px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D72130;
+    border-radius: 50%;
+    z-index: 13;
+    padding-bottom: 7px;
+}
+.icon-warning{
+    width: 38px;
+    height: 38px;
+}
+
+.div-text{
+    width: 458px;
+    height: 100%;
+}
+.span-headline-warning{
+    position: absolute;
+    width: 235px;
+    height: 20px;
+    top: 27%;
+    left: 25%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    color: #000000;
+}
+.span-info .span-cancellation-info{
+    position: absolute;
+    width: 281px;
+    height: 42px;
+    top: 47%;
+    left: 20%;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    text-align: center;
+    color: #000000;
+}
+
+
+.yes-no-div{
+    position: absolute;
+    width: 458px;
+    height: 30%;
+    border-top: 1px solid #EDEDED;
+    top: 70%;
+}
+.yes-no-buttons{
+    padding-top: 15px;
+    position: absolute;
+    right: 7%;
+    display: flex;
+}
+.button-no{
+    border: none;
+    background: none;
+    width: 110px;
+    height: 36px;
+}
+.button-yes{
+    background: #D72130;
+    border: 1px solid #C63638;
+    box-sizing: border-box;
+    width: 110px;
+    height: 36px;
+}
+.span-no{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #D72130;
+    padding-bottom: 5px;
+}
+.span-yes{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    padding-bottom: 5px;
+}

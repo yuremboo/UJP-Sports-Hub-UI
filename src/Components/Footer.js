@@ -14,17 +14,16 @@ import AdminMainArticleSection from "./Home/AdminMainArticleSection";
 
 export default function Footer() {
   const [emailInputText, setEmailInputText] = useState([]);
-  const AuthToken = JSON.parse(localStorage.getItem("user"));
+  // const AuthToken = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     postSubscription();
   }, []);
 
   function postSubscription(newSubscription) {
-    console.log("token: ", AuthToken["jwt"]);
     axios.post("http://localhost:8080/api/v1/newEmail", newSubscription, {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
+      // headers: {
+      //   authorization: AuthToken["jwt"]
+      // }
     })
       .catch((error) => {
         if (error.response) {

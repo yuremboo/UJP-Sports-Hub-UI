@@ -20,6 +20,16 @@
     width: 100%;
 }
 
+.horizontal_scroll_menu{
+    width: 100%;
+    justify-content: center;
+    background-color: #FFFFFF;
+}
+.category_button{
+    margin: 7%;
+    background-color: #FFFFFF;
+}
+
 .react-horizontal-scrolling-menu--arrow-left,
 .react-horizontal-scrolling-menu--arrow-right{
     width: max-content;
