@@ -24,16 +24,32 @@ import { useNavigate } from "react-router-dom";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
-//import React from "@types/react";
+import PhotoOfTheDay from "../../Components/photo-of-the-day/PhotoOfTheDay";
+import AdminCustomPictureInput from "../../Components/AdminCustomPictureInput/AdminCustomPictureInput";
+import { addPhotoOfTheDay, addPhotoOfTheDaySection } from "../../redux/admin-photo-of-the-day/admin-photo.action";
+
+const initialValues = {
+  alt: "",
+  photoTitle: "",
+  shortDescription: "",
+  author: "",
+  isHidden: false
+}
 
 const AdminHomePage = () => {
   //const { id } = useParams();
+  const navigate = useNavigate();
   const AuthToken = JSON.parse(localStorage.getItem("user"));
     const [IsLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [values, setValues] = useState(initialValues);
+  const [image, setImage] = useState([]);
   const [allArticles, setAllArticle] = useState([]);
-    const [isCancel, setIsCancel] = useState(false)
+  const [isCancel, setIsCancel] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [errors, setErrors] = useState("");
+
   const [article, setArticle] = useState({
     picture: "Picture",
     category: "Category",
@@ -44,10 +60,10 @@ const AdminHomePage = () => {
     caption: "Caption",
     text: "Text"
   });
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
-    // const [totalPages, setTotalPages] = useState(1);
-    // let navigate = useNavigate();
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [sizeOfArticlesOnPage, setSizeOfArticlesOnPage] = useState(5);
+  // const [totalPages, setTotalPages] = useState(1);
+  // let navigate = useNavigate();
 
     const [currentCategory, setCurrentCategory] = useState({
         "id": "0", "name": "HOME"
@@ -120,9 +136,9 @@ const AdminHomePage = () => {
     return result;
   }
 
-  const [inputList, setInputList] = useState([] );
-  function addInInput () {
-    for(let i=0;i<3;i++) {
+  const [inputList, setInputList] = useState([]);
+  function addInInput() {
+    for (let i = 0; i < 3; i++) {
       setInputList(inputList.concat(
         <AdminMainArticleSection
           key={inputList.length}
@@ -146,7 +162,28 @@ const AdminHomePage = () => {
         allArticles={allArticles}
       />));
   };
-  function deleteSection (key) {
+
+  const clearAllInputs = () => {
+    setImage([])
+    setValues(initialValues)
+    setIsCancel(false)
+    setErrors({})
+    setIsSaved(false)
+  }
+
+  const handleSubmit = async () => {
+    const { alt, shortDescription, photoTitle, author } = values
+    console.log("errors", errors)
+    if (isValid()) {
+      const resultPhoto = await addPhotoOfTheDaySection({ alt, shortDescription, title: photoTitle, author })
+      const resultPhotoSection = await addPhotoOfTheDay(image[0])
+      if (resultPhoto && resultPhotoSection) {
+        clearAllInputs()
+      }
+    }
+  }
+
+  function deleteSection(key) {
     setInputList(inputList.filter((article) => inputList.indexOf(article) !== key));
     //setInputList(inputList.splice(key, 1));
   };
@@ -162,102 +199,111 @@ const AdminHomePage = () => {
     console.log(article);
   };
 
-    return (
-        <div className="all_articles_admin__page">
-            <div className="all_articles_admin__header">
-                <div className="sportshub">Sports hub</div>
-                <div className="all_articles_admin__right_header">
-                    <button className="accountSwitcher__button">
-                        <img src={accountSwitcher} width="30%" height="30%"/>
-                    </button>
-                    <div className="admin__profile_section">
-                        <ProfileSection/>
-                    </div>
-                </div>
-            </div>
+  const validateInput = data => {
+    let errors = {}
+    console.log("data", data)
+    if (!/^[A-Za-z]{1,32}$/.test(data.author)) {
+      errors.author = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.alt)) {
+      errors.alt = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.shortDescription)) {
+      errors.shortDescription = "Field should't be empty"
+    }
+    if (!/^[A-Za-z]{1,32}$/.test(data.photoTitle)) {
+      errors.photoTitle = "Field should't be empty"
+    }
+    console.log("title", data.photoTitle)
+    if (image.length === 0) {
+      errors.image = "Field should't be empty"
+    }
 
-            <div className="all_articles_admin__current_category__new_article">
-                <div className="all_articles_admin__current_category">
-                    {
-                        currentCategory.name
-                    }
-                </div>
-                    <SaveCancelChanges
-                        handleSubmit={putArticle()}
-                        handleCancel={() => setIsCancel(true)}
-                    />
-                {isCancel && <CancellationPopup
-                    handleCancel={() => setIsCancel(false)}
-                />}
-                {/*<NavBarIcons className={"nav-bar-icons"}/>*/}
-            </div>
+    return {
+      errors,
+      isValid: JSON.stringify(errors) === '{}'
+    }
+  }
 
-            <div className="all_articles_admin__categories_buttons">
-                <HorizontalScrollMenu/>
-            </div>
+  const isValid = () => {
+    const { errors, isValid } = validateInput(values, image)
+    if (!isValid) {
+      setErrors(errors)
+    }
 
-        <form className="form-container">
+    return isValid
+  }
+
+  return (
+    <>
+      {isSaved && <CancellationPopup
+        handleCancel={() => setIsSaved(false)}
+        handleSubmit={handleSubmit}
+        title={"Would you like to save last changement?"}
+        text={"You've made some changes! Do you want to save them?"}
+      />}
+      {isCancel && <CancellationPopup
+        handleCancel={() => setIsCancel(false)}
+        handleSubmit={clearAllInputs}
+      />}
+      <div className="all_articles_admin__page">
+        <div className="all_articles_admin__header admin__header">
+          <div className="sportshub">Sports hub</div>
+
+          <div className="all_articles_admin__right_header">
+            <button className="accountSwitcher__button">
+              <img src={accountSwitcher} width="30%" height="30%" />
+            </button>
+            <div className="admin__profile_section">
+              <ProfileSection />
+            </div>
+          </div>
+        </div>
+        <SaveCancelChanges handleSubmit={() => { isValid() && setIsSaved(true) }} handleCancel={() => { setIsCancel(true) }} saveProp={"Save all changes"} title={"Home"} />
+
+        <div className="all_articles_admin__categories_buttons">
+          <HorizontalScrollMenu />
+        </div>
+        <>
+          <form className="form-container">
             <div className={"form-preview"}>
-                <button className={"button-eye"} type={"button"}>
-                    <img className={"img-eye"} src={Eye} alt="Eye" />
-                    <span className={"span-preview"}>Preview</span>
-                </button>
+              <button className={"button-eye"} type={"button"}>
+                <img className={"img-eye"} src={Eye} alt="Eye" />
+                <span className={"span-preview"}>Preview</span>
+              </button>
             </div>
             <div className="breakdown-header">
-                <hr />
-                <div className="article-home-main-header__text">
-                    <p>MAIN ARTICLES</p>
-                </div>
+              <hr />
+              <div className="article-home-main-header__text">
+                <p>MAIN ARTICLES</p>
+              </div>
             </div>
 
             {inputList}
             {inputList.length < 5 ? (
-                <div>
-                    <button className={"add-article-section"}
-                            onClick={onAddBtnClick}>
-                        <span className={"span-add-article-section"}>+Add one more article</span>
-                    </button>
-                </div>
+              <div>
+                <button className={"add-article-section"}
+                  onClick={onAddBtnClick}>
+                  <span className={"span-add-article-section"}>+Add one more article</span>
+                </button>
+              </div>
             ) : (
-                <></>
+              <></>
             )}
-            <CustomPictureInput
-                // type="image"
-                label={"Picture.*"}
-                name={"picture"}
-                value={article.picture}
-                handleChange={handleChange}
-            />
-            <CustomInput
-                type="text"
-                label={"Alt.*"}
-                name={"alt"}
-                value={"Picture represent teams"}
-                handleChange={handleChange}
-            />
-            <CustomInput
-                type="text"
-                label={"Photo title*"}
-                name={"title"}
-                value={"Defending The Throne"}
-                handleChange={handleChange}
-            />
-            <CustomInput
-                type="text"
-                label={"Short Description*"}
-                name={"caption"}
-                value={"Los Angeles Lakes guard Derek Fisher, right, pressured by the Denver Nuggets Nene during th efirst quarter of NBA exhibition action on Oct 16"}
-                handleChange={handleChange}
-            />
-            <CustomInput
-                type="text"
-                label={"Author*"}
-                name={"caption"}
-                value={"Photo Courtesy MCT"}
-                handleChange={handleChange}
-            />
-        </form>
-    </div>);
+          </form>
+          <AdminCustomPictureInput
+            handlePhotoSubmit={obj => addPhotoOfTheDay(obj)}
+            handlePhotoSectionSubmit={obj => addPhotoOfTheDaySection(obj)}
+            image={image}
+            setImage={setImage}
+            values={values}
+            setValues={setValues}
+            errors={errors}
+            setErrors={setErrors}
+          />
+        </>
+      </div>
+    </>);
 };
 
 export default AdminHomePage;

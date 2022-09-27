@@ -54,8 +54,8 @@ html, body {
     padding-left: 6px;
 }
 
-.form-container{
-    padding-top: 11%;
+.all_articles_admin__page .form-container{
+    padding-top: calc(12.5% + 95px);
     max-width: 814px;
     margin: 0 auto;
     align-items: center;
@@ -186,4 +186,33 @@ html, body {
     left: 385px;
     top: 933px;
     border: 0;
+}
+
+.all_articles_admin__page{
+    position: relative;
+}
+
+.all_articles_admin__page .admin__header{
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    z-index: 101;
+}
+
+.all_articles_admin__page .bottom-header {
+    position: fixed;
+    right: 0;
+    top: 12%;
+    left: 0;
+    z-index: 100;
+}
+
+.all_articles_admin__page .all_articles_admin__categories_buttons {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    left: 0;
+    top: calc(12% + 80px);
 }

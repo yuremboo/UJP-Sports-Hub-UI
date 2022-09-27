@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomInput from "../../Components/CustomInput/CustomInput";
 import "./editArticle.style.css";
@@ -8,10 +8,11 @@ import Eye from "../../icons/Eye.svg"
 import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
-import {MDBSwitch} from 'mdb-react-ui-kit';
+import { MDBSwitch } from 'mdb-react-ui-kit';
 import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
 import {useParams} from "react-router-dom";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
+import PhotoOfTheDay from "../../Components/photo-of-the-day/PhotoOfTheDay";
 import Header from "../../Components/Header";
 
 const EditArticle = ({props, globalStore}) => {
@@ -154,6 +155,7 @@ const EditArticle = ({props, globalStore}) => {
     return (
         <div className={"edit-article"}>
             <header className={"edit-article-header"}>
+
                 <Header/>
                 <SaveCancelChanges
                     handleSubmit={() => putArticle(article, id)}
@@ -163,9 +165,10 @@ const EditArticle = ({props, globalStore}) => {
             {isCancel && <CancellationPopup
                 handleCancel={() => setIsCancel(false)}
             />}
-            <NavBarIcons className={"nav-bar-icons"}/>
+            <NavBarIcons className={"nav-bar-icons"} />
 
             {!IsLoading ?
+            <>
                 <form className="form-container">
                     <div className={"form-preview"}>
                         <button className={"button-eye"} type={"button"}>
@@ -244,6 +247,7 @@ const EditArticle = ({props, globalStore}) => {
                                    }}/>
                     </div>
                 </form>
+                 </>
                 : <h1>loading</h1>}
         </div>);
 }

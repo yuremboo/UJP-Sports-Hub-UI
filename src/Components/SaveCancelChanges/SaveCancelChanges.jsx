@@ -1,23 +1,19 @@
 import "./save-cancel-changes.style.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CancellationPopup from "../CancellationPopup/CancellationPopup";
 
-const SaveCancelChanges = ({handleSubmit, handleCancel}) => {
+const SaveCancelChanges = ({ handleSubmit, handleCancel, title, saveProp }) => {
     const navigate = useNavigate()
     return (
-        <div className={"all-components"}>
-            <label className={"left-label"}>NBA</label>
-            <div className={"buttons"}>
-                <div>
-                    <button className={"button-cancel"} onClick={handleCancel}>
-                        <span className={"span-cancel"}>Cancel</span>
-                    </button>
-                </div>
-                <div>
-                    <button className={"button-save"} onClick={handleSubmit}>
-                        <span className={"span-save"}>Save</span>
-                    </button>
-                </div>
+        <div className={"bottom-header"}>
+            <h2 className={"bottom-header__tittle"}>{title}</h2>
+            <div className={"bottom-header__buttons"}>
+                <button className={"buttons__cancel"} onClick={handleCancel}>
+                    Cancel
+                </button>
+                <button className={"buttons__save"} onClick={handleSubmit}>
+                    {saveProp}
+                </button>
             </div>
         </div>
     );

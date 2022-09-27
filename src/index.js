@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import ForgotPassword from "./pages/login/forgotPassword";
 import HomePage from "./pages/home/homePage";
@@ -40,13 +40,13 @@ root.render(
                     <Route path="/home" index element={<HomePage />} />
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
-                    <Route path="edit-article/:id" element={<EditArticle/>} />
+                    <Route path="edit-article/:id" element={getUserRole() === "ADMIN" ? <EditArticle/> :  <Navigate to={"/"}/>} />
                     <Route path="update-user-information/:profile" element={<Profile/>} />
                     <Route path="articles/:id" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>
-                    <Route path="admin/articles/category/:category" element={getUserRole() === "ADMIN" ? <ArticlesByCategoryAdmin/> : null}/>
+                    <Route path="admin/articles/category/:category" element={getUserRole() === "ADMIN" ? <ArticlesByCategoryAdmin/> : <Navigate to={"/"}/>}/>
                     <Route path="admin/articles/category/:category/is_active/:isActive"
-                           element={getUserRole() === "ADMIN" ? <IsActiveArticlesByCatAdmin/> : null}/>
+                           element={getUserRole() === "ADMIN" ? <IsActiveArticlesByCatAdmin/> : <Navigate to={"/"}/>}/>
                     <Route path="reset/password/:token" element={<ResetPassword/>}/>
                     <Route path="category/:id" element={<CategoryPage/>}/>
                 </Route>

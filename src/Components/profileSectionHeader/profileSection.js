@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {userLogoutRequest} from "../../redux/auth/auth.actions";
 import {connect} from "react-redux";
-import profilePhoto from "../../icons/userProfilePhoto.svg";
+import profilePhoto from "../../icons/userProfilePhoto.jpg";
 import "./profilesectionheader.css";
 import Dropdown from 'react-bootstrap/Dropdown';
 import polygon from "../../icons/Polygon.svg";
@@ -66,10 +66,10 @@ const ProfileSection = ({
                             {user.email}
                         </div>
                     </Dropdown.Item>
-                    <Dropdown.Item className="dropdown-item-active" href="#/action-2">View profile</Dropdown.Item>
-                    <Dropdown.Item className="dropdown-item" href="#/action-2">Change password</Dropdown.Item>
-                    <Dropdown.Item className="dropdown-item" href="#/action-2">My surveys</Dropdown.Item>
-                    <Dropdown.Item className="dropdown-item" href="#/action-2">Team Hub</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item-active" href="/update-user-information/userInfo">View profile</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item" href="/update-user-information/changePassword">Change password</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item" href="#">My surveys</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item" href="/update-user-information/subscriptionUser">Team Hub</Dropdown.Item>
                     <Dropdown.Item onClick={logOut} className="dropdown-item" href="login">Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

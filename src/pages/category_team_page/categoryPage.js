@@ -22,18 +22,13 @@ const CategoryPage = ({ props, globalStore }) => {
   }, []);
 
   function getArticleByCategory(id) {
-    console.log("function getArticleByCategory");
-    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
-    console.log("token: ", set1AuthToken["jwt"]);
     axios.get("http://localhost:8080/api/v1/articles/category_id/" + id+ "/is_active/true", {
-      headers: {
-        authorization: set1AuthToken["jwt"]
-      }
+      // headers: {
+      //   authorization: set1AuthToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
-        console.log("getArticles");
-        console.log(response.data);
         setArticlesByCategory(response.data.content);
       })
       .catch((error) => {

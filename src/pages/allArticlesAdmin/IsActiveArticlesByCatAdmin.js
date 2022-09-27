@@ -29,7 +29,7 @@ const IsActiveArticlesByCatAdmin = () => {
 
     function getCategoryById() {
         console.log("getCategoryById function");
-        axios.get("http://localhost:8080/api/categories/" + params.category, {
+        axios.get("http://localhost:8080/api/v1/categories/" + params.category, {
             headers: {
                 "Authorization": authToken
             }
