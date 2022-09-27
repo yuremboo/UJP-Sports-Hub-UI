@@ -139,11 +139,7 @@ const ArticlePage = () => {
 
   function getSixActiveMiniArticlesByCategoryId(categoryId, articleId) {
     axios
-      .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId, {
-        headers: {
-          // authorization: bearer + currentUser["jwt"],
-        },
-      })
+      .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId)
       .then((response) => {
         const data = response.data;
         setMiniArticles(data);

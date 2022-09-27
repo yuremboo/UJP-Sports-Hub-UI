@@ -103,7 +103,6 @@ const HomePage = ({
                             ))}
                         </div>
                     </div>
-                    <h2>Home page</h2>
                     <div className='breakdown-header'>
                         <hr/>
                         <div className='breakdown-header__text'>

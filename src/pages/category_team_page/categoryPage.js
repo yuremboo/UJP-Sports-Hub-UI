@@ -102,12 +102,12 @@ const CategoryPage = ({ props, globalStore }) => {
   }, []);
 
   function getArticleByCategory(id) {
-    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
+    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
     axios.get("http://localhost:8080/api/v1/articles/category_id/" + id+ "/is_active/true", {
-      // headers: {
-      //   authorization: set1AuthToken["jwt"]
-      // }
+      headers: {
+        authorization: set1AuthToken["jwt"]
+      }
     })
       .then((response) => {
         const data = response.data;

@@ -11,7 +11,7 @@ const MiniArticle = ({miniArticle}) => {
         <div className="mini-article-text">
           <span className="heading">{miniArticle.caption}</span>
           <span className="text-preview">
-            {miniArticle.title}{miniArticle.id}
+            {miniArticle.title}
           </span>
         </div>
         <div className="breakdown-arrow">

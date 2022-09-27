@@ -3,16 +3,16 @@
 }
 
 .main-article-image {
-    margin-top: -28%;
-    height: 30%;
-    width: 84%;
+    margin-top: -35%;
+    height: 100%;
+    width: 100%;
     max-height: 460px;
     max-width: 814px;
 }
 .v-mini-articles {
     display: flex;
     flex-direction: row;
-    margin: 20px -14px;
+    margin: 44px -14px;
 }
 
 .breakdown-section {
@@ -64,7 +64,6 @@
 .home-page main{
     width: 815px;
     margin-right: 20%;
-    margin-left: 50px;
 }
 
 .home-page {
