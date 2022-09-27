@@ -29,3 +29,7 @@
     width: 236px;
     color: #2B2F43;
 }
+
+.option-not-selected{
+    color: #7F8899;
+}

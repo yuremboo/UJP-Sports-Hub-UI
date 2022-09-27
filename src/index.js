@@ -18,6 +18,7 @@ import CategoryPage from "./pages/category_team_page/categoryPage";
 import ArticlesByCategoryAdmin from "./pages/allArticlesAdmin/ArticllesByCategoryAdmin";
 import AdminHomePage from "./pages/home/AdminHomePage";
 import IsActiveArticlesByCatAdmin from "./pages/allArticlesAdmin/IsActiveArticlesByCatAdmin";
+import AddArticle from "./pages/addArticle/addArticle";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 function getUserRole(){
@@ -41,6 +42,7 @@ root.render(
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="edit-article/:id" element={<EditArticle/>} />
+                    <Route path="add-article" element={<AddArticle/>} />
                     <Route path="update-user-information/:profile" element={<Profile/>} />
                     <Route path="articles/:id" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>

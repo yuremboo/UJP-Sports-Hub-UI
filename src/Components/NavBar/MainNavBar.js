@@ -49,8 +49,8 @@ export default function NavBar() {
               <li>HOME</li>
             </Nav.Link>
             {
-              categories.map(category =>
-                <Nav.Link className="link-1" href={"/category/" + category.id}>
+              categories.map((category, index) =>
+                <Nav.Link key={index} className="link-1" href={"/category/" + category.id}>
                   <li>{category.name}</li>
                 </Nav.Link>
               )

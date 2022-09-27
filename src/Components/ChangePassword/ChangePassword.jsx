@@ -26,6 +26,10 @@ const ChangePassword = () => {
                 authorization: AuthToken["jwt"]
             }
         })
+            .then(() => {
+                dispatch(userLogoutRequest())
+                navigate("/login");
+            })
             .catch((error) => {
                 if (error.response) {
                     console.log(error.response);
@@ -41,8 +45,6 @@ const ChangePassword = () => {
             password.newPassword.length !== 0 &&
             password.confirmPassword.length !== 0) {
             putPassword(password)
-            dispatch(userLogoutRequest())
-            navigate("/login");
         } else {
             console.log("The new password and the confirmation password do not match!")
         }

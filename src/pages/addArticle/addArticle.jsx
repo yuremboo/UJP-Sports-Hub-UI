@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import CustomInput from "../../Components/CustomInput/CustomInput";
-import "./editArticle.style.css";
+import "./add-article.style.css";
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
 import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 import Eye from "../../icons/Eye.svg"
@@ -9,13 +9,11 @@ import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
-import {useParams} from "react-router-dom";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 
-const EditArticle = ({props, globalStore}) => {
-    const {id} = useParams();
+const AddArticle = ({props, globalStore}) => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
 
     const [errors, setErrors] = useState("");
@@ -25,27 +23,16 @@ const EditArticle = ({props, globalStore}) => {
     const [categories, setCategories] = useState([]);
     const [article, setArticle] = useState({})
     useEffect(() => {
-        getArticle();
+        getTeamAndCategory();
     }, []);
 
-    function getArticle() {
-        console.log("function getArticle");
-        return axios.get("http://localhost:8080/api/v1/articles/" + id, {
+    function getTeamAndCategory() {
+        console.log("function getTeamAndCategory");
+        return axios.get("http://localhost:8080/api/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
         })
-            .then((response) => {
-                const data = response.data;
-                console.log("getArticle");
-                console.log(response.data);
-                setArticle({...data, category: data.category.id, team: data.team.id});
-                return axios.get("http://localhost:8080/api/categories", {
-                    headers: {
-                        authorization: AuthToken["jwt"]
-                    }
-                })
-            })
             .then((response) => {
                 const data = response.data;
                 console.log("getCategories");
@@ -71,19 +58,17 @@ const EditArticle = ({props, globalStore}) => {
             });
     }
 
-    function putArticle(article, id) {
+    function postArticle(article) {
         if (isValid()) {
             const sendArticle = {
-                id: article.id,
                 title: article.title,
                 text: article.text,
                 caption: article.caption,
                 alt: article.alt,
                 location: article.location,
-                picture: article.picture,
-                isActive: article.isActive,
+                picture: "article.picture",
+                isActive: true,
                 commentsActive: article.commentsActive,
-                createDateTime: article.createDateTime,
                 updateDateTime: article.updateDateTime,
                 categoryId: article.category,
                 teamId: article.team
@@ -92,7 +77,7 @@ const EditArticle = ({props, globalStore}) => {
             console.log(article);
             console.log("sendArticle");
             console.log(sendArticle);
-            axios.put("http://localhost:8080/api/v1/articles/" + id, sendArticle, {
+            axios.post("http://localhost:8080/api/v1/admin/articles", sendArticle, {
                 headers: {
                     authorization: AuthToken["jwt"]
                 }
@@ -150,7 +135,7 @@ const EditArticle = ({props, globalStore}) => {
             <header className={"edit-article-header"}>
                 <Header/>
                 <SaveCancelChanges
-                    handleSubmit={() => putArticle(article, id)}
+                    handleSubmit={() => postArticle(article)}
                     handleCancel={() => setIsCancel(true)}
                 />
                 <HorizontalScrollMenu/>
@@ -248,4 +233,4 @@ const EditArticle = ({props, globalStore}) => {
         </div>);
 }
 
-export default EditArticle;
+export default AddArticle;
