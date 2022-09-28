@@ -1,3 +1,4 @@
+import React from 'react';
 import "./save-cancel-changes.style.css";
 import { useNavigate } from "react-router-dom";
 import CancellationPopup from "../CancellationPopup/CancellationPopup";

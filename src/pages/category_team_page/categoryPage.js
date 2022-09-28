@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./categorypage.css";
 import { useParams } from "react-router-dom";
-import CategoryHeading from "../../Components/article/CategoryHeading";
+import ArticleHeading from "../../Components/article/ArticleHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
@@ -102,12 +102,12 @@ const CategoryPage = ({ props, globalStore }) => {
   }, []);
 
   function getArticleByCategory(id) {
-    // const set1AuthToken = JSON.parse(localStorage.getItem("user"));
+    const set1AuthToken = JSON.parse(localStorage.getItem("user"));
     //document.getElementsByTagName("Nav.Link")[0].getAttribute("href")
     axios.get("http://localhost:8080/api/v1/articles/category_id/" + id+ "/is_active/true", {
-      // headers: {
-      //   authorization: set1AuthToken["jwt"]
-      // }
+      headers: {
+        authorization: set1AuthToken["jwt"]
+      }
     })
       .then((response) => {
         const data = response.data;
@@ -155,9 +155,10 @@ const CategoryPage = ({ props, globalStore }) => {
         <div className="category_page">
           {articlesByCategory.slice(0, 1).map((article) => (
 
-          <CategoryHeading
-            article={articlesByCategory[0]}
-          />))}
+              <ArticleHeading
+                  article={article}
+                  isArticlePage={false}
+              />))}
           {articlesByCategory.slice(0, 1).map((article) => (
           <img
             className="article-image"

@@ -1,3 +1,4 @@
+import React from "react";
 import "./geo-popup.style.css";
 import { ReactComponent as Warning } from "../../icons/Warning.svg"
 import { useEffect } from "react";

@@ -1,3 +1,4 @@
+import React from 'react';
 import "./custom-textarea.style.css"
 
 const CustomTextarea = ({handleChange, label, ...otherProps}) => {
