@@ -11,6 +11,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import preview from "../../icons/Preview.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -95,7 +96,7 @@ const ArticlesByCategoryAdmin = () => {
                     }
                 </div>
                 <div className="all_articles_admin__new_article">
-                    <AddNewArticleBtn/>
+                    <AddNewArticleBtn name={currentCategory.name}/>
                 </div>
             </div>
 

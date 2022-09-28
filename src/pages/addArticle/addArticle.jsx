@@ -12,23 +12,42 @@ import {MDBSwitch} from 'mdb-react-ui-kit';
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import {useNavigate, useParams} from "react-router-dom";
+import accountSwitcher from "../../icons/accountSwitcher.svg";
+import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import React from "react";
 
 const AddArticle = ({props, globalStore}) => {
+    const {title} = useParams();
     const AuthToken = JSON.parse(localStorage.getItem("user"));
-
+    const navigate = useNavigate()
     const [errors, setErrors] = useState("");
     const [isCancel, setIsCancel] = useState(false)
-
     const [teams, setTeams] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [article, setArticle] = useState({})
+    const [article, setArticle] = useState({
+        id: "",
+        title: "",
+        text: "",
+        caption: "",
+        alt: "",
+        location: "",
+        picture: "",
+        isActive: false,
+        commentsActive: "",
+        createDateTime: null,
+        updateDateTime: null,
+        categoryId: "",
+        teamId: "",
+        selectedByAdmin: false
+    })
     useEffect(() => {
         getTeamAndCategory();
     }, []);
 
     function getTeamAndCategory() {
         console.log("function getTeamAndCategory");
-        return axios.get("http://localhost:8080/api/categories", {
+        return axios.get("http://localhost:8080/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -73,15 +92,14 @@ const AddArticle = ({props, globalStore}) => {
                 categoryId: article.category,
                 teamId: article.team
             };
-            console.log("article");
-            console.log(article);
-            console.log("sendArticle");
-            console.log(sendArticle);
             axios.post("http://localhost:8080/api/v1/admin/articles", sendArticle, {
                 headers: {
                     authorization: AuthToken["jwt"]
                 }
             })
+                .then(() => {
+                    navigate(-1);
+                })
                 .catch((error) => {
                     if (error.response) {
                         console.log(error.response);
@@ -89,13 +107,22 @@ const AddArticle = ({props, globalStore}) => {
                     }
                 });
         } else {
-            console.log("Fields are not valid!");
+            console.log(errors);
         }
     }
 
     const validateInput = data => {
         let errors = {}
 
+        if (data.categoryId === "") {
+            errors.categoryId = "Category cannot be empty"
+        }
+        if (data.teamId === "") {
+            errors.teamId = "Team cannot be empty"
+        }
+        if (data.location === "") {
+            errors.location = "Location cannot be empty"
+        }
         if (data.alt === "") {
             errors.alt = "Alt cannot be empty"
         }
@@ -120,7 +147,6 @@ const AddArticle = ({props, globalStore}) => {
         if (!isValid) {
             setErrors(errors)
         }
-
         return isValid
     }
 
@@ -133,15 +159,29 @@ const AddArticle = ({props, globalStore}) => {
     return (
         <div className={"edit-article"}>
             <header className={"edit-article-header"}>
-                <Header/>
+                <div className="all_articles_admin__header">
+                    <div className="sportshub">Sports hub</div>
+                    <div className="all_articles_admin__right_header">
+                        <button className="accountSwitcher__button">
+                            <img src={accountSwitcher} width="30%" height="30%"/>
+                        </button>
+                        <div className="admin__profile_section">
+                            <ProfileSection/>
+                        </div>
+                    </div>
+                </div>
                 <SaveCancelChanges
                     handleSubmit={() => postArticle(article)}
                     handleCancel={() => setIsCancel(true)}
+                    title={title}
+                    saveProp={"Save"}
+                    check={true}
                 />
                 <HorizontalScrollMenu/>
             </header>
             {isCancel && <CancellationPopup
                 handleCancel={() => setIsCancel(false)}
+                handleSubmit={() => navigate(-1)}
             />}
             <NavBarIcons className={"nav-bar-icons"}/>
 
@@ -159,6 +199,17 @@ const AddArticle = ({props, globalStore}) => {
                     value={article.picture}
                     handleChange={handleChange}
                 />
+                <div className={"select-errors"}>
+                {errors.categoryId && <p className='photo__error'>
+                    {errors.categoryId}
+                </p>}
+                {errors.teamId && <p className='photo__error'>
+                    {errors.teamId}
+                </p>}
+                {errors.location && <p className='photo__error'>
+                    {errors.location}
+                </p>}
+                </div>
                 <div className="custom-select-container">
                     <CustomSelect
                         label={"Subcategory"}
@@ -186,6 +237,9 @@ const AddArticle = ({props, globalStore}) => {
                     />
                 </div>
 
+                {errors.alt && <p className='photo__error'>
+                    {errors.alt}
+                </p>}
                 <CustomInput
                     type="text"
                     label={"Alt.*"}
@@ -194,6 +248,9 @@ const AddArticle = ({props, globalStore}) => {
                     value={article.alt}
                     handleChange={handleChange}
                 />
+                {errors.title && <p className='photo__error'>
+                    {errors.title}
+                </p>}
                 <CustomInput
                     type="text"
                     label={"Article headline*"}
@@ -202,6 +259,9 @@ const AddArticle = ({props, globalStore}) => {
                     value={article.title}
                     handleChange={handleChange}
                 />
+                {errors.caption && <p className='photo__error'>
+                    {errors.caption}
+                </p>}
                 <CustomInput
                     type="text"
                     label={"Caption*"}
@@ -210,6 +270,9 @@ const AddArticle = ({props, globalStore}) => {
                     value={article.caption}
                     handleChange={handleChange}
                 />
+                {errors.text && <p className='photo__error'>
+                    {errors.text}
+                </p>}
                 <CustomTextarea
                     label={"Content"}
                     name={"text"}

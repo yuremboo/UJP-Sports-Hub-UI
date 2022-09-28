@@ -260,7 +260,7 @@ const AdminHomePage = () => {
             </div>
           </div>
         </div>
-        <SaveCancelChanges handleSubmit={() => { isValid() && setIsSaved(true) }} handleCancel={() => { setIsCancel(true) }} saveProp={"Save all changes"} title={"Home"} />
+        <SaveCancelChanges handleSubmit={() => { isValid() && setIsSaved(true) }} handleCancel={() => { setIsCancel(true) }} saveProp={"Save all changes"} title={"Home"} check={true} />
 
         <div className="all_articles_admin__categories_buttons">
           <HorizontalScrollMenu />

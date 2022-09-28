@@ -25,7 +25,7 @@ html, body {
     display: flex;
     flex-direction: column;
     left: 0;
-    top: 24%;
+    top: 27%;
     justify-content: space-between;
     background-color: #F8F8F8;
     border-right: 1px solid #D4D9E2;
@@ -63,6 +63,12 @@ html, body {
     justify-content: center;
     display: flex;
     flex-direction: column;
+}
+
+.select-errors{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .custom-select-container{

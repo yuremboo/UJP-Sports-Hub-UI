@@ -16,10 +16,7 @@ const ShortArticleAdmin = (props) => {
     let navigate = useNavigate();
 
     function UnPublish(){
-
-        console.log("unpublish article.id: ", props.id)
-        console.log("token", authToken)
-        axios.put("http://localhost:8080/api/v1/admin/articles/publish/" + props.id, {
+        axios.put("http://localhost:8080/api/v1/admin/articles/publish/" + props.id, null,{
             headers: {
                 "Authorization": authToken
             }
@@ -110,7 +107,7 @@ const ShortArticleAdmin = (props) => {
                   <div className='n_shortarticle__button'>
                       <DropdownButton id="dropdown-basic-button" title="...">
                           <Dropdown.Item onClick={UnPublish}>Publish</Dropdown.Item>
-                          <Dropdown.Item href={"/edit-article/"+props.id}>Edit</Dropdown.Item>
+                          <Dropdown.Item href={"/edit-article/"+props.id+"/"+props.category}>Edit</Dropdown.Item>
                           <Dropdown.Item onClick={deleteArticle}>Delete</Dropdown.Item>
                           <Dropdown.Item>Move</Dropdown.Item>
                       </DropdownButton>
