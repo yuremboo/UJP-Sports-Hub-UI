@@ -12,6 +12,7 @@
     z-index: 1;
 }
 .n_all_articles_admin__header{
+    border-bottom: 1px solid #D4D9E2;
     display: flex;
     position: relative;
     height: 50%;

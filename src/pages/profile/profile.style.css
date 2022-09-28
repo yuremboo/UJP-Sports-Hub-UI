@@ -7,6 +7,16 @@
     background-color: #F8F8F8;
     margin-top: 10px;
 }
+.profile_admin__header__outer_fixed{
+    height: 12%;
+}
+.profile_admin__header{
+    border-bottom: 1px solid #D4D9E2;
+    display: flex;
+    height: 100%;
+    position: relative;
+    background-color: #FFFFFF;
+}
 .update-user__wrapper{
     position: relative;
 }
