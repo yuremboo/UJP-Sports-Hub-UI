@@ -1,3 +1,4 @@
+import React from 'react';
 import "./custom-input.style.css";
 
 const CustomInput = ({handleChange, label, value, placeholder, ...otherProps}) => {

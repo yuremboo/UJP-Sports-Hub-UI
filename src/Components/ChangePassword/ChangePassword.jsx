@@ -1,3 +1,4 @@
+import React from 'react';
 import "./change-password.style.css";
 import CustomInput from "../CustomInput/CustomInput";
 import {useState} from "react";

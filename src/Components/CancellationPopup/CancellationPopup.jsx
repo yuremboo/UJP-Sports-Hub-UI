@@ -1,4 +1,5 @@
 import "./cancellation-popup.style.css";
+import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {ReactComponent as Warning} from "../../icons/Warning.svg"
 import {useEffect} from "react";

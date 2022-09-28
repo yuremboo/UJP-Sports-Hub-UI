@@ -48,8 +48,8 @@ const ArticlePage = () => {
     commentsActive: false,
     createDateTime: "",
     updateDateTime: null,
-    categoryId: "",
-    teamId: ""
+    category: {},
+    teamId: {}
   });
 
   const [allCommentsNum, setAllCommentNum] = useState(0);
@@ -62,8 +62,8 @@ const ArticlePage = () => {
   }, [id]);
 
   useEffect(() => {
-    if (article.categoryId){
-    getSixActiveMiniArticlesByCategoryId(article.categoryId, article.id);
+    if (article.category.id){
+    getSixActiveMiniArticlesByCategoryId(article.category.id, article.id);
     }
     if (article.commentsActive) {
     getCommentsByArticleId(id, "popular", commentsNum);
@@ -99,7 +99,6 @@ const ArticlePage = () => {
   }
 
   function getCommentsByArticleId(id, sortingMethod, commentsNum) {
-    console.log("getCommentsByArticleId: ______________");
     axios
       .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {
         headers: {
@@ -140,11 +139,7 @@ const ArticlePage = () => {
 
   function getSixActiveMiniArticlesByCategoryId(categoryId, articleId) {
     axios
-      .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId, {
-        headers: {
-          // authorization: bearer + currentUser["jwt"],
-        },
-      })
+      .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId)
       .then((response) => {
         const data = response.data;
         setMiniArticles(data);
@@ -288,9 +283,8 @@ const ArticlePage = () => {
     <div>
       <div className="article">
         <ArticleHeading
-          published={article["createDateTime"]}
-          title={article["title"]}
-          subtitle={article["caption"]}
+          article={article}
+          isArticlePage={true}
         />
         <img
           className="article-image"

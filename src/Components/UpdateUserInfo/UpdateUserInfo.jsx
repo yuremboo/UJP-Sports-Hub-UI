@@ -1,3 +1,4 @@
+import React from 'react';
 import "./update-user-info.style.css";
 import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
 import {ReactComponent as Photo} from "../../icons/photoEditor/Photo.svg";

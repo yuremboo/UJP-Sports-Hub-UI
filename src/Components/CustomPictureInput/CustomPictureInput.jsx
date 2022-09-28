@@ -1,4 +1,5 @@
 import "./custom-picture-input.style.css";
+import React from 'react';
 import {ReactComponent as Photo} from "../../icons/photoEditor/Photo.svg";
 import {ReactComponent as Trash} from "../../icons/photoEditor/Trash.svg";
 import {ReactComponent as Scale} from "../../icons/photoEditor/Scale.svg";

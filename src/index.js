@@ -23,6 +23,7 @@ import AddArticle from "./pages/addArticle/addArticle";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 function getUserRole(){
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log("user", user)
     if (user != null){
         return JSON.parse(localStorage.getItem("user")).role;
     }

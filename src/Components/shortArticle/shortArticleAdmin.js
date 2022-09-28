@@ -24,6 +24,7 @@ const ShortArticleAdmin = (props) => {
             .then((response) => {
                 setIsActive(!props.isPublished);
                 console.log("isActive was changed");
+                navigate(0);
             })
             .catch((error) => {
                 if (error.response) {

@@ -9,9 +9,9 @@ const MiniArticle = ({miniArticle}) => {
       <div className="mini-article">
         <img className="mini-article-img" src={miniArticlePhoto} alt="article-img" />
         <div className="mini-article-text">
-          <span className="heading">{miniArticle.title}</span>
+          <span className="heading">{miniArticle.caption}</span>
           <span className="text-preview">
-            {miniArticle.shortText}{miniArticle.id}
+            {miniArticle.title}
           </span>
         </div>
         <div className="breakdown-arrow">

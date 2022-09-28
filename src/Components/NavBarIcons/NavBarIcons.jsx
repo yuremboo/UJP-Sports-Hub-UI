@@ -1,4 +1,5 @@
 import {ReactComponent as Surveys} from "../../icons/iconsNavBar/Surveys.svg"
+import React from 'react';
 import {ReactComponent as Banners} from "../../icons/iconsNavBar/Banners.svg"
 import {ReactComponent as Languages} from "../../icons/iconsNavBar/Langueges.svg"
 import {ReactComponent as Footer} from "../../icons/iconsNavBar/Footer.svg"
