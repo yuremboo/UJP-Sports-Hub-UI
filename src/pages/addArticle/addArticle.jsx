@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import CustomInput from "../../Components/CustomInput/CustomInput";
-import "./editArticle.style.css";
+import "./add-article.style.css";
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
 import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 import Eye from "../../icons/Eye.svg"
@@ -9,24 +9,20 @@ import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
-import {useNavigate, useParams} from "react-router-dom";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
-import {userLogoutRequest} from "../../redux/auth/auth.actions";
+import {useNavigate, useParams} from "react-router-dom";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
-import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import React from "react";
 
-const EditArticle = ({props, globalStore}) => {
+const AddArticle = ({props, globalStore}) => {
     const {title} = useParams();
-    const {id} = useParams();
     const AuthToken = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate()
     const [errors, setErrors] = useState("");
     const [isCancel, setIsCancel] = useState(false)
-
     const [teams, setTeams] = useState([]);
     const [categories, setCategories] = useState([]);
     const [article, setArticle] = useState({
@@ -46,27 +42,16 @@ const EditArticle = ({props, globalStore}) => {
         selectedByAdmin: false
     })
     useEffect(() => {
-        getArticle();
+        getTeamAndCategory();
     }, []);
 
-    function getArticle() {
-        console.log("function getArticle");
-        return axios.get("http://localhost:8080/api/v1/articles/" + id, {
+    function getTeamAndCategory() {
+        console.log("function getTeamAndCategory");
+        return axios.get("http://localhost:8080/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
         })
-            .then((response) => {
-                const data = response.data;
-                console.log("getArticle");
-                console.log(response.data);
-                setArticle({...data, category: data.category.id, team: data.team.id});
-                return axios.get("http://localhost:8080/api/v1/categories", {
-                    headers: {
-                        authorization: AuthToken["jwt"]
-                    }
-                })
-            })
             .then((response) => {
                 const data = response.data;
                 console.log("getCategories");
@@ -92,26 +77,22 @@ const EditArticle = ({props, globalStore}) => {
             });
     }
 
-    function putArticle(article, id) {
+    function postArticle(article) {
         if (isValid()) {
-            console.log("putArticle");
             const sendArticle = {
-                id: article.id,
                 title: article.title,
                 text: article.text,
                 caption: article.caption,
                 alt: article.alt,
                 location: article.location,
-                picture: article.picture,
-                isActive: article.isActive,
+                picture: "article.picture",
+                isActive: true,
                 commentsActive: article.commentsActive,
-                createDateTime: article.createDateTime,
                 updateDateTime: article.updateDateTime,
                 categoryId: article.category,
-                teamId: article.team,
-                selectedByAdmin: article.selectedByAdmin
+                teamId: article.team
             };
-            axios.put("http://localhost:8080/api/v1/articles/" + id, sendArticle, {
+            axios.post("http://localhost:8080/api/v1/admin/articles", sendArticle, {
                 headers: {
                     authorization: AuthToken["jwt"]
                 }
@@ -126,12 +107,22 @@ const EditArticle = ({props, globalStore}) => {
                     }
                 });
         } else {
-            console.log("Fields are not valid!");
+            console.log(errors);
         }
     }
 
     const validateInput = data => {
         let errors = {}
+
+        if (data.categoryId === "") {
+            errors.categoryId = "Category cannot be empty"
+        }
+        if (data.teamId === "") {
+            errors.teamId = "Team cannot be empty"
+        }
+        if (data.location === "") {
+            errors.location = "Location cannot be empty"
+        }
         if (data.alt === "") {
             errors.alt = "Alt cannot be empty"
         }
@@ -182,7 +173,7 @@ const EditArticle = ({props, globalStore}) => {
                     </div>
                     <div className={"save-cancel-component"}>
                         <SaveCancelChanges
-                            handleSubmit={() => putArticle(article, id)}
+                            handleSubmit={() => postArticle(article)}
                             handleCancel={() => setIsCancel(true)}
                             title={title}
                             saveProp={"Save"}
@@ -211,10 +202,20 @@ const EditArticle = ({props, globalStore}) => {
                 <CustomPictureInput
                     label={"Picture.*"}
                     name={"picture"}
-                    photo={true}
                     value={article.picture}
                     handleChange={handleChange}
                 />
+                <div className={"select-errors"}>
+                {errors.categoryId && <p className='photo__error'>
+                    {errors.categoryId}
+                </p>}
+                {errors.teamId && <p className='photo__error'>
+                    {errors.teamId}
+                </p>}
+                {errors.location && <p className='photo__error'>
+                    {errors.location}
+                </p>}
+                </div>
                 <div className="custom-select-container">
                     <CustomSelect
                         label={"Subcategory"}
@@ -301,4 +302,4 @@ const EditArticle = ({props, globalStore}) => {
         </div>);
 }
 
-export default EditArticle;
+export default AddArticle;

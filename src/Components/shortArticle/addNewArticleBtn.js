@@ -1,9 +1,12 @@
 import React from 'react';
 import './addnewarticlebtn.css';
+import {useNavigate} from "react-router-dom";
 
-const AddNewArticleBtn = () => {
+const AddNewArticleBtn = (props) => {
+    const navigate = useNavigate();
   function addNewArticle(){
     console.log("new article was added");
+      navigate("/add-article/" + props.name);
   }
 
   return (

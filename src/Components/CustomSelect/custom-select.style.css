@@ -14,7 +14,7 @@
     color: #7F8899;
 }
 
-.form-select{
+.form-select__{
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -28,4 +28,8 @@
     height: 36px;
     width: 236px;
     color: #2B2F43;
+}
+
+.option-not-selected{
+    color: #7F8899;
 }

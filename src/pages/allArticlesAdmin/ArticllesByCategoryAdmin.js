@@ -12,6 +12,7 @@ import preview from "../../icons/Preview.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import polygon from "../../icons/Polygon.svg";
+import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -96,7 +97,7 @@ const ArticlesByCategoryAdmin = () => {
                             }
                         </div>
                         <div className="n_all_articles_admin__new_article">
-                            <AddNewArticleBtn/>
+                            <AddNewArticleBtn name={currentCategory.name}/>
                         </div>
                     </div>
 

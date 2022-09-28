@@ -12,7 +12,7 @@ import "./allarticlesadmin.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
-import polygon from "../../icons/Polygon.jpg";
+import polygon from "../../icons/Polygon.svg";
 
 const IsActiveArticlesByCatAdmin = () => {
     const params = useParams();
@@ -98,7 +98,7 @@ const IsActiveArticlesByCatAdmin = () => {
                         }
                     </div>
                     <div className="n_all_articles_admin__new_article">
-                        <AddNewArticleBtn/>
+                        <AddNewArticleBtn name={currentCategory.name}/>
                     </div>
                 </div>
 

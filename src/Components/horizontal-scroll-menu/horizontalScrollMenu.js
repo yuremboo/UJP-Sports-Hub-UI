@@ -47,8 +47,8 @@ const HorizontalScrollMenu = () => {
                 </div>
 
                 {
-                    categories.map(category =>
-                        <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
+                    categories.map((category, index )=>
+                        <Nav.Link key={index} className="category_button" href={"/admin/articles/category/" + category.id}>
                             <li>{category.name}</li>
                         </Nav.Link>
                     )

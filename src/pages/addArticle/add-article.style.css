@@ -20,6 +20,10 @@ html, body {
     z-index: 5;
 }
 
+.horizontal-scroll-menu-component{
+    padding-top: 100px;
+}
+
 .nav-bar-icons{
     position: fixed;
     display: flex;
@@ -63,12 +67,6 @@ html, body {
     justify-content: center;
     display: flex;
     flex-direction: column;
-}
-
-.select-errors{
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
 }
 
 .custom-select-container{

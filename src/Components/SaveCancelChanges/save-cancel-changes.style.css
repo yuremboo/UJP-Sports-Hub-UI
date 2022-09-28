@@ -3,7 +3,6 @@
     padding: 0 101px;
     height: 95px;
     border-bottom: 1px solid #D4D9E2;
-    border-top: 1px solid #D4D9E2;
     background: #FFFFFF;
     display: flex;
     justify-content: space-between;
@@ -15,7 +14,7 @@
     font-weight: 700;
     font-size: 30px;
     line-height: 45px;
-    text-transform: capitalize;
+    text-transform: uppercase;
     color: #000000;
 }
 
