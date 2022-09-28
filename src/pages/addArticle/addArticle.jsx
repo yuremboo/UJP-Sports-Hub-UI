@@ -37,8 +37,8 @@ const AddArticle = ({props, globalStore}) => {
         commentsActive: "",
         createDateTime: null,
         updateDateTime: null,
-        categoryId: "",
-        teamId: "",
+        category: "",
+        team: "",
         selectedByAdmin: false
     })
     useEffect(() => {
@@ -90,7 +90,8 @@ const AddArticle = ({props, globalStore}) => {
                 commentsActive: article.commentsActive,
                 updateDateTime: article.updateDateTime,
                 categoryId: article.category,
-                teamId: article.team
+                teamId: article.team,
+                selectedByAdmin: article.selectedByAdmin
             };
             axios.post("http://localhost:8080/api/v1/admin/articles", sendArticle, {
                 headers: {
@@ -114,11 +115,12 @@ const AddArticle = ({props, globalStore}) => {
     const validateInput = data => {
         let errors = {}
 
-        if (data.categoryId === "") {
-            errors.categoryId = "Category cannot be empty"
+        console.log(data)
+        if (data.category === "") {
+            errors.category = "Category cannot be empty"
         }
-        if (data.teamId === "") {
-            errors.teamId = "Team cannot be empty"
+        if (data.team === "") {
+            errors.team = "Team cannot be empty"
         }
         if (data.location === "") {
             errors.location = "Location cannot be empty"
@@ -206,15 +208,21 @@ const AddArticle = ({props, globalStore}) => {
                     handleChange={handleChange}
                 />
                 <div className={"select-errors"}>
-                {errors.categoryId && <p className='photo__error'>
-                    {errors.categoryId}
-                </p>}
-                {errors.teamId && <p className='photo__error'>
-                    {errors.teamId}
-                </p>}
-                {errors.location && <p className='photo__error'>
-                    {errors.location}
-                </p>}
+                    <div>
+                        {errors.category && <p className='photo__error'>
+                            {errors.category}
+                        </p>}
+                    </div>
+                    <div>
+                        {errors.team && <p className='photo__error'>
+                            {errors.team}
+                        </p>}
+                    </div>
+                    <div>
+                        {errors.location && <p className='photo__error'>
+                            {errors.location}
+                        </p>}
+                    </div>
                 </div>
                 <div className="custom-select-container">
                     <CustomSelect
