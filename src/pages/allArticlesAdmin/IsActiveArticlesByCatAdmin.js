@@ -98,7 +98,7 @@ const IsActiveArticlesByCatAdmin = () => {
                         }
                     </div>
                     <div className="n_all_articles_admin__new_article">
-                        <AddNewArticleBtn/>
+                        <AddNewArticleBtn name={currentCategory.name}/>
                     </div>
                 </div>
 

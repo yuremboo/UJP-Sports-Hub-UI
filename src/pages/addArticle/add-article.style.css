@@ -1,7 +1,6 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-    background-color: #F8F8F8;
 }
 
 .edit-article{
@@ -19,6 +18,10 @@ html, body {
     flex-direction: column;
     width: 100%;
     z-index: 5;
+}
+
+.horizontal-scroll-menu-component{
+    padding-top: 100px;
 }
 
 .nav-bar-icons{
@@ -64,12 +67,6 @@ html, body {
     justify-content: center;
     display: flex;
     flex-direction: column;
-}
-
-.select-errors{
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
 }
 
 .custom-select-container{

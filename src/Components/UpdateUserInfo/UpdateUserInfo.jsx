@@ -11,7 +11,12 @@ import {useNavigate} from "react-router-dom";
 
 const UpdateUserInfo = ({props, globalStore}) => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState({
+        firstName: "",
+        lastName: "",
+        email: ""
+    });
+    const [errors, setErrors] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -48,6 +53,10 @@ const UpdateUserInfo = ({props, globalStore}) => {
             lastName: profile.lastName,
             photo: profile.photo
         };
+        console.log("profile");
+        console.log(profile);
+        console.log("sendProfile");
+        console.log(sendProfile);
         axios.put("http://localhost:8080/api/v1/profile", sendProfile, {
             headers: {
                 authorization: AuthToken["jwt"]
@@ -63,21 +72,53 @@ const UpdateUserInfo = ({props, globalStore}) => {
 
     const handleClick = event => {
         event.preventDefault()
-        putProfile(profile)
-        localStorage.setItem("user", JSON.stringify({...AuthToken,
-            firstName:profile.firstName,
-            lastName:profile.lastName,
-            photo:profile.photo
-        }))
-        if (profile.email !== JSON.parse(localStorage.getItem("user")).email) {
-            dispatch(userLogoutRequest())
-            navigate("/login");
+        if (isValid()) {
+            putProfile(profile)
+            localStorage.setItem("user", JSON.stringify({
+                ...AuthToken,
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                photo: profile.photo
+            }))
+            if (profile.email !== JSON.parse(localStorage.getItem("user")).email) {
+                dispatch(userLogoutRequest())
+                navigate("/login");
+            }
+        } else {
+            console.log(errors);
         }
+    }
+
+    const validateInput = data => {
+        let errors = {}
+        if (!/^[A-Za-z]{3,32}$/.test(data.firstName)) {
+            errors.firstName = "Name must contain only letters"
+        }
+        if (!/^[A-Za-z]{3,32}$/.test(data.lastName)) {
+            errors.lastName = "Surname must contain only letters"
+        }
+        if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            .test(data.email)) {
+            errors.email = "Please enter valid email"
+        }
+        return {
+            errors,
+            isValid: JSON.stringify(errors) === '{}'
+        }
+    }
+
+    const isValid = () => {
+        const {errors, isValid} = validateInput(profile)
+        if (!isValid) {
+            setErrors(errors)
+        }
+        return isValid
     }
 
     const handleChange = event => {
         const {name, value} = event.target;
         setProfile({...profile, [name]: value});
+        setErrors({...errors, [name]: ''})
     };
 
     return (
@@ -94,28 +135,40 @@ const UpdateUserInfo = ({props, globalStore}) => {
                 </div>
 
                 <div className={"custom-input"}>
+                    {errors.firstName && <p className='photo__error'>
+                        {errors.firstName}
+                    </p>}
                     <CustomInput
                         type="text"
                         label={"First name"}
                         name={"firstName"}
+                        placeholder={"Enter first name"}
                         value={profile.firstName}
                         handleChange={handleChange}
                     />
                 </div>
                 <div className={"custom-input"}>
+                    {errors.lastName && <p className='photo__error'>
+                        {errors.lastName}
+                    </p>}
                     <CustomInput
                         type="text"
                         label={"Last name"}
                         name={"lastName"}
+                        placeholder={"Enter last name"}
                         value={profile.lastName}
                         handleChange={handleChange}
                     />
                 </div>
                 <div className={"custom-input"}>
+                    {errors.email && <p className='photo__error'>
+                        {errors.email}
+                    </p>}
                     <CustomInput
                         type="text"
                         label={"Email"}
                         name={"email"}
+                        placeholder={"Enter email"}
                         value={profile.email}
                         handleChange={handleChange}
                     />
