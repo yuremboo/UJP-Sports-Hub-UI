@@ -47,7 +47,7 @@ const SubscriptionUser = () => {
   const AuthToken = JSON.parse(localStorage.getItem('user'))
   useEffect(() => {
     getSubscriptionByUserId();
-    getTeamsByName("Team");
+    getTeamsByName();
   }, []);
 
   function getSubscriptionByUserId() {
@@ -72,8 +72,8 @@ const SubscriptionUser = () => {
       })
   }
 
-  function getTeamsByName(search_name) {
-    axios.get("http://localhost:8080/api/v1/teams/search_name/"+search_name, {
+  function getTeamsByName() {
+    axios.get("http://localhost:8080/api/v1/teams", {
       headers: {
         authorization:AuthToken["jwt"]
       }
@@ -91,14 +91,7 @@ const SubscriptionUser = () => {
         }
       });
   }
-  function uuidv4() {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-      (
-        c ^
-        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-      ).toString(16)
-    );
-  }
+
 
   function addNewTeamSubscription(e) {
     e.preventDefault();
@@ -174,8 +167,8 @@ const SubscriptionUser = () => {
         {/*</div>*/}
 
         <CustomSelect
-            label={"Article*"}
-            name={"article"}
+            label={"Teams*"}
+            name={"teams"}
             enumeration={teamsSearch}
             // enumeration={teamsSearch.map((article)=>({...article, name:article.team.name, id:article.team.name}))}
             handleChange={handleChange}
@@ -201,19 +194,7 @@ const SubscriptionUser = () => {
           )
         }
       </div>
-      {/*<Formik*/}
-      {/*  initialValues={{ name: "", email: "" }}*/}
-      {/*  onSubmit={async (values) => {*/}
-      {/*    await new Promise((resolve) => setTimeout(resolve, 500));*/}
-      {/*    alert(JSON.stringify(values, null, 2));*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Form>*/}
-      {/*    <Field name="name" type="text" />*/}
-      {/*    <Field name="email" type="email" />*/}
-      {/*    <button type="submit">Submit</button>*/}
-      {/*  </Form>*/}
-      {/*</Formik>*/}
+
       </form>
     </div>
   );

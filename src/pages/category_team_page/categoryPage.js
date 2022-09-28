@@ -15,7 +15,7 @@ import MorePopularArticles from "../../Components/morePopularArticles/MorePopula
 import Footer from "../../Components/Footer";
 
 const CategoryPage = ({ props, globalStore }) => {
-  const authToken = JSON.parse(localStorage.getItem("user")).jwt;
+  //const authToken = JSON.parse(localStorage.getItem("user")).jwt;
   const [articlesByCategory, setArticlesByCategory] = useState([]);
   const { id } = useParams();
   useEffect(() => {
@@ -24,9 +24,9 @@ const CategoryPage = ({ props, globalStore }) => {
 
   function getArticleByCategory(id) {
     axios.get("http://localhost:8080/api/v1/articles/category_id/" + id+ "/is_active/true", {
-      headers: {
-        authorization: authToken["jwt"]
-      }
+      // headers: {
+      //   authorization: authToken["jwt"]
+      // }
     })
       .then((response) => {
         const data = response.data;
@@ -69,11 +69,11 @@ const CategoryPage = ({ props, globalStore }) => {
               articlesByCategory.map(article => <ShortArticleUser shortArticle={article}/>)
             }
           </div>
-          <div className='most-popular-and-commented-section'>
-            <div className='most-popular-section'>
+          <div className='most-popular-and-commented-section_category_page'>
+            <div className='most-popular-section_category_page'>
               <MorePopularArticles/>
             </div>
-            <div className='most-commented-section'>
+            <div className='most-commented-section_category_page'>
               <MostCommentedArticles/>
             </div>
           </div>

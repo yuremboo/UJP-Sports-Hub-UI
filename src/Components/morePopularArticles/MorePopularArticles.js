@@ -5,7 +5,7 @@ import MiniArticle from "../article/MiniArticle";
 //import "./mostCommentedArticles/mostcommentedarticles.css";
 
 const MorePopularArticles = () => {
-    const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
+    //const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
     const [morePopularArticles, setMorePopularArticles] = useState([]);
     useEffect(() => {
         getMorePopularArticles();
@@ -13,9 +13,9 @@ const MorePopularArticles = () => {
 
     function getMorePopularArticles() {
         axios.get("http://localhost:8080/api/v1/articles/morePopular", {
-            headers: {
-                "Authorization": authToken
-            }
+            // headers: {
+            //     "Authorization": authToken
+            // }
         })
             .then((response) => {
                 setMorePopularArticles(response.data);

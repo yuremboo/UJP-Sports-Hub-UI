@@ -29,3 +29,9 @@
 .category_page .mini-articles {
     flex-wrap: nowrap;
 }
+.most-popular-section_category_page{
+    padding-right:15px;
+}
+.most-popular-and-commented-section_category_page{
+    display: flex;
+}

@@ -56,6 +56,7 @@ const ShortArticleAdmin = (props) => {
         })
             .then((response) => {
                 console.log("was deleted");
+                navigate(0);
             })
             .catch((error) => {
                 if (error.response) {

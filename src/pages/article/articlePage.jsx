@@ -280,7 +280,7 @@ const ArticlePage = () => {
   }
 
   return (
-    <div>
+    <div className={"article-page-scroll"}>
       <div className="article">
         <ArticleHeading
           article={article}
@@ -309,7 +309,7 @@ const ArticlePage = () => {
               ></SortByDropDown>
             </div>
             <form className="write-comment-box">
-            <img className="user-image" src={currentUser !== null? currentUser.image: defaultUserImage} alt="user" />
+            <img className="user-image" src={defaultUserImage} alt="user" />
               <textarea
                 className="comment-input"
                 rows="3"

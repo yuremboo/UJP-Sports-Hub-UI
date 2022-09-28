@@ -204,7 +204,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
       setLikeDislikeStatus(lDStatus);
       await putLikeDislikeStatus(lDStatus);
       comment.likes -= 1;
-      setLikesCount(likesCount + 1);
+      setLikesCount(likesCount - 1);
       comment.dislikes += 1;
       setDislikesCount(dislikesCount + 1);
       await putComment(comment, comment.id);
