@@ -5,7 +5,7 @@ import { Form, NavLink } from "react-bootstrap";
 
 import "./loginpage.css";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useHistory} from "react-router-dom";
 import {
   authFailureReset,
   userSignInRequest
@@ -22,6 +22,7 @@ const SignIn = ({
                   auth: { isLoading, errorMessage, userObject }
                 }) => {
   const navigate = useNavigate();
+  // const history = useHistory()
   useEffect(
     () => {
       if (errorMessage) {
@@ -51,7 +52,6 @@ const SignIn = ({
   };
 
   const handleSubmit = async (event) => {
-    console.log("!");
     event.preventDefault();
     const result = await signInRequest(user);
     if (result) {
@@ -60,6 +60,7 @@ const SignIn = ({
         password: ""
       });
       navigate("/");
+      navigate(0);
     }
   };
 
