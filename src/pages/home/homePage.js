@@ -120,7 +120,7 @@ const HomePage = ({
                                 <MediumArticle mediumArticle={secondArticlesPayload[0]}/>
                             }
                         </div>
-                        <div className='mini-articles'>
+                        <div className='mini-articles' id='breakdown'>
                             <div className='mini-articles-section'>
                                 {
                                     miniFirstArticlesPayload !== 0 && miniFirstArticlesPayload.map(article => {
