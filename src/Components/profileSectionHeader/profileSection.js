@@ -31,7 +31,6 @@ const ProfileSection = ({
         <div className='profile-section-header'>
             <Dropdown className="dropdown-profile-section-header">
                 <Dropdown.Toggle className="dropdown-toggle-prodile" variant="success" id="dropdown-basic">
-
                     <div className="profile-section-header--image">
                         <img src={profilePhoto} height="10%" width="10%"/>
                     </div>
@@ -43,9 +42,7 @@ const ProfileSection = ({
                                     {" "}
                                     {user.lastName}
                                 </div>
-                                {/*<div className="profile-section-header--triangle">*/}
                                 <img src={polygon} height="100%" width="100%"/>
-                                {/*</div>*/}
                             </div>
                             {getUserRole() === "ADMIN" ?
                                 <div className="profile-section-header--text-admin">
@@ -53,7 +50,6 @@ const ProfileSection = ({
                                 </div> : null
                             }
                         </div>
-
                     </div>
                 </Dropdown.Toggle>
 
@@ -75,7 +71,6 @@ const ProfileSection = ({
                     <Dropdown.Item onClick={logOut} className="dropdown-item" href="login">Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-
         </div>
     );
 };

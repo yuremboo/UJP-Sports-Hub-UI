@@ -89,8 +89,6 @@ const ArticlesByCategoryAdmin = () => {
                         </div>
                     </div>
                 </div>
-
-                {/*<div>*/}
                     <div className="n_all_articles_admin__current_category__new_article">
                         <div className="n_all_articles_admin__current_category">
                             {
@@ -105,7 +103,6 @@ const ArticlesByCategoryAdmin = () => {
                     <div className="n_all_articles_admin__categories_buttons">
                         <HorizontalScrollMenu/>
                     </div>
-                {/*</div>*/}
             </div>
 
 

@@ -91,7 +91,6 @@ const IsActiveArticlesByCatAdmin = () => {
                     </div>
                 </div>
 
-                {/*<div>*/}
                 <div className="n_all_articles_admin__current_category__new_article">
                     <div className="n_all_articles_admin__current_category">
                         {
@@ -106,7 +105,6 @@ const IsActiveArticlesByCatAdmin = () => {
                 <div className="n_all_articles_admin__categories_buttons">
                     <HorizontalScrollMenu/>
                 </div>
-                {/*</div>*/}
             </div>
             <div className="n_all_articles_admin__body">
                 <div className="n_all_articles_admin__left_buttons">
