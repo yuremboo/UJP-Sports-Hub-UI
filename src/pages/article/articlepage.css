@@ -178,8 +178,8 @@ a {
 }
 
 .mini-articles {
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
+  flex-flow: row;
 }
 
 .mini-articles-r {

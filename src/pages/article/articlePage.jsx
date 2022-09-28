@@ -308,9 +308,8 @@ const ArticlePage = () => {
                 ]}
               ></SortByDropDown>
             </div>
-              {currentUser === null ? "" :
             <form className="write-comment-box">
-            <img className="user-image" src={currentUser.image? currentUser.image: defaultUserImage} alt="user" />
+            <img className="user-image" src={currentUser !== null? currentUser.image: defaultUserImage} alt="user" />
               <textarea
                 className="comment-input"
                 rows="3"
@@ -321,11 +320,11 @@ const ArticlePage = () => {
               <Button
                 className="submit-btn"
                 variant="light"
-                onClick={isEditing ? putEditedComment : addNewComment}
+                onClick={currentUser ? isEditing ? putEditedComment : addNewComment: null}
               >
                 Submit
               </Button>
-            </form>}
+            </form>
             {comments.length > 0 ? (
               <div className="read-comment-box">
                 {comments.slice(0, commentsNum).map((comment) => (
