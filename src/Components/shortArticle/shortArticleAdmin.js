@@ -16,16 +16,16 @@ const ShortArticleAdmin = (props) => {
     let navigate = useNavigate();
 
     function UnPublish(){
-
         console.log("unpublish article.id: ", props.id)
         console.log("token", authToken)
-        axios.put("http://localhost:8080/api/v1/admin/articles/publish/" + props.id, {
+        axios.put("http://localhost:8080/api/v1/admin/articles/publish/" + props.id, null, {
             headers: {
                 "Authorization": authToken
             }
         })
             .then((response) => {
                 setIsActive(!props.isPublished);
+                props.isPublished = !props.isPublished;
                 console.log("isActive was changed");
             })
             .catch((error) => {
@@ -39,6 +39,7 @@ const ShortArticleAdmin = (props) => {
     function isArticlePublished() {
         {
             if (props.isPublished === true) {
+            // if (isActive === true) {
                 setIsPublished({"dot": ".", "isPubl": "Published"});
             } else {
                 setIsPublished({"dot": "", "isPubl": ""});
@@ -48,7 +49,8 @@ const ShortArticleAdmin = (props) => {
 
     useEffect(() => {
         isArticlePublished();
-    }, []);
+        // setIsPublished(isActive);
+    }, [isActive, props.isPublished]);
 
     function deleteArticle(){
         axios.delete("http://localhost:8080/api/v1/admin/articles/" + props.id, {

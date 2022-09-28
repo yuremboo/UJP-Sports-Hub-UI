@@ -11,6 +11,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import preview from "../../icons/Preview.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import polygon from "../../icons/Polygon.svg";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -75,53 +76,62 @@ const ArticlesByCategoryAdmin = () => {
     }
 
     return (
-        <div className="all_articles_admin__page">
-            <div className="all_articles_admin__header">
-                <div className="sportshub">Sports hub</div>
-                <div className="all_articles_admin__right_header">
-                    <button className="accountSwitcher__button">
-                        <img src={accountSwitcher} width="30%" height="30%"/>
-                    </button>
-                    <div className="admin__profile_section">
-                        <ProfileSection/>
+        <div className="n_all_articles_admin__page">
+            <div className="n_all_articles_admin__header__outer_fixed">
+                <div className="n_all_articles_admin__header">
+                    <div className="sportshub">Sports hub</div>
+                    <div className="n_all_articles_admin__right_header">
+                        <button className="n_accountSwitcher__button">
+                            <img src={accountSwitcher} width="30%" height="30%"/>
+                        </button>
+                        <div className="n_admin__profile_section">
+                            <ProfileSection/>
+                        </div>
                     </div>
                 </div>
+                    <div className="n_all_articles_admin__current_category__new_article">
+                        <div className="n_all_articles_admin__current_category">
+                            {
+                                currentCategory.name
+                            }
+                        </div>
+                        <div className="n_all_articles_admin__new_article">
+                            <AddNewArticleBtn/>
+                        </div>
+                    </div>
+
+                    <div className="n_all_articles_admin__categories_buttons">
+                        <HorizontalScrollMenu/>
+                    </div>
             </div>
 
-            <div className="all_articles_admin__current_category__new_article">
-                <div className="all_articles_admin__current_category">
-                    {
-                        currentCategory.name
-                    }
-                </div>
-                <div className="all_articles_admin__new_article">
-                    <AddNewArticleBtn/>
-                </div>
-            </div>
 
-            <div className="all_articles_admin__categories_buttons">
-                <HorizontalScrollMenu/>
-            </div>
-
-            <div className="all_articles_admin__body">
-                <div className="all_articles_admin__left_buttons">
+            <div className="n_all_articles_admin__body">
+                <div className="n_all_articles_admin__left_buttons">
                     <SidePanelBtns/>
                 </div>
                 {
                     allArticlesByCategoryId.length === 0 ?
-                        <div className="no-articles">THERE ARE NO ARTICLES IN THIS CATEGORY</div> :
-
-                        <div className="all_articles_admin__articles">
-                            <div className="all_articles_admin__category_preview" onClick={previewCategory}>
+                        <div className="n_all_articles_admin__articles">
+                            <div className="n_no-articles-text">THERE ARE NO ARTICLES IN THIS CATEGORY</div>
+                        </div>
+                        :
+                        <div className="n_all_articles_admin__articles">
+                            <div className="n_all_articles_admin__category_preview" onClick={previewCategory}>
                                 <img src={preview} alt="preview"/>
-                                <div className="all_articles_admin__category_preview_text">Preview</div>
+                                <div className="n_all_articles_admin__category_preview_text">Preview</div>
                             </div>
-                            <div className="all_articles_admin__filter_articles">
+                            <div className="n_all_articles_admin__filter_articles">
 
                                 <Dropdown className="filter_articles">
                                     <Dropdown.Toggle className="dropdown-toggle-filter" variant="success"
                                                      id="dropdown-basic">
-                                        All
+                                        <div className="filter_articles__text">
+                                            All
+                                        </div>
+                                        <div className="filter_articles__triangle">
+                                            <img src={polygon} height="100%" width="100%"/>
+                                        </div>
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
