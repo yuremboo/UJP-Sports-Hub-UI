@@ -12,7 +12,7 @@ import "./allarticlesadmin.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
-import polygon from "../../icons/Polygon.svg";
+import polygon from "../../icons/Polygon.jpg";
 
 const IsActiveArticlesByCatAdmin = () => {
     const params = useParams();
