@@ -171,7 +171,7 @@ const CategoryPage = ({ props, globalStore }) => {
             {
               articlesByCategory.map(article =>
                 <ShortArticle title={article.title} shortText={article.shortText}
-                              category={null} />
+                              id={article.id} />
               )
             }
           </div>

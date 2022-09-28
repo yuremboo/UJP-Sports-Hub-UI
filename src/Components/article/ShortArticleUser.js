@@ -1,9 +1,11 @@
 import React from 'react';
 import '../../style_components/article/shortarticle.css';
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
+import { Link } from 'react-router-dom';
 
 const ShortArticleUser = (props) => {
   return (
+    <Link className="short-article-link" to={"/articles/" + props.id}>
     <div className='shortArticle'>
       <div className='shortarticle__image'>
         <img className='s_img' src={miniArticlePhoto} />
@@ -24,6 +26,7 @@ const ShortArticleUser = (props) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

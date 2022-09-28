@@ -210,7 +210,7 @@ html, body {
 }
 
 .all_articles_admin__page .all_articles_admin__categories_buttons {
-    position: absolute;
+    position: fixed;
     z-index: 0;
     right: 0;
     left: 0;
@@ -308,7 +308,7 @@ html, body {
     align-items: center;
     margin-top: 1%;
     font-weight: bold;
-    border: rgba(178, 178, 178, 1) 2px solid;
+    /* border: rgba(178, 178, 178, 1) 2px solid; */
 }
 .categories_buttons__left_arrow,
 .categories_buttons__right_arrow
