@@ -20,6 +20,10 @@ html, body {
     z-index: 5;
 }
 
+.horizontal-scroll-menu-component{
+    padding-top: 100px;
+}
+
 .nav-bar-icons{
     position: fixed;
     display: flex;

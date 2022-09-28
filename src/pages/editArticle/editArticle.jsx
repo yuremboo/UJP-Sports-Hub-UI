@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import CustomInput from "../../Components/CustomInput/CustomInput";
 import "./editArticle.style.css";
@@ -14,6 +14,10 @@ import CancellationPopup from "../../Components/CancellationPopup/CancellationPo
 import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import {userLogoutRequest} from "../../redux/auth/auth.actions";
+import accountSwitcher from "../../icons/accountSwitcher.svg";
+import ProfileSection from "../../Components/profileSectionHeader/profileSection";
+import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
+import React from "react";
 
 const EditArticle = ({props, globalStore}) => {
     const {title} = useParams();
@@ -164,15 +168,31 @@ const EditArticle = ({props, globalStore}) => {
     return (
         <div className={"edit-article"}>
             <header className={"edit-article-header"}>
-                <Header/>
-                <SaveCancelChanges
-                    handleSubmit={() => putArticle(article, id)}
-                    handleCancel={() => setIsCancel(true)}
-                    title={title}
-                    saveProp={"Save"}
-                    check={true}
-                />
-                <HorizontalScrollMenu/>
+                <div className="n_all_articles_admin__header__outer_fixed">
+                    <div className="n_all_articles_admin__header">
+                        <div className="sportshub">Sports hub</div>
+                        <div className="n_all_articles_admin__right_header">
+                            <button className="n_accountSwitcher__button">
+                                <img src={accountSwitcher} width="30%" height="30%"/>
+                            </button>
+                            <div className="n_admin__profile_section">
+                                <ProfileSection/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"save-cancel-component"}>
+                        <SaveCancelChanges
+                            handleSubmit={() => putArticle(article, id)}
+                            handleCancel={() => setIsCancel(true)}
+                            title={title}
+                            saveProp={"Save"}
+                            check={true}
+                        />
+                    </div>
+                    <div className={"horizontal-scroll-menu-component"}>
+                        <HorizontalScrollMenu/>
+                    </div>
+                </div>
             </header>
             {isCancel && <CancellationPopup
                 handleCancel={() => setIsCancel(false)}
