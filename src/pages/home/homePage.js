@@ -116,7 +116,6 @@ const HomePage = ({
                             <MostCommentedArticles/>
                         </div>
                     </div>
-                    <Footer/>
                 </main>
             </div>
             <Footer/>

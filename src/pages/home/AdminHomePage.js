@@ -70,12 +70,12 @@ const AdminHomePage = () => {
     });
     useEffect(() => {
         getData();
-    addInInput();
+    //addInInput();
   }, []);
 
     function getData() {
         console.log("function getData");
-        axios.get("http://localhost:8080/api/categories", {
+        axios.get("http://localhost:8080/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -118,7 +118,7 @@ const AdminHomePage = () => {
             });
     }
 
-  function putArticle() {
+  function putArticles() {
     let result = true;
     console.log("token: ", AuthToken["jwt"]);
       console.log(articlesSelectedByAdmin);
@@ -181,6 +181,9 @@ const AdminHomePage = () => {
         clearAllInputs()
       }
     }
+    if(articlesSelectedByAdmin.length!=0) {
+        putArticles();
+    }
   }
 
   function deleteSection(key) {
@@ -193,11 +196,6 @@ const AdminHomePage = () => {
         console.log(articlesSelectedByAdmin);
     };
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    setArticle({ ...article, [name]: value });
-    console.log(article);
-  };
 
   const validateInput = data => {
     let errors = {}
@@ -278,7 +276,6 @@ const AdminHomePage = () => {
                 <p>MAIN ARTICLES</p>
               </div>
             </div>
-
             {inputList}
             {inputList.length < 5 ? (
               <div>

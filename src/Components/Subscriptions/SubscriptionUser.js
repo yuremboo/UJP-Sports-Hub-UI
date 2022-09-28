@@ -43,9 +43,11 @@ const SubscriptionUser = () => {
   ]);
   const [subscriptionUser, setSubscriptionUser] = useState([]);
   const [teamsSearch, setTeamsSearch] = useState([]);
+  const [teamsSelected, setTeamsSelected] = useState([]);
   const AuthToken = JSON.parse(localStorage.getItem('user'))
   useEffect(() => {
     getSubscriptionByUserId();
+    getTeamsByName("Team");
   }, []);
 
   function getSubscriptionByUserId() {
@@ -102,35 +104,37 @@ const SubscriptionUser = () => {
     e.preventDefault();
 
     const newSubscription = {
-      id: uuidv4(),
-      user: AuthToken['jwt'],
-      //team: team.id,
-      createDateTime: Date.now(),
-      updateDateTime: null
+      //id: uuidv4(),
+      userId: AuthToken['id'],
+      teamId: teamsSelected,
+      //createDateTime: Date.now(),
+      //updateDateTime: null
     };
-    //postSubscription(newSubscription);
+    postSubscription(newSubscription);
     //setSubscriptionUser([...subscription, newSubscription]);
   }
 
-  // function postSubscription(newSubscription) {
-  //   console.log('token: ', AuthToken['jwt']);
-  //   axios.post("http://localhost:8080/api/subscription", newSubscription, {
-  //     headers: {
-  //       authorization: AuthToken["jwt"]
-  //     }
-  //   })
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         console.log(error.response);
-  //         console.log("error.response.status: ", error.response.status);
-  //       }
-  //     });
-  // }
+  function postSubscription(newSubscription) {
+    console.log('token: ', AuthToken['jwt']);
+    axios.post("http://localhost:8080/api/v1/subscription", newSubscription, {
+      headers: {
+        authorization: AuthToken["jwt"]
+      }
+    })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("error.response.status: ", error.response.status);
+          console.log(newSubscription);
+        }
+      });
+  }
 
   const handleChange = event => {
-    //const {name, value} = event.target
-    //setArticle({...article, [name]: value})
-   // console.log(article)
+    const {value} = event.target
+    setTeamsSelected(value)
+    console.log(value)
+   console.log(teamsSelected)
   }
   const loadOptions = (searchValue,callback) => {
     setTimeout(()=>{
@@ -139,7 +143,10 @@ const SubscriptionUser = () => {
       //           return data.team.name.toLowerCase().includes(searchValue.toLowerCase());
       // })
       console.log("loadOptions",searchValue,teamsSearch)
+      const filteredOptions=  teamsSearch.map(team =>team.name);
+      console.log("loadOptions",filteredOptions)
       callback(teamsSearch);
+          //teamsSearch.map(team =>teamsSearch.name));
     },1000)
   }
   return(
@@ -158,10 +165,10 @@ const SubscriptionUser = () => {
         {/*      <div className="autocom-box">*/}
         {/*      </div>*/}
 
-        {/*      <div className="icon"><i className="fas fa-search"></i></div>*/}
-        {/*        <button className={"follow-button"} onClick={addNewTeamSubscription}>*/}
-        {/*        FOLLOW*/}
-        {/*      </button>*/}
+              {/*<div className="icon"><i className="fas fa-search"></i></div>*/}
+              {/*  <button className={"follow-button"} onClick={addNewTeamSubscription}>*/}
+              {/*  FOLLOW*/}
+              {/*</button>*/}
         {/*    </div>*/}
         {/*  </div>*/}
         {/*</div>*/}
@@ -169,17 +176,23 @@ const SubscriptionUser = () => {
         <CustomSelect
             label={"Article*"}
             name={"article"}
-            enumeration={subscriptionUser.map((article)=>({...article, name:article.team.name, id:article.team.name}))}
+            enumeration={teamsSearch}
+            // enumeration={teamsSearch.map((article)=>({...article, name:article.team.name, id:article.team.name}))}
             handleChange={handleChange}
             loadOptions={loadOptions}
         />
-        <SelectTeam
-          label={"Subcategory"}
-          name={"subcategory"}
-          enumeration={teamsSearch}
-          loadOptions={loadOptions}
-          handleChange={handleChange}
-        />
+        <div className="icon"><i className="fas fa-search"></i></div>
+        <button className={"follow-button"} onClick={addNewTeamSubscription}>
+          FOLLOW
+        </button>
+        {/*<SelectTeam*/}
+        {/*  label={"Subcategory"}*/}
+        {/*  name={"subcategory"}*/}
+        {/*  enumeration={teamsSearch}*/}
+        {/*  //loadOptions={loadOptions}*/}
+        {/*  handleChange={handleChange}*/}
+        {/*/>*/}
+
         <div className="subscriptions_teams">
         {
           subscriptionUser.map(team =>
