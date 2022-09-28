@@ -37,6 +37,11 @@ const HomePage = ({
                       breakdown: {firstArticlesPayload, secondArticlesPayload},
                       photoOfTheDay: {photoOfTheDay}
                   }) => {
+    useEffect(() => {
+        getArticles();
+        getAllArticlesSelectedByAdmin();
+        getPhotoOfTheDay();
+    }, []);
 
     let navigate = useNavigate();
 
@@ -45,27 +50,10 @@ const HomePage = ({
         navigate("/login");
     }
 
-    useEffect(() => {
-        getArticles();
-        getAllArticlesSelectedByAdmin();
-        getPhotoOfTheDay();
-    }, [])
-
     const miniFirstArticlesPayload = firstArticlesPayload.slice(1);
     const miniSecondArticlesPayload = secondArticlesPayload.slice(1);
 
-    const mainArticlesList = [
-        {
-            "id": "",
-            "title": "",
-            "caption": "",
-            "alt": "altphoto",
-            "picture": "pict",
-            "createDateTime": "",
-            "category": {}
-        }
-    ];
-    const [mainArticles, setMainArticles] = useState(mainArticlesList);
+    const [mainArticles, setMainArticles] = useState();
 
     async function getAllArticlesSelectedByAdmin() {
          await axios
@@ -88,6 +76,7 @@ const HomePage = ({
             <div className='home-page'>
                 <NavBar/>
                 <main>
+                    {mainArticles?
                     <div className='home-articles'>
                         <ArticleHeading
                             article={mainArticles[0]}
@@ -102,7 +91,7 @@ const HomePage = ({
                                 <VerticalMiniArticle verticalMiniArticle={verticalMiniArticle} key={verticalMiniArticle.id} />
                             ))}
                         </div>
-                    </div>
+                    </div>:<></>}
                     <div className='breakdown-header'>
                         <hr/>
                         <div className='breakdown-header__text'>
