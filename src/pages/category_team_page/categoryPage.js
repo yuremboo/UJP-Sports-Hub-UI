@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./categorypage.css";
 import { useParams } from "react-router-dom";
-import CategoryHeading from "../../Components/article/CategoryHeading";
+import ArticleHeading from "../../Components/article/ArticleHeading";
 import Button from "react-bootstrap/Button";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
 import parse from "html-react-parser";
@@ -52,9 +52,10 @@ const CategoryPage = ({ props, globalStore }) => {
         <div className="category_page">
           {articlesByCategory.slice(0, 1).map((article) => (
 
-          <CategoryHeading
-            article={articlesByCategory[0]}
-          />))}
+              <ArticleHeading
+                  article={article}
+                  isArticlePage={false}
+              />))}
           {articlesByCategory.slice(0, 1).map((article) => (
           <img
             className="article-image"

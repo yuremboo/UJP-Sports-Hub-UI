@@ -41,10 +41,12 @@
 }
 .profile-section-header--text-name{
     display: flex;
+    vertical-align: center;
 }
 .profile-section-header--text-name img{
-    padding-top: 6%;
-    padding-left: 3%;
+    padding-left: 6%;
+    display: flex;
+    margin: auto 0;
 }
 .profile-name{
     display: flex;

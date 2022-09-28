@@ -1,10 +1,11 @@
 import React from 'react';
 import '../../style_components/article/shortarticle.css';
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
+import { Link } from 'react-router-dom';
 
 const ShortArticleUser = ({shortArticle}) => {
     return (
-        <a className="article-link" href={"http://localhost:3000/articles/" + shortArticle.id}>
+        <Link className="article-link" to={"/articles/" + shortArticle.id}>
             <div className='shortArticle'>
                 <div className='shortarticle__image'>
                     <img className='s_img' src={miniArticlePhoto}/>
@@ -18,7 +19,7 @@ const ShortArticleUser = ({shortArticle}) => {
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 };
 

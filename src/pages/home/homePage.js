@@ -22,6 +22,11 @@ import dayPhoto from './Bitmap.png';
 
 import MostCommentedArticles from "../../Components/mostCommentedArticles/MostCommentedArticles";
 import MorePopularArticles from "../../Components/morePopularArticles/MorePopularArticles";
+import ArticleHeading from "../../Components/article/ArticleHeading";
+import {useState} from "react";
+import articleImage from "../../icons/article/ArticlePhoto.jpg";
+import VerticalMiniArticle from "../../Components/article/VerticalMiniArticle";
+import axios from "axios";
 
 
 const HomePage = ({
@@ -41,12 +46,41 @@ const HomePage = ({
     }
 
     useEffect(() => {
-        getArticles()
-        getPhotoOfTheDay()
+        getArticles();
+        getAllArticlesSelectedByAdmin();
+        getPhotoOfTheDay();
     }, [])
 
-    const miniFirstArticlesPayload = firstArticlesPayload.slice(1)
-    const miniSecondArticlesPayload = secondArticlesPayload.slice(1)
+    const miniFirstArticlesPayload = firstArticlesPayload.slice(1);
+    const miniSecondArticlesPayload = secondArticlesPayload.slice(1);
+
+    const mainArticlesList = [
+        {
+            "id": "",
+            "title": "",
+            "caption": "",
+            "alt": "altphoto",
+            "picture": "pict",
+            "createDateTime": "",
+            "category": {}
+        }
+    ];
+    const [mainArticles, setMainArticles] = useState(mainArticlesList);
+
+    async function getAllArticlesSelectedByAdmin() {
+         await axios
+            .get("http://localhost:8080/api/v1/selected-articles")
+            .then((response) => {
+                const data = response.data;
+                setMainArticles(data);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            });
+    }
 
     return (
         <div>
@@ -54,7 +88,21 @@ const HomePage = ({
             <div className='home-page'>
                 <NavBar/>
                 <main>
-                    <h2>Home page</h2>
+                    <div className='home-articles'>
+                        <ArticleHeading
+                            article={mainArticles[0]}
+                            isArticlePage={false}></ArticleHeading>
+                        <img
+                            className="main-article-image"
+                            alt={mainArticles[0]["alt"]}
+                            src={articleImage}
+                        />
+                        <div className="v-mini-articles">
+                            {mainArticles.slice(1, 5).map((verticalMiniArticle) => (
+                                <VerticalMiniArticle verticalMiniArticle={verticalMiniArticle} key={verticalMiniArticle.id} />
+                            ))}
+                        </div>
+                    </div>
                     <div className='breakdown-header'>
                         <hr/>
                         <div className='breakdown-header__text'>

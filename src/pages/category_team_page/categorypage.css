@@ -8,6 +8,7 @@
 }
 .nav-bar-information{
     position: relative;
+    background-color: #f8f8f8;
 }
 .nav-bar{
     max-width: 200px;
@@ -18,9 +19,13 @@
     bottom: 0;
 }
 .category_page {
-    position: absolute;
+    position: relative;
+    padding-top: 80px;
     left: 16.4%;
     top: 23.4%;
     width: 53%;
     background: #F8F8F8;
+}
+.category_page .mini-articles {
+    flex-wrap: nowrap;
 }

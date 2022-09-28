@@ -18,10 +18,12 @@ import ResetPassword from "./pages/login/resetPassword";
 import CategoryPage from "./pages/category_team_page/categoryPage";
 import ArticlesByCategoryAdmin from "./pages/allArticlesAdmin/ArticllesByCategoryAdmin";
 import IsActiveArticlesByCatAdmin from "./pages/allArticlesAdmin/IsActiveArticlesByCatAdmin";
+import AddArticle from "./pages/addArticle/addArticle";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 function getUserRole(){
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log("user", user)
     if (user != null){
         return JSON.parse(localStorage.getItem("user")).role;
     }
@@ -40,7 +42,8 @@ root.render(
                     <Route path="/home" index element={<HomePage />} />
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
-                    <Route path="edit-article/:id" element={getUserRole() === "ADMIN" ? <EditArticle/> :  <Navigate to={"/"}/>} />
+                    <Route path="edit-article/:id/:title" element={<EditArticle/>} />
+                    <Route path="add-article/:title" element={<AddArticle/>} />
                     <Route path="update-user-information/:profile" element={<Profile/>} />
                     <Route path="articles/:id" element={<ArticlePage/>}/>
                     <Route path="teams" element={<TeamHub/>}/>

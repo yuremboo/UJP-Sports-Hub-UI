@@ -1,3 +1,4 @@
+import React from "react";
 import "./admin-custom-picture-input.style.css";
 import { ReactComponent as Photo } from "../../icons/photoEditor/Photo.svg";
 import CustomInput from "../CustomInput/CustomInput";

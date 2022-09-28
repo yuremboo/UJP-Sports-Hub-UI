@@ -1,3 +1,4 @@
+import React from 'react';
 import "./change-password.style.css";
 import CustomInput from "../CustomInput/CustomInput";
 import {useState} from "react";
@@ -8,7 +9,12 @@ import {userLogoutRequest} from "../../redux/auth/auth.actions";
 
 const ChangePassword = () => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
-    const [password, setPassword] = useState({});
+    const [password, setPassword] = useState({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
+    const [errors, setErrors] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -26,8 +32,13 @@ const ChangePassword = () => {
                 authorization: AuthToken["jwt"]
             }
         })
+            .then(() => {
+                dispatch(userLogoutRequest())
+                navigate("/login");
+            })
             .catch((error) => {
                 if (error.response) {
+                    setErrors(prevState => {return {...prevState, oldPassword:"The password does not match the old password"}})
                     console.log(error.response);
                     console.log("error.response.status: ", error.response.status);
                 }
@@ -36,49 +47,87 @@ const ChangePassword = () => {
 
     const handleClick = event => {
         event.preventDefault()
-        if (password.newPassword === password.confirmPassword &&
-            password.oldPassword.length !== 0 &&
-            password.newPassword.length !== 0 &&
-            password.confirmPassword.length !== 0) {
-            putPassword(password)
-            dispatch(userLogoutRequest())
-            navigate("/login");
-        } else {
-            console.log("The new password and the confirmation password do not match!")
+            if (isValid()) {
+                putPassword(password)
+            } else {
+                console.log(errors);
+            }
+    }
+
+    const validateInput = data => {
+        let errors = {}
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.newPassword)) {
+            errors.newPassword = "New password must contain at least 8 characters (letters and numbers)"
+        }
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.oldPassword)) {
+            errors.oldPassword = "Old password must contain at least 8 characters (letters and numbers)"
+        }
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.confirmPassword)) {
+            errors.confirmPassword = "Confirm password must contain at least 8 characters (letters and numbers)"
+        }
+        if (data.newPassword !== data.confirmPassword) {
+            errors.newPassword = "newPassword"
+            errors.confirmPassword = "confirmPassword"
+        }
+        return {
+            errors,
+            isValid: JSON.stringify(errors) === '{}'
         }
     }
+
+    const isValid = () => {
+        const {errors, isValid} = validateInput(password)
+        if (!isValid) {
+            setErrors(errors)
+        }
+        return isValid
+    }
+
 
     const handleChange = event => {
         const {name, value} = event.target;
         setPassword({...password, [name]: value});
+        setErrors({...errors, [name]: ''})
     };
 
     return (
         <div>
             <form className={"change-password-form"}>
                 <div className={"custom-input"}>
+                    {errors.oldPassword && <p className='photo__error'>
+                        {errors.oldPassword}
+                    </p>}
                     <CustomInput
                         type="password"
                         label={"Old password"}
                         name={"oldPassword"}
+                        placeholder={"Enter your old password here"}
                         value={password.oldPassword}
                         handleChange={handleChange}
                     />
                 </div>
                 <div className={"custom-input"}>
+                    {errors.newPassword && <p className='photo__error'>
+                        {errors.newPassword}
+                    </p>}
                     <CustomInput
                         type="password"
                         label={"New password"}
                         name={"newPassword"}
+                        placeholder={"8+ characters (letters and numbers)"}
                         value={password.newPassword}
                         handleChange={handleChange}
                     />
                 </div>
                 <div className={"custom-input"}>
+                    {errors.confirmPassword && <p className='photo__error'>
+                        {errors.confirmPassword}
+                    </p>}
                     <CustomInput
                         type="password"
                         label={"Password confirmation"}
                         name={"confirmPassword"}
+                        placeholder={"Enter new password again"}
                         value={password.confirmPassword}
                         handleChange={handleChange}
                     />

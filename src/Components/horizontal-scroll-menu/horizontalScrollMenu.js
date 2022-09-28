@@ -9,7 +9,6 @@ import {useNavigate} from "react-router-dom";
 
 const HorizontalScrollMenu = () => {
     const [categories, setCategories] = useState([]);
-    // const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -18,9 +17,6 @@ const HorizontalScrollMenu = () => {
 
     function getAllCategories() {
         axios.get("http://localhost:8080/api/v1/categories", {
-            // headers: {
-            //     "Authorization": authToken,
-            // }
         })
             .then((response) => {
                 setCategories(response.data)
@@ -51,8 +47,8 @@ const HorizontalScrollMenu = () => {
                 </div>
 
                 {
-                    categories.map(category =>
-                        <Nav.Link className="category_button" href={"/admin/articles/category/" + category.id}>
+                    categories.map((category, index )=>
+                        <Nav.Link key={index} className="category_button" href={"/admin/articles/category/" + category.id}>
                             <li>{category.name}</li>
                         </Nav.Link>
                     )
