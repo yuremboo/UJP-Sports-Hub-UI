@@ -1,24 +1,31 @@
-.all_articles_admin__page{
+.n_all_articles_admin__page{
     width: 100%;
     height: 100vh;
     margin-right: 0;
     justify-content: center;
 }
-
-.all_articles_admin__header{
+.n_all_articles_admin__header__outer_fixed{
+    width: 100%;
+    height: 22%;
+    position: fixed;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+.n_all_articles_admin__header{
     display: flex;
     position: relative;
-    height: 12%;
+    height: 50%;
+    background-color: #FFFFFF;
 }
 
-.all_articles_admin__right_header{
+.n_all_articles_admin__right_header{
     width: 30%;
     margin-left: auto;
     display: flex;
     justify-content: flex-end;
 }
 
-.all_articles_admin__right_header button{
+.n_all_articles_admin__right_header button{
     border: none;
     width: 20%;
     padding: 0;
@@ -27,7 +34,7 @@
     text-align: center;
 }
 
-.accountSwitcher__button img{
+.n_accountSwitcher__button img{
     width: 50%;
     height: 50%;
     padding: 0;
@@ -51,17 +58,19 @@
     color: #FFFBFB;
 }
 
-.all_articles_admin__current_category__new_article{
+.n_all_articles_admin__current_category__new_article{
     display: flex;
-    margin: 2% 5%;
+    margin-top: 1%;
+    padding: 1% 5%;
+    background-color: #FFFFFF;
 }
 
-.all_articles_admin__new_article{
+.n_all_articles_admin__new_article{
     margin-top: 0;
     margin-left: auto;
 }
 
-.all_articles_admin__current_category{
+.n_all_articles_admin__current_category{
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     text-transform: uppercase;
@@ -70,12 +79,13 @@
     line-height: 28px;
 }
 
-.all_articles_admin__categories_buttons{
+.n_all_articles_admin__categories_buttons{
     display: flex;
     align-items: center;
-    margin-top: 1%;
+    /*padding-top: 4%;*/
     font-weight: bold;
-    border: rgba(178, 178, 178, 1) 2px solid;
+    /*border: rgba(178, 178, 178, 1) 2px solid;*/
+    /*border: 1px solid #D4D9E2;*/
 }
 .categories_buttons__left_arrow,
 .categories_buttons__right_arrow
@@ -89,39 +99,42 @@
     border: none;
     background-color: transparent;
 }
-.categories_buttons__left_arrow button img{
+.n_categories_buttons__left_arrow button img{
     transform: rotate(180deg) ;
 }
 
-.all_articles_admin__body{
+.n_all_articles_admin__body{
+    padding-top: 7%;
     display: flex;
     width: 100%;
 }
 
-.all_articles_admin__articles{
+.n_all_articles_admin__articles{
+    padding-top: 115px;
     margin: 0 10%;
     width: 85%;
 }
 
-.all_articles_admin__left_buttons{
+.n_all_articles_admin__left_buttons{
+    padding-top: 125px;
     width: 100px;
     height: 70%;
-    border-right: rgba(178, 178, 178, 1) 2px solid;
+    border-right: 1px solid #D4D9E2;
 }
 
 
-.categories_buttons__arrow{
+.n_categories_buttons__arrow{
     margin:0 2%;
 }
 
-.categories_buttons__arrow button{
+.n_categories_buttons__arrow button{
     border: none;
     background-color: transparent;
     width: 110%;
     height: 100%
 }
 
-.categories_buttons__arrow:hover *{
+.n_categories_buttons__arrow:hover *{
     fill: #D72130;
     stroke: #D72130;
 }
@@ -160,9 +173,6 @@
     height: 100%
 }
 
-.all_articles_admin__categories_buttons{
-    width: 100%;
-}
 .card{
     margin: 2%;
 }
@@ -215,7 +225,7 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
     font-weight: 500;
 }
 
-.all_articles_admin__filter_articles{
+.n_all_articles_admin__filter_articles{
     display: flex;
     margin: 4% 17% -2% 17%;
     padding-left: 2%;
@@ -249,6 +259,7 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
 }
 
 .dropdown-toggle-filter {
+    display: flex;
     width: 100%;
     background-color: #FFFFFF;
     color: black;
@@ -258,6 +269,13 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
     font-weight: bold;
     font-size: 18px;
 }
+.filter_articles__triangle{
+    margin-top: 5%;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
 #root > div > div > div.all_articles_admin__body > div.all_articles_admin__articles > div.all_articles_admin__filter_articles > div.filter_articles.show.dropdown > div{
     width: 100%;
     border-radius: 0;
@@ -317,27 +335,36 @@ button#dropdown-basic{
     color: #C63638;
 }
 
-.no-articles{
+.n_no-articles-text{
     width: 100%;
+    display: flex;
+    justify-content: center;
     margin-top: 5%;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
-    line-height: 19px;
+    line-height: 29px;
     letter-spacing: 0.07rem;
     color: #C63638;
+    text-transform: uppercase;
+}
+.n_no_is_active_articles{
+    margin: 10%;
+    padding-top: 4px;
+    justify-content: center;
+    width: 85%;
+
 }
 
-
-.all_articles_admin__category_preview{
+.n_all_articles_admin__category_preview{
     width: max-content;
     display: flex;
     margin: 4% 17% -2% 17%;
     padding-left: 2%;
 }
-.all_articles_admin__category_preview_text{
+.n_all_articles_admin__category_preview_text{
     margin-left: 5% ;
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
@@ -348,15 +375,16 @@ button#dropdown-basic{
 }
 
 
-.all_articles_admin__profile_section{
+.n_all_articles_admin__profile_section{
     width: 250px;
     vertical-align: center;
     align-items: center;
 }
 
-.admin__profile_section{
+.n_admin__profile_section{
     width: 50%;
-    margin-right: 6%;
+    margin: auto 6% auto 0;
+    /*margin-right: 6%;*/
 }
 
 button#dropdown-basic {
@@ -364,4 +392,43 @@ button#dropdown-basic {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+
+
+
+
+
+
+
+/*
+
+/////////////
+
+*/
+
+
+.all_articles_admin__page .admin__header{
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    z-index: 101;
+}
+
+.bottom-header {
+    position: fixed;
+    right: 0;
+    top: 12%;
+    left: 0;
+    z-index: 100;
+}
+
+.all_articles_admin__categories_buttons {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    left: 0;
+    top: calc(12% + 80px);
 }

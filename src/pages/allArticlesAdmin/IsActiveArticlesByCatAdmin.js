@@ -12,6 +12,7 @@ import "./allarticlesadmin.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import polygon from "../../icons/Polygon.svg";
 
 const IsActiveArticlesByCatAdmin = () => {
     const params = useParams();
@@ -76,61 +77,107 @@ const IsActiveArticlesByCatAdmin = () => {
     }
 
     return (
-        <div className="all_articles_admin__page">
-            <div className="all_articles_admin__header">
-                <div className="sportshub">Sports hub</div>
-                <div className="all_articles_admin__right_header">
-                    <button className="accountSwitcher__button">
-                        <img src={accountSwitcher} width="30%" height="30%"/>
-                    </button>
-                    <div className="admin__profile_section">
-                        <ProfileSection/>
+        <div className="n_all_articles_admin__page">
+            <div className="n_all_articles_admin__header__outer_fixed">
+                <div className="n_all_articles_admin__header">
+                    <div className="sportshub">Sports hub</div>
+                    <div className="n_all_articles_admin__right_header">
+                        <button className="n_accountSwitcher__button">
+                            <img src={accountSwitcher} width="30%" height="30%"/>
+                        </button>
+                        <div className="n_admin__profile_section">
+                            <ProfileSection/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="all_articles_admin__current_category__new_article">
-                <div className="all_articles_admin__current_category">
-                    {
-                        currentCategory.name
-                    }
+                {/*<div>*/}
+                <div className="n_all_articles_admin__current_category__new_article">
+                    <div className="n_all_articles_admin__current_category">
+                        {
+                            currentCategory.name
+                        }
+                    </div>
+                    <div className="n_all_articles_admin__new_article">
+                        <AddNewArticleBtn/>
+                    </div>
                 </div>
-                <div className="all_articles_admin__new_article">
-                    <AddNewArticleBtn/>
-                </div>
-            </div>
 
-            <div className="all_articles_admin__categories_buttons">
-                <HorizontalScrollMenu/>
+                <div className="n_all_articles_admin__categories_buttons">
+                    <HorizontalScrollMenu/>
+                </div>
+                {/*</div>*/}
             </div>
-            <div className="all_articles_admin__body">
-                <div className="all_articles_admin__left_buttons">
+            <div className="n_all_articles_admin__body">
+                <div className="n_all_articles_admin__left_buttons">
                     <SidePanelBtns/>
                 </div>
                 {
                     allArticlesByCategoryId.length === 0 ?
-                        <div className="no-articles">THERE ARE NO ARTICLES IN THIS CATEGORY</div> :
-
-                        <div className="all_articles_admin__articles">
-                            <div className="all_articles_admin__category_preview" onClick={previewCategory}>
-                                <img src={preview} alt="preview"/>
-                                <div className="all_articles_admin__category_preview_text">Preview</div>
-                            </div>
-                            <div className="all_articles_admin__filter_articles">
+                        <div className="n_no_is_active_articles">
+                            <div className="n_all_articles_admin__filter_articles">
                                 <Dropdown className="filter_articles">
-                                    <Dropdown.Toggle className="dropdown-toggle-filter" variant="success" id="dropdown-basic">
-                                        { params.isActive === "true" ? <div>Published</div> : <div>Unpublished</div>}
+                                    <Dropdown.Toggle className="dropdown-toggle-filter" variant="success"
+                                                     id="dropdown-basic">
+                                        <div className="filter_articles__text">
+                                            {params.isActive === "true" ? <div>Published</div> : <div>Unpublished</div>}
+                                        </div>
+                                        <div className="filter_articles__triangle">
+                                            <img src={polygon} height="100%" width="100%"/>
+                                        </div>
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="dropdown-item"
                                                        href={"/admin/articles/category/" + currentCategory.id}>All</Dropdown.Item>
 
-                                        <Dropdown.Item className={params.isActive === "true" ? "dropdown-item-active" : "dropdown-item"}
-                                                       href={"/admin/articles/category/" + currentCategory.id + "/is_active/true"}>Published</Dropdown.Item>
+                                        <Dropdown.Item
+                                            className={params.isActive === "true" ? "dropdown-item-active" : "dropdown-item"}
+                                            href={"/admin/articles/category/" + currentCategory.id + "/is_active/true"}>Published</Dropdown.Item>
 
-                                        <Dropdown.Item className={params.isActive === "false" ? "dropdown-item-active" : "dropdown-item"}
-                                                       href={"/admin/articles/category/" + currentCategory.id + "/is_active/false"}>Unpublished</Dropdown.Item>
+                                        <Dropdown.Item
+                                            className={params.isActive === "false" ? "dropdown-item-active" : "dropdown-item"}
+                                            href={"/admin/articles/category/" + currentCategory.id + "/is_active/false"}>Unpublished</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                            <div className="n_no-articles-text">THERE ARE NO
+                                {params.isActive === "true" ?
+                                    <div style= {{margin: "0 7px"}}>Published</div> :
+                                    <div style= {{margin: "0 7px"}}>Unpublished</div>}
+                                ARTICLES IN THIS CATEGORY
+                            </div>
+                        </div>
+                        :
+
+                        <div className="n_all_articles_admin__articles">
+                            <div className="n_all_articles_admin__category_preview" onClick={previewCategory}>
+                                <img src={preview} alt="preview"/>
+                                <div className="n_all_articles_admin__category_preview_text">Preview</div>
+                            </div>
+                            <div className="n_all_articles_admin__filter_articles">
+                                <Dropdown className="filter_articles">
+                                    <Dropdown.Toggle className="dropdown-toggle-filter" variant="success"
+                                                     id="dropdown-basic">
+                                        <div className="filter_articles__text">
+                                            {params.isActive === "true" ? <div>Published</div> : <div>Unpublished</div>}
+                                        </div>
+                                        <div className="filter_articles__triangle">
+                                            <img src={polygon} height="100%" width="100%"/>
+                                        </div>
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item className="dropdown-item"
+                                                       href={"/admin/articles/category/" + currentCategory.id}>All</Dropdown.Item>
+
+                                        <Dropdown.Item
+                                            className={params.isActive === "true" ? "dropdown-item-active" : "dropdown-item"}
+                                            href={"/admin/articles/category/" + currentCategory.id + "/is_active/true"}>Published</Dropdown.Item>
+
+                                        <Dropdown.Item
+                                            className={params.isActive === "false" ? "dropdown-item-active" : "dropdown-item"}
+                                            href={"/admin/articles/category/" + currentCategory.id + "/is_active/false"}>Unpublished</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>

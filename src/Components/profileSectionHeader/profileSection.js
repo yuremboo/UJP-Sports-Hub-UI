@@ -43,7 +43,9 @@ const ProfileSection = ({
                                     {" "}
                                     {user.lastName}
                                 </div>
+                                {/*<div className="profile-section-header--triangle">*/}
                                 <img src={polygon} height="100%" width="100%"/>
+                                {/*</div>*/}
                             </div>
                             {getUserRole() === "ADMIN" ?
                                 <div className="profile-section-header--text-admin">
