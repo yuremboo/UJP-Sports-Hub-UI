@@ -2,10 +2,11 @@ import React from "react";
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
 import "../../style_components/article/verticalminiarticle.css";
 import arrow from "../../icons/arrow-red.svg"
+import { Link } from "react-router-dom";
 
 const VerticalMiniArticle = ({verticalMiniArticle}) => {
   return (
-    <a className="article-link" href={"http://localhost:3000/articles/" + verticalMiniArticle.id}>
+    <Link className="article-link" to={"/articles/" + verticalMiniArticle.id}>
       <div className="v-mini-article">
         <img className="v-mini-article-img" src={miniArticlePhoto} alt="article-img" />
         <div className="v-mini-article-text">
@@ -18,7 +19,7 @@ const VerticalMiniArticle = ({verticalMiniArticle}) => {
             <img src={arrow} alt="arrow"/>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 

@@ -1,9 +1,7 @@
 .shortArticle{
     display: flex;
     height: 10%;
-    border: black 1px solid;
-    /*margin-bottom: 4%;*/
-    /*padding-right: 2%;*/
+    border: 1px solid #ededed;
     margin: 4% 7%;
     background: #FFFFFF;
 }

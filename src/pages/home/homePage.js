@@ -94,7 +94,6 @@ const HomePage = ({
                         <img
                             className="main-article-image"
                             alt={mainArticles[0]["alt"]}
-                            //src={article.picture}
                             src={articleImage}
                         />
                         <div className="v-mini-articles">

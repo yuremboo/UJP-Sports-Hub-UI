@@ -8,6 +8,7 @@
 }
 .nav-bar-information{
     position: relative;
+    background-color: #f8f8f8;
 }
 .nav-bar{
     max-width: 200px;
@@ -67,6 +68,10 @@
 }
 .mini-articles {
     display: flex;
+}
+
+.category_page .mini-articles {
+    flex-wrap: nowrap;
 }
 
 .mini-articles-r {
