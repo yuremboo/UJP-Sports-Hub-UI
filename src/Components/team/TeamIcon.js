@@ -3,15 +3,20 @@ import './TeamIcon.css';
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 const TeamIcon = (props) => {
+    let navigate = useNavigate();
     function deleteSubscription(subscription) {
       const set1AuthToken = JSON.parse(localStorage.getItem('user'))
       console.log('token: ', set1AuthToken['jwt']);
-      axios.delete("http://localhost:8080/api/subscription/" + props.subscriptionId+"/team", {
+      axios.delete("http://localhost:8080/api/v1/subscription/" + props.subscriptionId+"/team", {
         headers: {
           authorization:set1AuthToken['jwt'],
         }
       })
+          .then((response)=>{
+              navigate(0);
+          })
         .catch((error) => {
           if (error.response) {
             console.log(error.response);

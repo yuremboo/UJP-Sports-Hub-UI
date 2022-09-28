@@ -5,8 +5,6 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 export default function NavBar() {
-
-  // const AuthToken = JSON.parse(localStorage.getItem("user"));
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -15,9 +13,7 @@ export default function NavBar() {
 
   function getCategories() {
     axios.get("http://localhost:8080/api/v1/categories", {
-      // headers: {
-      //   authorization: AuthToken["jwt"]
-      // }
+
     })
       .then((response) => {
         const data = response.data;
@@ -34,11 +30,6 @@ export default function NavBar() {
   return (
     <div className="main-nav">
       <div className="position_line">
-        <div className="line">
-          <svg width="4" height="111" viewBox="0 0 4 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="4" height="111" rx="2" fill="#D4D9E2" />
-          </svg>
-        </div>
         <ul>
           <Nav defaultActiveKey="/home" className="flex-column">
             <Nav.Link className="link-home" href="/">

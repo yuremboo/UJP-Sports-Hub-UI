@@ -41,6 +41,7 @@ const AdminHomePage = () => {
   //const { id } = useParams();
   const navigate = useNavigate();
   const AuthToken = JSON.parse(localStorage.getItem("user"));
+    const [IsLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [teams, setTeams] = useState([]);
   const [values, setValues] = useState(initialValues);
@@ -65,73 +66,64 @@ const AdminHomePage = () => {
   // const [totalPages, setTotalPages] = useState(1);
   // let navigate = useNavigate();
 
-  const [currentCategory, setCurrentCategory] = useState({
-    "id": "0", "name": "HOME"
-  });
-  useEffect(() => {
-    getCategories();
-    getTeam();
-    getArticles();
-    addInInput();
+    const [currentCategory, setCurrentCategory] = useState({
+        "id": "0", "name": "HOME"
+    });
+    useEffect(() => {
+        getData();
+    //addInInput();
   }, []);
 
-  function getCategories() {
-    axios.get("http://localhost:8080/api/categories", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        setCategories(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
+    function getData() {
+        console.log("function getData");
+        axios.get("http://localhost:8080/api/v1/categories", {
+            headers: {
+                authorization: AuthToken["jwt"]
+            }
+        })
+            .then((response) => {
+                const data = response.data;
+                console.log("getCategories");
+                console.log(response.data);
+                setCategories(data);
+                return  axios.get("http://localhost:8080/api/v1/teams", {
+                    headers: {
+                        authorization: AuthToken["jwt"]
+                    }
+                })
+            })
+            .then((response) => {
+                const data = response.data;
+                console.log("getTeam");
+                console.log(response.data);
+                setTeams(data);
+                return axios.get("http://localhost:8080/api/v1/admin/articles", {
+                    headers: {
+                        authorization: AuthToken["jwt"]
+                    }
+                })
+            })
+            .then((response) => {
+                console.log("getArticles");
+                console.log(response.data);
+                setAllArticle(response.data.content);
+            })
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response);
+                    console.log("error.response.status: ", error.response.status);
+                }
+            });
+    }
 
-  function getTeam() {
-    axios.get("http://localhost:8080/api/v1/teams", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        setTeams(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
-
-  function getArticles() {
-    axios.get("http://localhost:8080/api/v1/admin/articles", {
-      headers: {
-        authorization: AuthToken["jwt"]
-      }
-    })
-      .then((response) => {
-        const data = response.data;
-        setAllArticle(response.data.content);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      });
-  }
-
-  function putArticle(article) {
+  function putArticles() {
     let result = true;
-    axios.put("http://localhost:8080/api/v1/admin/articles/", article, {
+    console.log("token: ", AuthToken["jwt"]);
+      console.log(articlesSelectedByAdmin);
+    axios.put("http://localhost:8080/api/v1/admin/articles/", articlesSelectedByAdmin, {
       headers: {
         authorization: AuthToken["jwt"]
       }
@@ -151,11 +143,11 @@ const AdminHomePage = () => {
       setInputList(inputList.concat(
         <AdminMainArticleSection
           key={inputList.length}
-          handleChange={handleChange}
           deleteSection={deleteSection}
+          getArticleList={getArticleList}
           categories={categories}
           teams={teams}
-        //allArticles={allArticles}
+          allArticles={allArticles}
         />));
     }
   };
@@ -164,11 +156,11 @@ const AdminHomePage = () => {
     setInputList(inputList.concat(
       <AdminMainArticleSection
         key={inputList.length}
-        handleChange={handleChange}
         deleteSection={deleteSection}
+        getArticleList={getArticleList}
         categories={categories}
         teams={teams}
-      //allArticles={allArticles}
+        allArticles={allArticles}
       />));
   };
 
@@ -190,16 +182,21 @@ const AdminHomePage = () => {
         clearAllInputs()
       }
     }
+    if(articlesSelectedByAdmin.length!=0) {
+        putArticles();
+    }
   }
 
   function deleteSection(key) {
     setInputList(inputList.filter((article) => inputList.indexOf(article) !== key));
     //setInputList(inputList.splice(key, 1));
   };
-  const handleChange = event => {
-    const { name, value } = event.target;
-    setArticle({ ...article, [name]: value });
-  };
+    const [articlesSelectedByAdmin, setArticlesSelectedByAdmin] = useState([]);
+    function getArticleList (value) {
+        setArticlesSelectedByAdmin(articlesSelectedByAdmin.concat( value) );
+        console.log(articlesSelectedByAdmin);
+    };
+
 
   const validateInput = data => {
     let errors = {}
@@ -280,7 +277,6 @@ const AdminHomePage = () => {
                 <p>MAIN ARTICLES</p>
               </div>
             </div>
-
             {inputList}
             {inputList.length < 5 ? (
               <div>

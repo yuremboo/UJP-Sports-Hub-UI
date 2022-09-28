@@ -1,58 +1,62 @@
 import React, {useEffect, useState} from 'react';
 import './admin-main-article-section.css';
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
-import ShortArticle from "../article/ShortArticleUser";
-import axios from "axios";
 import { MDBSwitch } from "mdb-react-ui-kit";
-export default function AdminMainArticleSection ({key,handleChange,deleteSection,categories,teams}) {
+export default function AdminMainArticleSection ({key,deleteSection,getArticleList,categories,teams,allArticles}) {
   const [article, setArticle] = useState({
     //picture: "Picture",
   });
   const [teamName, setTeamName] = useState();
-  const [allArticles, setAllArticle] = useState([]);
-    useEffect(() => {
-        getArticleByTeamsFollow(teamName);
-    }, [teamName]);
-
-  function getArticleByTeamsFollow(teamName) {
-    console.log('function getArticleByTeamsFollow');
-    const set1AuthToken = JSON.parse(localStorage.getItem('user'))
-    console.log('token: ', set1AuthToken['jwt']);
-      console.log(teamName);
-    // var id;
-    // var idNull;
-    // {
-    //   teams.map(team =>
-    //       (team.team.name=teamName )?(id=team.team.id):(idNull=null)
-    //     )
-    // }
-    axios.get("http://localhost:8080/api/v1/articles/team/"+{teamName}//+team.team.id
-      , {
-      headers: {
-        authorization:set1AuthToken['jwt'],
-      }
-    })
-      .then((response) => {
-        const data = response.data
-        console.log('getArticles')
-        console.log(response.data)
-        setAllArticle(prevState => [...data])
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log("error.response.status: ", error.response.status);
-        }
-      })
-  }
+  //const [allArticles, setAllArticle] = useState([]);
+  //   useEffect(() => {
+  //       getArticleByTeamsFollow(teamName);
+  //   }, [teamName]);
+  //
+  // function getArticleByTeamsFollow(teamName) {
+  //   console.log('function getArticleByTeamsFollow');
+  //   const set1AuthToken = JSON.parse(localStorage.getItem('user'))
+  //   console.log('token: ', set1AuthToken['jwt']);
+  //     console.log(teamName);
+  //   // var id;
+  //   // var idNull;
+  //   // {
+  //   //   teams.map(team =>
+  //   //       (team.team.name=teamName )?(id=team.team.id):(idNull=null)
+  //   //     )
+  //   // }
+  //   axios.get("http://localhost:8080/api/v1/articles/team/"+{teamName}//+team.team.id
+  //     , {
+  //     headers: {
+  //       authorization:set1AuthToken['jwt'],
+  //     }
+  //   })
+  //     .then((response) => {
+  //       const data = response.data
+  //       console.log('getArticles')
+  //       console.log(response.data)
+  //       setAllArticle(prevState => [...data])
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         console.log(error.response);
+  //         console.log("error.response.status: ", error.response.status);
+  //       }
+  //     })
+  // }
+    const handleChange = event => {
+        const { name, value } = event.target;
+        setArticle({ ...article, [name]: value });
+        console.log(article);
+    };
   function deleteSectionById() {
     deleteSection(key);
   }
-  const getArticleList = event => {
-    const { name, value } = event.target;
-    setArticle({ ...article, [name]: value });
-    console.log(article);
-  };
+    function getIdArticle(event) {
+        const { value } = event.target;
+        console.log(value);
+        getArticleList(value);
+    }
+
   const getTeam = event => {
     const { value } = event.target;
     setTeamName({ ...teamName,value });
@@ -98,8 +102,8 @@ export default function AdminMainArticleSection ({key,handleChange,deleteSection
       <CustomSelect
         label={"Article*"}
         name={"article"}
-        enumeration={allArticles.map((article)=>({...article, name:article.title, id:article.title}))}
-        handleChange={handleChange}
+        enumeration={allArticles.map((article)=>({...article, name:article.title, id:article.id}))}
+        handleChange={getIdArticle}
         //getArticleByTeamsFollow(teamName)}
       />
       <div>

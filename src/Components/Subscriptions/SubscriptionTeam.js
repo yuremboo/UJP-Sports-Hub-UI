@@ -3,7 +3,9 @@ import './SubscriptionTeam.css';
 import miniArticlePhoto from "../../icons/article/MiniArticlePhoto.jpg";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 const SubscriptionTeam = (props) => {
+    let navigate = useNavigate();
   function deleteSubscription(subscription) {
     const set1AuthToken = JSON.parse(localStorage.getItem('user'))
     console.log('token: ', set1AuthToken['jwt']);
@@ -12,6 +14,9 @@ const SubscriptionTeam = (props) => {
         authorization:set1AuthToken['jwt'],
       }
     })
+        .then((response) => {
+            navigate(0);
+        })
       .catch((error) => {
         if (error.response) {
           console.log(error.response);

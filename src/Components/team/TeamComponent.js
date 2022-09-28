@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './TeamComponent.css';
 import TeamIcon from "./TeamIcon";
-import ShortArticle from "../article/ShortArticleUser";
+import ShortArticleUser from "../article/ShortArticleUser";
+import MiniArticle from "../article/MiniArticle";
 import axios from "axios";
 
 export default function TeamComponent({team, isSubscribed}) {
@@ -46,11 +47,11 @@ export default function TeamComponent({team, isSubscribed}) {
         <TeamIcon title={team.team.name} image={team.team.alt} subscriptionId={team.subscriptionId} following={"following"} />
         }
       </div>
-
-      <div className='team_component_body'>
-        {articlesByTeamsId.map(article =>
-             <ShortArticle title={article.title} shortText={article.shortText} category={null}  />)}
-      </div>
+        <div className='team_component_body'>
+        {
+            articlesByTeamsId.map(article => <ShortArticleUser shortArticle={article}/>)
+        }
+        </div>
     </div>
   );
 };

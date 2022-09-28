@@ -21,6 +21,7 @@ import {getPhotoOfTheDay} from '../../redux/photo-of-the-day/photo-day.action';
 import dayPhoto from './Bitmap.png';
 
 import MostCommentedArticles from "../../Components/mostCommentedArticles/MostCommentedArticles";
+import MorePopularArticles from "../../Components/morePopularArticles/MorePopularArticles";
 import ArticleHeading from "../../Components/article/ArticleHeading";
 import {useState} from "react";
 import articleImage from "../../icons/article/ArticlePhoto.jpg";
@@ -157,15 +158,15 @@ const HomePage = ({
                     </div>
                     <div className='most-popular-and-commented-section'>
                         <div className='most-popular-section'>
-
+                            <MorePopularArticles/>
                         </div>
                         <div className='most-commented-section'>
                             <MostCommentedArticles/>
                         </div>
                     </div>
-                    <Footer/>
                 </main>
             </div>
+            <Footer/>
         </div>
     );
 };
