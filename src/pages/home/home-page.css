@@ -55,7 +55,7 @@
     gap: 48px;
 }
 
-.mini-articles {
+.mini-articles#breakdown  {
     display: flex;
     flex-direction: column;
     gap: 48px;

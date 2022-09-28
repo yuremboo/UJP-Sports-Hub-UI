@@ -177,7 +177,7 @@ a {
   line-height: 19px;
 }
 
-.mini-articles {
+.mini-articles#more-articles {
   display: inline-flex;
   flex-flow: row;
 }

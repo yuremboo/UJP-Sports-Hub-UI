@@ -373,7 +373,7 @@ const ArticlePage = () => {
           <span className="more-articles">MORE ARTICLES</span>
           <hr className="more-line-r" />
         </div>
-        <div className="mini-articles">
+        <div className="mini-articles" id="more-articles">
           <div className="mini-articles-l">
             {miniArticles.slice(0, 3).map((miniArticle) => (
               <MiniArticle miniArticle={miniArticle} key={miniArticle.id} />
