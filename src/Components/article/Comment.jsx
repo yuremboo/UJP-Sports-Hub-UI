@@ -24,11 +24,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function getUserById(userId) {
       await axios
-        .get("http://localhost:8080/api/v1/users/" + userId, {
-          // headers: {
-          //   authorization: bearer + currentUser["jwt"],
-          // },
-        })
+        .get("http://localhost:8080/api/v1/users/" + userId, {})
         .then((response) => {
           const data = response.data;
             setCommenter(data);
@@ -233,7 +229,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   return (
     <div className="comment-body">
-      <img className="user-image" src={commenter && commenter["photo"] ? commenter["photo"]: defaultUserImage} alt="commenter" />
+      <img className="user-image" src={commenter && commenter.photo ? ("http://localhost:8080/api/v1/image/" + commenter.photo) : defaultUserImage} alt="commenter" />
       <div className="comment-content">
         <span className="commenter-name">
           {commenter !== null ? commenter["firstName"] + " " + commenter["lastName"] : "Firstname Lastname"}
@@ -301,11 +297,10 @@ export default function Comment({ comment, deleteComment, editComment }) {
             </span>
           )}
           {currentUser === null ? (
-            <button className="comment">Comment</button>
+            <></>
           ) :(
             <span>
               <button className="delete" onClick={deleteCommentById}>Delete</button>
-              <button className="comment">Comment</button>
               <button className="edit" onClick={() => editComment(comment)}>
                 Edit
               </button>

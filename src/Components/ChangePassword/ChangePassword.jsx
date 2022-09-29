@@ -19,14 +19,11 @@ const ChangePassword = () => {
     const navigate = useNavigate();
 
     function putPassword(password) {
+        console.log("putPassword");
         const sendPassword = {
             password: password.newPassword,
             oldPassword: password.oldPassword
         };
-        console.log("password");
-        console.log(password);
-        console.log("sendPassword");
-        console.log(sendPassword);
         axios.put("http://localhost:8080/api/v1/password", sendPassword, {
             headers: {
                 authorization: AuthToken["jwt"]
@@ -60,14 +57,14 @@ const ChangePassword = () => {
             errors.newPassword = "New password must contain at least 8 characters (letters and numbers)"
         }
         if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.oldPassword)) {
-            errors.oldPassword = "Old password must contain at least 8 characters (letters and numbers)"
+            errors.oldPassword = "Password must contain at least 8 characters (letters and numbers)"
         }
         if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.confirmPassword)) {
             errors.confirmPassword = "Confirm password must contain at least 8 characters (letters and numbers)"
         }
         if (data.newPassword !== data.confirmPassword) {
-            errors.newPassword = "newPassword"
-            errors.confirmPassword = "confirmPassword"
+            errors.newPassword = "The new password must match the confirmation password"
+            errors.confirmPassword = "The confirmation password must match the new password"
         }
         return {
             errors,

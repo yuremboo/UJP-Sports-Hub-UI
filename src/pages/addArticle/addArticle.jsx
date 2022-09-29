@@ -10,12 +10,12 @@ import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictur
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
-import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import {useNavigate, useParams} from "react-router-dom";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import React from "react";
+import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
 
 const AddArticle = ({props, globalStore}) => {
     const {title} = useParams();
@@ -25,6 +25,7 @@ const AddArticle = ({props, globalStore}) => {
     const [isCancel, setIsCancel] = useState(false)
     const [teams, setTeams] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [image, setImage] = useState([]);
     const [article, setArticle] = useState({
         id: "",
         title: "",
@@ -77,15 +78,18 @@ const AddArticle = ({props, globalStore}) => {
             });
     }
 
-    function postArticle(article) {
-        if (isValid()) {
+    async function postArticle(article) {
+        console.log("postImage");
+        const result = await addPhotoOfTheDay(image[0], "false")
+        if (isValid() && result) {
+            console.log("postArticle");
             const sendArticle = {
                 title: article.title,
                 text: article.text,
                 caption: article.caption,
                 alt: article.alt,
                 location: article.location,
-                picture: "article.picture",
+                picture: result.imageUrl,
                 isActive: true,
                 commentsActive: article.commentsActive,
                 updateDateTime: article.updateDateTime,
@@ -115,7 +119,6 @@ const AddArticle = ({props, globalStore}) => {
     const validateInput = data => {
         let errors = {}
 
-        console.log(data)
         if (data.category === "") {
             errors.category = "Category cannot be empty"
         }
@@ -165,9 +168,6 @@ const AddArticle = ({props, globalStore}) => {
                     <div className="n_all_articles_admin__header">
                         <div className="sportshub">Sports hub</div>
                         <div className="n_all_articles_admin__right_header">
-                            <button className="n_accountSwitcher__button">
-                                <img src={accountSwitcher} width="30%" height="30%"/>
-                            </button>
                             <div className="n_admin__profile_section">
                                 <ProfileSection/>
                             </div>
@@ -194,18 +194,15 @@ const AddArticle = ({props, globalStore}) => {
             <NavBarIcons className={"nav-bar-icons"}/>
 
             <form className="form-container">
-                <div className={"form-preview"}>
-                    <button className={"button-eye"} type={"button"}>
-                        <img className={"img-eye"} src={Eye} alt="Eye"/>
-                        <span className={"span-preview"}>Preview</span>
-                    </button>
-                </div>
-
                 <CustomPictureInput
                     label={"Picture.*"}
                     name={"picture"}
-                    value={article.picture}
-                    handleChange={handleChange}
+                    picture={article.picture}
+                    addPhoto={true}
+                    image={image}
+                    setImage={setImage}
+                    errors={errors}
+                    setErrors={setErrors}
                 />
                 <div className={"select-errors"}>
                     <div>

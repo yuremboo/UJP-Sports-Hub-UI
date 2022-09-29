@@ -1,0 +1,47 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.form-container-add-team{
+    padding-top: 15%;
+    max-width: 50%;
+    margin: 0 auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.form-container-add-team input{
+    width:100%;
+}
+.form-container-add-team img{
+    width:30%;
+}
+.team-map{
+    padding-top:18%;
+    padding-left:10%;
+}
+.map-and-form{
+    display: flex;
+}
+.list_of-team {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    border: 2px solid;
+    width: 800px;
+    height: 200px;
+}
+
+th {
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}

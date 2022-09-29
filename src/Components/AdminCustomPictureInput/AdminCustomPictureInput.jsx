@@ -77,20 +77,6 @@ const AdminCustomPictureInput = ({ image, setImage, values, setValues, errors, s
                                 </div>
                             </div>
                         </div>
-                        <div className={`icon-wrapper ${!imageURL.length ? "disable-icons" : ""}`}>
-                            <div className={"red-icon"}>
-                                <Filter className={"form-icons icon-filter"} />
-                            </div>
-                            <div className={"red-icon"}>
-                                <Scale className={"form-icons icon-scale"} />
-                            </div>
-                            <div className={"red-icon"}>
-                                <Trash className={"form-icons icon-trash"} />
-                            </div>
-                            <div className={"red-icon"}>
-                                <Fullscreen className={"form-icons icon-fullscreen"} />
-                            </div>
-                        </div>
                     </div>
                     <input type={"file"} accept="image/*" onChange={handleImageChange} />
                 </label>
@@ -135,15 +121,6 @@ const AdminCustomPictureInput = ({ image, setImage, values, setValues, errors, s
                     value={values.author}
                     handleChange={handleChange}
                 />
-                <div className="admin-photo-switch">
-                    <span className={"span-photo"}>Show on the main page</span>
-                     <MDBSwitch id='show-hide-toggle'
-                                   className={"show-hide-toggle"}
-                                   checked={values.isHidden}
-                                   onChange={() => {
-                                       setValues({...values, isHidden: !values.isHidden})
-                                   }}/>
-                </div>
             </form>
         </div>
     );

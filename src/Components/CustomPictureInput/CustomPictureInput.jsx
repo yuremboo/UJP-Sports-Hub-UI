@@ -6,40 +6,55 @@ import {ReactComponent as Scale} from "../../icons/photoEditor/Scale.svg";
 import {ReactComponent as Fullscreen} from "../../icons/photoEditor/Fullscreen.svg";
 import {ReactComponent as Filter} from "../../icons/photoEditor/Filter.svg";
 import Basketball from "../../icons/Basketball.jpg";
+import {useEffect, useState} from "react";
 
-const CustomPictureInput = ({handleChange, label, photo, ...otherProps}) => {
+const CustomPictureInput = ({label, photo, image, setImage, errors, setErrors, picture, addPhoto, ...otherProps}) => {
+
+    const [imageURL, setImageURL] = useState([]);
+
+    useEffect(() => {
+        if (image.length < 1) {
+            setImageURL([])
+            return
+        }
+        setImageURL((window.URL || window.webkitURL).createObjectURL(image[0]))
+
+    }, [image])
+
+    const handleImageChange = (e) => {
+        setErrors({ ...errors, picture: '' })
+        setImage([...e.target.files])
+    }
+
     return (
-        <div>
+        <div className={(addPhoto && imageURL.length === 0) ? "test__" : ""}>
+            {errors.picture && <p className='photo__error'>
+                {errors.picture}
+            </p>}
             <label className="form-label" htmlFor="pictureInput">{label}</label>
-            <div className={"form-picture"} style={ !photo ? {background:"#C4C4C414", border: "1px dashed #D1D1D1"} : {} }>
-                {photo && <img className={"form-img"} src={Basketball} alt="Basketball"/>}
-
-                <div>
-                        <label className={"red-circle center-icon"} style={ !photo ? {opacity: "1"} : {} }>
-                            <input type="file"/>
+            <label className="photo-wrapper">
+                <div className={"form-picture"}
+                     style={!photo ? {background: "#C4C4C414", border: "1px dashed #D1D1D1"} : {}}>
+                    {(photo || (addPhoto && imageURL.length !== 0)) && <div className="background-photo"
+                                   style={{ backgroundImage: `url(${imageURL.length === 0 ? ("http://localhost:8080/api/v1/image/" + picture) : imageURL})`}} />}
+                    <div>
+                        <label className={`red-circle center-icon ${imageURL.length ? "disable-span" : ""}`} style={!(photo || (addPhoto && imageURL.length !== 0)) ? {opacity: "1"} : {}}>
                             <Photo className={"icon-photo"}/>
                         </label>
-                    <div className={"center-span"} style={ !photo ? {opacity: "1"} : {} }>
-                        <div className={"span-under-photo-icon"}  style={ !photo ? {color:"#D72130", fontWeight: "600"} : {} }>
-                            <span className={"span-add-picture"}>+Add picture</span> or drop it right here
-                            <br/> You can add next formats: png. jpg. jpeg. tif
+
+                        <div className={`center-span ${imageURL.length ? "disable-span" : ""}`}
+                             style={!(photo || (addPhoto && imageURL.length !== 0)) ? {opacity: "1"} : {}}>
+                            <div className={"span-under-photo-icon"}
+
+                                 style={!(photo || (addPhoto && imageURL.length !== 0)) ? {color: "#D72130", fontWeight: "600"} : {}}>
+                                <span className={"span-add-picture"}>+Add picture</span> or drop it right here
+                                <br/> You can add next formats: png. jpg. jpeg. tif
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div className={"red-circle first-right-icon"}>
-                    <Filter className={"form-icons icon-filter"}/>
-                </div>
-                <div className={"red-circle second-right-icon"}>
-                    <Scale className={"form-icons icon-scale"}/>
-                </div>
-                <div className={"red-circle third-right-icon"}>
-                    <Trash className={"form-icons icon-trash"}/>
-                </div>
-                <div className={"red-circle fourth-right-icon"}>
-                    <Fullscreen className={"form-icons icon-fullscreen"}/>
-                </div>
-            </div>
+                <input type={"file"} accept="image/*" onChange={handleImageChange}/>
+            </label>
         </div>
     );
 }

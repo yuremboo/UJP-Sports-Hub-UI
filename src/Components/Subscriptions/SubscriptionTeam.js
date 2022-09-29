@@ -28,8 +28,7 @@ const SubscriptionTeam = (props) => {
   return (
     <div className='team'>
       <div className='team_image'>
-        <img src={miniArticlePhoto} />
-        {/*{props.image}*/}
+        <img src={props.logo ? ("http://localhost:8080/api/v1/image/" + props.logo) : miniArticlePhoto} />
       </div>
 
       <div className='team_body'>

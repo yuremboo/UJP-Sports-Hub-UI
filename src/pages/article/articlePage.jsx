@@ -81,11 +81,7 @@ const ArticlePage = () => {
 
   function getArticleById(id) {
     axios
-      .get("http://localhost:8080/api/v1/articles/" + id, {
-        headers: {
-          // authorization: bearer + currentUser["jwt"],
-        },
-      })
+      .get("http://localhost:8080/api/v1/articles/" + id, {})
       .then((response) => {
         const data = response.data;
         setArticle(data);
@@ -100,11 +96,7 @@ const ArticlePage = () => {
 
   function getCommentsByArticleId(id, sortingMethod, commentsNum) {
     axios
-      .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {
-        headers: {
-          // authorization: bearer + currentUser["jwt"],
-        },
-      })
+      .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {})
       .then((response) => {
         const data = response.data;
         setComments(data);
@@ -120,11 +112,7 @@ const ArticlePage = () => {
 
   function getCommentsNumByArticleId(id) {
     axios
-      .get("http://localhost:8080/api/v1/articles/" + id + "/comments-num", {
-        headers: {
-          // authorization: bearer + currentUser["jwt"],
-        },
-      })
+      .get("http://localhost:8080/api/v1/articles/" + id + "/comments-num", {})
       .then((response) => {
         const data = response.data;
         setAllCommentNum(data);
@@ -289,8 +277,7 @@ const ArticlePage = () => {
         <img
           className="article-image"
           alt={article["alt"]}
-          //src={article.picture}
-          src={articleImage}
+          src={article.picture ? ("http://localhost:8080/api/v1/image/" + article.picture) : articleImage}
         />
         <p className="main-text">{parse(article["text"])}</p>
         {article["commentsActive"] ? (
@@ -309,7 +296,7 @@ const ArticlePage = () => {
               ></SortByDropDown>
             </div>
             <form className="write-comment-box">
-            <img className="user-image" src={defaultUserImage} alt="user" />
+            <img className="user-image" src={currentUser && currentUser.photo ? ("http://localhost:8080/api/v1/image/" + currentUser.photo) : defaultUserImage} alt="user" />
               <textarea
                 className="comment-input"
                 rows="3"

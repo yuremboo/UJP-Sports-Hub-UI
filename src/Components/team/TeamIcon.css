@@ -1,7 +1,7 @@
 .team_icon{
     display: flex;
     height: 140px;
-    border: black 1px solid;
+    border: #EDEDED 1px solid;
     /*margin-bottom: 4%;*/
     /*padding-right: 2%;*/
     margin: 4% 7%;
@@ -28,7 +28,7 @@
 }
 
 .team_icon_image {
-    width: auto;
+    width: 250px;
     padding: 5px;
 }
 

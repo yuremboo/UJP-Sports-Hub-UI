@@ -54,18 +54,7 @@ const HomePage = ({
     const miniFirstArticlesPayload = firstArticlesPayload.slice(1);
     const miniSecondArticlesPayload = secondArticlesPayload.slice(1);
 
-    const mainArticlesList = [
-        {
-            "id": "",
-            "title": "",
-            "caption": "",
-            "alt": "altphoto",
-            "picture": "pict",
-            "createDateTime": "",
-            "category": {}
-        }
-    ];
-    const [mainArticles, setMainArticles] = useState(mainArticlesList);
+    const [mainArticles, setMainArticles] = useState([]);
 
     async function getAllArticlesSelectedByAdmin() {
          await axios
@@ -88,21 +77,22 @@ const HomePage = ({
             <div className='home-page'>
                 <NavBar/>
                 <main>
-                    <div className='home-articles'>
-                        <ArticleHeading
-                            article={mainArticles[0]}
-                            isArticlePage={false}></ArticleHeading>
-                        <img
-                            className="main-article-image"
-                            alt={mainArticles[0]["alt"]}
-                            src={articleImage}
-                        />
-                        <div className="v-mini-articles">
-                            {mainArticles.slice(1, 5).map((verticalMiniArticle) => (
-                                <VerticalMiniArticle verticalMiniArticle={verticalMiniArticle} key={verticalMiniArticle.id} />
-                            ))}
-                        </div>
-                    </div>
+                    {mainArticles.length !== 0 ?
+                        <div className='home-articles'>
+                            <ArticleHeading
+                                article={mainArticles[0]}
+                                isArticlePage={false}></ArticleHeading>
+                            <img
+                                className="main-article-image"
+                                alt="alt"
+                                src={mainArticles[0].picture ? ("http://localhost:8080/api/v1/image/" + mainArticles[0].picture) : articleImage}
+                            />
+                            <div className="v-mini-articles">
+                                {mainArticles.slice(1, 5).map((verticalMiniArticle) => (
+                                    <VerticalMiniArticle verticalMiniArticle={verticalMiniArticle} key={verticalMiniArticle.id} />
+                                ))}
+                            </div>
+                        </div>:<></>}
                     <div className='breakdown-header'>
                         <hr/>
                         <div className='breakdown-header__text'>
@@ -173,7 +163,7 @@ const HomePage = ({
 
 const mapDispatchToProps = (dispatch) => ({
     logOutUser: () => dispatch(userLogoutRequest()),
-    getArticles: () => dispatch(getBreakdownArticles(1, 4)), // ids
+    getArticles: () => dispatch(getBreakdownArticles(2, 3)), // ids
     getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay())
 })
 const mapStateToProps = (state) => ({
