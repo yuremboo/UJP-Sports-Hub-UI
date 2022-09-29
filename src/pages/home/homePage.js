@@ -163,7 +163,7 @@ const HomePage = ({
 
 const mapDispatchToProps = (dispatch) => ({
     logOutUser: () => dispatch(userLogoutRequest()),
-    getArticles: () => dispatch(getBreakdownArticles(2, 3)), // ids
+    getArticles: () => dispatch(getBreakdownArticles(4, 1)), // ids
     getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay())
 })
 const mapStateToProps = (state) => ({

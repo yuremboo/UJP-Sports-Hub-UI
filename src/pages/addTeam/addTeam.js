@@ -161,9 +161,6 @@ const AddTeam = () => {
                     <div className="n_all_articles_admin__header">
                         <div className="sportshub">Sports hub</div>
                         <div className="n_all_articles_admin__right_header">
-                            <button className="n_accountSwitcher__button">
-                                <img src={accountSwitcher} width="30%" height="30%"/>
-                            </button>
                             <div className="n_admin__profile_section">
                                 <ProfileSection/>
                             </div>

@@ -1,9 +1,11 @@
-html, body {
+html,
+body {
     max-width: 100%;
     overflow-x: hidden;
 }
-.form-container-add-team{
-    padding-left:2%;
+
+.form-container-add-team {
+    padding-left: 2%;
     padding-top: 15%;
     max-width: 50%;
     margin: 0 auto;
@@ -11,29 +13,36 @@ html, body {
     display: flex;
     flex-direction: column;
 }
-.form-container-add-team input{
-    width:500px;
+
+.form-container-add-team input {
+    width: 500px;
 }
-.form-container-add-team select{
-    width:500px;
+
+.form-container-add-team select {
+    width: 500px;
 }
-.form-container-add-team .span-under-photo-icon{
-    opacity:0;
+
+.form-container-add-team .span-under-photo-icon {
+    opacity: 0;
 }
-.form-container-add-team .form-picture{
-    width:500px;
+
+.form-container-add-team .form-picture {
+    width: 500px;
     height: 253px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
 }
-.team-map{
-    padding-top:18%;
-    padding-left:10%;
+
+.team-map {
+    padding-top: 18%;
+    padding-left: 10%;
 }
-.map-and-form{
+
+.map-and-form {
     display: flex;
 }
+
 .list_of-team {
     font-family: 'Roboto', sans-serif;
     font-style: normal;

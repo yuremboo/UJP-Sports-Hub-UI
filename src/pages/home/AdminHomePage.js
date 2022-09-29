@@ -262,12 +262,6 @@ const AdminHomePage = () => {
         </div>
         <>
           <form className="form-container">
-            <div className={"form-preview"}>
-              <button className={"button-eye"} type={"button"}>
-                <img className={"img-eye"} src={Eye} alt="Eye" />
-                <span className={"span-preview"}>Preview</span>
-              </button>
-            </div>
             <div className="breakdown-header">
               <hr />
               <div className="article-home-main-header__text">
