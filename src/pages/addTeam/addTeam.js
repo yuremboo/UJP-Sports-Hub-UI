@@ -1,11 +1,9 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import CustomInput from "../../Components/CustomInput/CustomInput";
-//import "./add-article.style.css";
+import "./add-team.css";
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
 import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
-import Eye from "../../icons/Eye.svg"
-import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
@@ -16,20 +14,42 @@ import {useNavigate, useParams} from "react-router-dom";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import React from "react";
+import * as PropTypes from "prop-types";
+import {
+    MDBContainer,
+} from "mdb-react-ui-kit";
 
+function Iframe(props) {
+    return (
+        <div>
+            <iframe src={props.src} height={props.height} width={props.width} allowFullScreen="" loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"/>
+        </div>
+    )
+}
+
+Iframe.propTypes = {
+    allowFullScreen: PropTypes.string,
+    referrerPolicy: PropTypes.string,
+    src: PropTypes.string,
+    width: PropTypes.string,
+    style: PropTypes.string,
+    loading: PropTypes.string,
+    height: PropTypes.string
+};
 const AddTeam = () => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate()
     const [errors, setErrors] = useState("");
     const [isCancel, setIsCancel] = useState(false)
     const [categories, setCategories] = useState([]);
+    const [listTeams, setListTeams] = useState([]);
     const [team, setTeam] = useState({
         name: "",
         description: "",
         logo: "",
-        alt:"",
+        alt: "",
         location: "",
-        picture: "",
         category: ""
     })
     useEffect(() => {
@@ -48,7 +68,17 @@ const AddTeam = () => {
                 console.log("getCategories");
                 console.log(response.data);
                 setCategories(data);
-
+                return axios.get("http://localhost:8080/api/v1/teams", {
+                    headers: {
+                        authorization: AuthToken["jwt"]
+                    }
+                })
+            })
+            .then((response) => {
+                const data = response.data;
+                console.log("getTeams");
+                console.log(response.data);
+                setListTeams(data);
             })
             .catch((error) => {
                 if (error.response) {
@@ -63,10 +93,9 @@ const AddTeam = () => {
             const sendTeam = {
                 name: team.name,
                 description: team.description,
-                logo: "6",
+                logo: "team.logo",
                 location: team.location,
-                picture: "team.picture",
-                alt:"team.alt",
+                alt: "team.alt",
                 categoryId: team.category
             };
             axios.post("http://localhost:8080/api/v1/teams", sendTeam, {
@@ -75,7 +104,7 @@ const AddTeam = () => {
                 }
             })
                 .then(() => {
-                    navigate(-1);
+                    navigate(0);
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -158,57 +187,86 @@ const AddTeam = () => {
                 handleSubmit={() => navigate(-1)}
             />}
             <NavBarIcons className={"nav-bar-icons"}/>
+            <div className="map-and-form">
+                <div className="team-map">
+                    <Iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d831452.9885363156!2d24.700940810601555!3d49.75163345678396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473007fcdf1dbefd%3A0x68d7724e21006816!2sZolochiv%2C%20Lviv%20Oblast%2C%2080700!5e0!3m2!1sen!2sua!4v1664444004002!5m2!1sen!2sua"
+                        width="600" height="450"></Iframe>
 
-            <form className="form-container">
-                {errors.location && <p className='photo__error'>
-                    {errors.location}
-                </p>}
-                <CustomInput
-                    type="text"
-                    label={"select location"}
-                    name={"location"}
-                    placeholder={"location"}
-                    value={team.location}
-                    handleChange={handleChange}
-                />
-                <CustomSelect
-                    label={"Category"}
-                    name={"category"}
-                    placeholder={"Not selected"}
-                    selected={team.category}
-                    enumeration={categories}
-                    handleChange={handleChange}
-                />
-                {errors.title && <p className='photo__error'>
-                    {errors.title}
-                </p>}
-                <CustomInput
-                    type="text"
-                    label={"Team"}
-                    name={"name"}
-                    placeholder={"team name"}
-                    value={team.name}
-                    handleChange={handleChange}
-                />
-                {errors.description && <p className='photo__error'>
-                    {errors.description}
-                </p>}
-                <CustomInput
-                    type="text"
-                    label={"Description"}
-                    name={"description"}
-                    placeholder={"team description"}
-                    value={team.description}
-                    handleChange={handleChange}
-                />
+                </div>
+                <form className="form-container-add-team">
+                    {errors.location && <p className='photo__error'>
+                        {errors.location}
+                    </p>}
+                    <CustomInput
+                        type="text"
+                        label={"select location"}
+                        name={"location"}
+                        placeholder={"location"}
+                        value={team.location}
+                        handleChange={handleChange}
+                    />
+                    <CustomSelect
+                        label={"Category"}
+                        name={"category"}
+                        placeholder={"Not selected"}
+                        selected={team.category}
+                        enumeration={categories}
+                        handleChange={handleChange}
+                    />
+                    {errors.title && <p className='photo__error'>
+                        {errors.title}
+                    </p>}
+                    <CustomInput
+                        type="text"
+                        label={"Team"}
+                        name={"name"}
+                        placeholder={"team name"}
+                        value={team.name}
+                        handleChange={handleChange}
+                    />
+                    {errors.description && <p className='photo__error'>
+                        {errors.description}
+                    </p>}
+                    <CustomInput
+                        type="text"
+                        label={"Description"}
+                        name={"description"}
+                        placeholder={"team description"}
+                        value={team.description}
+                        handleChange={handleChange}
+                    />
 
-                <CustomPictureInput
-                    label={"Picture.*"}
-                    name={"picture"}
-                    value={team.picture}
-                    handleChange={handleChange}
-                />
-            </form>
+                    <CustomPictureInput
+                        label={"Picture.*"}
+                        name={"picture"}
+                        value={team.logo}
+                        handleChange={handleChange}
+                    />
+                </form>
+
+            </div>
+
+            <div className="list_of-team">
+                <table>
+                    <tr>
+                        <th>TEAMS</th>
+                        <th>LOCATION</th>
+                        <th>DATA ADDED</th>
+                        <th>GATEGORY</th>
+                    </tr>
+                    {listTeams.map((val, key) => {
+                        return (
+                            <tr key={key}>
+                                <td>{val.name}</td>
+                                <td>{val.location}</td>
+                                <td>{val.createDateTime}</td>
+                                <td>{val.category.name}</td>
+                            </tr>
+                        )
+                    })}
+                </table>
+            </div>
         </div>);
 }
 
