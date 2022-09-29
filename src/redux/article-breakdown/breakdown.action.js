@@ -37,9 +37,10 @@ export function getBreakdownArticles(firstCategoryId, secondCategoryId) {
 
 function cutArticles(articles) {
     return articles.map(article => {
-        const { id, title, shortText, category } = article
+        const { id, picture, title, shortText, category } = article
         return {
             id,
+            picture,
             title,
             shortText,
             category: category.name

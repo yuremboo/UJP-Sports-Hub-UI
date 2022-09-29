@@ -250,9 +250,6 @@ const AdminHomePage = () => {
           <div className="sportshub">Sports hub</div>
 
           <div className="all_articles_admin__right_header">
-            <button className="accountSwitcher__button">
-              <img src={accountSwitcher} width="30%" height="30%" />
-            </button>
             <div className="admin__profile_section">
               <ProfileSection />
             </div>

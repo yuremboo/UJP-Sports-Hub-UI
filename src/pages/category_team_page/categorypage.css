@@ -33,5 +33,7 @@
     padding-right:15px;
 }
 .most-popular-and-commented-section_category_page{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    width: 94%;
 }

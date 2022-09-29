@@ -17,18 +17,17 @@ export async function addPhotoOfTheDaySection(photoData) {
     return result
 }
 
-export async function addPhotoOfTheDay(photoData) {
-    console.log("not photo", photoData)
+export async function addPhotoOfTheDay(photoData, isPhotoOfTheDay="true") {
     let result = false
     const formData = new FormData();
     formData.append("image", photoData);
-    console.log("not form", formData)
     await axios
-        .post('http://localhost:8080/api/v1/image?photoOfTheDay=true', formData,
+        .post(`http://localhost:8080/api/v1/image?photoOfTheDay=${isPhotoOfTheDay}`, formData,
             { headers: {'Content-Type': 'multipart/form-data', authorization: getJWTtoken()} }
         )
-        .then((data) => {
-            result = true
+        .then((response) => {
+            console.log(response.data)
+            result = response.data
         })
         .catch((errorObject) => {
             console.log(errorObject)
