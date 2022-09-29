@@ -20,7 +20,7 @@
 }
 
 .n_all_articles_admin__right_header{
-    width: 30%;
+    width: 40%;
     margin-left: auto;
     display: flex;
     justify-content: flex-end;
@@ -383,7 +383,7 @@ button#dropdown-basic{
 }
 
 .n_admin__profile_section{
-    width: 50%;
+    width: 35%;
     margin: auto 6% auto 0;
     /*margin-right: 6%;*/
 }

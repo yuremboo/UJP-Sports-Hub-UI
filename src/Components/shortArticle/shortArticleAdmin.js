@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import axios from "axios";
+import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
 
 const ShortArticleAdmin = (props) => {
     const authToken = JSON.parse(localStorage.getItem("user")).jwt;
@@ -70,7 +71,7 @@ const ShortArticleAdmin = (props) => {
       <div className='n_shortArticle__outer'>
               <Nav.Link className='n_shortArticle' href={"/articles/" + props.id}>
               <div className='n_shortarticle__image'>
-                  <img src={articleImage} alt="article"
+                  <img src={props.picture ? ("http://localhost:8080/api/v1/image/" + props.picture) : articleImage} alt="article"
                        width="100%" height="100%"/>
               </div>
 
@@ -102,7 +103,6 @@ const ShortArticleAdmin = (props) => {
                   <DropdownButton id="dropdown-basic-button" title="...">
                       <Dropdown.Item onClick={UnPublish}>Unpublish</Dropdown.Item>
                       <Dropdown.Item onClick={deleteArticle}>Delete</Dropdown.Item>
-                      <Dropdown.Item>Move</Dropdown.Item>
                   </DropdownButton>
               </div>
                   :
@@ -111,7 +111,6 @@ const ShortArticleAdmin = (props) => {
                           <Dropdown.Item onClick={UnPublish}>Publish</Dropdown.Item>
                           <Dropdown.Item href={"/edit-article/"+props.id+"/"+props.category}>Edit</Dropdown.Item>
                           <Dropdown.Item onClick={deleteArticle}>Delete</Dropdown.Item>
-                          <Dropdown.Item>Move</Dropdown.Item>
                       </DropdownButton>
                   </div>
           }

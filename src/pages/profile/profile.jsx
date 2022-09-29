@@ -12,6 +12,7 @@ import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
+import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
 
 const Profile = ({props, globalStore}) => {
     const {profile} = useParams();
@@ -21,9 +22,6 @@ const Profile = ({props, globalStore}) => {
                         <div className="profile_admin__header">
                             <div className="sportshub">Sports hub</div>
                             <div className="n_all_articles_admin__right_header">
-                                <button className="n_accountSwitcher__button">
-                                    <img src={accountSwitcher} width="30%" height="30%"/>
-                                </button>
                                 <div className="n_admin__profile_section">
                                     <ProfileSection/>
                                 </div>
@@ -50,11 +48,6 @@ const Profile = ({props, globalStore}) => {
                                 <span className={"span-button"}>Change password</span>
                             </button>
                             </a>
-                        </div>
-                        <div>
-                            <button className={"panel-button"}>
-                                <span className={"span-button"}>My surveys</span>
-                            </button>
                         </div>
                         <div>
                             <a  href={"http://localhost:3000/update-user-information/subscriptionUser"}>

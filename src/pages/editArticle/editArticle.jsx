@@ -18,6 +18,7 @@ import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import React from "react";
+import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
 
 const EditArticle = ({props, globalStore}) => {
     const {title} = useParams();
@@ -26,6 +27,7 @@ const EditArticle = ({props, globalStore}) => {
     const navigate = useNavigate()
     const [errors, setErrors] = useState("");
     const [isCancel, setIsCancel] = useState(false)
+    const [image, setImage] = useState([]);
 
     const [teams, setTeams] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -92,7 +94,12 @@ const EditArticle = ({props, globalStore}) => {
             });
     }
 
-    function putArticle(article, id) {
+    async function putArticle(article, id) {
+        console.log("postImage");
+        let result = false;
+        if (image.length !== 0) {
+            result = await addPhotoOfTheDay(image[0], "false")
+        }
         if (isValid()) {
             console.log("putArticle");
             const sendArticle = {
@@ -102,7 +109,7 @@ const EditArticle = ({props, globalStore}) => {
                 caption: article.caption,
                 alt: article.alt,
                 location: article.location,
-                picture: article.picture,
+                picture: (result ? result.imageUrl : article.picture),
                 isActive: article.isActive,
                 commentsActive: article.commentsActive,
                 createDateTime: article.createDateTime,
@@ -172,9 +179,6 @@ const EditArticle = ({props, globalStore}) => {
                     <div className="n_all_articles_admin__header">
                         <div className="sportshub">Sports hub</div>
                         <div className="n_all_articles_admin__right_header">
-                            <button className="n_accountSwitcher__button">
-                                <img src={accountSwitcher} width="30%" height="30%"/>
-                            </button>
                             <div className="n_admin__profile_section">
                                 <ProfileSection/>
                             </div>
@@ -201,19 +205,15 @@ const EditArticle = ({props, globalStore}) => {
             <NavBarIcons className={"nav-bar-icons"}/>
 
             <form className="form-container">
-                <div className={"form-preview"}>
-                    <button className={"button-eye"} type={"button"}>
-                        <img className={"img-eye"} src={Eye} alt="Eye"/>
-                        <span className={"span-preview"}>Preview</span>
-                    </button>
-                </div>
-
                 <CustomPictureInput
                     label={"Picture.*"}
                     name={"picture"}
                     photo={true}
-                    value={article.picture}
-                    handleChange={handleChange}
+                    picture={article.picture}
+                    image={image}
+                    setImage={setImage}
+                    errors={errors}
+                    setErrors={setErrors}
                 />
                 <div className="custom-select-container">
                     <CustomSelect

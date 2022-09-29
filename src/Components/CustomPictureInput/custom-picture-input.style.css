@@ -16,13 +16,8 @@
     overflow: hidden;
     cursor: pointer;
 }
-.form-img{
-    width: 100%;
-    height: 100%;
-}
-.form-picture:hover .form-img{
+.form-picture:hover .background-photo{
     filter: blur(5px);
-    transition: 0.4s;
 }
 .form-picture:after{
     content: "";
@@ -41,6 +36,11 @@
     opacity: 1;
 }
 
+.test__ .form-picture:after {
+    background: rgba(0,0,0,0);
+    filter: blur(0px);
+    opacity: 1;
+}
 
 .form-icons{
     width: 18px;

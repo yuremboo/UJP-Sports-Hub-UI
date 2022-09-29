@@ -44,7 +44,7 @@ export default function TeamComponent({team, isSubscribed}) {
       <div className='team_head'>
         {team.subscriptionId && 
         
-        <TeamIcon title={team.team.name} image={team.team.alt} subscriptionId={team.subscriptionId} following={"following"} />
+        <TeamIcon title={team.team.name} logo={team.team.logo} subscriptionId={team.subscriptionId} following={"following"} />
         }
       </div>
         <div className='team_component_body'>

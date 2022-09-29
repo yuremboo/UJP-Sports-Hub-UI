@@ -39,7 +39,6 @@ root.render(
                 <Route path="/" element={<App />}>
                     <Route path="login" element={<LoginPage />} />
                     <Route path="/" index element={getUserRole() === "ADMIN" ? <AdminHomePage/> : <HomePage />} />
-                    {/*<Route path="/home" index element={<HomePage />} />*/}
                     <Route path="forgot" element={<ForgotPassword />} />
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="edit-article/:id/:title" element={<EditArticle/>} />

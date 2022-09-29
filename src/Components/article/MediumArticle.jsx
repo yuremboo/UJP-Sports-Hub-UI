@@ -11,7 +11,7 @@ const MediumArticle = ({mediumArticle}) => {
         <div className="category">
             <p className="category__text">{mediumArticle.category}</p>
         </div>
-        <img className="medium-article-img" src={mediumArticlePhoto} alt="article-img" />
+        <img className="medium-article-img" src={mediumArticle.picture ? ("http://localhost:8080/api/v1/image/" + mediumArticle.picture) : mediumArticlePhoto} alt="article-img" />
         <div className="medium-article-text">
           <span className="heading">{mediumArticle.title}</span>
         </div>

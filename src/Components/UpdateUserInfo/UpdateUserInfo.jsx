@@ -1,6 +1,6 @@
 import React from 'react';
 import "./update-user-info.style.css";
-import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
+import defaultUserImage from "../../icons/defaultUser.jpg";
 import {ReactComponent as Photo} from "../../icons/photoEditor/Photo.svg";
 import CustomInput from "../CustomInput/CustomInput";
 import {useEffect, useState} from "react";
@@ -8,15 +8,19 @@ import axios from "axios";
 import {userLogoutRequest} from "../../redux/auth/auth.actions";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
 
 const UpdateUserInfo = ({props, globalStore}) => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
     const [profile, setProfile] = useState({
         firstName: "",
         lastName: "",
-        email: ""
+        email: "",
+        photo: ""
     });
     const [errors, setErrors] = useState("");
+    const [imageURL, setImageURL] = useState([]);
+    const [image, setImage] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,9 +28,17 @@ const UpdateUserInfo = ({props, globalStore}) => {
         getProfile();
     }, []);
 
+    useEffect(() => {
+        if (image.length < 1) {
+            setImageURL([])
+            return
+        }
+        setImageURL((window.URL || window.webkitURL).createObjectURL(image[0]))
+
+    }, [image])
+
     function getProfile() {
         console.log("function getProfile");
-        console.log("token: ", AuthToken["jwt"]);
         axios.get("http://localhost:8080/api/v1/profile", {
             headers: {
                 authorization: AuthToken["jwt"]
@@ -46,22 +58,34 @@ const UpdateUserInfo = ({props, globalStore}) => {
             });
     }
 
-    function putProfile(profile) {
+    async function putProfile(profile) {
+        console.log("postImage");
+        let result = false;
+        if (image.length !== 0) {
+            result = await addPhotoOfTheDay(image[0], "false")
+        }
+        console.log("putProfile");
         const sendProfile = {
             email: profile.email,
             firstName: profile.firstName,
             lastName: profile.lastName,
-            photo: profile.photo
+            photo: (result ? result.imageUrl : profile.photo)
         };
-        console.log("profile");
-        console.log(profile);
-        console.log("sendProfile");
-        console.log(sendProfile);
         axios.put("http://localhost:8080/api/v1/profile", sendProfile, {
             headers: {
                 authorization: AuthToken["jwt"]
             }
         })
+            .then((data) => {
+                if (result) {
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    localStorage.setItem("user", JSON.stringify({
+                        ...user,
+                        photo: result.imageUrl
+                    }))
+                }
+                navigate(0);
+            })
             .catch((error) => {
                 if (error.response) {
                     console.log(error.response);
@@ -78,7 +102,6 @@ const UpdateUserInfo = ({props, globalStore}) => {
                 ...AuthToken,
                 firstName: profile.firstName,
                 lastName: profile.lastName,
-                photo: profile.photo
             }))
             if (profile.email !== JSON.parse(localStorage.getItem("user")).email) {
                 dispatch(userLogoutRequest())
@@ -121,14 +144,21 @@ const UpdateUserInfo = ({props, globalStore}) => {
         setErrors({...errors, [name]: ''})
     };
 
+    const handleImageChange = (e) => {
+        setErrors({...errors, picture: ''})
+        setImage([...e.target.files])
+    }
+
     return (
         <div>
             <form className={"update-profile-form"}>
                 <div className={"form-photo__container"}>
                     <div className={"form-photo"}>
-                        <img className={"ellipse-avatar-img"} src={EllipseAvatar} alt="EllipseAvatar"/>
+                        <img className={"ellipse-avatar-img"}
+                             src={imageURL.length !== 0 ? imageURL : profile.photo ? ("http://localhost:8080/api/v1/image/" + profile.photo) : defaultUserImage}
+                             alt="EllipseAvatar"/>
                         <label className={"red-circle-photo"}>
-                            <input type="file"/>
+                            <input type={"file"} accept="image/*" onChange={handleImageChange}/>
                             <Photo className={"profile-icon-photo"}/>
                         </label>
                     </div>
