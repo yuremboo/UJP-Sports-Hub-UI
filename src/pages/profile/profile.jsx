@@ -1,18 +1,11 @@
 import "./profile.style.css";
 import React from 'react';
 import { useParams } from "react-router-dom";
-import Header from "../../Components/Header";
 import NavBar from "../../Components/NavBar/MainNavBar";
 import UpdateUserInfo from "../../Components/UpdateUserInfo/UpdateUserInfo";
 import ChangePassword from "../../Components/ChangePassword/ChangePassword";
 import SubscriptionUser from "../../Components/Subscriptions/SubscriptionUser";
-import {useEffect} from "react";
-import {render} from "react-dom";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
-import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
-import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
-import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
 
 const Profile = ({props, globalStore}) => {
     const {profile} = useParams();
@@ -36,21 +29,21 @@ const Profile = ({props, globalStore}) => {
 
                     <div className={"user-panel"}>
                         <div>
-                            <a  href={"http://localhost:3000/update-user-information/userInfo"}>
+                            <a  href={"https://ujp-sports-hub-ui.herokuapp.com/update-user-information/userInfo"}>
                             <button className={"panel-button"}>
                                 <span className={"span-button"}>Personal</span>
                             </button>
                             </a>
                         </div>
                         <div>
-                            <a  href={"http://localhost:3000/update-user-information/changePassword"}>
+                            <a  href={"https://ujp-sports-hub-ui.herokuapp.com/update-user-information/changePassword"}>
                             <button className={"panel-button"}>
                                 <span className={"span-button"}>Change password</span>
                             </button>
                             </a>
                         </div>
                         <div>
-                            <a  href={"http://localhost:3000/update-user-information/subscriptionUser"}>
+                            <a  href={"https://ujp-sports-hub-ui.herokuapp.com/update-user-information/subscriptionUser"}>
                             <button className={"panel-button"}>
                                 <span className={"span-button"}>Team hub</span>
                             </button>

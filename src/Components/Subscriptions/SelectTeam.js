@@ -1,5 +1,4 @@
 import React from 'react';
-//import "./custom-select.style.css";
 import AsyncSelect from "react-select/async"
 const SelectTeam = ({handleChange,loadOptions,enumeration,  label, selected, name, ...otherProps}) => {
     console.log("enumeration",enumeration)

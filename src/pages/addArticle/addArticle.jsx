@@ -4,7 +4,6 @@ import CustomInput from "../../Components/CustomInput/CustomInput";
 import "./add-article.style.css";
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
 import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
-import Eye from "../../icons/Eye.svg"
 import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
@@ -12,7 +11,6 @@ import {MDBSwitch} from 'mdb-react-ui-kit';
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import {useNavigate, useParams} from "react-router-dom";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import React from "react";
 import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
@@ -48,7 +46,7 @@ const AddArticle = ({props, globalStore}) => {
 
     function getTeamAndCategory() {
         console.log("function getTeamAndCategory");
-        return axios.get("http://localhost:8080/api/v1/categories", {
+        return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -58,17 +56,14 @@ const AddArticle = ({props, globalStore}) => {
                 console.log("getCategories");
                 console.log(response.data);
                 setCategories(data);
-                return axios.get("http://localhost:8080/api/v1/teams", {
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
                 })
             })
             .then((response) => {
-                const data = response.data;
-                console.log("getTeams");
-                console.log(response.data);
-                setTeams(data);
+                setTeams(response.data);
             })
             .catch((error) => {
                 if (error.response) {
@@ -79,7 +74,6 @@ const AddArticle = ({props, globalStore}) => {
     }
 
     async function postArticle(article) {
-        console.log("postImage");
         const result = await addPhotoOfTheDay(image[0], "false")
         if (isValid() && result) {
             console.log("postArticle");
@@ -97,7 +91,7 @@ const AddArticle = ({props, globalStore}) => {
                 teamId: article.team,
                 selectedByAdmin: article.selectedByAdmin
             };
-            axios.post("http://localhost:8080/api/v1/admin/articles", sendArticle, {
+            axios.post("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles", sendArticle, {
                 headers: {
                     authorization: AuthToken["jwt"]
                 }

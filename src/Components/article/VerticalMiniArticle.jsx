@@ -8,7 +8,7 @@ const VerticalMiniArticle = ({verticalMiniArticle}) => {
   return (
     <Link className="article-link" to={"/articles/" + verticalMiniArticle.id}>
       <div className="v-mini-article">
-        <img className="v-mini-article-img" src={verticalMiniArticle.picture ? ("http://localhost:8080/api/v1/image/" + verticalMiniArticle.picture) : miniArticlePhoto} alt="article-img" />
+        <img className="v-mini-article-img" src={verticalMiniArticle.picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + verticalMiniArticle.picture) : miniArticlePhoto} alt="article-img" />
         <div className="v-mini-article-text">
           <span className="v-heading">{verticalMiniArticle.caption}</span>
           <span className="v-text-preview">

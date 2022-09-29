@@ -8,7 +8,7 @@ const MiniArticle = ({miniArticle}) => {
   return (
     <Link className="article-link" to={"/articles/" + miniArticle.id}>
       <div className="mini-article">
-        <img className="mini-article-img" src={miniArticle.picture ? ("http://localhost:8080/api/v1/image/" + miniArticle.picture) : miniArticlePhoto} alt="article-img" />
+        <img className="mini-article-img" src={miniArticle.picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + miniArticle.picture) : miniArticlePhoto} alt="article-img" />
         <div className="mini-article-text">
           <span className="heading">{miniArticle.caption}</span>
           <span className="text-preview">

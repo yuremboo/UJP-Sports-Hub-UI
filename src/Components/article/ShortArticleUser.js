@@ -8,7 +8,7 @@ const ShortArticleUser = ({shortArticle}) => {
         <Link className="article-link" to={"/articles/" + shortArticle.id}>
             <div className='shortArticle'>
                 <div className='shortarticle__image'>
-                    <img className='s_img' src={shortArticle.picture ? ("http://localhost:8080/api/v1/image/" + shortArticle.picture) : miniArticlePhoto}/>
+                    <img className='s_img' src={shortArticle.picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + shortArticle.picture) : miniArticlePhoto}/>
                 </div>
                 <div className='shortarticle__body'>
                     <div className='shortarticle__title'>

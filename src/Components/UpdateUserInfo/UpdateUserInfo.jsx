@@ -39,7 +39,7 @@ const UpdateUserInfo = ({props, globalStore}) => {
 
     function getProfile() {
         console.log("function getProfile");
-        axios.get("http://localhost:8080/api/v1/profile", {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/profile", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -71,7 +71,7 @@ const UpdateUserInfo = ({props, globalStore}) => {
             lastName: profile.lastName,
             photo: (result ? result.imageUrl : profile.photo)
         };
-        axios.put("http://localhost:8080/api/v1/profile", sendProfile, {
+        axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/profile", sendProfile, {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -155,7 +155,7 @@ const UpdateUserInfo = ({props, globalStore}) => {
                 <div className={"form-photo__container"}>
                     <div className={"form-photo"}>
                         <img className={"ellipse-avatar-img"}
-                             src={imageURL.length !== 0 ? imageURL : profile.photo ? ("http://localhost:8080/api/v1/image/" + profile.photo) : defaultUserImage}
+                             src={imageURL.length !== 0 ? imageURL : profile.photo ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + profile.photo) : defaultUserImage}
                              alt="EllipseAvatar"/>
                         <label className={"red-circle-photo"}>
                             <input type={"file"} accept="image/*" onChange={handleImageChange}/>

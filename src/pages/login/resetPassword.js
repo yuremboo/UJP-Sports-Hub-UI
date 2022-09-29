@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {Form/*, NavLink*/} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
 import './resetpassword.css';
-// import RegistrationPage from "../registration/registrationPage";
-// import LoginPage from "./loginPage";
 import axios from "axios";
 
 const ResetPassword = () => {
@@ -24,20 +22,16 @@ const ResetPassword = () => {
                 setError('')
                 axios({
                     method: "POST",
-                    url: 'http://localhost:8080/api/v1/forgot/password/newpassword',
+                    url: 'https://ujp-sports-hub.herokuapp.com/api/v1/forgot/password/newpassword',
                     data: {
                         password: newPassword,
                         token: token
                     }
                 })
                     .then((response) => {
-                        console.log('reset password response status');
-                        console.log(response.status);
                         if (response.status === 200)
                         {
                             setSuccessfully("Your password has been updated");
-                            console.log('redirect')
-                            // navigate("/login");
                         }
                     })
             }

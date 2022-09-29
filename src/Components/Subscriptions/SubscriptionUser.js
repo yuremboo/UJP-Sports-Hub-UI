@@ -1,10 +1,8 @@
 import "./SubscriptionUser.css";
 import React, {useEffect, useState} from 'react';
-import CustomInput from "../CustomInput/CustomInput";
 import axios from "axios";
 import SubscriptionTeam from "./SubscriptionTeam";
 import CustomSelect from "../CustomSelect/CustomSelect";
-import SelectTeam from "./SelectTeam";
 import {useNavigate} from "react-router-dom";
 
 const SubscriptionUser = () => {
@@ -22,7 +20,7 @@ const SubscriptionUser = () => {
     function getSubscriptionByUserId() {
         console.log('function getSubscriptionUser');
         console.log('token: ', AuthToken['jwt']);
-        axios.get("http://localhost:8080/api/v1/teams/subscription", {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams/subscription", {
             headers: {
                 authorization: AuthToken['jwt'],
             }
@@ -42,7 +40,7 @@ const SubscriptionUser = () => {
     }
 
     function getTeamsByName() {
-        axios.get("http://localhost:8080/api/v1/teams", {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -74,7 +72,7 @@ const SubscriptionUser = () => {
     }
 
     function postSubscription(newSubscription) {
-        axios.post("http://localhost:8080/api/v1/subscription", newSubscription, {
+        axios.post("https://ujp-sports-hub.herokuapp.com/api/v1/subscription", newSubscription, {
             headers: {
                 authorization: AuthToken["jwt"]
             }

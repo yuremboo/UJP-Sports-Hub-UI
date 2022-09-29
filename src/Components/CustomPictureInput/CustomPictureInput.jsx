@@ -36,7 +36,7 @@ const CustomPictureInput = ({label, photo, image, setImage, errors, setErrors, p
                 <div className={"form-picture"}
                      style={!photo ? {background: "#C4C4C414", border: "1px dashed #D1D1D1"} : {}}>
                     {(photo || (addPhoto && imageURL.length !== 0)) && <div className="background-photo"
-                                   style={{ backgroundImage: `url(${imageURL.length === 0 ? ("http://localhost:8080/api/v1/image/" + picture) : imageURL})`}} />}
+                                   style={{ backgroundImage: `url(${imageURL.length === 0 ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + picture) : imageURL})`}} />}
                     <div>
                         <label className={`red-circle center-icon ${imageURL.length ? "disable-span" : ""}`} style={!(photo || (addPhoto && imageURL.length !== 0)) ? {opacity: "1"} : {}}>
                             <Photo className={"icon-photo"}/>

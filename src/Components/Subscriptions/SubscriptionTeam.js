@@ -9,7 +9,7 @@ const SubscriptionTeam = (props) => {
   function deleteSubscription(subscription) {
     const set1AuthToken = JSON.parse(localStorage.getItem('user'))
     console.log('token: ', set1AuthToken['jwt']);
-    axios.delete("http://localhost:8080/api/v1/subscription/" + props.subscriptionId+"/team", {
+    axios.delete("https://ujp-sports-hub.herokuapp.com/api/v1/subscription/" + props.subscriptionId+"/team", {
       headers: {
         authorization:set1AuthToken['jwt'],
       }
@@ -28,7 +28,7 @@ const SubscriptionTeam = (props) => {
   return (
     <div className='team'>
       <div className='team_image'>
-        <img src={props.logo ? ("http://localhost:8080/api/v1/image/" + props.logo) : miniArticlePhoto} />
+        <img src={props.logo ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + props.logo) : miniArticlePhoto} />
       </div>
 
       <div className='team_body'>

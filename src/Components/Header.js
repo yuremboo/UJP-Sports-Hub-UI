@@ -1,13 +1,7 @@
-import React from 'react'
-
+import React from 'react';
 import '../style_components/header.css';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import facebook from '../icons/facebook.png'
-import path from '../icons/Twitter.png'
-import google from '../icons/GoogleSmall.png'
-import google1 from '../icons/Plus.png'
 import {useNavigate} from "react-router-dom";
 import ProfileSection from "./profileSectionHeader/profileSection";
 
@@ -24,7 +18,6 @@ export default function Header() {
     }
 
     function login() {
-        // await logOutUser()
         navigate("/login");
     }
 
@@ -33,7 +26,6 @@ export default function Header() {
     }
 
     return (
-
         <div className='main_header_sport_hub'>
             <div className='logo_sport_hub'>
                 <span> Sports hub</span>

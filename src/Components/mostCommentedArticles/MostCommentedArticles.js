@@ -5,17 +5,13 @@ import MiniArticle from "../article/MiniArticle";
 import "./mostcommentedarticles.css";
 
 const MostCommentedArticles = () => {
-  // const authToken = "Bearer " + JSON.parse(localStorage.getItem("user")).jwt;
   const [mostCommentedArticles, setMostCommentedArticles] = useState([]);
   useEffect(() => {
     getMostCommentedArticles();
   }, []);
 
   function getMostCommentedArticles() {
-    axios.get("http://localhost:8080/api/v1/articles/most_commented", {
-      // headers: {
-      //   "Authorization": authToken
-      // }
+    axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/most_commented", {
     })
       .then((response) => {
         setMostCommentedArticles(response.data);

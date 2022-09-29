@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../style_components/navbar.css";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 export default function NavBar() {
@@ -12,7 +11,7 @@ export default function NavBar() {
   }, []);
 
   function getCategories() {
-    axios.get("http://localhost:8080/api/v1/categories", {
+    axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
 
     })
       .then((response) => {

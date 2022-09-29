@@ -81,7 +81,7 @@ const ArticlePage = () => {
 
   function getArticleById(id) {
     axios
-      .get("http://localhost:8080/api/v1/articles/" + id, {})
+      .get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/" + id, {})
       .then((response) => {
         const data = response.data;
         setArticle(data);
@@ -96,7 +96,7 @@ const ArticlePage = () => {
 
   function getCommentsByArticleId(id, sortingMethod, commentsNum) {
     axios
-      .get("http://localhost:8080/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {})
+      .get("https://ujp-sports-hub.herokuapp.com/api/v1/" + id + "/comments/" + sortingMethod + "/" + commentsNum, {})
       .then((response) => {
         const data = response.data;
         setComments(data);
@@ -112,7 +112,7 @@ const ArticlePage = () => {
 
   function getCommentsNumByArticleId(id) {
     axios
-      .get("http://localhost:8080/api/v1/articles/" + id + "/comments-num", {})
+      .get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/" + id + "/comments-num", {})
       .then((response) => {
         const data = response.data;
         setAllCommentNum(data);
@@ -127,7 +127,7 @@ const ArticlePage = () => {
 
   function getSixActiveMiniArticlesByCategoryId(categoryId, articleId) {
     axios
-      .get("http://localhost:8080/api/v1/articles/"+ articleId +"/categories/" + categoryId)
+      .get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/"+ articleId +"/categories/" + categoryId)
       .then((response) => {
         const data = response.data;
         setMiniArticles(data);
@@ -142,7 +142,7 @@ const ArticlePage = () => {
 
   function postComment(newComment) {
     axios
-      .post("http://localhost:8080/api/v1/comments", newComment, {
+      .post("https://ujp-sports-hub.herokuapp.com/api/v1/comments", newComment, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -157,7 +157,7 @@ const ArticlePage = () => {
 
   function putComment(comment) {
     axios
-      .put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
+      .put("https://ujp-sports-hub.herokuapp.com/api/v1/comments/" + comment.id, comment, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -172,7 +172,7 @@ const ArticlePage = () => {
 
   function deleteComment(commentId) {
     axios
-      .delete("http://localhost:8080/api/v1/comments/" + commentId, {
+      .delete("https://ujp-sports-hub.herokuapp.com/api/v1/comments/" + commentId, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -277,7 +277,7 @@ const ArticlePage = () => {
         <img
           className="article-image"
           alt={article["alt"]}
-          src={article.picture ? ("http://localhost:8080/api/v1/image/" + article.picture) : articleImage}
+          src={article.picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + article.picture) : articleImage}
         />
         <p className="main-text">{parse(article["text"])}</p>
         {article["commentsActive"] ? (
@@ -296,7 +296,7 @@ const ArticlePage = () => {
               ></SortByDropDown>
             </div>
             <form className="write-comment-box">
-            <img className="user-image" src={currentUser && currentUser.photo ? ("http://localhost:8080/api/v1/image/" + currentUser.photo) : defaultUserImage} alt="user" />
+            <img className="user-image" src={currentUser && currentUser.photo ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + currentUser.photo) : defaultUserImage} alt="user" />
               <textarea
                 className="comment-input"
                 rows="3"

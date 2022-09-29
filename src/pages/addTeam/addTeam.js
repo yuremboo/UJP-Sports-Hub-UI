@@ -7,13 +7,11 @@ import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictur
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
-import {useNavigate, useParams} from "react-router-dom";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
+import {useNavigate} from "react-router-dom";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import React from "react";
 import * as PropTypes from "prop-types";
 import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
-import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 
 function Iframe(props) {
@@ -55,28 +53,21 @@ const AddTeam = () => {
     }, []);
 
     function getCategory() {
-        console.log("function getCategory");
-        return axios.get("http://localhost:8080/api/v1/categories", {
+        return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
         })
             .then((response) => {
-                const data = response.data;
-                console.log("getCategories");
-                console.log(response.data);
-                setCategories(data);
-                return axios.get("http://localhost:8080/api/v1/teams", {
+                setCategories(response.data);
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
                 })
             })
             .then((response) => {
-                const data = response.data;
-                console.log("getTeams");
-                console.log(response.data);
-                setListTeams(data);
+                setListTeams(response.data);
             })
             .catch((error) => {
                 if (error.response) {
@@ -87,7 +78,6 @@ const AddTeam = () => {
     }
 
     async function postTeam(team) {
-        console.log("postImage");
         const result = await addPhotoOfTheDay(image[0], "false")
         if (isValid()) {
             const sendTeam = {
@@ -98,7 +88,7 @@ const AddTeam = () => {
                 alt: "team.alt",
                 categoryId: team.category
             };
-            axios.post("http://localhost:8080/api/v1/teams", sendTeam, {
+            axios.post("https://ujp-sports-hub.herokuapp.com/api/v1/teams", sendTeam, {
                 headers: {
                     authorization: AuthToken["jwt"]
                 }

@@ -11,7 +11,8 @@ export default function ArticleHeading({article, isArticlePage}) {
                 <>
                 </>
                 :
-                <a className="more-button" href={"http://localhost:3000/articles/" + article["id"]}>
+                // <a className="more-button" href={"http://localhost:3000/articles/" + article["id"]}>
+                <a className="more-button" href={"https://ujp-sports-hub-ui.herokuapp.com/articles/" + article["id"]}>
                     More
                 </a>
             }
