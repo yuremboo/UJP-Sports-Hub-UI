@@ -119,11 +119,7 @@ export default function Footer() {
       </MDBContainer>
 
       <div className="text-center p-3" style={{ backgroundColor: "#D72130" }}>
-        Copyright ©2019
-        <a className="text-white" href="https://mdbootstrap.com/">
-          Sports Hub
-        </a>
-        Privacy / Terms
+        Copyright ©2022 Privacy / Terms
       </div>
     </MDBFooter>
   );
