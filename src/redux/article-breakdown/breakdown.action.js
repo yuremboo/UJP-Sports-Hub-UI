@@ -18,10 +18,10 @@ export function getBreakdownArticles(firstCategoryId, secondCategoryId) {
     return async (dispatch, getState) => {
         try {
             dispatch(breakdownRequestStart())
-            const firstArticlesResponse = await axios.get(`https://ujp-sports-hub.herokuapp.com/api/v1/articles/newest/${firstCategoryId}`, {})
+            const firstArticlesResponse = await axios.get(`https://ujp-sports-hub.herokuapp.com/api/v1/articles/newest/${firstCategoryId}`)
             const firstArticlesPayload = cutArticles(firstArticlesResponse.data);
 
-            const secondArticlesResponse = await axios.get(`https://ujp-sports-hub.herokuapp.com/v1/articles/newest/${secondCategoryId}`, {})
+            const secondArticlesResponse = await axios.get(`https://ujp-sports-hub.herokuapp.com/api/v1/articles/newest/${secondCategoryId}`)
             const secondArticlesPayload = cutArticles(secondArticlesResponse.data);
 
             dispatch(breakdownRequestSuccess({firstArticlesPayload, secondArticlesPayload}))
