@@ -8,7 +8,7 @@ import {ReactComponent as Myusers} from "../../icons/MyUsers.svg";
 import {ReactComponent as IA} from "../../icons/IA.svg";
 import {ReactComponent as Teams} from "../../icons/teams.svg";
 import "./sidepanelbtns.css";
-
+import Nav from "react-bootstrap/Nav";
 const SidePanelBtns = () => {
     function surveysFunc(){
         console.log("surveys btn");
@@ -93,10 +93,12 @@ const SidePanelBtns = () => {
             </div>
 
             <div className='sidePanelBtn'>
+                <Nav.Link  href={"/add-team"}>
                 <button onClick={teamsFunc}>
                     <Teams className="sidePanel_btn" width='75%' height='75%'/>
                     <span className="tooltiptext">Teams</span>
                 </button>
+            </Nav.Link>
             </div>
         </div>
     );
