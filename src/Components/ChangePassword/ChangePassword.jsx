@@ -6,6 +6,7 @@ import axios from "axios";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {userLogoutRequest} from "../../redux/auth/auth.actions";
+import Password from "../Password/PasswordInput";
 
 const ChangePassword = () => {
     const AuthToken = JSON.parse(localStorage.getItem("user"));
@@ -24,7 +25,7 @@ const ChangePassword = () => {
             password: password.newPassword,
             oldPassword: password.oldPassword
         };
-        axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/password", sendPassword, {
+        axios.put("https://localhost:8080/api/v1/password", sendPassword, {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -94,10 +95,9 @@ const ChangePassword = () => {
                     {errors.oldPassword && <p className='photo__error'>
                         {errors.oldPassword}
                     </p>}
-                    <CustomInput
-                        type="password"
-                        label={"Old password"}
-                        name={"oldPassword"}
+                    <Password
+                        name={'oldPassword'}
+                        label={'Old password'}
                         placeholder={"Enter your old password here"}
                         value={password.oldPassword}
                         handleChange={handleChange}
@@ -107,8 +107,7 @@ const ChangePassword = () => {
                     {errors.newPassword && <p className='photo__error'>
                         {errors.newPassword}
                     </p>}
-                    <CustomInput
-                        type="password"
+                    <Password
                         label={"New password"}
                         name={"newPassword"}
                         placeholder={"8+ characters (letters and numbers)"}
@@ -120,8 +119,7 @@ const ChangePassword = () => {
                     {errors.confirmPassword && <p className='photo__error'>
                         {errors.confirmPassword}
                     </p>}
-                    <CustomInput
-                        type="password"
+                    <Password
                         label={"Password confirmation"}
                         name={"confirmPassword"}
                         placeholder={"Enter new password again"}
