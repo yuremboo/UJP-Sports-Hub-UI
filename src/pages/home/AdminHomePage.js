@@ -64,7 +64,7 @@ const AdminHomePage = () => {
 
     function getData() {
         console.log("function getData");
-        axios.get("http://localhost:8080/api/v1/categories", {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -74,7 +74,7 @@ const AdminHomePage = () => {
                 console.log("getCategories");
                 console.log(response.data);
                 setCategories(data);
-                return  axios.get("http://localhost:8080/api/v1/teams", {
+                return  axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
@@ -85,7 +85,7 @@ const AdminHomePage = () => {
                 console.log("getTeam");
                 console.log(response.data);
                 setTeams(data);
-                return axios.get("http://localhost:8080/api/v1/admin/articles", {
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
@@ -111,7 +111,7 @@ const AdminHomePage = () => {
     let result = true;
     console.log("token: ", AuthToken["jwt"]);
       console.log(articlesSelectedByAdmin);
-    axios.put("http://localhost:8080/api/v1/admin/articles/", articlesSelectedByAdmin, {
+    axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles/", articlesSelectedByAdmin, {
       headers: {
         authorization: AuthToken["jwt"]
       }

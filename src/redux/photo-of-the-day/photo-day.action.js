@@ -18,7 +18,7 @@ export function getPhotoOfTheDay() {
     return async (dispatch, getState) => {
         try {
             dispatch(photoOfTheDayRequestStart())
-            const photoOfTheDayResponse = await axios.get("http://localhost:8080/api/v1/photoOfTheDay", {
+            const photoOfTheDayResponse = await axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/photoOfTheDay", {
             })
 
             dispatch(photoOfTheDayRequestSuccess(photoOfTheDayResponse.data))
