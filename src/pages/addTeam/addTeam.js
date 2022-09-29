@@ -3,21 +3,18 @@ import axios from "axios";
 import CustomInput from "../../Components/CustomInput/CustomInput";
 import "./add-team.css";
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
-import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
-import {MDBSwitch} from 'mdb-react-ui-kit';
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
-import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import {useNavigate, useParams} from "react-router-dom";
 import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import React from "react";
 import * as PropTypes from "prop-types";
-import {
-    MDBContainer,
-} from "mdb-react-ui-kit";
+import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
+import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
+import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 
 function Iframe(props) {
     return (
@@ -44,6 +41,7 @@ const AddTeam = () => {
     const [isCancel, setIsCancel] = useState(false)
     const [categories, setCategories] = useState([]);
     const [listTeams, setListTeams] = useState([]);
+    const [image, setImage] = useState([]);
     const [team, setTeam] = useState({
         name: "",
         description: "",
@@ -88,12 +86,14 @@ const AddTeam = () => {
             });
     }
 
-    function postTeam(team) {
+    async function postTeam(team) {
+        console.log("postImage");
+        const result = await addPhotoOfTheDay(image[0], "false")
         if (isValid()) {
             const sendTeam = {
                 name: team.name,
                 description: team.description,
-                logo: "team.logo",
+                logo: result.imageUrl,
                 location: team.location,
                 alt: "team.alt",
                 categoryId: team.category
@@ -240,8 +240,12 @@ const AddTeam = () => {
                     <CustomPictureInput
                         label={"Picture.*"}
                         name={"picture"}
-                        value={team.logo}
-                        handleChange={handleChange}
+                        picture={team.logo}
+                        addPhoto={true}
+                        image={image}
+                        setImage={setImage}
+                        errors={errors}
+                        setErrors={setErrors}
                     />
                 </form>
 
@@ -260,7 +264,7 @@ const AddTeam = () => {
                             <tr key={key}>
                                 <td>{val.name}</td>
                                 <td>{val.location}</td>
-                                <td>{val.createDateTime}</td>
+                                <td>{val.createDateTime.toString().slice(0, 10)}</td>
                                 <td>{val.category.name}</td>
                             </tr>
                         )
