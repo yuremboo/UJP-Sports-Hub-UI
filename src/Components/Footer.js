@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   MDBFooter,
   MDBContainer,
@@ -9,13 +9,12 @@ import {
   MDBBtn
 } from "mdb-react-ui-kit";
 import axios from "axios";
-import AdminMainArticleSection from "./Home/AdminMainArticleSection";
 
 export default function Footer() {
   const [emailInputText, setEmailInputText] = useState([]);
 
   function postSubscription(newSubscription) {
-    axios.post("http://localhost:8080/api/v1/newEmail", newSubscription, {
+    axios.post("https://ujp-sports-hub.herokuapp.com/api/v1/newEmail", newSubscription, {
     })
       .catch((error) => {
         if (error.response) {
@@ -27,7 +26,6 @@ export default function Footer() {
 
   function addNewEmail(e) {
     e.preventDefault();
-    //isValidEmailInput();
     if (!emailInputText) {
       return;
     }
@@ -38,11 +36,6 @@ export default function Footer() {
   }
   const isValidEmailInput = event => {
     event.preventDefault();
-    // if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    //   .test(event.target.value)) {
-    //   //errors.email = "Please enter valid email"
-    // }
-    // else {
     setEmailInputText(event.target.value);
   };
   return (
@@ -126,11 +119,7 @@ export default function Footer() {
       </MDBContainer>
 
       <div className="text-center p-3" style={{ backgroundColor: "#D72130" }}>
-        Copyright ©2019
-        <a className="text-white" href="https://mdbootstrap.com/">
-          Sports Hub
-        </a>
-        Privacy / Terms
+        Copyright ©2022 Privacy / Terms
       </div>
     </MDBFooter>
   );

@@ -4,19 +4,14 @@ import CustomInput from "../../Components/CustomInput/CustomInput";
 import "./editArticle.style.css";
 import CustomSelect from "../../Components/CustomSelect/CustomSelect";
 import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
-import Eye from "../../icons/Eye.svg"
 import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 import {MDBSwitch} from 'mdb-react-ui-kit';
 import {useNavigate, useParams} from "react-router-dom";
 import CancellationPopup from "../../Components/CancellationPopup/CancellationPopup";
-import Header from "../../Components/Header";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
-import {userLogoutRequest} from "../../redux/auth/auth.actions";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
-import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import React from "react";
 import {addPhotoOfTheDay} from "../../redux/admin-photo-of-the-day/admin-photo.action";
 
@@ -53,7 +48,7 @@ const EditArticle = ({props, globalStore}) => {
 
     function getArticle() {
         console.log("function getArticle");
-        return axios.get("http://localhost:8080/api/v1/articles/" + id, {
+        return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/" + id, {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -63,28 +58,22 @@ const EditArticle = ({props, globalStore}) => {
                 console.log("getArticle");
                 console.log(response.data);
                 setArticle({...data, category: data.category.id, team: data.team.id});
-                return axios.get("http://localhost:8080/api/v1/categories", {
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
                 })
             })
             .then((response) => {
-                const data = response.data;
-                console.log("getCategories");
-                console.log(response.data);
-                setCategories(data);
-                return axios.get("http://localhost:8080/api/v1/teams", {
+                setCategories(response.data);
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
                 })
             })
             .then((response) => {
-                const data = response.data;
-                console.log("getTeams");
-                console.log(response.data);
-                setTeams(data);
+                setTeams(response.data);
             })
             .catch((error) => {
                 if (error.response) {
@@ -95,7 +84,6 @@ const EditArticle = ({props, globalStore}) => {
     }
 
     async function putArticle(article, id) {
-        console.log("postImage");
         let result = false;
         if (image.length !== 0) {
             result = await addPhotoOfTheDay(image[0], "false")
@@ -118,7 +106,7 @@ const EditArticle = ({props, globalStore}) => {
                 teamId: article.team,
                 selectedByAdmin: article.selectedByAdmin
             };
-            axios.put("http://localhost:8080/api/v1/articles/" + id, sendArticle, {
+            axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/articles/" + id, sendArticle, {
                 headers: {
                     authorization: AuthToken["jwt"]
                 }

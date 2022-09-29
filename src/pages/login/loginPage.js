@@ -22,7 +22,6 @@ const SignIn = ({
                   auth: { isLoading, errorMessage, userObject }
                 }) => {
   const navigate = useNavigate();
-  // const history = useHistory()
   useEffect(
     () => {
       if (errorMessage) {

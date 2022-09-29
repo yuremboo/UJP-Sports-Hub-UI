@@ -31,7 +31,7 @@ const ProfileSection = ({
             <Dropdown className="dropdown-profile-section-header">
                 <Dropdown.Toggle className="dropdown-toggle-prodile" variant="success" id="dropdown-basic">
                     <div className="profile-section-header--image">
-                        <img src={user.photo ? ("http://localhost:8080/api/v1/image/" + user.photo) : defaultUserImage} height="10%" width="10%"/>
+                        <img src={user.photo ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + user.photo) : defaultUserImage} height="10%" width="10%"/>
                     </div>
                     <div className="profile-section-header--text">
                         <div>

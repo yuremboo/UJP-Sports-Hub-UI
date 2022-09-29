@@ -8,19 +8,7 @@ import NavBarIcons from "../../Components/NavBarIcons/NavBarIcons";
 import Eye from "../../icons/Eye.svg";
 import CustomTextarea from "../../Components/CustomTextArea/CustomTextarea";
 import AdminMainArticleSection from "../../Components/Home/AdminMainArticleSection";
-import CustomPictureInput from "../../Components/CustomPictureInput/CustomPictureInput";
 import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
-import { MDBSwitch } from "mdb-react-ui-kit";
-import HeaderAdmin from "../../Components/HeaderAdmin/HeaderAdmin";
-import { authRequestFailure } from "../../redux/auth/auth.actions";
-import { useParams } from "react-router-dom";
-import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
-import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
-import { LeftArrow, RightArrow } from "../../Components/horizontal-scroll-menu/arrows";
-import { Pagination } from "@mui/material";
-import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
@@ -76,7 +64,7 @@ const AdminHomePage = () => {
 
     function getData() {
         console.log("function getData");
-        axios.get("http://localhost:8080/api/v1/categories", {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
             headers: {
                 authorization: AuthToken["jwt"]
             }
@@ -86,7 +74,7 @@ const AdminHomePage = () => {
                 console.log("getCategories");
                 console.log(response.data);
                 setCategories(data);
-                return  axios.get("http://localhost:8080/api/v1/teams", {
+                return  axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/teams", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
@@ -97,7 +85,7 @@ const AdminHomePage = () => {
                 console.log("getTeam");
                 console.log(response.data);
                 setTeams(data);
-                return axios.get("http://localhost:8080/api/v1/admin/articles", {
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }
@@ -123,7 +111,7 @@ const AdminHomePage = () => {
     let result = true;
     console.log("token: ", AuthToken["jwt"]);
       console.log(articlesSelectedByAdmin);
-    axios.put("http://localhost:8080/api/v1/admin/articles/", articlesSelectedByAdmin, {
+    axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles/", articlesSelectedByAdmin, {
       headers: {
         authorization: AuthToken["jwt"]
       }
@@ -262,12 +250,6 @@ const AdminHomePage = () => {
         </div>
         <>
           <form className="form-container">
-            <div className={"form-preview"}>
-              <button className={"button-eye"} type={"button"}>
-                <img className={"img-eye"} src={Eye} alt="Eye" />
-                <span className={"span-preview"}>Preview</span>
-              </button>
-            </div>
             <div className="breakdown-header">
               <hr />
               <div className="article-home-main-header__text">

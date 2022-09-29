@@ -2,7 +2,6 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
 import preview from "../../icons/Preview.svg";
@@ -29,8 +28,7 @@ const IsActiveArticlesByCatAdmin = () => {
     }, []);
 
     function getCategoryById() {
-        console.log("getCategoryById function");
-        axios.get("http://localhost:8080/api/v1/categories/" + params.category, {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories/" + params.category, {
             headers: {
                 "Authorization": authToken
             }
@@ -53,7 +51,7 @@ const IsActiveArticlesByCatAdmin = () => {
 
     function getAllArticlesByCategoryIdAndIsActive() {
         params.isActive === "true" ? setToggleName("Published") : setToggleName("Unpublished");
-        axios.get("http://localhost:8080/api/v1/articles/category_id/" + params.category + "/is_active/" + params.isActive +
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/category_id/" + params.category + "/is_active/" + params.isActive +
             "?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
             headers: {
                 "Authorization": authToken

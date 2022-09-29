@@ -4,7 +4,6 @@ import ShortArticleAdmin from "../../Components/shortArticle/shortArticleAdmin";
 import "./allarticlesadmin.css";
 import AddNewArticleBtn from "../../Components/shortArticle/addNewArticleBtn";
 import SidePanelBtns from "../../Components/shortArticle/sidePanelBtns";
-import accountSwitcher from "../../icons/accountSwitcher.svg";
 import {Pagination} from "@mui/material";
 import Dropdown from 'react-bootstrap/Dropdown';
 import {useNavigate, useParams} from "react-router-dom";
@@ -12,7 +11,6 @@ import preview from "../../icons/Preview.svg";
 import ProfileSection from "../../Components/profileSectionHeader/profileSection";
 import HorizontalScrollMenu from "../../Components/horizontal-scroll-menu/horizontalScrollMenu";
 import polygon from "../../icons/Polygon.svg";
-import SaveCancelChanges from "../../Components/SaveCancelChanges/SaveCancelChanges";
 
 const ArticlesByCategoryAdmin = () => {
     const params = useParams();
@@ -25,7 +23,7 @@ const ArticlesByCategoryAdmin = () => {
 
     function getCategoryById() {
         console.log("getCategoryById function");
-        axios.get("http://localhost:8080/api/v1/categories/" + params.category, {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories/" + params.category, {
             headers: {
                 "Authorization": authToken
             }
@@ -53,7 +51,7 @@ const ArticlesByCategoryAdmin = () => {
     }, [currentCategory, currentPage]);
 
     function getAllArticlesByCategoryId() {
-        axios.get("http://localhost:8080/api/v1/admin/articles/category_id/" + currentCategory.id + "?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles/category_id/" + currentCategory.id + "?page=" + (currentPage - 1) + "&size=" + sizeOfArticlesOnPage, {
             headers: {
                 "Authorization": authToken
             }

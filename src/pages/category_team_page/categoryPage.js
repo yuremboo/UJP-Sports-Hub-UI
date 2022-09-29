@@ -18,9 +18,8 @@ const CategoryPage = ({props, globalStore}) => {
     }, []);
 
     function getArticleByCategory(id) {
-        axios.get("http://localhost:8080/api/v1/articles/category_id/" + id + "/is_active/true", {})
+        axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/articles/category_id/" + id + "/is_active/true", {})
             .then((response) => {
-                const data = response.data;
                 setArticlesByCategory(response.data.content);
             })
             .catch((error) => {
@@ -51,7 +50,7 @@ const CategoryPage = ({props, globalStore}) => {
                         <img
                             className="article-image"
                             alt={article["alt"]}
-                            src={article.picture ? ("http://localhost:8080/api/v1/image/" + article.picture) : articleImage}
+                            src={article.picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + article.picture) : articleImage}
                         />
                     ))}
                     <div className="category_articles">

@@ -58,7 +58,7 @@ const HomePage = ({
 
     async function getAllArticlesSelectedByAdmin() {
          await axios
-            .get("http://localhost:8080/api/v1/selected-articles")
+            .get("https://ujp-sports-hub.herokuapp.com/api/v1/selected-articles")
             .then((response) => {
                 const data = response.data;
                 setMainArticles(data);
@@ -85,7 +85,7 @@ const HomePage = ({
                             <img
                                 className="main-article-image"
                                 alt="alt"
-                                src={mainArticles[0].picture ? ("http://localhost:8080/api/v1/image/" + mainArticles[0].picture) : articleImage}
+                                src={mainArticles[0].picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + mainArticles[0].picture) : articleImage}
                             />
                             <div className="v-mini-articles">
                                 {mainArticles.slice(1, 5).map((verticalMiniArticle) => (
@@ -139,7 +139,7 @@ const HomePage = ({
                                 PHOTO OF THE DAY
                             </p>
                         </div>
-                        <img src="http://localhost:8080/api/v1/image/photo-of-the-day.jpg" alt={photoOfTheDay?.alt ?? "dayPhoto"} />
+                        <img src="https://ujp-sports-hub.herokuapp.com/api/v1/image/photo-of-the-day.jpg" alt={photoOfTheDay?.alt ?? "dayPhoto"} />
                         <div className='text-container'>
                             <p className='text-container__title'>{photoOfTheDay?.title ?? ""}</p>
                             <p className='text-container__caption'>{photoOfTheDay?.shortDescription ?? ""}</p>
@@ -163,7 +163,7 @@ const HomePage = ({
 
 const mapDispatchToProps = (dispatch) => ({
     logOutUser: () => dispatch(userLogoutRequest()),
-    getArticles: () => dispatch(getBreakdownArticles(2, 3)), // ids
+    getArticles: () => dispatch(getBreakdownArticles('9c03430f-e00c-4905-b329-d5c506b35d0a', 'ec31f8e1-cee3-4e59-9ba6-43e7b1dc8aaa')), // ids
     getPhotoOfTheDay: () => dispatch(getPhotoOfTheDay())
 })
 const mapStateToProps = (state) => ({

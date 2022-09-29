@@ -4,8 +4,8 @@ export async function addPhotoOfTheDaySection(photoData) {
     console.log("not siuuuuuu", photoData)
     let result = false
     await axios
-        .post('http://localhost:8080/api/v1/photoOfTheDay', photoData,
-            { headers: { authorization: getJWTtoken() } }
+        .post('https://ujp-sports-hub.herokuapp.com/api/v1/photoOfTheDay', photoData,
+            {headers: {authorization: getJWTtoken()}}
         )
         .then((data) => {
             result = true
@@ -17,13 +17,13 @@ export async function addPhotoOfTheDaySection(photoData) {
     return result
 }
 
-export async function addPhotoOfTheDay(photoData, isPhotoOfTheDay="true") {
+export async function addPhotoOfTheDay(photoData, isPhotoOfTheDay = "true") {
     let result = false
     const formData = new FormData();
     formData.append("image", photoData);
     await axios
-        .post(`http://localhost:8080/api/v1/image?photoOfTheDay=${isPhotoOfTheDay}`, formData,
-            { headers: {'Content-Type': 'multipart/form-data', authorization: getJWTtoken()} }
+        .post(`https://ujp-sports-hub.herokuapp.com/api/v1/image?photoOfTheDay=${isPhotoOfTheDay}`, formData,
+            {headers: {'Content-Type': 'multipart/form-data', authorization: getJWTtoken()}}
         )
         .then((response) => {
             console.log(response.data)

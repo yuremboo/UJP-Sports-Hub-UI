@@ -3,9 +3,6 @@ import {Form, NavLink} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import './forgotpassword.css';
 import checkEmail from "../../icons/checkEmail.svg";
-import RegistrationPage from "../registration/registrationPage";
-import LoginPage from "./loginPage";
-import ResetPassword from "./resetPassword";
 import axios from "axios";
 
 const ForgotPassword = () => {
@@ -28,16 +25,10 @@ const ForgotPassword = () => {
             setShowComponent(false);
             axios({
                 method: "POST",
-                url: 'http://localhost:8080/api/v1/forgot/password?email='+email,
+                url: 'https://ujp-sports-hub.herokuapp.com/api/v1/forgot/password?email='+email,
             })
                 .then((response) => {
-                    console.log('forgot response');
-                    console.log(response);
-                    console.log('forgot response data');
-                    console.log(response.data);
                     setToken(response.data);
-                    console.log('forgot response status');
-                    console.log(response.status);
                     if (response.status === 200)
                     {
                         // setCookie('jwt_session', response.data.jwt_session, 60);
@@ -46,11 +37,6 @@ const ForgotPassword = () => {
                     }
                 })
         }
-
-        // for password
-        // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(data.password)) {
-        //     errors.password = "Password must contain at least 8 characters (letters and numbers)"
-        // }
     }
 
     function toLogIn(){

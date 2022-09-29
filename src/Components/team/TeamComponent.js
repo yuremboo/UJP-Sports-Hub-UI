@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import './TeamComponent.css';
 import TeamIcon from "./TeamIcon";
 import ShortArticleUser from "../article/ShortArticleUser";
-import MiniArticle from "../article/MiniArticle";
 import axios from "axios";
 
 export default function TeamComponent({team, isSubscribed}) {
@@ -21,7 +20,7 @@ export default function TeamComponent({team, isSubscribed}) {
     console.log('token: ', set1AuthToken['jwt']);
     console.log(team);
     console.log(team.team.id)
-    axios.get(`http://localhost:8080/api/v1/articles/${url}/${team.team.id}`, {
+    axios.get(`https://ujp-sports-hub.herokuapp.com/api/v1/articles/${url}/${team.team.id}`, {
       headers: {
         authorization:set1AuthToken['jwt'],
       }

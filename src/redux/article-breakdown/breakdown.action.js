@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { breakdownActionTypes } from "./breakdown.types"
+import {breakdownActionTypes} from "./breakdown.types"
 
 export const breakdownRequestStart = () => ({
     type: breakdownActionTypes.GET_BREAKDOWN_ARTICLES_START,
@@ -18,15 +18,13 @@ export function getBreakdownArticles(firstCategoryId, secondCategoryId) {
     return async (dispatch, getState) => {
         try {
             dispatch(breakdownRequestStart())
-            const firstArticlesResponse = await axios.get(`http://localhost:8080/api/v1/articles/newest/${firstCategoryId}`, {
-            })
+            const firstArticlesResponse = await axios.get(`https://ujp-sports-hub.herokuapp.com/api/v1/articles/newest/${firstCategoryId}`)
             const firstArticlesPayload = cutArticles(firstArticlesResponse.data);
 
-            const secondArticlesResponse = await axios.get(`http://localhost:8080/api/v1/articles/newest/${secondCategoryId}`, {
-            })
+            const secondArticlesResponse = await axios.get(`https://ujp-sports-hub.herokuapp.com/api/v1/articles/newest/${secondCategoryId}`)
             const secondArticlesPayload = cutArticles(secondArticlesResponse.data);
 
-            dispatch(breakdownRequestSuccess({ firstArticlesPayload, secondArticlesPayload }))
+            dispatch(breakdownRequestSuccess({firstArticlesPayload, secondArticlesPayload}))
 
         } catch (error) {
             console.log(error)
@@ -37,7 +35,7 @@ export function getBreakdownArticles(firstCategoryId, secondCategoryId) {
 
 function cutArticles(articles) {
     return articles.map(article => {
-        const { id, picture, title, shortText, category } = article
+        const {id, picture, title, shortText, category} = article
         return {
             id,
             picture,

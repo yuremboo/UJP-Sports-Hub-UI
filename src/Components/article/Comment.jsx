@@ -24,7 +24,8 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function getUserById(userId) {
       await axios
-        .get("http://localhost:8080/api/v1/users/" + userId, {})
+        // .get("http://localhost:8080/api/v1/users/" + userId, {})
+        .get("https://ujp-sports-hub.herokuapp.com/api/v1/users/" + userId, {})
         .then((response) => {
           const data = response.data;
             setCommenter(data);
@@ -39,7 +40,8 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function getLikeDislikeStatusByUserIdAndCommentId(userId, commentId) {
     await axios
-      .get("http://localhost:8080/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
+      // .get("http://localhost:8080/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
+     .get("https://ujp-sports-hub.herokuapp.com/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -59,7 +61,8 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function postLikeDislikeStatus(newLikeDislikeStatus) {
     await axios
-      .post("http://localhost:8080/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
+        // .post("http://localhost:8080/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
+      .post("https://ujp-sports-hub.herokuapp.com/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -75,7 +78,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
   async function putLikeDislikeStatus(likeDislikeStatus) {
     console.log("put likedislike: " + likeDislikeStatus);
     await axios
-      .put("http://localhost:8080/api/v1/like-dislike-statuses/" + likeDislikeStatus.id, likeDislikeStatus, {
+      .put("https://ujp-sports-hub.herokuapp.com/api/v1/like-dislike-statuses/" + likeDislikeStatus.id, likeDislikeStatus, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -90,7 +93,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function deleteLikeDislikeStatus(likeDislikeStatusId) {
     await axios
-      .delete("http://localhost:8080/api/v1/like-dislike-statuses/" + likeDislikeStatusId, {
+      .delete("https://ujp-sports-hub.herokuapp.com/api/v1/like-dislike-statuses/" + likeDislikeStatusId, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -105,7 +108,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function putComment(comment) {
     await axios
-      .put("http://localhost:8080/api/v1/comments/" + comment.id, comment, {
+      .put("https://ujp-sports-hub.herokuapp.com/api/v1/comments/" + comment.id, comment, {
         headers: {
           authorization: bearer + currentUser["jwt"],
         },
@@ -229,7 +232,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   return (
     <div className="comment-body">
-      <img className="user-image" src={commenter && commenter.photo ? ("http://localhost:8080/api/v1/image/" + commenter.photo) : defaultUserImage} alt="commenter" />
+      <img className="user-image" src={commenter && commenter.photo ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + commenter.photo) : defaultUserImage} alt="commenter" />
       <div className="comment-content">
         <span className="commenter-name">
           {commenter !== null ? commenter["firstName"] + " " + commenter["lastName"] : "Firstname Lastname"}

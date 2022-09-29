@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import axios from "axios";
-import EllipseAvatar from "../../icons/EllipseAvatar.jpg";
 
 const ShortArticleAdmin = (props) => {
     const authToken = JSON.parse(localStorage.getItem("user")).jwt;
@@ -17,7 +16,7 @@ const ShortArticleAdmin = (props) => {
     let navigate = useNavigate();
 
     function UnPublish(){
-        axios.put("http://localhost:8080/api/v1/admin/articles/publish/" + props.id, null,{
+        axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles/publish/" + props.id, null,{
             headers: {
                 "Authorization": authToken
             }
@@ -50,7 +49,7 @@ const ShortArticleAdmin = (props) => {
     }, []);
 
     function deleteArticle(){
-        axios.delete("http://localhost:8080/api/v1/admin/articles/" + props.id, {
+        axios.delete("https://ujp-sports-hub.herokuapp.com/api/v1/admin/articles/" + props.id, {
             headers: {
                 "Authorization": authToken
             }
@@ -71,7 +70,7 @@ const ShortArticleAdmin = (props) => {
       <div className='n_shortArticle__outer'>
               <Nav.Link className='n_shortArticle' href={"/articles/" + props.id}>
               <div className='n_shortarticle__image'>
-                  <img src={props.picture ? ("http://localhost:8080/api/v1/image/" + props.picture) : articleImage} alt="article"
+                  <img src={props.picture ? ("https://ujp-sports-hub.herokuapp.com/api/v1/image/" + props.picture) : articleImage} alt="article"
                        width="100%" height="100%"/>
               </div>
 
