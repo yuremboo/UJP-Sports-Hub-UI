@@ -58,7 +58,7 @@ const EditArticle = ({props, globalStore}) => {
                 console.log("getArticle");
                 console.log(response.data);
                 setArticle({...data, category: data.category.id, team: data.team.id});
-                return axios.get("https://ujp-sports-hub.herokuapp.com/v1/categories", {
+                return axios.get("https://ujp-sports-hub.herokuapp.com/api/v1/categories", {
                     headers: {
                         authorization: AuthToken["jwt"]
                     }

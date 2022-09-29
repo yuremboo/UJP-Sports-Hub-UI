@@ -299,7 +299,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
               )}
             </span>
           )}
-          {currentUser === null ? (
+         {currentUser === null || (currentUser.role === "USER" && currentUser.id !== commenter.id)? (
             <></>
           ) :(
             <span>
