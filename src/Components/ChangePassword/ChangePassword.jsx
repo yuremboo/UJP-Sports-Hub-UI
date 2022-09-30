@@ -25,7 +25,7 @@ const ChangePassword = () => {
             password: password.newPassword,
             oldPassword: password.oldPassword
         };
-        axios.put("https://localhost:8080/api/v1/password", sendPassword, {
+        axios.put("https://ujp-sports-hub.herokuapp.com/api/v1/password", sendPassword, {
             headers: {
                 authorization: AuthToken["jwt"]
             }

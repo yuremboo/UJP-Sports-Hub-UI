@@ -24,8 +24,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function getUserById(userId) {
       await axios
-        // .get("http://localhost:8080/api/v1/users/" + userId, {})
-        .get("https://ujp-sports-hub.herokuapp.com/api/v1/users/" + userId, {})
+        .get("https://ujp-sports-hub.herokuapp.com/api/v1/users/" + userId)
         .then((response) => {
           const data = response.data;
             setCommenter(data);
@@ -40,7 +39,6 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function getLikeDislikeStatusByUserIdAndCommentId(userId, commentId) {
     await axios
-      // .get("http://localhost:8080/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
      .get("https://ujp-sports-hub.herokuapp.com/api/v1/like-dislike-statuses/users/" + userId + "/comments/" + commentId, {
         headers: {
           authorization: bearer + currentUser["jwt"],
@@ -61,7 +59,6 @@ export default function Comment({ comment, deleteComment, editComment }) {
 
   async function postLikeDislikeStatus(newLikeDislikeStatus) {
     await axios
-        // .post("http://localhost:8080/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
       .post("https://ujp-sports-hub.herokuapp.com/api/v1/like-dislike-statuses", newLikeDislikeStatus, {
         headers: {
           authorization: bearer + currentUser["jwt"],
@@ -299,7 +296,7 @@ export default function Comment({ comment, deleteComment, editComment }) {
               )}
             </span>
           )}
-          {currentUser === null ? (
+         {currentUser === null || (currentUser.role === "USER" && currentUser.id !== comment.userId)? (
             <></>
           ) :(
             <span>
