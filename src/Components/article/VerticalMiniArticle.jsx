@@ -12,7 +12,7 @@ const VerticalMiniArticle = ({verticalMiniArticle}) => {
         <div className="v-mini-article-text">
           <span className="v-heading">{verticalMiniArticle.caption}</span>
           <span className="v-text-preview">
-            {verticalMiniArticle.title}{verticalMiniArticle.id}
+            {verticalMiniArticle.title}
           </span>
         </div>
         <div className="v-breakdown-arrow">
